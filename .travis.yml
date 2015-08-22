@@ -1,0 +1,13 @@
+before_install:
+  - sudo apt-get install libxml2-dev
+cache: bundler
+language: ruby
+notifications:
+  email:
+    recipients:
+      - j.gomez@drexed.com
+    on_failure: change
+    on_success: never
+rvm:
+  - ruby-head
+script: 'bundle exec rake'
