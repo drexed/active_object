@@ -1536,6 +1536,8 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 
 ## Time
 
+*Note:* also works with Date class.
+
 ####Format:####
 `format` converts a Date or Time object to format it using a human readable string.
 
@@ -1544,18 +1546,18 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
  *  Characters can only be used to generate a format part
 
 ```ruby
-Time.now.format("year")                                  #=> "2014"
+Date.today.format("year")                                #=> "2014"
 Time.now.format("month_name day, year hour:minute ampm") #=> "January 09, 2014 02:31 pm"
 ```
 
 | Name | Key | Equivalent `strftime` | Result |
 | --- | --- | --- | --- |
-| Month - digits zero-padded | `m` or `month` or `month_zero` | %m | (01..12) |
+| Month - digits zero-padded | `m` or `month` or `month_padded` | %m | (01..12) |
 | Month - digits unpadded | `mm` or `Month` or `month_unpadded` | %-m | (1..12) |
 | Month - digits blank-padded | `mmm` or `MONTH` or `day_blank` | %_m | ( 1..12) |
 | Month - name | `mmmm` or `month_name` | %B | January |
 | Month - name abbreviated | `mmmmm` or `month_name_abbr` | %b | Jan |
-| Day - digits zero-padded | `d` or `day` or `day_zero` | %d | (01..31) |
+| Day - digits zero-padded | `d` or `day` or `day_padded` | %d | (01..31) |
 | Day - digits unpadded | `dd` or `Day` or `day_unpadded` | %-d | (1..31) |
 | Day - digits blank-padded | `ddd` or `DAY` or `day_blank` | %_d | ( 1..31) |
 | Day - digits of the year | `dddd` or `day_of_the_year` | %j | (001..366) |
@@ -1567,9 +1569,9 @@ Time.now.format("month_name day, year hour:minute ampm") #=> "January 09, 2014 0
 | Weekday - name abbreviated | `wwww` or `weekday_name_abbr` | %M | Sun |
 | Year - digits two | `yy` or `yr` | %y | (00..99) |
 | Year - digits four | `yyyy` or `year` | %Y | 1999 |
-| Hour - digits zero-padded | `h` or `hour` or `hour_zero` | %H | (00..23) |
+| Hour - digits zero-padded | `h` or `hour` or `hour_padded` | %H | (00..23) |
 | Hour - digits blank-padded | `hh` or `HOUR` or `hour_blank` | %k | ( 0..23) |
-| Hour - digits zero-padded | `hhh` or `hour_imperical` or `hour_imperical_zero` | %I | (01..12) |
+| Hour - digits zero-padded | `hhh` or `hour_imperical` or `hour_imperical_padded` | %I | (01..12) |
 | Hour - digits blank-padded | `hhhh` or `HOUR_IMPERICAL` or `hour_imperical_blank` | %l | ( 1..12) |
 | Minute - minute | `n` or `minute` | %M | (00..59) |
 | Second - second | `s` or `second` | %S | (00..60) |
@@ -1585,27 +1587,27 @@ Time.now.format("month_name day, year hour:minute ampm") #=> "January 09, 2014 0
 **For a full list check out the time extention file.**
 
 ```ruby
-Time.now.to_format(:year)     #=> "2014"
-Time.now.to_format(:datetime) #=> "January 09, 2014 02:31 pm"
+Time.now.to_format(:year) #=> "2014"
+Time.now.stamp(:datetime) #=> "January 09, 2014 02:31 pm"
 ```
 
 | Name | Key | Equivalent `strftime` | Result |
 | --- | --- | --- | --- |
-| Month - digits zero-padded | `:month` or `:month_zero` | %A | (01..12) |
+| Month - digits zero-padded | `:month` or `:month_padded` | %A | (01..12) |
 | Month - digits unpadded | `:month_unpadded` | %a | (1..12) |
 | Month - digits blank-padded | `:month_blank` | %a | ( 1..12) |
 | Month - name | `:month_name` | %A | January |
 | Month - name abbreviated | `:month_name_abbr` | %a | Jan |
-| Weekday - digits zero-padded | `:weekday_zero` | %A | (01..31) |
+| Weekday - digits zero-padded | `:weekday_padded` | %A | (01..31) |
 | Weekday - digits unpadded | `:weekday_unpadded` | %a | (1..31) |
 | Weekday - digits blank-padded | `:weekday_blank` | %a | ( 1..31) |
 | Weekday - name | `:weekday_name` | %A | Sunday |
 | Weekday - name abbreviated | `:weekday_name_abbr` | %a | Sun |
 | Year - digits two | `:yr` | %y | (00..99) |
 | Year - digits four | `:year` | %Y | 1999 |
-| Hour - digits zero-padded | `:hour` or `:hour_zero` | %H | (00..23) |
+| Hour - digits zero-padded | `:hour` or `:hour_padded` | %H | (00..23) |
 | Hour - digits blank-padded | `:hour_blank` | %k | ( 0..23) |
-| Hour - digits zero-padded imperical | `:hour_imperical_zero` | %I | (01..12) |
+| Hour - digits zero-padded imperical | `:hour_imperical_padded` | %I | (01..12) |
 | Hour - digits blank-padded imperical | `:hour_imperical_blank` | %l | ( 1..12) |
 | Minute - minute | `:minute` | %M | (00..59) |
 | Second - second | `:second` | %S | (00..60) |
@@ -1636,7 +1638,7 @@ Time.now.to_format(:datetime) #=> "January 09, 2014 02:31 pm"
 | Daytime - name imperical | `:daytime_imperical` | %B %-d %H:%M | January 9 12:31 am |
 | Daytime - name abbreviated imperical | `:daytime_imperical_abbr` | %b %-d %H:%M | Jan 9 12:31 am |
 | Daytime - iso imperical | `:daytime_imperical_iso` | %m-%d %H:%M | 01-09 12:31 am |
-| Time - zero-padded | `:time` or `:time_zero` | %H:%M | 00:31 |
+| Time - zero-padded | `:time` or `:time_padded` | %H:%M | 00:31 |
 | Time - blank-padded | `:time_blank` | %k:%M %z | 0:31 |
 | Time - with time zone | `:time_tz` | %H:%M %z | 00:31 +0000 |
 | Time - with time zone name | `:time_tzn` | %H:%M %Z | 00:31 UTC |

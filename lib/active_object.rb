@@ -1,5 +1,6 @@
 require 'active_object/version'
 require 'active_object/array'
+require 'active_object/date'
 require 'active_object/enumerable'
 require 'active_object/hash'
 require 'active_object/integer'

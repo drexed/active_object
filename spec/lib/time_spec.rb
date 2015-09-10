@@ -9,7 +9,7 @@ describe Time do
       it "to be 01" do
         expect(datetime.format("d")).to eq("09")
         expect(datetime.format("day")).to eq("09")
-        expect(datetime.format("day_zero")).to eq("09")
+        expect(datetime.format("day_padded")).to eq("09")
       end
 
       it "to be 1" do
@@ -18,7 +18,7 @@ describe Time do
         expect(datetime.format("day_unpadded")).to eq("9")
       end
 
-      it "to be _1" do
+      it "to be ' 1'" do
         expect(datetime.format("ddd")).to eq(" 9")
         expect(datetime.format("DAY")).to eq(" 9")
         expect(datetime.format("day_blank")).to eq(" 9")
@@ -34,7 +34,7 @@ describe Time do
       it "to be 00" do
         expect(datetime.format("h")).to eq("00")
         expect(datetime.format("hour")).to eq("00")
-        expect(datetime.format("hour_zero")).to eq("00")
+        expect(datetime.format("hour_padded")).to eq("00")
       end
 
       it "to be _0" do
@@ -46,7 +46,7 @@ describe Time do
       it "to be 12" do
         expect(datetime.format("hhh")).to eq("12")
         expect(datetime.format("hour_imperical")).to eq("12")
-        expect(datetime.format("hour_imperical_zero")).to eq("12")
+        expect(datetime.format("hour_imperical_padded")).to eq("12")
       end
 
       it "to be 12" do
@@ -79,7 +79,7 @@ describe Time do
       it "to be 01" do
         expect(datetime.format("m")).to eq("01")
         expect(datetime.format("month")).to eq("01")
-        expect(datetime.format("month_zero")).to eq("01")
+        expect(datetime.format("month_padded")).to eq("01")
       end
 
       it "to be 1" do
@@ -88,7 +88,7 @@ describe Time do
         expect(datetime.format("month_unpadded")).to eq("1")
       end
 
-      it "to be _1" do
+      it "to be ' 1'" do
         expect(datetime.format("mmm")).to eq(" 1")
         expect(datetime.format("MONTH")).to eq(" 1")
         expect(datetime.format("month_blank")).to eq(" 1")
@@ -305,7 +305,7 @@ describe Time do
     context "#hour" do
       it "to be 00" do
         expect(datetime.to_format(:hour)).to eq("00")
-        expect(datetime.to_format(:hour_zero)).to eq("00")
+        expect(datetime.to_format(:hour_padded)).to eq("00")
       end
 
       it "to be _0" do
@@ -314,7 +314,7 @@ describe Time do
 
       it "to be 12" do
         expect(datetime.to_format(:hour_imperical)).to eq("12")
-        expect(datetime.to_format(:hour_imperical_zero)).to eq("12")
+        expect(datetime.to_format(:hour_imperical_padded)).to eq("12")
       end
 
       it "to be 12" do
@@ -338,14 +338,14 @@ describe Time do
     context "#month" do
       it "to be 01" do
         expect(datetime.to_format(:month)).to eq("01")
-        expect(datetime.to_format(:month_zero)).to eq("01")
+        expect(datetime.to_format(:month_padded)).to eq("01")
       end
 
       it "to be 1" do
         expect(datetime.to_format(:month_unpadded)).to eq("1")
       end
 
-      it "to be _1" do
+      it "to be ' 1'" do
         expect(datetime.to_format(:month_blank)).to eq(" 1")
       end
 
@@ -367,7 +367,7 @@ describe Time do
     context "#time" do
       it "to be 00:31" do
         expect(datetime.to_format(:time)).to eq("00:31")
-        expect(datetime.to_format(:time_zero)).to eq("00:31")
+        expect(datetime.to_format(:time_padded)).to eq("00:31")
       end
 
       it "to be 00:31 +0000" do
@@ -384,7 +384,7 @@ describe Time do
 
       it "to be 12:31" do
         expect(datetime.to_format(:time_imperical)).to eq("12:31 am")
-        expect(datetime.to_format(:time_imperical_zero)).to eq("12:31 am")
+        expect(datetime.to_format(:time_imperical_padded)).to eq("12:31 am")
       end
 
       it "to be 12:31 +0000" do
@@ -421,7 +421,7 @@ describe Time do
     context "#weekday" do
       it "to be 09" do
         expect(datetime.to_format(:weekday)).to eq("09")
-        expect(datetime.to_format(:weekday_zero)).to eq("09")
+        expect(datetime.to_format(:weekday_padded)).to eq("09")
       end
 
       it "to be 9" do

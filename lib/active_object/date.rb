@@ -1,4 +1,4 @@
-class Time
+class Date
 
   def format(string)
     delimiters = string.scan /\W+/
@@ -45,34 +45,10 @@ class Time
       "yr"                    => "y",
       "yyyy"                  => "Y",
       "year"                  => "Y",
-      "h"                     => "H",
-      "hour"                  => "H",
-      "hour_padded"           => "H",
-      "hh"                    => "k",
-      "HOUR"                  => "k",
-      "hour_blank"            => "k",
-      "hhh"                   => "I",
-      "hour_imperical"        => "I",
-      "hour_imperical_padded" => "I",
-      "hhhh"                  => "l",
-      "HOUR_IMPERICAL"        => "l",
-      "hour_imperical_blank"  => "l",
       "ampm"                  => "P",
       "meridian"              => "P",
       "AMPM"                  => "p",
-      "MERIDIAN"              => "p",
-      "n"                     => "M",
-      "minute"                => "M",
-      "s"                     => "S",
-      "second"                => "S",
-      "z"                     => "z",
-      "time_zone"             => "z",
-      "zz"                    => ":z",
-      "time_zone_offset"      => ":z",
-      "zzz"                   => "::z",
-      "time_zone_offset_full" => "::z",
-      "zzzz"                  => "Z",
-      "time_zone_name"        => "Z"
+      "MERIDIAN"              => "p"
     }
 
     strftime(formatters.map { |f| "%#{format_units.fetch(f)}#{delimiters.shift || ''}" }.join(""))
@@ -95,20 +71,6 @@ class Time
       yr:                          "%y",
       year_abbr:                   "%y",
       year:                        "%Y",
-      hour:                        "%H",
-      hour_padded:                 "%H",
-      hour_blank:                  "%k",
-      hour_imperical:              "%I",
-      hour_imperical_padded:       "%I",
-      hour_imperical_blank:        "%l",
-      ampm:                        "%P",
-      meridian:                    "%P",
-      minute:                      "%M",
-      second:                      "%S",
-      time_zone:                   "%z",
-      time_zone_offset:            "%:z",
-      time_zone_offset_full:       "%::z",
-      time_zone_name:              "%Z",
       date:                        "%B %-d, %Y",
       date_abbr:                   "%b %-d, %Y",
       date_iso:                    "%Y-%m-%d",
@@ -132,17 +94,7 @@ class Time
       daytime_iso:                 "%m-%d %H:%M",
       daytime_imperical:           "%B %-d %I:%M %P",
       daytime_imperical_abbr:      "%b %-d %I:%M %P",
-      daytime_imperical_iso:       "%m-%d %I:%M %P",
-      time:                        "%H:%M",
-      time_padded:                 "%H:%M",
-      time_blank:                  "%k:%M",
-      time_tz:                     "%H:%M %z",
-      time_tzn:                    "%H:%M %Z",
-      time_imperical:              "%I:%M %P",
-      time_imperical_padded:       "%I:%M %P",
-      time_imperical_blank:        "%l:%M %P",
-      time_imperical_tz:           "%I:%M %P %z",
-      time_imperical_tzn:          "%I:%M %P %Z"
+      daytime_imperical_iso:       "%m-%d %I:%M %P"
     }
 
     strftime(format_units.fetch(key))
