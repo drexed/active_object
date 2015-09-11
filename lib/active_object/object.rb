@@ -8,6 +8,14 @@ class Object
     end
   end
 
+  def false?
+    self == false
+  end
+
+  def falsey?
+    [false, nil, 0].include?(self)
+  end
+
   def numeric?
     !to_s.match(/\A[+-]?\d+?(\.\d+)?\Z/).nil?
   end
@@ -20,6 +28,14 @@ class Object
     def present?
       !blank?
     end
+  end
+
+  def true?
+    self == true
+  end
+
+  def truthy?
+    !falsey?
   end
 
   unless defined?(Rails)

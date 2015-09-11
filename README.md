@@ -1115,6 +1115,23 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 "Awesome Sting".blank? #=> false
 ```
 
+####False:####
+`false?` determines if an object is false.
+
+```ruby
+false.false? #=> true
+true.false?  #=> false
+```
+
+####Falsey:####
+`falsey?` determines if an object is false, nil, or 0.
+
+```ruby
+false.falsey? #=> true
+true.falsey?  #=> false
+0.falsey?     #=> true
+```
+
 ####Numeric:####
 `numeric?` determines if an object's string value is numeric.
 
@@ -1139,6 +1156,23 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 ```ruby
 "Awesome Sting".present? #=> true
 "".present?              #=> false
+```
+
+####True:####
+`true?` determines if an object is true.
+
+```ruby
+true.true?  #=> true
+false.true? #=> false
+```
+
+####Truthy:####
+`truthy?` determines if an object is true or 1.
+
+```ruby
+true.truthy?  #=> true
+false.truthy? #=> false
+1.truthy?     #=> true
 ```
 
 ####Try:####

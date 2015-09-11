@@ -19,6 +19,29 @@ describe Object do
     end
   end
 
+  describe "#false?" do
+    it "to be true" do
+      expect(false.false?).to eq(true)
+    end
+
+    it "to be false" do
+      expect(true.false?).to eq(false)
+    end
+  end
+
+  describe "#falsey?" do
+    it "to be true" do
+      expect(false.falsey?).to eq(true)
+      expect(nil.falsey?).to eq(true)
+      expect(0.falsey?).to eq(true)
+    end
+
+    it "to be false" do
+      expect(true.false?).to eq(false)
+      expect(1.false?).to eq(false)
+    end
+  end
+
   describe "#numeric?" do
     it "to be true" do
       expect(5.numeric?).to eq(true)
@@ -64,6 +87,29 @@ describe Object do
       expect([].present?).to eq(false)
       expect({}.present?).to eq(false)
       expect(false.present?).to eq(false)
+    end
+  end
+
+  describe "#true?" do
+    it "to be true" do
+      expect(true.true?).to eq(true)
+    end
+
+    it "to be false" do
+      expect(false.true?).to eq(false)
+    end
+  end
+
+  describe "#truthy?" do
+    it "to be true" do
+      expect(true.truthy?).to eq(true)
+      expect(1.truthy?).to eq(true)
+    end
+
+    it "to be false" do
+      expect(false.truthy?).to eq(false)
+      expect(nil.truthy?).to eq(false)
+      expect(0.truthy?).to eq(false)
     end
   end
 
