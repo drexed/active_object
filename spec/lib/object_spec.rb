@@ -90,6 +90,27 @@ describe Object do
     end
   end
 
+  describe "#salvage" do
+    it "to be '---'" do
+      expect(false.salvage).to eq("---")
+      expect("".salvage).to eq("---")
+      expect(" ".salvage).to eq("---")
+      expect(nil.salvage).to eq("---")
+    end
+
+    it "to be 'bar'" do
+      expect(" ".salvage("bar")).to eq("bar")
+    end
+
+    it "to be 'foo'" do
+      expect("foo".salvage).to eq("foo")
+    end
+
+    it "to be 12" do
+      expect(12.salvage).to eq(12)
+    end
+  end
+
   describe "#true?" do
     it "to be true" do
       expect(true.true?).to eq(true)

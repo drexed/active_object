@@ -1158,6 +1158,15 @@ true.falsey?  #=> false
 "".present?              #=> false
 ```
 
+####Salvage:####
+`salvage` returns a placeholder if object is blank?.
+
+```ruby
+" ".salvage        #=> "---"
+nil.salvage("bar") #=> "bar"
+123.salvage        #=> 123
+```
+
 ####True:####
 `true?` determines if an object is true.
 

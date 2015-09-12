@@ -30,6 +30,10 @@ class Object
     end
   end
 
+  def salvage(placeholder="---")
+    blank? ? placeholder : self
+  end
+
   def true?
     self == true
   end
