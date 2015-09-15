@@ -1107,12 +1107,29 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 
 ## Object
 
+####Array:####
+`array?` determines if an object is an array.
+
+```ruby
+[].array?              #=> true
+"Awesome Sting".array? #=> false
+```
+
 ####Blank:####
 `blank?` determines if an object is empty or nil. `Rails Safe`
 
 ```ruby
 "".blank?              #=> true
 "Awesome Sting".blank? #=> false
+```
+
+####Boolean:####
+`boolean?` determines if an object is an boolean.
+
+```ruby
+1.boolean?     #=> true
+false.boolean? #=> true
+"foo".boolean? #=> false
 ```
 
 ####False:####
@@ -1132,12 +1149,45 @@ true.falsey?  #=> false
 0.falsey?     #=> true
 ```
 
-####Numeric:####
-`numeric?` determines if an object's string value is numeric.
+####Float:####
+`float?` determines if an object is a float.
 
 ```ruby
-"-32.50".numeric? #=> true
-"$2.55".numeric?  #=> false
+1.0.float? #=> true
+1.float?   #=> false
+```
+
+####Hash:####
+`hash?` determines if an object is a hash.
+
+```ruby
+{}.hash? #=> true
+[].hash? #=> false
+```
+
+####Integer:####
+`integer?` determines if an object is a integer.
+
+```ruby
+1.integer?   #=> true
+1.0.integer? #=> false
+```
+
+####Numeric:####
+`numeric?` determines if an object is numeric.
+
+```ruby
+1.numeric?     #=> true
+1.0.numeric?   #=> true
+"1.0".numeric? #=> false
+```
+
+####Numeral:####
+`numeral?` determines if an object's string value is numeral.
+
+```ruby
+"-32.50".numeral? #=> true
+"$2.55".numeral?  #=> false
 ```
 
 ####Palindrome:####
@@ -1158,6 +1208,14 @@ true.falsey?  #=> false
 "".present?              #=> false
 ```
 
+####Range:####
+`range?` determines if an object is a range.
+
+```ruby
+(1..2).range? #=> true
+1.range?      #=> false
+```
+
 ####Salvage:####
 `salvage` returns a placeholder if object is blank?.
 
@@ -1165,6 +1223,22 @@ true.falsey?  #=> false
 " ".salvage        #=> "---"
 nil.salvage("bar") #=> "bar"
 123.salvage        #=> 123
+```
+
+####String:####
+`string?` determines if an object is a string.
+
+```ruby
+"foo".string? #=> true
+1.string?     #=> false
+```
+
+####Time:####
+`time?` determines if an object is a time.
+
+```ruby
+Time.now.time? #=> true
+"foo".time?    #=> false
 ```
 
 ####True:####

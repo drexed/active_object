@@ -1,11 +1,19 @@
 class Object
 
+  def array?
+    is_a?(Array)
+  end
+
   unless defined?(Rails)
     def blank?
       object = self
       object = object.strip if respond_to?(:strip)
       respond_to?(:empty?) ? !!object.empty? : !object
     end
+  end
+
+  def boolean?
+    [false, true, nil, 0, 1].include?(self)
   end
 
   def false?
@@ -16,8 +24,24 @@ class Object
     [false, nil, 0].include?(self)
   end
 
-  def numeric?
+  def float?
+    is_a?(Float)
+  end
+
+  def hash?
+    is_a?(Hash)
+  end
+
+  def integer?
+    is_a?(Integer)
+  end
+
+  def numeral?
     !to_s.match(/\A[+-]?\d+?(\.\d+)?\Z/).nil?
+  end
+
+  def numeric?
+    is_a?(Numeric)
   end
 
   def palindrome?
@@ -30,8 +54,20 @@ class Object
     end
   end
 
+  def range?
+    is_a?(Range)
+  end
+
   def salvage(placeholder="---")
     blank? ? placeholder : self
+  end
+
+  def string?
+    is_a?(String)
+  end
+
+  def time?
+    is_a?(Time)
   end
 
   def true?
