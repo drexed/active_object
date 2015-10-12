@@ -444,7 +444,7 @@ h1.deep_merge(h2) #=> { a: false, b: { c: [1, 2, 3], x: [3, 4, 5] } }
 ```
 
 ####Except:####
-`except` and `except!` returns a hash that includes everything but the given keys. `Rails Safe`
+`except` and `except!` returns a hash that includes everything but the given keys.
 
 ```ruby
 {}.except(:foo)                                                    #=> {}

@@ -45,17 +45,13 @@ class Hash
     end
   end
 
-  unless defined?(Rails)
-    def except(*keys)
-      dup.except!(*keys)
-    end
+  def except(*keys)
+    dup.except!(*keys)
   end
 
-  unless defined?(Rails)
-    def except!(*keys)
-      keys.flatten.each { |k| delete(k) }
-      self
-    end
+  def except!(*keys)
+    keys.flatten.each { |k| delete(k) }
+    self
   end
 
   def nillify

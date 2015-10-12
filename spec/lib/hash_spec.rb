@@ -53,6 +53,7 @@ describe Hash do
       expect({ foo: 1, baz: 2, bar: 3 }.except(:baz, :bar)).to eq({ foo: 1 })
       expect({ foo: 1, baz: 2, bar: 3 }.except!(:baz, :bar)).to eq({ foo: 1 })
       expect({ :foo => 1, :baz => 2, :bar => 3 }.except(:baz, :bar)).to eq({ :foo => 1 })
+      expect({ :foo => 1, :baz => 2, :bar => 3 }.except([:baz, :bar])).to eq({ :foo => 1 })
       expect({ :foo => 1, :baz => 2, :bar => 3 }.except!(:baz, :bar)).to eq({ :foo => 1 })
     end
 
@@ -86,6 +87,7 @@ describe Hash do
 
     it "to be { :baz => 2, :bar => 3 }" do
       expect({ foo: 1, baz: 2, bar: 3 }.only(:baz, :bar)).to eq({ baz: 2, bar: 3 })
+      expect({ foo: 1, baz: 2, bar: 3 }.only([:baz, :bar])).to eq({ baz: 2, bar: 3 })
       expect({ foo: 1, baz: 2, bar: 3 }.only!(:baz, :bar)).to eq({ baz: 2, bar: 3 })
       expect({ :foo => 1, :baz => 2, :bar => 3 }.only(:baz, :bar)).to eq({ :baz => 2, :bar => 3 })
       expect({ :foo => 1, :baz => 2, :bar => 3 }.only!(:baz, :bar)).to eq({ :baz => 2, :bar => 3 })
