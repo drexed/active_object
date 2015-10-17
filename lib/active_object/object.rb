@@ -8,12 +8,12 @@ class Object
     def blank?
       object = self
       object = object.strip if respond_to?(:strip)
-      respond_to?(:empty?) ? !!object.empty? : !object
+      respond_to?(:empty?) ? object.empty? : !object
     end
   end
 
   def boolean?
-    [false, true, nil, 0, 1].include?(self)
+    [false, true, nil, 0, 1].freeze.include?(self)
   end
 
   def false?
@@ -21,7 +21,7 @@ class Object
   end
 
   def falsey?
-    [false, nil, 0].include?(self)
+    [false, nil, 0].freeze.include?(self)
   end
 
   def float?

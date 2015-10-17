@@ -119,6 +119,28 @@ describe Numeric do
     end
   end
 
+  describe "#greater_than?" do
+    it "to be true" do
+      expect(3.greater_than?(2)).to eq(true)
+    end
+
+    it "to be false" do
+      expect(3.greater_than?(3)).to eq(false)
+      expect(3.greater_than?(4)).to eq(false)
+    end
+  end
+
+  describe "#greater_than_or_equal_to?" do
+    it "to be true" do
+      expect(3.greater_than_or_equal_to?(2)).to eq(true)
+      expect(3.greater_than_or_equal_to?(3)).to eq(true)
+    end
+
+    it "to be false" do
+      expect(3.greater_than_or_equal_to?(4)).to eq(false)
+    end
+  end
+
   describe "#hectogram_in_grams" do
     it "to be 300" do
       expect(3.hectogram_in_grams).to eq(300)
@@ -147,6 +169,16 @@ describe Numeric do
     end
   end
 
+  describe "#inside?" do
+    it "to be true" do
+      expect(3.inside?(1, 5)).to eq(true)
+    end
+
+    it "to be false" do
+      expect(3.inside?(3, 5)).to eq(false)
+    end
+  end
+
   describe "#kilobytes_in_bytes" do
     it "to be 3072" do
       expect(3.kilobyte_in_bytes).to eq(3072)
@@ -165,6 +197,28 @@ describe Numeric do
     it "to be 3000" do
       expect(3.kilometer_in_meters).to eq(3000)
       expect(3.kilometers_in_meters).to eq(3000)
+    end
+  end
+
+  describe "#less_than?" do
+    it "to be true" do
+      expect(3.less_than?(4)).to eq(true)
+    end
+
+    it "to be false" do
+      expect(3.less_than?(3)).to eq(false)
+      expect(3.less_than?(2)).to eq(false)
+    end
+  end
+
+  describe "#less_than_or_equal_to?" do
+    it "to be true" do
+      expect(3.less_than_or_equal_to?(4)).to eq(true)
+      expect(3.less_than_or_equal_to?(3)).to eq(true)
+    end
+
+    it "to be false" do
+      expect(3.less_than_or_equal_to?(2)).to eq(false)
     end
   end
 
@@ -298,6 +352,16 @@ describe Numeric do
     it "to be 3" do
       expect(3.ounce_in_ounces).to eq(3)
       expect(3.ounces_in_ounces).to eq(3)
+    end
+  end
+
+  describe "#outside?" do
+    it "to be true" do
+      expect(3.outside?(4, 5)).to eq(true)
+    end
+
+    it "to be false" do
+      expect(3.outside?(3, 5)).to eq(false)
     end
   end
 

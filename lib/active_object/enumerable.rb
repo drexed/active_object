@@ -18,7 +18,7 @@ module Enumerable
     if block_given?
       map(&block).difference(identity)
     else
-      inject { |d,v| d - v } || identity
+      inject { |d, v| d - v } || identity
     end
   end
 
@@ -26,13 +26,15 @@ module Enumerable
     if block_given?
       map(&block).divisible(identity)
     else
-      inject { |d,v| d / v } || identity
+      inject { |d, v| d / v } || identity
     end
   end
 
   def drop_last(n)
     collection_size = to_a.size
+
     return(self) if n > collection_size
+
     self[0...(collection_size - n)]
   end
 
@@ -67,7 +69,7 @@ module Enumerable
     if block_given?
       map(&block).exponential(identity)
     else
-      inject { |d,v| d ** v } || identity
+      inject { |d, v| d ** v } || identity
     end
   end
 
@@ -103,12 +105,13 @@ module Enumerable
 
   def mean(identity=0)
     return(identity) unless size > 0
+
     collection_size = size
-    sum / collection_size.to_f
+    sum.to_f / collection_size.to_f
   end
 
   def median(identity=0)
-    collection_size   = size
+    collection_size   = size.to_f
     collection_sorted = sort
 
     return(identity) unless collection_size > 0
@@ -123,8 +126,8 @@ module Enumerable
   def mode(identity=0)
     return(identity) unless size > 0
 
-    frequency_distribution = inject(Hash.new(0)) { |h,v| h[v] += 1; h }
-    frequency_top_two      = frequency_distribution.sort { |k,v| v[1] <=> k[1] }.take(2)
+    frequency_distribution = inject(Hash.new(0)) { |h, v| h[v] += 1; h }
+    frequency_top_two      = frequency_distribution.sort { |k, v| v[1] <=> k[1] }.take(2)
 
     if frequency_top_two.size == 1
       frequency_top_two.first.first
@@ -139,12 +142,13 @@ module Enumerable
     if block_given?
       map(&block).multiple(identity)
     else
-      inject { |d,v| d * v } || identity
+      inject { |d, v| d * v } || identity
     end
   end
 
   def range(identity=0)
     return(identity) unless size > 0
+
     collection_sorted = sort
     collection_sorted.last - collection_sorted.first
   end
@@ -157,6 +161,7 @@ module Enumerable
 
   def standard_deviation(identity=0)
     return(identity) if size < 2
+
     Math.sqrt(variance)
   end
 
@@ -165,14 +170,16 @@ module Enumerable
       if block_given?
         map(&block).sum(identity)
       else
-        inject { |s,v| s + v } || identity
+        inject { |s, v| s + v } || identity
       end
     end
   end
 
   def take_last(n)
     collection_size = to_a.size
+
     return(self) if n > collection_size
+
     self[(collection_size - n)..-1]
   end
 
@@ -186,9 +193,11 @@ module Enumerable
 
   def variance(identity=0)
     collection_size = size
+
     return(identity) if collection_size <= 1
+
     sum = inject(0.0) { |s,v| s + (v - mean) ** 2.0 }
-    sum / (collection_size.to_f - 1.0)
+    sum.to_f / (collection_size.to_f - 1.0)
   end
 
 end

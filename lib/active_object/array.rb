@@ -49,6 +49,7 @@ class Array
 
   def groups(number)
     return([]) if number <= 0
+
     n, r       = size.divmod(number)
     collection = (0..(n - 1)).collect { |i| self[(i * number), number] }
     r > 0 ? collection << self[-r, r] : collection
@@ -154,9 +155,9 @@ class Array
       options.assert_valid_keys(:words_connector, :two_words_connector, :last_word_connector)
 
       default_connectors = {
-        words_connector:     ', ',
-        two_words_connector: ' and ',
-        last_word_connector: ', and '
+        words_connector:     ', '.freeze,
+        two_words_connector: ' and '.freeze,
+        last_word_connector: ', and '.freeze
       }
       options = default_connectors.merge!(options)
 

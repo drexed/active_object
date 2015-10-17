@@ -131,6 +131,14 @@ class Numeric
 
   alias_method :gram_in_grams, :grams_in_grams
 
+  def greater_than?(n)
+    self > n
+  end
+
+  def greater_than_or_equal_to?(n)
+    self >= n
+  end
+
   def hectograms_in_grams
     self * HECTO
   end
@@ -155,6 +163,10 @@ class Numeric
 
   alias_method :inch_in_inches, :inches_in_inches
 
+  def inside?(start, finish)
+    (start < self) && (self < finish)
+  end
+
   def kilobytes_in_bytes
     self * KILOBYTE
   end
@@ -172,6 +184,14 @@ class Numeric
   end
 
   alias_method :kilogram_in_grams, :kilograms_in_grams
+
+  def less_than?(n)
+    self < n
+  end
+
+  def less_than_or_equal_to?(n)
+    self <= n
+  end
 
   def metric_tons_in_grams
     self * METRIC_TON
@@ -245,14 +265,14 @@ class Numeric
     def ordinal
       abs_number = abs
 
-      if (11..13).include?(abs_number % 100)
-        "th"
+      if (11..13).cover?(abs_number % 100)
+        'th'.freeze
       else
         case abs_number % 10
-          when 1; "st"
-          when 2; "nd"
-          when 3; "rd"
-          else    "th"
+          when 1; 'st'.freeze
+          when 2; 'nd'.freeze
+          when 3; 'rd'.freeze
+          else    'th'.freeze
         end
       end
     end
@@ -270,6 +290,10 @@ class Numeric
 
   alias_method :ounce_in_ounces, :ounces_in_ounces
 
+  def outside?(start, finish)
+    (self < start) || (finish < self)
+  end
+
   def pad(options={})
     pad_number = options.fetch(:pad_number, 0)
     precision  = options.fetch(:precision, 3)
@@ -280,13 +304,13 @@ class Numeric
   def pad_precision(options={})
     pad_number = options.fetch(:pad_number, 0)
     precision  = options.fetch(:precision, 2)
-    separator  = options.fetch(:separator, ".")
+    separator  = options.fetch(:separator, '.'.freeze)
     string     = to_s
 
-    string << separator unless string.include?(separator)
-    ljust_count = string.split(separator).first.size
+    string      << separator unless string.include?(separator)
+    ljust_count =  string.split(separator).first.size
     ljust_count += (string.count(separator) + precision) if precision > 0
-    num_count   = string.size
+    num_count   =  string.size
     ljust_count >= num_count ? string.ljust(ljust_count, pad_number.to_s) : string[0..(ljust_count - 1)]
   end
 
@@ -345,18 +369,18 @@ class Numeric
       :terabyte, :terabytes,
       :petabyte, :petabytes,
       :exabyte,  :exabytes
-    ]
+    ].freeze
 
     unless valid_keys.include?(from) && valid_keys.include?(to)
       raise ArgumentError,
-        "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', ')}"
+        "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', '.freeze)}"
     end
 
-    to_f * 1.send("#{from}_in_bytes") / 1.send("#{to}_in_bytes")
+    to_f * 1.send("#{from}_in_bytes").to_f / 1.send("#{to}_in_bytes").to_f
   end
 
   def to_currency(options={})
-    unit = options.fetch(:unit, "$")
+    unit = options.fetch(:unit, '$'.freeze)
 
     "#{unit}#{pad_precision(options.only(:precision))}"
   end
@@ -375,11 +399,11 @@ class Numeric
       :yard,          :yards,
       :mile,          :miles,
       :nautical_mile, :nautical_miles
-    ]
+    ].freeze
 
     unless valid_keys.include?(from) && valid_keys.include?(to)
       raise ArgumentError,
-        "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', ')}"
+        "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', '.freeze)}"
     end
 
     case to
@@ -387,15 +411,15 @@ class Numeric
       self
     when :meter, :meters, :millimeter, :millimeters, :centimeter, :centimeters, :decimeter, :decimeters, :decameter, :decameters, :hectometer, :hectometers, :kilometer, :kilometers
       if valid_keys.first(14).include?(from)
-        to_f * 1.send("#{from}_in_meters") / 1.send("#{to}_in_meters")
+        to_f * 1.send("#{from}_in_meters").to_f / 1.send("#{to}_in_meters").to_f
       else
-        to_f * ((1.send("#{from}_in_inches") * 0.0254) / 1.send("#{to}_in_meters"))
+        to_f * ((1.send("#{from}_in_inches").to_f * 0.0254) / 1.send("#{to}_in_meters").to_f)
       end
     when :inch, :inches, :foot, :feet, :yard, :yards, :mile, :miles, :nautical_mile, :nautical_miles
       if valid_keys.first(14).include?(from)
-        to_f * ((1.send("#{from}_in_meters") * 39.3701) / 1.send("#{to}_in_inches"))
+        to_f * ((1.send("#{from}_in_meters").to_f * 39.3701) / 1.send("#{to}_in_inches").to_f)
       else
-        to_f * 1.send("#{from}_in_inches") / 1.send("#{to}_in_inches")
+        to_f * 1.send("#{from}_in_inches").to_f / 1.send("#{to}_in_inches").to_f
       end
     end
   end
@@ -414,11 +438,11 @@ class Numeric
       :pound,      :pounds,
       :stone,      :stones,
       :ton,        :tons
-    ]
+    ].freeze
 
     unless valid_keys.include?(from) && valid_keys.include?(to)
       raise ArgumentError,
-        "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', ')}"
+        "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', '.freeze)}"
     end
 
     case to
@@ -426,21 +450,22 @@ class Numeric
       self
     when :gram, :grams, :milligram, :milligrams, :centigram, :centigrams, :decigram, :decigrams, :decagram, :decagrams, :hectogram, :hectograms, :kilogram, :kilograms, :metric_ton, :metric_tons
       if valid_keys.first(16).include?(from)
-        to_f * 1.send("#{from}_in_grams") / 1.send("#{to}_in_grams")
+        to_f * 1.send("#{from}_in_grams").to_f / 1.send("#{to}_in_grams").to_f
       else
-        to_f * ((1.send("#{from}_in_ounces") * 28.3495) / 1.send("#{to}_in_grams"))
+        to_f * ((1.send("#{from}_in_ounces") * 28.3495).to_f / 1.send("#{to}_in_grams").to_f)
       end
     when :ounce, :ounces, :pound, :pounds, :stone, :stones, :ton, :tons
       if valid_keys.first(16).include?(from)
-        to_f * ((1.send("#{from}_in_grams") * 0.035274) / 1.send("#{to}_in_ounces"))
+        to_f * ((1.send("#{from}_in_grams") * 0.035274).to_f / 1.send("#{to}_in_ounces").to_f)
       else
-        to_f * 1.send("#{from}_in_ounces") / 1.send("#{to}_in_ounces")
+        to_f * 1.send("#{from}_in_ounces").to_f / 1.send("#{to}_in_ounces").to_f
       end
     end
   end
 
   def to_nearest_value(values=[])
     return(self) if values.size.zero?
+
     value      = values.first
     difference = (self - value).abs
 
@@ -450,32 +475,35 @@ class Numeric
         value      = v
       end
     end
+
     value
   end
 
   def to_percentage(options={})
-    unit = options.fetch(:unit, "%")
+    unit = options.fetch(:unit, '%'.freeze)
 
     "#{pad_precision(options.only(:precision))}#{unit}"
   end
 
   def to_temperature(from, to)
-    valid_keys = [:celsius, :fahrenheit, :kelvin]
+    valid_keys = [:celsius, :fahrenheit, :kelvin].freeze
 
     unless valid_keys.include?(from) && valid_keys.include?(to)
       raise ArgumentError,
-        "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', ')}"
+        "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', '.freeze)}"
     end
+
+    number = to_f
 
     case to
     when from
       self
     when :celsius
-      from == :kelvin ? (to_f - 273.15) : ((to_f - 32.0) * 5.0 / 9.0)
+      from == :kelvin ? (number - 273.15) : ((number - 32.0) * 5.0 / 9.0)
     when :fahrenheit
-      from == :kelvin ? (1.8 * (to_f - 273.15) + 32.0) : ((to_f * 9.0 / 5.0) + 32.0)
+      from == :kelvin ? (1.8 * (number - 273.15) + 32.0) : ((number * 9.0 / 5.0) + 32.0)
     when :kelvin
-      from == :celsius ? (to_f + 273.15) : (((to_f - 32.0) * 5.0 / 9.0) + 273.15)
+      from == :celsius ? (number + 273.15) : (((number - 32.0) * 5.0 / 9.0) + 273.15)
     end
   end
 
@@ -490,14 +518,14 @@ class Numeric
       :decade,     :decades,
       :century,    :centuries,
       :millennium, :millenniums
-    ]
+    ].freeze
 
     unless valid_keys.include?(from) && valid_keys.include?(to)
       raise ArgumentError,
-        "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', ')}"
+        "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', '.freeze)}"
     end
 
-    to_f * 1.send("#{from}_in_seconds") / 1.send("#{to}_in_seconds")
+    to_f * 1.send("#{from}_in_seconds").to_f / 1.send("#{to}_in_seconds").to_f
   end
 
   def tons_in_ounces
@@ -517,7 +545,7 @@ class Numeric
 
     a, b = to_f, number.to_f
 
-    (a.zero? || b.zero?) ? (a - b).abs < epsilon : (a / b - 1).abs < epsilon
+    (a.zero? || b.zero?) ? ((a - b).abs < epsilon) : ((a / b - 1).abs < epsilon)
   end
 
   def yards_in_inches

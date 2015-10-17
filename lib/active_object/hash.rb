@@ -6,7 +6,7 @@ class Hash
       each_key do |k|
         unless valid_keys.include?(k)
           raise ArgumentError,
-            "Unknown key: #{k.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', ')}"
+            "Unknown key: #{k.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', '.freeze)}"
         end
       end
     end
@@ -41,6 +41,7 @@ class Hash
           block_given? && key?(current_key) ? block.call(current_key, this_value, other_value) : other_value
         end
       end
+
       self
     end
   end
@@ -59,11 +60,7 @@ class Hash
   end
 
   def nillify!
-    each do |k, v|
-      if !v.nil? && ((v.respond_to?(:blank?) && v.blank?) || (v.respond_to?(:to_s) && v.to_s.blank?))
-        self[k] = nil
-      end
-    end
+    each { |k, v| self[k] = nil if !v.nil? && (v.try(:blank?) || v.try(:to_s).blank?) }
   end
 
   def only(*keys)
@@ -165,8 +162,8 @@ class Hash
 
   unless defined?(Rails)
     def stringify_keys!
-      inject({}) do |options,(k, v)|
-        options[k.to_s] = v
+      inject({}) do |options, (key, value)|
+        options[key.to_s] = value
         options
       end
     end
@@ -188,8 +185,8 @@ class Hash
 
   unless defined?(Rails)
     def symbolize_keys!
-      inject({}) do |options, (k, v)|
-        options[(k.to_sym rescue k) || k] = v
+      inject({}) do |options, (key, value)|
+        options[(key.to_sym rescue key) || key] = value
         options
       end
     end
@@ -200,8 +197,8 @@ class Hash
   end
 
   def symbolize_and_underscore_keys!
-    inject({}) do |options, (k, v)|
-      options[(k.to_s.gsub(" ", "_").underscore.to_sym rescue k) || k] = v
+    inject({}) do |options, (key, value)|
+      options[(key.to_s.gsub(' '.freeze, '_'.freeze).underscore.to_sym rescue key) || key] = value
       options
     end
   end
@@ -215,6 +212,7 @@ class Hash
   unless defined?(Rails)
     def transform_keys!(&block)
       return(enum_for(:transform_keys!)) unless block_given?
+
       keys.each { |k| self[yield(k)] = delete(k) }
       self
     end
@@ -229,6 +227,7 @@ class Hash
   unless defined?(Rails)
     def transform_values!(&block)
       return(enum_for(:transform_values!)) unless block_given?
+
       each { |k, v| self[k] = yield(v) }
     end
   end

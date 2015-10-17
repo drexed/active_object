@@ -301,13 +301,15 @@ describe String do
     end
   end
 
-  describe "#pollute" do
+  describe "#pollute(!)" do
     it "to be t^--^--^e^--^--^s^--^--^t^--^--^" do
       expect("test".pollute).to eq("t^--^--^e^--^--^s^--^--^t^--^--^")
+      expect("test".pollute!).to eq("t^--^--^e^--^--^s^--^--^t^--^--^")
     end
 
     it "to be t-e-s-t-" do
       expect("test".pollute("-")).to eq("t-e-s-t-")
+      expect("test".pollute!("-")).to eq("t-e-s-t-")
     end
   end
 
@@ -478,13 +480,15 @@ describe String do
     end
   end
 
-  describe "#unpollute" do
+  describe "#unpollute(!)" do
     it "to be test" do
       expect("test".unpollute).to eq("test")
+      expect("test".unpollute!).to eq("test")
     end
 
     it "to be test" do
       expect("t-e-s-t-".unpollute("-")).to eq("test")
+      expect("t-e-s-t-".unpollute!("-")).to eq("test")
     end
   end
 

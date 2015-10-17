@@ -2,13 +2,8 @@ class String
 
   def any?(*keys)
     included = false
-
-    keys.flatten.each do |key|
-      (included = true) if include?(key)
-      break if included
-    end
-
-    return(included)
+    keys.flatten.each { |k| break if included = include?(k) }
+    included
   end
 
   unless defined?(Rails)
@@ -19,10 +14,12 @@ class String
 
   unless defined?(Rails)
     def camelize(first_letter=:upper)
-      if first_letter != :lower
-        to_s.gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase }
+      if first_letter.to_sym != :lower
+        to_s.
+        gsub(/\/(.?)/) { "::#{$1.upcase}" }.
+        gsub(/(?:^|_)(.)/) { $1.upcase }
       else
-        to_s.first.chr.downcase + camelize(self)[1..-1]
+        "#{to_s.first.chr.downcase}#{camelize(self)[1..-1]}"
       end
     end
 
@@ -39,7 +36,9 @@ class String
 
   unless defined?(Rails)
     def classify
-      to_s.sub(/.*\./, "").camelize
+      to_s.
+      sub(/.*\./, ''.freeze).
+      camelize
     end
   end
 
@@ -57,7 +56,7 @@ class String
 
   unless defined?(Rails)
     def dasherize
-      gsub(/_/, "-")
+      gsub(/_/, '-'.freeze)
     end
   end
 
@@ -69,7 +68,7 @@ class String
 
   unless defined?(Rails)
     def deconstantize
-      to_s[0, rindex('::') || 0]
+      to_s[0, rindex('::'.freeze) || 0]
     end
   end
 
@@ -81,7 +80,7 @@ class String
 
   unless defined?(Rails)
     def demodulize
-      to_s.gsub(/^.*::/, "")
+      to_s.gsub(/^.*::/, ''.freeze)
     end
   end
 
@@ -102,10 +101,11 @@ class String
 
   def ellipsize(ellipsize_at, options={})
      return(self)if size <= ellipsize_at
-     separator = options.fetch(:separator, "...")
+
+     separator = options.fetch(:separator, '...'.freeze)
      offset    = options.fetch(:offset, 4)
 
-     "#{self[0,offset]}#{separator}#{self[-offset,offset]}"
+     "#{self[0, offset]}#{separator}#{self[-offset, offset]}"
   end
 
   unless defined?(Rails)
@@ -116,7 +116,8 @@ class String
 
   unless defined?(Rails)
     def first(limit=1)
-      return("") if limit.zero?
+      return(''.freeze) if limit.zero?
+
       limit >= size ? self.dup : to(limit - 1)
     end
   end
@@ -130,8 +131,8 @@ class String
   unless defined?(Rails)
     def humanize(options = {})
       underscore.
-      gsub(/_id\z/, "").
-      tr("_", " ").
+      gsub(/_id\z/, ''.freeze).
+      tr('_'.freeze, ' '.freeze).
       gsub(/([a-z\d]*)/i) { |s| s.downcase }.
       gsub(/\A\w/) { |s| options.fetch(:capitalize, true) ? s.upcase : s }
     end
@@ -145,8 +146,9 @@ class String
 
   unless defined?(Rails)
     def indent(amount, indent_string=nil, indent_empty_lines=false)
-      indent_string = indent_string || self[/^[ \t]/] || " "
+      indent_string = indent_string || self[/^[ \t]/] || ' '.freeze
       substitutes   = indent_empty_lines ? /^/ : /^(?!$)/
+
       gsub(substitutes, indent_string * amount)
     end
   end
@@ -159,7 +161,8 @@ class String
 
   unless defined?(Rails)
     def last(limit=1)
-      return("") if limit.zero?
+      return(''.freeze) if limit.zero?
+
       limit >= size ? self.dup : from(-limit)
     end
   end
@@ -181,30 +184,32 @@ class String
   end
 
   unless defined?(Rails)
-    def parameterize(sep="-")
+    def parameterize(seperator='-'.freeze)
       underscore.
-      gsub(/\s+/, "_").
-      gsub("_", sep).
+      gsub(/\s+/, '_'.freeze).
+      gsub('_'.freeze, seperator).
       downcase
     end
   end
 
   unless defined?(Rails)
-    def parameterize!(sep="-")
-      replace(parameterize(sep))
+    def parameterize!(seperator='-'.freeze)
+      replace(parameterize(seperator))
     end
   end
 
-  def pollute(delimiter="^--^--^")
-    split('').map { |c| "#{c}#{delimiter}" }.join
+  def pollute(delimiter='^--^--^'.freeze)
+    split(''.freeze).map { |c| "#{c}#{delimiter}" }.join
+  end
+
+  def pollute!(delimiter='^--^--^'.freeze)
+    replace(pollute(delimiter))
   end
 
   unless defined?(Rails)
     def remove(*patterns)
       string = dup
-      patterns.flatten.each do |pattern|
-        string.gsub!(pattern, "")
-      end
+      patterns.flatten.each { |p| string.gsub!(p, ''.freeze) }
       string
     end
   end
@@ -216,26 +221,24 @@ class String
   end
 
   def remove_tags
-    gsub(/<\/?[^>]*>/, "")
+    gsub(/<\/?[^>]*>/, ''.freeze)
   end
 
   def remove_tags!
     replace(remove_tags)
   end
 
-  def sample(separator=' ')
+  def sample(separator=' '.freeze)
     split(separator).sample
   end
 
-  def sample!(separator=' ')
+  def sample!(separator=' '.freeze)
     replace(sample(separator))
   end
 
   def shift(*patterns)
     string = dup
-    patterns.flatten.each do |pattern|
-      string.sub!(pattern, "")
-    end
+    patterns.flatten.each { |p| string.sub!(p, ''.freeze) }
     string
   end
 
@@ -243,19 +246,19 @@ class String
     replace(shift(*patterns))
   end
 
-  def shuffle(separator='')
+  def shuffle(separator=''.freeze)
     split(separator).shuffle.join
   end
 
-  def shuffle!(separator='')
+  def shuffle!(separator=''.freeze)
     replace(shuffle(separator))
   end
 
   def slugify
-    gsub(/[^\x00-\x7F]+/, '').
-    gsub(/[^\w_ \-]+/i,   '').
-    gsub(/[ \-]+/i,      '-').
-    gsub(/^\-|\-$/i,      '').
+    gsub(/[^\x00-\x7F]+/, ''.freeze).
+    gsub(/[^\w_ \-]+/i,   ''.freeze).
+    gsub(/[ \-]+/i,      '-'.freeze).
+    gsub(/^\-|\-$/i,      ''.freeze).
     downcase
   end
 
@@ -265,7 +268,8 @@ class String
 
   unless defined?(Rails)
     def squish
-      strip.gsub(/\s+/, ' ')
+      strip.
+      gsub(/\s+/, ' '.freeze)
     end
   end
 
@@ -303,14 +307,14 @@ class String
     def truncate(truncate_at, options={})
       return(dup) unless size > truncate_at
 
-      omission = options.fetch(:omission, "...")
+      omission = options.fetch(:omission, '...'.freeze)
       size_with_room_for_omission = truncate_at - omission.size
 
       stop = if options.fetch(:separator, false)
-          rindex(options.fetch(:separator, ''), size_with_room_for_omission) || size_with_room_for_omission
-        else
-          size_with_room_for_omission
-        end
+        rindex(options.fetch(:separator, ''.freeze), size_with_room_for_omission) || size_with_room_for_omission
+      else
+        size_with_room_for_omission
+      end
 
       "#{self[0, stop]}#{omission}"
     end
@@ -318,11 +322,11 @@ class String
 
   unless defined?(Rails)
     def truncate_words(words_count, options={})
-      sep = options[:separator] || /\s+/
+      sep = options.fetch(:separator, /\s+/)
       sep = Regexp.escape(sep.to_s) unless Regexp === sep
 
       if self =~ /\A((?:.+?#{sep}){#{words_count - 1}}.+?)#{sep}.*/m
-        $1 + (options[:omission] || '...')
+        "#{$1}#{options.fetch(:omission, '...'.freeze)}"
       else
         dup
       end
@@ -331,10 +335,10 @@ class String
 
   unless defined?(Rails)
     def underscore
-      gsub(/::/, '/').
-      gsub(/([A-Z\d]+)([A-Z][a-z])/,'\1_\2').
-      gsub(/([a-z\d])([A-Z])/,'\1_\2').
-      tr("-", "_").
+      gsub(/::/, '/'.freeze).
+      gsub(/([A-Z\d]+)([A-Z][a-z])/, '\1_\2'.freeze).
+      gsub(/([a-z\d])([A-Z])/, '\1_\2'.freeze).
+      tr('-'.freeze, '_'.freeze).
       downcase
     end
   end
@@ -345,8 +349,12 @@ class String
     end
   end
 
-  def unpollute(delimiter="^--^--^")
-    gsub(delimiter, "")
+  def unpollute(delimiter='^--^--^'.freeze)
+    gsub(delimiter, ''.freeze)
+  end
+
+  def unpollute!(delimiter='^--^--^'.freeze)
+    replace(unpollute(delimiter))
   end
 
   def upcase?

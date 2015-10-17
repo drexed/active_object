@@ -734,6 +734,24 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 3.grams_in_grams #=> 3
 ```
 
+####Greater Than:####
+`greater_than?` returns true if self is greater than n.
+
+```ruby
+3.greater_than?(2) #=> true
+3.greater_than?(3) #=> false
+3.greater_than?(4) #=> false
+```
+
+####Greater Than or Equal To:####
+`greater_than_or_equal_to?` returns true if self is greater than or equal to n.
+
+```ruby
+3.greater_than_or_equal_to?(2) #=> true
+3.greater_than_or_equal_to?(3) #=> true
+3.greater_than_or_equal_to?(4) #=> false
+```
+
 ####Hectograms in Grams:####
 `hectogram_in_grams` and `hectograms_in_grams` returns the amount of grams in n hectograms.
 
@@ -762,6 +780,14 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 3.inches_in_inches #=> 3
 ```
 
+####Inside:####
+`inside?` returns true if n is greater than start and less than finish. Similar to between but does not return true if equal to self.
+
+```ruby
+3.inside?(1, 5) #=> true
+3.inside?(3, 5) #=> false
+```
+
 ####Kilobytes in Bytes:####
 `kilobyte_in_bytes` and `kilobytes_in_bytes` returns the amount of bytes in n kilobytes.
 
@@ -781,6 +807,24 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 
 ```ruby
 3.kilometers_in_meters #=> 3000
+```
+
+####Less Than:####
+`less_than?` returns true if self is less than n.
+
+```ruby
+3.less_than?(2) #=> false
+3.less_than?(3) #=> false
+3.less_than?(4) #=> true
+```
+
+####Less Than or Equal To:####
+`less_than_or_equal_to?` returns true if self is less than or equal to n.
+
+```ruby
+3.less_than_or_equal_to?(2) #=> false
+3.less_than_or_equal_to?(3) #=> true
+3.less_than_or_equal_to?(4) #=> true
 ```
 
 ####Metric Ton in Ounces:####
@@ -894,6 +938,14 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 
 ```ruby
 3.ounces_in_ounces #=> 48
+```
+
+####Outside:####
+`outside?` returns true if n is less than start or greater than finish.
+
+```ruby
+3.outside?(4, 5) #=> true
+3.outside?(3, 5) #=> false
 ```
 
 ####Pad:####
@@ -1513,7 +1565,7 @@ false.truthy? #=> false
 ```
 
 ####Pollute:####
-`pollute` pollutes the space between every letter in a string, so it will be exempt from any impending string searches.
+`pollute` and `pollute!` pollutes the space between every letter in a string, so it will be exempt from any impending string searches.
 
 ```ruby
 "test".pollute      #=> "t^--^--^e^--^--^s^--^--^t^--^--^"
@@ -1635,7 +1687,7 @@ false.truthy? #=> false
 ```
 
 ####Unpollute:####
-`unpollute` removes the default or custom pollution character. Can also be used to remove an unwanted character.
+`unpollute` and `unpollute!` removes the default or custom pollution character. Can also be used to remove an unwanted character.
 
 ```ruby
 "t^--^--^e^--^--^s^--^--^t^--^--^".unpollute #=> "test"
