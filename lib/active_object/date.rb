@@ -1,8 +1,8 @@
 class Date
 
   def format(string)
-    delimiters = string.scan /\W+/
-    formatters = string.scan /[a-z0-9_]+/i
+    delimiters = string.scan(/\W+/)
+    formatters = string.scan(/[a-z0-9_]+/i)
 
     format_units = {
       'd'                     => 'd',
@@ -62,12 +62,12 @@ class Date
       month_blank:                 '%_m',
       month_name:                  '%B',
       month_name_abbr:             '%b',
-      month_year:                  '%m %y',
-      month_padded_year:           '%m %y',
-      month_unpadded_year:         '%-m %y',
-      month_blank_year:            '%_m %y',
-      month_name_year:             '%B %y',
-      month_name_abbr_year:        '%b %y',
+      month_year:                  '%m %Y',
+      month_padded_year:           '%m %Y',
+      month_unpadded_year:         '%-m %Y',
+      month_blank_year:            '%_m %Y',
+      month_name_year:             '%B %Y',
+      month_name_abbr_year:        '%b %Y',
       weekday:                     '%d',
       weekday_padded:              '%d',
       weekday_unpadded:            '%-d',
