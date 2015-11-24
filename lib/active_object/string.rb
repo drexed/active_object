@@ -100,7 +100,7 @@ class String
   end
 
   def ellipsize(ellipsize_at, options={})
-     return(self)if size <= ellipsize_at
+     return(self)if length <= ellipsize_at
 
      separator = options.fetch(:separator, '...'.freeze)
      offset    = options.fetch(:offset, 4)
@@ -118,7 +118,7 @@ class String
     def first(limit=1)
       return(''.freeze) if limit.zero?
 
-      limit >= size ? self.dup : to(limit - 1)
+      limit >= length ? self.dup : to(limit - 1)
     end
   end
 
@@ -163,7 +163,7 @@ class String
     def last(limit=1)
       return(''.freeze) if limit.zero?
 
-      limit >= size ? self.dup : from(-limit)
+      limit >= length ? self.dup : from(-limit)
     end
   end
 
@@ -305,10 +305,10 @@ class String
 
   unless defined?(Rails)
     def truncate(truncate_at, options={})
-      return(dup) unless size > truncate_at
+      return(dup) unless length > truncate_at
 
       omission = options.fetch(:omission, '...'.freeze)
-      size_with_room_for_omission = truncate_at - omission.size
+      size_with_room_for_omission = truncate_at - omission.length
 
       stop = if options.fetch(:separator, false)
         rindex(options.fetch(:separator, ''.freeze), size_with_room_for_omission) || size_with_room_for_omission

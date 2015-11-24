@@ -308,9 +308,9 @@ class Numeric
     string     = to_s
 
     string      << separator unless string.include?(separator)
-    ljust_count =  string.split(separator).first.size
+    ljust_count =  string.split(separator).first.length
     ljust_count += (string.count(separator) + precision) if precision > 0
-    num_count   =  string.size
+    num_count   =  string.length
     ljust_count >= num_count ? string.ljust(ljust_count, pad_number.to_s) : string[0..(ljust_count - 1)]
   end
 
@@ -464,7 +464,7 @@ class Numeric
   end
 
   def to_nearest_value(values=[])
-    return(self) if values.size.zero?
+    return(self) if values.length.zero?
 
     value      = values.first
     difference = (self - value).abs

@@ -3,13 +3,13 @@ class Array
   def after(value)
     return(nil) unless include?(value)
 
-    self[(index(value).to_i + 1) % size]
+    self[(index(value).to_i + 1) % length]
   end
 
   def before(value)
     return(nil) unless include?(value)
 
-    self[(index(value).to_i - 1) % size]
+    self[(index(value).to_i - 1) % length]
   end
 
   def delete_first
@@ -43,23 +43,23 @@ class Array
 
   unless defined?(Rails)
     def from(position)
-      self[position, size] || []
+      self[position, length] || []
     end
   end
 
   def groups(number)
     return([]) if number <= 0
 
-    n, r       = size.divmod(number)
+    n, r       = length.divmod(number)
     collection = (0..(n - 1)).collect { |i| self[(i * number), number] }
     r > 0 ? collection << self[-r, r] : collection
   end
 
   unless defined?(Rails)
     def in_groups(number, fill_with=nil)
-      collection_size = size
-      division        = collection_size.div(number)
-      modulo          = collection_size % number
+      collection_length = length
+      division        = collection_length.div(number)
+      modulo          = collection_length % number
 
       collection = []
       start      = 0
@@ -78,13 +78,13 @@ class Array
     def in_groups_of(number, fill_with=nil)
       if number.to_i <= 0
         raise ArgumentError,
-          "Group size must be a positive integer, was #{number.inspect}"
+          "Group length must be a positive integer, was #{number.inspect}"
       end
 
       if fill_with == false
         collection = self
       else
-        padding    = (number - size % number) % number
+        padding    = (number - length % number) % number
         collection = dup.concat(Array.new(padding, fill_with))
       end
 
@@ -110,7 +110,7 @@ class Array
   end
 
   def sample!
-    delete_at(Random.rand(size - 1))
+    delete_at(Random.rand(length - 1))
   end
 
   unless defined?(Rails)
@@ -128,7 +128,7 @@ class Array
             arr.shift
             results << []
           else
-            results.last.concat(arr.shift(arr.size))
+            results.last.concat(arr.shift(arr.length))
           end
         end
         results
@@ -161,7 +161,7 @@ class Array
       }
       options = default_connectors.merge!(options)
 
-      case size
+      case length
       when 0
         ''
       when 1

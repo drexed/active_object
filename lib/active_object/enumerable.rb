@@ -31,11 +31,11 @@ module Enumerable
   end
 
   def drop_last(n)
-    collection_size = to_a.size
+    collection_length = to_a.length
 
-    return(self) if n > collection_size
+    return(self) if n > collection_length
 
-    self[0...(collection_size - n)]
+    self[0...(collection_length - n)]
   end
 
   def drop_last_if
@@ -96,40 +96,40 @@ module Enumerable
   end
 
   def max(identity=0)
-    size > 0 ? sort.last : identity
+    self.length > 0 ? sort.last : identity
   end
 
   def min(identity=0)
-    size > 0 ? sort.first : identity
+    self.length > 0 ? sort.first : identity
   end
 
   def mean(identity=0)
-    return(identity) unless size > 0
+    return(identity) unless length > 0
 
-    collection_size = size
-    sum.to_f / collection_size.to_f
+    collection_length = length
+    sum.to_f / collection_length.to_f
   end
 
   def median(identity=0)
-    collection_size   = size.to_f
+    collection_length   = length.to_f
     collection_sorted = sort
 
-    return(identity) unless collection_size > 0
+    return(identity) unless collection_length > 0
 
-    if (collection_size % 2).zero?
-      (collection_sorted[(collection_size / 2.0) -1.0] + collection_sorted[collection_size / 2.0]) / 2.0
+    if (collection_length % 2).zero?
+      (collection_sorted[(collection_length / 2.0) -1.0] + collection_sorted[collection_length / 2.0]) / 2.0
     else
-      collection_sorted[collection_size / 2.0]
+      collection_sorted[collection_length / 2.0]
     end
   end
 
   def mode(identity=0)
-    return(identity) unless size > 0
+    return(identity) unless length > 0
 
     frequency_distribution = inject(Hash.new(0)) { |h, v| h[v] += 1; h }
     frequency_top_two      = frequency_distribution.sort { |k, v| v[1] <=> k[1] }.take(2)
 
-    if frequency_top_two.size == 1
+    if frequency_top_two.length == 1
       frequency_top_two.first.first
     elsif frequency_top_two.first.last == frequency_top_two.last.last
       nil
@@ -147,7 +147,7 @@ module Enumerable
   end
 
   def range(identity=0)
-    return(identity) unless size > 0
+    return(identity) unless length > 0
 
     collection_sorted = sort
     collection_sorted.last - collection_sorted.first
@@ -160,7 +160,7 @@ module Enumerable
   end
 
   def standard_deviation(identity=0)
-    return(identity) if size < 2
+    return(identity) if length < 2
 
     Math.sqrt(variance)
   end
@@ -176,11 +176,11 @@ module Enumerable
   end
 
   def take_last(n)
-    collection_size = to_a.size
+    collection_length = to_a.length
 
-    return(self) if n > collection_size
+    return(self) if n > collection_length
 
-    self[(collection_size - n)..-1]
+    self[(collection_length - n)..-1]
   end
 
   def take_last_if
@@ -192,12 +192,12 @@ module Enumerable
   end
 
   def variance(identity=0)
-    collection_size = size
+    collection_length = length
 
-    return(identity) if collection_size <= 1
+    return(identity) if collection_length <= 1
 
     sum = inject(0.0) { |s,v| s + (v - mean) ** 2.0 }
-    sum.to_f / (collection_size.to_f - 1.0)
+    sum.to_f / (collection_length.to_f - 1.0)
   end
 
 end

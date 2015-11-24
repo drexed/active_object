@@ -108,7 +108,7 @@ class Hash
 
   def sample_key
     hash_keys = keys
-    hash_keys.at(Random.rand(hash_keys.size - 1))
+    hash_keys.at(Random.rand(hash_keys.length - 1))
   end
 
   def sample_key!
@@ -128,7 +128,7 @@ class Hash
   end
 
   def shuffle
-    Hash[to_a.sample(size)]
+    Hash[to_a.sample(length)]
   end
 
   def shuffle!

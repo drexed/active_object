@@ -165,6 +165,27 @@ describe Date do
       it "to be Jan" do
         expect(date.to_format(:month_name_abbr)).to eq("Jan")
       end
+
+      it "to be 01 2014" do
+        expect(datetime.to_format(:month_year)).to eq("01 2014")
+        expect(datetime.to_format(:month_padded_year)).to eq("01 2014")
+      end
+
+      it "to be 1 2014" do
+        expect(datetime.to_format(:month_unpadded_year)).to eq("1 2014")
+      end
+
+      it "to be ' 1 2014'" do
+        expect(datetime.to_format(:month_blank_year)).to eq(" 1 2014")
+      end
+
+      it "to be January 2014" do
+        expect(datetime.to_format(:month_name_year)).to eq("January 2014")
+      end
+
+      it "to be Jan 2014" do
+        expect(datetime.to_format(:month_name_abbr_year)).to eq("Jan 2014")
+      end
     end
 
     context "#weekday" do

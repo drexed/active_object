@@ -1767,6 +1767,11 @@ Time.now.stamp(:datetime) #=> "January 09, 2014 02:31 pm"
 | Month - digits blank-padded | `:month_blank` | %a | ( 1..12) |
 | Month - name | `:month_name` | %A | January |
 | Month - name abbreviated | `:month_name_abbr` | %a | Jan |
+| Month - digits zero-padded | `:month_year` or `:month_padded_year` | %A | (01..12) 2015 |
+| Month - digits unpadded | `:month_unpadded_year` | %a | (1..12) 2015 |
+| Month - digits blank-padded | `:month_blank_year` | %a | ( 1..12) 2015 |
+| Month - name | `:month_name_year` | %A | January 2015 |
+| Month - name abbreviated | `:month_name_abbr_year` | %a | Jan 2015 |
 | Weekday - digits zero-padded | `:weekday_padded` | %A | (01..31) |
 | Weekday - digits unpadded | `:weekday_unpadded` | %a | (1..31) |
 | Weekday - digits blank-padded | `:weekday_blank` | %a | ( 1..31) |
