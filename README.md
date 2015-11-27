@@ -1506,7 +1506,7 @@ false.truthy? #=> false
 
 ```ruby
 "ExampleString".humanize                     #=> "Example string"
-"example_string".humanize                    #=> "Example string"
+"_example_string_id".humanize                #=> "Example string"
 "example_string".humanize(capitalize: false) #=> "example string"
 ```
 
@@ -1516,6 +1516,15 @@ false.truthy? #=> false
 ```ruby
 "example".indent(2)       #=> "  example"
 "example".indent(2, "\t") #=> "\t\texample"
+```
+
+####Labelize:####
+`Labelize` and `Labelize!` capitalizes each word in a string. `Rails Safe`
+
+```ruby
+"example string".titleize     #=> "Example String"
+"_example_string_id".titleize #=> "Example String ID"
+"ExampleString".titleize      #=> "Example String"
 ```
 
 ####Last:####
@@ -1635,9 +1644,9 @@ false.truthy? #=> false
 `titleize` and `titleize!` capitalizes each word in a string. `Rails Safe`
 
 ```ruby
-"example string".titleize #=> "Example String"
-"example_string".titleize #=> "Example String"
-"ExampleString".titleize  #=> "Example String"
+"example string".titleize     #=> "Example String"
+"_example_string_id".titleize #=> "Example String"
+"ExampleString".titleize      #=> "Example String"
 ```
 
 ####To:####

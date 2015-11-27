@@ -96,11 +96,11 @@ module Enumerable
   end
 
   def max(identity=0)
-    self.length > 0 ? sort.last : identity
+    length > 0 ? sort.last : identity
   end
 
   def min(identity=0)
-    self.length > 0 ? sort.first : identity
+    length > 0 ? sort.first : identity
   end
 
   def mean(identity=0)

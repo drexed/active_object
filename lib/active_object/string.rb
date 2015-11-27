@@ -133,6 +133,7 @@ class String
       underscore.
       gsub(/_id\z/, ''.freeze).
       tr('_'.freeze, ' '.freeze).
+      squish.
       gsub(/([a-z\d]*)/i) { |s| s.downcase }.
       gsub(/\A\w/) { |s| options.fetch(:capitalize, true) ? s.upcase : s }
     end
@@ -158,6 +159,21 @@ class String
       replace(indent(amount, indent_string, indent_empty_lines))
     end
   end
+
+  def labelize
+    underscore.
+    tr('_'.freeze, ' '.freeze).
+    squish.
+    gsub(/\b(?<!['’`])[a-z]/) { $&.capitalize }
+  end
+
+  alias_method :labelcase, :labelize
+
+  def labelize!
+    replace(labelize)
+  end
+
+  alias_method :labelcase!, :labelize!
 
   unless defined?(Rails)
     def last(limit=1)

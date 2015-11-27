@@ -199,6 +199,8 @@ describe String do
     it "to be Example string test" do
       expect("example_string_test".humanize).to eq("Example string test")
       expect("example_string_test".humanize!).to eq("Example string test")
+      expect("_example_string_test_id".humanize).to eq("Example string test")
+      expect("_example_string_test_id".humanize!).to eq("Example string test")
       expect("exampleStringTest".humanize).to eq("Example string test")
       expect("exampleStringTest".humanize!).to eq("Example string test")
       expect("ExampleStringTest".humanize).to eq("Example string test")
@@ -224,6 +226,22 @@ describe String do
     it "to be '\t\texample'" do
       expect("example".indent(2, "\t")).to eq("\t\texample")
       expect("example".indent!(2, "\t")).to eq("\t\texample")
+    end
+  end
+
+  describe "#labelize(!)" do
+    it "to be Example string test" do
+      expect("example_string_test".labelize).to eq("Example String Test")
+      expect("example_string_test".labelize!).to eq("Example String Test")
+      expect("exampleStringTest".labelize).to eq("Example String Test")
+      expect("exampleStringTest".labelize!).to eq("Example String Test")
+      expect("ExampleStringTest".labelize).to eq("Example String Test")
+      expect("ExampleStringTest".labelize!).to eq("Example String Test")
+    end
+
+    it "to be Example string test Id" do
+      expect("_example_string_test_id".labelize).to eq("Example String Test Id")
+      expect("_example_string_test_id".labelize!).to eq("Example String Test Id")
     end
   end
 
