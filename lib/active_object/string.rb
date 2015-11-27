@@ -129,7 +129,7 @@ class String
   end
 
   unless defined?(Rails)
-    def humanize(options = {})
+    def humanize(options={})
       underscore.
       gsub(/_id\z/, ''.freeze).
       tr('_'.freeze, ' '.freeze).
@@ -160,17 +160,19 @@ class String
     end
   end
 
-  def labelize
+  def labelize(options={})
     underscore.
     tr('_'.freeze, ' '.freeze).
     squish.
-    gsub(/\b(?<!['’`])[a-z]/) { $&.capitalize }
+    gsub(/([a-z\d]*)/i) { |s| s.downcase }.
+    gsub(/\A\w/) { |s| options.fetch(:capitalize, true) ? s.upcase : s }.
+    gsub(/ id\z/, ' ID'.freeze)
   end
 
   alias_method :labelcase, :labelize
 
-  def labelize!
-    replace(labelize)
+  def labelize!(options={})
+    replace(labelize(options))
   end
 
   alias_method :labelcase!, :labelize!

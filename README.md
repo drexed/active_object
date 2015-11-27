@@ -1519,12 +1519,12 @@ false.truthy? #=> false
 ```
 
 ####Labelize:####
-`Labelize` and `Labelize!` capitalizes each word in a string. `Rails Safe`
+`labelize` and `labelize!` transforms a string to a human readable string.
 
 ```ruby
-"example string".titleize     #=> "Example String"
-"_example_string_id".titleize #=> "Example String ID"
-"ExampleString".titleize      #=> "Example String"
+"example string".labelize     #=> "Example string"
+"_example_string_id".labelize #=> "Example string ID"
+"ExampleString".labelize      #=> "Example string"
 ```
 
 ####Last:####

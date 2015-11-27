@@ -231,17 +231,17 @@ describe String do
 
   describe "#labelize(!)" do
     it "to be Example string test" do
-      expect("example_string_test".labelize).to eq("Example String Test")
-      expect("example_string_test".labelize!).to eq("Example String Test")
-      expect("exampleStringTest".labelize).to eq("Example String Test")
-      expect("exampleStringTest".labelize!).to eq("Example String Test")
-      expect("ExampleStringTest".labelize).to eq("Example String Test")
-      expect("ExampleStringTest".labelize!).to eq("Example String Test")
+      expect("example_string_test".labelize).to eq("Example string test")
+      expect("example_string_test".labelize!).to eq("Example string test")
+      expect("exampleStringTest".labelize).to eq("Example string test")
+      expect("exampleStringTest".labelize!).to eq("Example string test")
+      expect("ExampleStringTest".labelize).to eq("Example string test")
+      expect("ExampleStringTest".labelize!).to eq("Example string test")
     end
 
     it "to be Example string test Id" do
-      expect("_example_string_test_id".labelize).to eq("Example String Test Id")
-      expect("_example_string_test_id".labelize!).to eq("Example String Test Id")
+      expect("_example_string_test_id".labelize).to eq("Example string test ID")
+      expect("_example_string_test_id".labelize!).to eq("Example string test ID")
     end
   end
 
