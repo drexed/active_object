@@ -1518,6 +1518,15 @@ false.truthy? #=> false
 "example".indent(2, "\t") #=> "\t\texample"
 ```
 
+####Index all:####
+`index_all` returns the index values of matching patterns.
+
+```ruby
+"012324507654301243".index_all(0)                           #=> [0,7,13]
+"the apple is the best fruit in the world".index_all("the") #=> [0,13,31]
+"asdfasdfasdf".index_all(/sd/)                              #=> [1,5,9]
+```
+
 ####Labelize:####
 `labelize` and `labelize!` transforms a string to a human readable string.
 
@@ -1581,12 +1590,28 @@ false.truthy? #=> false
 "test".pollute("-") #=> "t-e-s-t-"
 ```
 
+####Pop:####
+`pop` returns the last character of a string.
+
+```ruby
+"test".pop #=> "t"
+```
+
+####Push:####
+`push` concats string to self.
+
+```ruby
+"test".push("er") #=> "tester"
+```
+
 ####Remove:####
 `remove` and `remove!` removes every instance of a string.
 
 ```ruby
 "this thing that thing".remove("thing")        #=> "this  that "
+"this thing that thing".remove(1..3)           #=> "t thing that thing"
 "this thing that them".remove("thing", "them") #=> "this  that "
+"this thing that them".remove("thing", 1..3)   #=> "t  that them"
 ```
 
 ####Remove Tags:####
@@ -1610,6 +1635,7 @@ false.truthy? #=> false
 `shift` and `shift!` removes the first instance of a string.
 
 ```ruby
+"this thing that thing".shift                 #=> "t"
 "this thing that thing".shift("thing")        #=> "this  that thing"
 "this thing that thing".shift("this", "that") #=> " thing  thing"
 ```
@@ -1622,6 +1648,15 @@ false.truthy? #=> false
 "ruby rules".sample! #=> "rblse syru"
 ```
 
+####Sift:####
+`sift` and `sift!` returns a string matching any character in a pattern.
+
+```ruby
+"qa2ws3ed4rf5tg6yh7uj8ik9ol".sift("0123456789")          #=> "23456789"
+"qa2ws3ed4rf5tg6yh7uj8ik9ol".sift(0..9)                  #=> "23456789"
+"qa2ws3ed4rf5tg6yh7uj8ik9ol".sift([0,1,2,3,4,5,6,7,8,9]) #=> "23456789"
+```
+
 ####Slugify:####
 `slugify` and `slugify!` generates a permalink-style string, with odd characters removed.
 
@@ -1629,6 +1664,13 @@ false.truthy? #=> false
 "example".slugify                  #=> "example"
 "example string".slugify           #=> "example-string"
 "Example string @@@ test!".slugify #=> "example-string-test"
+```
+
+####Sort:####
+`sort` and `sort!` sorts a string.
+
+```ruby
+"adbec".sort #=> "abcde"
 ```
 
 ####Squish:####
@@ -1710,6 +1752,14 @@ false.truthy? #=> false
 "EXAMPLE".upcase? #=> true
 "example".upcase? #=> false
 "Example".upcase? #=> false
+```
+
+####Unshift:####
+`unshift` and `unshift!` prepends string(s) to self.
+
+```ruby
+"this thing that thing".unshift("thing ")         #=> "thing this thing that thing"
+"this thing that thing".unshift("this ", "that ") #=> "this that this thing that thing"
 ```
 
 ## Time
@@ -1823,6 +1873,8 @@ Time.now.stamp(:datetime) #=> "January 09, 2014 02:31 pm"
 | Daytime - iso imperical | `:daytime_imperical_iso` | %m-%d %H:%M | 01-09 12:31 am |
 | Time - zero-padded | `:time` or `:time_padded` | %H:%M | 00:31 |
 | Time - blank-padded | `:time_blank` | %k:%M %z | 0:31 |
+| Time - zero-padded imperical | `:time_imperical` or `:time_imperical_padded` | %I:%M %P | 07:31 |
+| Time - blank-padded imperical | `:time_imperical_blank` | %l:%M %P | 7:31 |
 | Time - with time zone | `:time_tz` | %H:%M %z | 00:31 +0000 |
 | Time - with time zone name | `:time_tzn` | %H:%M %Z | 00:31 UTC |
 

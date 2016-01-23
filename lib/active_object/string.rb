@@ -160,6 +160,20 @@ class String
     end
   end
 
+  def index_all(pattern)
+    pattern     = pattern.to_s if pattern.is_a?(Numeric)
+    arr_indexes = []
+    srch_index  = rindex(pattern)
+
+    while srch_index do
+      temp_string = self[0..(srch_index - 1)]
+      arr_indexes << srch_index
+      srch_index  = srch_index.zero? ? nil : temp_string.rindex(pattern)
+    end
+
+    arr_indexes.reverse
+  end
+
   def labelize(options={})
     underscore.
     tr('_'.freeze, ' '.freeze).
@@ -224,10 +238,26 @@ class String
     replace(pollute(delimiter))
   end
 
+  def pop
+    self[-1]
+  end
+
+  def push(string)
+    replace(concat(string))
+  end
+
   unless defined?(Rails)
     def remove(*patterns)
       string = dup
-      patterns.flatten.each { |p| string.gsub!(p, ''.freeze) }
+
+      patterns.flatten.each do |p|
+        if p.is_a?(Range)
+          string.slice!(p)
+        else
+          string.gsub!(p, ''.freeze)
+        end
+      end
+
       string
     end
   end
@@ -255,9 +285,13 @@ class String
   end
 
   def shift(*patterns)
-    string = dup
-    patterns.flatten.each { |p| string.sub!(p, ''.freeze) }
-    string
+    if patterns.empty?
+      self[0]
+    else
+      string = dup
+      patterns.flatten.each { |p| string.sub!(p, ''.freeze) }
+      string
+    end
   end
 
   def shift!(*patterns)
@@ -270,6 +304,22 @@ class String
 
   def shuffle!(separator=''.freeze)
     replace(shuffle(separator))
+  end
+
+  def sift(chars_to_keep)
+    chars_to_keep = case chars_to_keep
+                    when String then chars_to_keep.chars
+                    when Array  then chars_to_keep.map { |c| c.to_s }
+                    when Range  then chars_to_keep.to_a.map { |c| c.to_s }
+                    else
+                      raise TypeError, "Invalid parameter"
+                    end
+
+    chars.keep_if { |chr| chars_to_keep.include?(chr) }.join
+  end
+
+  def sift!(chars_to_keep)
+    replace(sift(chars_to_keep))
   end
 
   def slugify
@@ -295,6 +345,14 @@ class String
     def squish!
       replace(squish)
     end
+  end
+
+  def sort
+    chars.sort.join
+  end
+
+  def sort!
+    replace(sort)
   end
 
   unless defined?(Rails)
@@ -377,6 +435,17 @@ class String
 
   def upcase?
     upcase == self
+  end
+
+  def unshift(*patterns)
+    string = ''
+    patterns.flatten.each { |p| string.concat(p) }
+    string.concat(self)
+    string
+  end
+
+  def unshift!(*patterns)
+    replace(unshift(*patterns))
   end
 
 end

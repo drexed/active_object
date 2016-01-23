@@ -229,6 +229,21 @@ describe String do
     end
   end
 
+  describe "#index_all" do
+    it "to be [0,7,13]" do
+      expect("012324507654301243".index_all(0)).to eq([0,7,13])
+      expect("012324507654301243".index_all("0")).to eq([0,7,13])
+    end
+
+    it "to be [0,13,31]" do
+      expect("the apple is the best fruit in the world".index_all("the")).to eq([0,13,31])
+    end
+
+    it "to be [1,5,9]" do
+      expect("asdfasdfasdf".index_all(/sd/)).to eq([1,5,9])
+    end
+  end
+
   describe "#labelize(!)" do
     it "to be Example string test" do
       expect("example_string_test".labelize).to eq("Example string test")
@@ -331,12 +346,28 @@ describe String do
     end
   end
 
+  describe "#pop" do
+    it "to be r" do
+      expect("tester".pop).to eq("r")
+    end
+  end
+
+  describe "#push" do
+    it "to be tester" do
+      expect("test".push("er")).to eq("tester")
+    end
+  end
+
   describe "#remove(!)" do
     it "to be 'this  that '" do
       expect("this thing that thing".remove("thing")).to eq("this  that ")
       expect("this thing that thing".remove!("thing")).to eq("this  that ")
+      expect("this thing that thing".remove(1..3)).to eq("t thing that thing")
+      expect("this thing that thing".remove!(1..3)).to eq("t thing that thing")
       expect("this thing that them".remove("thing", "them")).to eq("this  that ")
       expect("this thing that them".remove!("thing", "them")).to eq("this  that ")
+      expect("this thing that them".remove("thing", 1..3)).to eq("t  that them")
+      expect("this thing that them".remove!("thing", 1..3)).to eq("t  that them")
     end
   end
 
@@ -365,6 +396,11 @@ describe String do
   end
 
   describe "#shift(!)" do
+    it "to be 't'" do
+      expect("this thing that thing".shift).to eq("t")
+      expect("this thing that thing".shift!).to eq("t")
+    end
+
     it "to be 'this  that thing'" do
       expect("this thing that thing".shift("thing")).to eq("this  that thing")
       expect("this thing that thing".shift!("thing")).to eq("this  that thing")
@@ -380,6 +416,17 @@ describe String do
     it "to not be 'this thing that thing'" do
       expect("this thing that thing".shuffle).not_to eq("this thing that thing")
       expect("this thing that thing".shuffle!).not_to eq("this thing that thing")
+    end
+  end
+
+  describe "#sift(!)" do
+    it "to be '23456789'" do
+      expect("qa2ws3ed4rf5tg6yh7uj8ik9ol".sift("0123456789")).to eq("23456789")
+      expect("qa2ws3ed4rf5tg6yh7uj8ik9ol".sift!("0123456789")).to eq("23456789")
+      expect("qa2ws3ed4rf5tg6yh7uj8ik9ol".sift(0..9)).to eq("23456789")
+      expect("qa2ws3ed4rf5tg6yh7uj8ik9ol".sift!(0..9)).to eq("23456789")
+      expect("qa2ws3ed4rf5tg6yh7uj8ik9ol".sift([0,1,2,3,4,5,6,7,8,9])).to eq("23456789")
+      expect("qa2ws3ed4rf5tg6yh7uj8ik9ol".sift!([0,1,2,3,4,5,6,7,8,9])).to eq("23456789")
     end
   end
 
@@ -402,6 +449,13 @@ describe String do
     it "to be a-real-doozie" do
       expect(" A REal Doozi\"e?  \' ".slugify).to eq("a-real-doozie")
       expect(" A REal Doozi\"e?  \' ".slugify!).to eq("a-real-doozie")
+    end
+  end
+
+  describe "#sort(!)" do
+    it "to be 'abcde'" do
+      expect("adbec".sort).to eq("abcde")
+      expect("adbec".sort!).to eq("abcde")
     end
   end
 
@@ -520,6 +574,18 @@ describe String do
       expect("downcase".upcase?).to eq(false)
       expect("Mixedcase".upcase?).to eq(false)
       expect("Mixedcase string".upcase?).to eq(false)
+    end
+  end
+
+  describe "#unshift(!)" do
+    it "to be 'thing this thing that thing'" do
+      expect("this thing that thing".unshift("thing ")).to eq("thing this thing that thing")
+      expect("this thing that thing".unshift!("thing ")).to eq("thing this thing that thing")
+    end
+
+    it "to be 'this that this thing that thing'" do
+      expect("this thing that thing".unshift("this ", "that ")).to eq("this that this thing that thing")
+      expect("this thing that thing".unshift!("this ", "that ")).to eq("this that this thing that thing")
     end
   end
 
