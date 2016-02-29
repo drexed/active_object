@@ -13,7 +13,7 @@ class Object
   end
 
   def boolean?
-    [false, true, nil, 0, 1].freeze.include?(self)
+    [false, "false", true, "true", nil, 0, "0", 1, "1"].freeze.include?(self)
   end
 
   def false?
@@ -21,7 +21,7 @@ class Object
   end
 
   def falsey?
-    [false, nil, 0].freeze.include?(self)
+    [false, "false", nil, 0, "0", "1"].freeze.include?(self)
   end
 
   def float?
