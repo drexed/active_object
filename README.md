@@ -165,9 +165,9 @@ Or install it yourself as:
 `to` returns the beginning of the array up to position. `Rails Safe`
 
 ```ruby
-["1", "2", "3"].from(0) #=> ["1"]
-["1", "2", "3"].from(1) #=> ["1", "2"]
-["1", "2", "3"].from(-1) #=> ["3"]
+["1", "2", "3"].to(0) #=> ["1"]
+["1", "2", "3"].to(1) #=> ["1", "2"]
+["1", "2", "3"].to(-1) #=> ["3"]
 ```
 
 ####To Sentence:####
