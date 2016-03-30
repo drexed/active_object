@@ -65,6 +65,13 @@ describe Hash do
     end
   end
 
+  describe "#hmap!" do
+    it "to be { a: 4, b: 5, c: 6 }" do
+      expect({ a: 1, b: 2, c: 3 }.hmap { |k, v| { k => v + 3 } }).to eq({ a: 4, b: 5, c: 6 })
+      expect({ a: 1, b: 2, c: 3 }.hmap! { |k, v| { k => v + 3 } }).to eq({ a: 4, b: 5, c: 6 })
+    end
+  end
+
   describe "#nillify" do
     it "to be {a: 1, b: 'test', c: nil, d: nil, e: nil, f: nil}" do
       expect({ a: 1, b: "test", c: nil, d: false, e: "", f: " " }.nillify).to eq({a: 1, b: 'test', c: nil, d: nil, e: nil, f: nil})

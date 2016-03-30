@@ -55,6 +55,14 @@ class Hash
     self
   end
 
+  def hmap(&block)
+    dup.hmap!(&block)
+  end
+
+  def hmap!(&block)
+    inject({}) { |hash, (k, v)| hash.merge(block.call(k, v)) }
+  end
+
   def nillify
     dup.nillify!
   end

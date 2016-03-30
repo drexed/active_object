@@ -452,6 +452,13 @@ h1.deep_merge(h2) #=> { a: false, b: { c: [1, 2, 3], x: [3, 4, 5] } }
 { :foo => 'foo', :baz => 'baz', :bar => 'bar' }.except(:baz, :bar) #=> { :foo => 'foo' }
 ```
 
+####Hmap:####
+`hmap` and `hmap!` returns a hash that is transformed in place.
+
+```ruby
+{ a: 1, b: 2, c: 3 }.hmap { |k, v| { k => v + 3 } } #=> { a: 4, b: 5, c: 6 }
+```
+
 ####Nillify:####
 `nillify` and `nillify!` transforms all blank values to nil.
 
