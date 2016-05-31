@@ -53,7 +53,7 @@ describe Hash do
       expect({ foo: 1, baz: 2, bar: 3 }.except(:baz, :bar)).to eq({ foo: 1 })
       expect({ foo: 1, baz: 2, bar: 3 }.except!(:baz, :bar)).to eq({ foo: 1 })
       expect({ :foo => 1, :baz => 2, :bar => 3 }.except(:baz, :bar)).to eq({ :foo => 1 })
-      expect({ :foo => 1, :baz => 2, :bar => 3 }.except([:baz, :bar])).to eq({ :foo => 1 })
+      expect({ :foo => 1, :baz => 2, :bar => 3 }.except([:baz, :bar])).to eq({ :foo => 1 }) unless defined?(ActiveSupport)
       expect({ :foo => 1, :baz => 2, :bar => 3 }.except!(:baz, :bar)).to eq({ :foo => 1 })
     end
 

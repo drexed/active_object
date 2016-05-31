@@ -2,37 +2,35 @@ class Numeric
 
   MILLI = 0.001
   CENTI = MILLI * 10
-  DECI  = CENTI * 10
-  DECA  = 10
+  DECI = CENTI * 10
+  DECA = 10
   HECTO = DECA * 10
-  KILO  = HECTO * 10
+  KILO = HECTO * 10
 
-  unless defined?(Rails)
-    KILOBYTE = 1024
-    MEGABYTE = KILOBYTE * 1024
-    GIGABYTE = MEGABYTE * 1024
-    TERABYTE = GIGABYTE * 1024
-    PETABYTE = TERABYTE * 1024
-    EXABYTE  = PETABYTE * 1024
-  end
+  KILOBYTE = 1024
+  MEGABYTE = KILOBYTE * 1024
+  GIGABYTE = MEGABYTE * 1024
+  TERABYTE = GIGABYTE * 1024
+  PETABYTE = TERABYTE * 1024
+  EXABYTE = PETABYTE * 1024
 
-  FEET          = 12
-  YARD          = FEET * 3
-  MILE          = YARD * 1760
+  FEET = 12
+  YARD = FEET * 3
+  MILE = YARD * 1760
   NAUTICAL_MILE = MILE * 1.15078
 
   METRIC_TON = KILO * 1000
-  POUND      = 16
-  STONE      = POUND * 14
-  TON        = POUND * 2000
+  POUND = 16
+  STONE = POUND * 14
+  TON = POUND * 2000
 
-  MINUTE     = 60
-  HOUR       = MINUTE * 60
-  DAY        = HOUR * 24
-  WEEK       = DAY * 7
-  YEAR       = DAY * 365.25
-  DECADE     = YEAR * 10
-  CENTURY    = DECADE * 10
+  MINUTE = 60
+  HOUR = MINUTE * 60
+  DAY = HOUR * 24
+  WEEK = DAY * 7
+  YEAR = DAY * 365.25
+  DECADE = YEAR * 10
+  CENTURY = DECADE * 10
   MILLENNIUM = CENTURY * 10
 
   def add(n)
@@ -99,6 +97,10 @@ class Numeric
 
   alias_method :decimeter_in_meters, :decimeters_in_meters
 
+  def decrement(amount=1.0)
+    self + amount
+  end
+
   def distance(n)
     (self - n).abs
   end
@@ -162,6 +164,10 @@ class Numeric
   end
 
   alias_method :inch_in_inches, :inches_in_inches
+
+  def increment(amount=1.0)
+    self + amount
+  end
 
   def inside?(start, finish)
     (start < self) && (self < finish)
@@ -296,21 +302,21 @@ class Numeric
 
   def pad(options={})
     pad_number = options.fetch(:pad_number, 0)
-    precision  = options.fetch(:precision, 3)
+    precision = options.fetch(:precision, 3)
 
     to_s.rjust(precision, pad_number.to_s)
   end
 
   def pad_precision(options={})
     pad_number = options.fetch(:pad_number, 0)
-    precision  = options.fetch(:precision, 2)
-    separator  = options.fetch(:separator, '.'.freeze)
-    string     = to_s
+    precision = options.fetch(:precision, 2)
+    separator = options.fetch(:separator, '.'.freeze)
+    string = to_s
 
-    string      << separator unless string.include?(separator)
+    string << separator unless string.include?(separator)
     ljust_count =  string.split(separator).first.length
     ljust_count += (string.count(separator) + precision) if precision > 0
-    num_count   =  string.length
+    num_count =  string.length
     ljust_count >= num_count ? string.ljust(ljust_count, pad_number.to_s) : string[0..(ljust_count - 1)]
   end
 
@@ -362,13 +368,8 @@ class Numeric
 
   def to_byte(from, to)
     valid_keys = [
-      :byte,     :bytes,
-      :kilobyte, :kilobytes,
-      :megabyte, :megabytes,
-      :gigabyte, :gigabytes,
-      :terabyte, :terabytes,
-      :petabyte, :petabytes,
-      :exabyte,  :exabytes
+      :byte, :bytes, :kilobyte, :kilobytes, :megabyte, :megabytes, :gigabyte,
+      :gigabytes, :terabyte, :terabytes, :petabyte, :petabytes, :exabyte, :exabytes
     ].freeze
 
     unless valid_keys.include?(from) && valid_keys.include?(to)
@@ -387,18 +388,10 @@ class Numeric
 
   def to_length(from, to)
     valid_keys = [
-      :meter,         :meters,
-      :millimeter,    :millimeters,
-      :centimeter,    :centimeters,
-      :decimeter,     :decimeters,
-      :decameter,     :decameters,
-      :hectometer,    :hectometers,
-      :kilometer,     :kilometers,
-      :inch,          :inches,
-      :foot,          :feet,
-      :yard,          :yards,
-      :mile,          :miles,
-      :nautical_mile, :nautical_miles
+      :meter, :meters, :millimeter, :millimeters, :centimeter, :centimeters,
+      :decimeter, :decimeters, :decameter, :decameters, :hectometer, :hectometers,
+      :kilometer, :kilometers, :inch, :inches, :foot, :feet, :yard, :yards,
+      :mile, :miles, :nautical_mile, :nautical_miles
     ].freeze
 
     unless valid_keys.include?(from) && valid_keys.include?(to)
@@ -426,18 +419,10 @@ class Numeric
 
   def to_mass(from, to)
     valid_keys = [
-      :gram,       :grams,
-      :milligram,  :milligrams,
-      :centigram,  :centigrams,
-      :decigram,   :decigrams,
-      :decagram,   :decagrams,
-      :hectogram,  :hectograms,
-      :kilogram,   :kilograms,
-      :metric_ton, :metric_tons,
-      :ounce,      :ounces,
-      :pound,      :pounds,
-      :stone,      :stones,
-      :ton,        :tons
+      :gram, :grams, :milligram, :milligrams, :centigram, :centigrams,
+      :decigram, :decigrams, :decagram, :decagrams, :hectogram, :hectograms,
+      :kilogram, :kilograms, :metric_ton, :metric_tons, :ounce, :ounces,
+      :pound, :pounds, :stone, :stones, :ton, :tons
     ].freeze
 
     unless valid_keys.include?(from) && valid_keys.include?(to)
@@ -466,13 +451,13 @@ class Numeric
   def to_nearest_value(values=[])
     return(self) if values.length.zero?
 
-    value      = values.first
+    value = values.first
     difference = (self - value).abs
 
     values.each do |v|
       if (self - v).abs < difference
         difference = (self - v).abs
-        value      = v
+        value = v
       end
     end
 
@@ -509,14 +494,8 @@ class Numeric
 
   def to_time(from, to)
     valid_keys = [
-      :second,     :seconds,
-      :minute,     :minutes,
-      :hour,       :hours,
-      :day,        :days,
-      :week,       :weeks,
-      :year,       :years,
-      :decade,     :decades,
-      :century,    :centuries,
+      :second, :seconds, :minute, :minutes, :hour, :hours, :day, :days,
+      :week, :weeks, :year, :years, :decade, :decades, :century, :centuries,
       :millennium, :millenniums
     ].freeze
 

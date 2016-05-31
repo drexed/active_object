@@ -201,19 +201,25 @@ describe String do
       expect("example_string_test".humanize!).to eq("Example string test")
       expect("_example_string_test_id".humanize).to eq("Example string test")
       expect("_example_string_test_id".humanize!).to eq("Example string test")
-      expect("exampleStringTest".humanize).to eq("Example string test")
-      expect("exampleStringTest".humanize!).to eq("Example string test")
-      expect("ExampleStringTest".humanize).to eq("Example string test")
-      expect("ExampleStringTest".humanize!).to eq("Example string test")
+
+      unless defined?(ActiveSupport)
+        expect("exampleStringTest".humanize).to eq("Example string test")
+        expect("exampleStringTest".humanize!).to eq("Example string test")
+        expect("ExampleStringTest".humanize).to eq("Example string test")
+        expect("ExampleStringTest".humanize!).to eq("Example string test")
+      end
     end
 
     it "to be example string test" do
       expect("example_string_test".humanize(capitalize: false)).to eq("example string test")
       expect("example_string_test".humanize!(capitalize: false)).to eq("example string test")
-      expect("exampleStringTest".humanize(capitalize: false)).to eq("example string test")
-      expect("exampleStringTest".humanize!(capitalize: false)).to eq("example string test")
-      expect("ExampleStringTest".humanize(capitalize: false)).to eq("example string test")
-      expect("ExampleStringTest".humanize!(capitalize: false)).to eq("example string test")
+
+      unless defined?(ActiveSupport)
+        expect("exampleStringTest".humanize(capitalize: false)).to eq("example string test")
+        expect("exampleStringTest".humanize!(capitalize: false)).to eq("example string test")
+        expect("ExampleStringTest".humanize(capitalize: false)).to eq("example string test")
+        expect("ExampleStringTest".humanize!(capitalize: false)).to eq("example string test")
+      end
     end
   end
 
@@ -324,13 +330,13 @@ describe String do
 
   describe "#parameterize(!)" do
     it "to be example-string" do
-      expect("example_string".parameterize).to eq("example-string")
-      expect("example_string".parameterize!).to eq("example-string")
+      expect("example string".parameterize).to eq("example-string")
+      expect("example string".parameterize!).to eq("example-string")
     end
 
     it "to be example_string" do
-      expect("example_string".parameterize("?")).to eq("example?string")
-      expect("example_string".parameterize!("?")).to eq("example?string")
+      expect("example string".parameterize("?")).to eq("example?string")
+      expect("example string".parameterize!("?")).to eq("example?string")
     end
   end
 
@@ -362,12 +368,15 @@ describe String do
     it "to be 'this  that '" do
       expect("this thing that thing".remove("thing")).to eq("this  that ")
       expect("this thing that thing".remove!("thing")).to eq("this  that ")
-      expect("this thing that thing".remove(1..3)).to eq("t thing that thing")
-      expect("this thing that thing".remove!(1..3)).to eq("t thing that thing")
       expect("this thing that them".remove("thing", "them")).to eq("this  that ")
       expect("this thing that them".remove!("thing", "them")).to eq("this  that ")
-      expect("this thing that them".remove("thing", 1..3)).to eq("t  that them")
-      expect("this thing that them".remove!("thing", 1..3)).to eq("t  that them")
+
+      unless defined?(ActiveSupport)
+        expect("this thing that thing".remove(1..3)).to eq("t thing that thing")
+        expect("this thing that thing".remove!(1..3)).to eq("t thing that thing")
+        expect("this thing that them".remove("thing", 1..3)).to eq("t  that them")
+        expect("this thing that them".remove!("thing", 1..3)).to eq("t  that them")
+      end
     end
   end
 

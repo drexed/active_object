@@ -78,6 +78,16 @@ describe Numeric do
     end
   end
 
+  describe "#decrement" do
+    it "to be 2" do
+      expect(1.decrement).to eq(2)
+    end
+
+    it "to be 1.5" do
+      expect(1.decrement(0.5)).to eq(1.5)
+    end
+  end
+
   describe "#distance" do
     it "to be 2" do
       expect(5.distance(3)).to eq(2)

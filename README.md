@@ -2,7 +2,7 @@
 
 [![Gem Version](https://badge.fury.io/rb/active_object.svg)](http://badge.fury.io/rb/active_object)
 [![Build Status](https://travis-ci.org/drexed/active_object.svg?branch=master)](https://travis-ci.org/drexed/active_object)
-[![Coverage Status](https://coveralls.io/repos/drexed/active_object/badge.png)](https://coveralls.io/r/drexed/active_object)
+[![Coverage Status](https://coveralls.io/repos/github/drexed/active_object/badge.svg?branch=master)](https://coveralls.io/github/drexed/active_object?branch=master)
 
 ActiveObject is a collection of commonly used object helpers in a ruby based project.
 
@@ -1887,7 +1887,7 @@ Time.now.stamp(:datetime) #=> "January 09, 2014 02:31 pm"
 
 ## Contributing
 
-1. Fork it ( http://github.com/<my-github-username>/active_object/fork )
+1. Fork it ( http://github.com/drexed/active_object/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)

@@ -215,19 +215,14 @@ class String
     end
   end
 
-  unless defined?(Rails)
-    def parameterize(seperator='-'.freeze)
-      underscore.
-      gsub(/\s+/, '_'.freeze).
-      gsub('_'.freeze, seperator).
-      downcase
-    end
+  def parameterize(seperator='-'.freeze)
+    underscore.
+    gsub(/\s+/, seperator).
+    downcase
   end
 
-  unless defined?(Rails)
-    def parameterize!(seperator='-'.freeze)
-      replace(parameterize(seperator))
-    end
+  def parameterize!(seperator='-'.freeze)
+    replace(parameterize(seperator))
   end
 
   def pollute(delimiter='^--^--^'.freeze)
@@ -246,26 +241,22 @@ class String
     replace(concat(string))
   end
 
-  unless defined?(Rails)
-    def remove(*patterns)
-      string = dup
+  def remove(*patterns)
+    string = dup
 
-      patterns.flatten.each do |p|
-        if p.is_a?(Range)
-          string.slice!(p)
-        else
-          string.gsub!(p, ''.freeze)
-        end
+    patterns.flatten.each do |p|
+      if p.is_a?(Range)
+        string.slice!(p)
+      else
+        string.gsub!(p, ''.freeze)
       end
-
-      string
     end
+
+    string
   end
 
-  unless defined?(Rails)
-    def remove!(*patterns)
-      replace(remove(*patterns))
-    end
+  def remove!(*patterns)
+    replace(remove(*patterns))
   end
 
   def remove_tags

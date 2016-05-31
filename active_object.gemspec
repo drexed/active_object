@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{Gem for commonly used ruby object helpers.}
   spec.description   = %q{Class extensions of commonly used ruby object helpers.}
-  spec.homepage      = "https://github.com/drexed/active_object"
+  spec.homepage      = "http://drexed.github.io/active_object"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
@@ -23,4 +23,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "coveralls"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec", "~> 3.4.0"
+  spec.add_development_dependency "generator_spec"
 end
