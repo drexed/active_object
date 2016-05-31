@@ -1,20 +1,9 @@
-class Integer
+module ActiveObject::Integer
 
   ROMAN_VALUES = {
-    'M'  => 1000,
-    'CM' => 900,
-    'D'  => 500,
-    'CD' => 400,
-    'C'  => 100,
-    'XC' => 90,
-    'L'  => 50,
-    'XL' => 40,
-    'X'  => 10,
-    'IX' => 9,
-    'V'  => 5,
-    'IV' => 4,
-    'I'  => 1
-  }.freeze
+    M: 1000, CM: 900, D: 500, CD: 400, C: 100, XC: 90, L: 50, XL: 40, X: 10,
+    IX: 9, V: 5, IV: 4, I: 1
+  }
 
   def factorial
     return(1) if zero?
@@ -26,7 +15,7 @@ class Integer
   end
 
   def roman
-    return(''.freeze) if zero?
+    return("") if zero?
     return("-#{(-self).roman}") if self < 0
 
     ROMAN_VALUES.each { |k, v| return("#{k}#{(self - v).roman}") if v <= self }
@@ -37,3 +26,5 @@ class Integer
   end
 
 end
+
+Integer.send(:include, ActiveObject::Integer) if ActiveObject.configuration.integer

@@ -2,7 +2,6 @@ module Enumerable
 
   def cluster(&block)
     result = []
-
     each do |element|
       if result.last && (yield(result.last.last) == yield(element))
         result.last << element
@@ -10,7 +9,6 @@ module Enumerable
         result << [element]
       end
     end
-
     result
   end
 
@@ -41,7 +39,7 @@ module Enumerable
   def drop_last_if
     return(to_enum(:drop_last_if)) unless block_given?
 
-    result   = []
+    result = []
     dropping = true
     reverse_each do |value|
       result.unshift(value) unless dropping &&= yield(value)
@@ -55,10 +53,8 @@ module Enumerable
     (found_count > n) ? false : n == found_count
   end
 
-  unless defined?(Rails)
-    def exclude?(object)
-      !include?(object)
-    end
+  def exclude?(object)
+    !include?(object)
   end
 
   def expand
@@ -81,17 +77,15 @@ module Enumerable
     any? { |x| object === x }
   end
 
-  unless defined?(Rails)
-    def many?
-      found_count = 0
-      if block_given?
-        any? do |v|
-          found_count += 1 if yield v
-          found_count > 1
-        end
-      else
-        any? { (found_count += 1) > 1 }
+  def many?
+    found_count = 0
+    if block_given?
+      any? do |v|
+        found_count += 1 if yield v
+        found_count > 1
       end
+    else
+      any? { (found_count += 1) > 1 }
     end
   end
 
@@ -127,7 +121,7 @@ module Enumerable
     return(identity) unless length > 0
 
     frequency_distribution = inject(Hash.new(0)) { |h, v| h[v] += 1; h }
-    frequency_top_two      = frequency_distribution.sort { |k, v| v[1] <=> k[1] }.take(2)
+    frequency_top_two = frequency_distribution.sort { |k, v| v[1] <=> k[1] }.take(2)
 
     if frequency_top_two.length == 1
       frequency_top_two.first.first
@@ -165,13 +159,11 @@ module Enumerable
     Math.sqrt(variance)
   end
 
-  unless defined?(Rails)
-    def sum(identity=0, &block)
-      if block_given?
-        map(&block).sum(identity)
-      else
-        inject { |s, v| s + v } || identity
-      end
+  def sum(identity=0, &block)
+    if block_given?
+      map(&block).sum(identity)
+    else
+      inject { |s, v| s + v } || identity
     end
   end
 

@@ -1,19 +1,17 @@
-class Object
+module ActiveObject::Object
 
   def array?
     is_a?(Array)
   end
 
-  unless defined?(Rails)
-    def blank?
-      object = self
-      object = object.strip if respond_to?(:strip)
-      respond_to?(:empty?) ? object.empty? : !object
-    end
+  def blank?
+    object = self
+    object = object.strip if respond_to?(:strip)
+    respond_to?(:empty?) ? object.empty? : !object
   end
 
   def boolean?
-    [false, "false", true, "true", nil, 0, "0", 1, "1"].freeze.include?(self)
+    [false, "false", true, "true", nil, 0, "0", 1, "1"].include?(self)
   end
 
   def false?
@@ -21,7 +19,7 @@ class Object
   end
 
   def falsey?
-    [false, "false", nil, 0, "0", "1"].freeze.include?(self)
+    [false, "false", nil, 0, "0", "1"].include?(self)
   end
 
   def float?
@@ -48,10 +46,8 @@ class Object
     to_s == to_s.reverse
   end
 
-  unless defined?(Rails)
-    def present?
-      !blank?
-    end
+  def present?
+    !blank?
   end
 
   def range?
@@ -78,20 +74,18 @@ class Object
     !falsey?
   end
 
-  unless defined?(Rails)
-    def try(*a, &b)
-      try!(*a, &b) if a.empty? || respond_to?(a.first)
-    end
+  def try(*a, &b)
+    try!(*a, &b) if a.empty? || respond_to?(a.first)
   end
 
-  unless defined?(Rails)
-    def try!(*a, &b)
-      if a.empty? && block_given?
-        b.arity.zero? ? instance_eval(&b) : yield(self)
-      else
-        public_send(*a, &b)
-      end
+  def try!(*a, &b)
+    if a.empty? && block_given?
+      b.arity.zero? ? instance_eval(&b) : yield(self)
+    else
+      public_send(*a, &b)
     end
   end
 
 end
+
+Object.send(:include, ActiveObject::Object) if ActiveObject.configuration.object

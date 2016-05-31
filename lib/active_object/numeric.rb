@@ -1,4 +1,4 @@
-class Numeric
+module ActiveObject::Numeric
 
   MILLI = 0.001
   CENTI = MILLI * 10
@@ -32,6 +32,36 @@ class Numeric
   DECADE = YEAR * 10
   CENTURY = DECADE * 10
   MILLENNIUM = CENTURY * 10
+
+  BYTE_KEYS = [
+    :byte, :bytes, :kilobyte, :kilobytes, :megabyte, :megabytes, :gigabyte,
+    :gigabytes, :terabyte, :terabytes, :petabyte, :petabytes, :exabyte, :exabytes
+  ]
+  LENGTH_KEYS = {
+    metric: [
+      :meter, :meters, :millimeter, :millimeters, :centimeter, :centimeters,
+      :decimeter, :decimeters, :decameter, :decameters, :hectometer, :hectometers,
+      :kilometer, :kilometers
+    ],
+    imperical: [
+      :inch, :inches, :foot, :feet, :yard, :yards, :mile, :miles,
+      :nautical_mile, :nautical_miles
+    ]
+  }
+  MASS_KEYS = {
+    metric: [
+      :gram, :grams, :milligram, :milligrams, :centigram, :centigrams,
+      :decigram, :decigrams, :decagram, :decagrams, :hectogram, :hectograms,
+      :kilogram, :kilograms, :metric_ton, :metric_tons
+    ],
+    imperical: [:ounce, :ounces, :pound, :pounds, :stone, :stones, :ton, :tons]
+  }
+  TEMPERATURE_KEYS = [:celsius, :fahrenheit, :kelvin]
+  TIME_KEYS = [
+    :second, :seconds, :minute, :minutes, :hour, :hours, :day, :days,
+    :week, :weeks, :year, :years, :decade, :decades, :century, :centuries,
+    :millennium, :millenniums
+  ]
 
   def add(n)
     self + n
@@ -251,10 +281,8 @@ class Numeric
     self * n
   end
 
-  unless defined?(Rails)
-    def multiple_of?(number)
-      number != 0 ? modulo(number).zero? : zero?
-    end
+  def multiple_of?(number)
+    number != 0 ? modulo(number).zero? : zero?
   end
 
   def nautical_miles_in_inches
@@ -267,27 +295,23 @@ class Numeric
     self < 0
   end
 
-  unless defined?(Rails)
-    def ordinal
-      abs_number = abs
+  def ordinal
+    abs_number = abs
 
-      if (11..13).cover?(abs_number % 100)
-        'th'.freeze
-      else
-        case abs_number % 10
-          when 1; 'st'.freeze
-          when 2; 'nd'.freeze
-          when 3; 'rd'.freeze
-          else    'th'.freeze
-        end
+    if (11..13).cover?(abs_number % 100)
+      "th"
+    else
+      case abs_number % 10
+      when 1; "st"
+      when 2; "nd"
+      when 3; "rd"
+      else "th"
       end
     end
   end
 
-  unless defined?(Rails)
-    def ordinalize
-      "#{self}#{self.ordinal}"
-    end
+  def ordinalize
+    "#{self}#{self.ordinal}"
   end
 
   def ounces_in_ounces
@@ -310,7 +334,7 @@ class Numeric
   def pad_precision(options={})
     pad_number = options.fetch(:pad_number, 0)
     precision = options.fetch(:precision, 2)
-    separator = options.fetch(:separator, '.'.freeze)
+    separator = options.fetch(:separator, ".")
     string = to_s
 
     string << separator unless string.include?(separator)
@@ -367,49 +391,40 @@ class Numeric
   alias_method :terabyte_in_bytes, :terabytes_in_bytes
 
   def to_byte(from, to)
-    valid_keys = [
-      :byte, :bytes, :kilobyte, :kilobytes, :megabyte, :megabytes, :gigabyte,
-      :gigabytes, :terabyte, :terabytes, :petabyte, :petabytes, :exabyte, :exabytes
-    ].freeze
-
-    unless valid_keys.include?(from) && valid_keys.include?(to)
+    unless BYTE_KEYS.include?(from) && BYTE_KEYS.include?(to)
       raise ArgumentError,
-        "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', '.freeze)}"
+        "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}. Valid keys are: #{BYTE_KEYS.map(&:inspect).join(', ')}"
     end
 
     to_f * 1.send("#{from}_in_bytes").to_f / 1.send("#{to}_in_bytes").to_f
   end
 
   def to_currency(options={})
-    unit = options.fetch(:unit, '$'.freeze)
+    unit = options.fetch(:unit, "$")
 
     "#{unit}#{pad_precision(options.only(:precision))}"
   end
 
   def to_length(from, to)
-    valid_keys = [
-      :meter, :meters, :millimeter, :millimeters, :centimeter, :centimeters,
-      :decimeter, :decimeters, :decameter, :decameters, :hectometer, :hectometers,
-      :kilometer, :kilometers, :inch, :inches, :foot, :feet, :yard, :yards,
-      :mile, :miles, :nautical_mile, :nautical_miles
-    ].freeze
+    metric_keys = LENGTH_KEYS.fetch(:metric)
+    valid_keys = LENGTH_KEYS.collect { |k, v| v }.flatten
 
     unless valid_keys.include?(from) && valid_keys.include?(to)
       raise ArgumentError,
-        "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', '.freeze)}"
+        "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', ')}"
     end
 
     case to
     when from
       self
     when :meter, :meters, :millimeter, :millimeters, :centimeter, :centimeters, :decimeter, :decimeters, :decameter, :decameters, :hectometer, :hectometers, :kilometer, :kilometers
-      if valid_keys.first(14).include?(from)
+      if metric_keys.include?(from)
         to_f * 1.send("#{from}_in_meters").to_f / 1.send("#{to}_in_meters").to_f
       else
         to_f * ((1.send("#{from}_in_inches").to_f * 0.0254) / 1.send("#{to}_in_meters").to_f)
       end
     when :inch, :inches, :foot, :feet, :yard, :yards, :mile, :miles, :nautical_mile, :nautical_miles
-      if valid_keys.first(14).include?(from)
+      if metric_keys.include?(from)
         to_f * ((1.send("#{from}_in_meters").to_f * 39.3701) / 1.send("#{to}_in_inches").to_f)
       else
         to_f * 1.send("#{from}_in_inches").to_f / 1.send("#{to}_in_inches").to_f
@@ -418,29 +433,25 @@ class Numeric
   end
 
   def to_mass(from, to)
-    valid_keys = [
-      :gram, :grams, :milligram, :milligrams, :centigram, :centigrams,
-      :decigram, :decigrams, :decagram, :decagrams, :hectogram, :hectograms,
-      :kilogram, :kilograms, :metric_ton, :metric_tons, :ounce, :ounces,
-      :pound, :pounds, :stone, :stones, :ton, :tons
-    ].freeze
+    metric_keys = MASS_KEYS.fetch(:metric)
+    valid_keys = MASS_KEYS.collect { |k, v| v }.flatten
 
     unless valid_keys.include?(from) && valid_keys.include?(to)
       raise ArgumentError,
-        "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', '.freeze)}"
+        "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', ')}"
     end
 
     case to
     when from
       self
     when :gram, :grams, :milligram, :milligrams, :centigram, :centigrams, :decigram, :decigrams, :decagram, :decagrams, :hectogram, :hectograms, :kilogram, :kilograms, :metric_ton, :metric_tons
-      if valid_keys.first(16).include?(from)
+      if metric_keys.include?(from)
         to_f * 1.send("#{from}_in_grams").to_f / 1.send("#{to}_in_grams").to_f
       else
         to_f * ((1.send("#{from}_in_ounces") * 28.3495).to_f / 1.send("#{to}_in_grams").to_f)
       end
     when :ounce, :ounces, :pound, :pounds, :stone, :stones, :ton, :tons
-      if valid_keys.first(16).include?(from)
+      if metric_keys.include?(from)
         to_f * ((1.send("#{from}_in_grams") * 0.035274).to_f / 1.send("#{to}_in_ounces").to_f)
       else
         to_f * 1.send("#{from}_in_ounces").to_f / 1.send("#{to}_in_ounces").to_f
@@ -465,46 +476,36 @@ class Numeric
   end
 
   def to_percentage(options={})
-    unit = options.fetch(:unit, '%'.freeze)
+    unit = options.fetch(:unit, "%")
 
     "#{pad_precision(options.only(:precision))}#{unit}"
   end
 
   def to_temperature(from, to)
-    valid_keys = [:celsius, :fahrenheit, :kelvin].freeze
-
-    unless valid_keys.include?(from) && valid_keys.include?(to)
+    unless TEMPERATURE_KEYS.include?(from) && TEMPERATURE_KEYS.include?(to)
       raise ArgumentError,
-        "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', '.freeze)}"
+        "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}. Valid keys are: #{TEMPERATURE_KEYS.map(&:inspect).join(', ')}"
     end
-
-    number = to_f
 
     case to
     when from
       self
     when :celsius
-      from == :kelvin ? (number - 273.15) : ((number - 32.0) * 5.0 / 9.0)
+      from == :kelvin ? (self - 273.15) : ((self - 32.0) * 5.0 / 9.0)
     when :fahrenheit
-      from == :kelvin ? (1.8 * (number - 273.15) + 32.0) : ((number * 9.0 / 5.0) + 32.0)
+      from == :kelvin ? (1.8 * (self - 273.15) + 32.0) : ((self * 9.0 / 5.0) + 32.0)
     when :kelvin
-      from == :celsius ? (number + 273.15) : (((number - 32.0) * 5.0 / 9.0) + 273.15)
+      from == :celsius ? (self + 273.15) : (((self - 32.0) * 5.0 / 9.0) + 273.15)
     end
   end
 
   def to_time(from, to)
-    valid_keys = [
-      :second, :seconds, :minute, :minutes, :hour, :hours, :day, :days,
-      :week, :weeks, :year, :years, :decade, :decades, :century, :centuries,
-      :millennium, :millenniums
-    ].freeze
-
-    unless valid_keys.include?(from) && valid_keys.include?(to)
+    unless TIME_KEYS.include?(from) && TIME_KEYS.include?(to)
       raise ArgumentError,
-        "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', '.freeze)}"
+        "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}. Valid keys are: #{TIME_KEYS.map(&:inspect).join(', ')}"
     end
 
-    to_f * 1.send("#{from}_in_seconds").to_f / 1.send("#{to}_in_seconds").to_f
+    (to_f * 1.send("#{from}_in_seconds").to_f) / 1.send("#{to}_in_seconds").to_f
   end
 
   def tons_in_ounces
@@ -540,3 +541,5 @@ class Numeric
   alias_method :year_in_seconds, :years_in_seconds
 
 end
+
+Numeric.send(:include, ActiveObject::Numeric) if ActiveObject.configuration.numeric

@@ -1,24 +1,20 @@
-class Range
+module ActiveObject::Range
 
   def combine(other)
     to_a.concat(other.to_a)
   end
 
-  unless defined?(Rails)
-    def include_with_range?(other)
-      if other.is_a?(::Range)
-        operator = exclude_end? && !other.exclude_end? ? :< : :<=
-        include?(other.first) && other.last.send(operator, last)
-      else
-        include?(other)
-      end
+  def include_with_range?(other)
+    if other.is_a?(::Range)
+      operator = exclude_end? && !other.exclude_end? ? :< : :<=
+      include?(other.first) && other.last.send(operator, last)
+    else
+      include?(other)
     end
   end
 
-  unless defined?(Rails)
-    def overlaps?(other)
-      cover?(other.first) || other.cover?(first)
-    end
+  def overlaps?(other)
+    cover?(other.first) || other.cover?(first)
   end
 
   def sample
@@ -34,3 +30,5 @@ class Range
   end
 
 end
+
+Range.send(:include, ActiveObject::Range) if ActiveObject.configuration.range

@@ -1,49 +1,40 @@
-class Hash
+module ActiveObject::Hash
 
-  unless defined?(Rails)
-    def assert_valid_keys(*valid_keys)
-      valid_keys.flatten!
-      each_key do |k|
-        unless valid_keys.include?(k)
-          raise ArgumentError,
-            "Unknown key: #{k.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', '.freeze)}"
-        end
+  def assert_valid_keys(*valid_keys)
+    valid_keys.flatten!
+
+    each_key do |k|
+      unless valid_keys.include?(k)
+        raise ArgumentError,
+          "Unknown key: #{k.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', ')}"
       end
     end
   end
 
-  unless defined?(Rails)
-    def compact
-      select { |k, v| !v.nil? }
-    end
+  def compact
+    select { |k, v| !v.nil? }
   end
 
-  unless defined?(Rails)
-    def compact!
-      reject! { |k, v| v.nil? }
-    end
+  def compact!
+    reject! { |k, v| v.nil? }
   end
 
-  unless defined?(Rails)
-    def deep_merge(other_hash, &block)
-      dup.deep_merge!(other_hash, &block)
-    end
+  def deep_merge(other_hash, &block)
+    dup.deep_merge!(other_hash, &block)
   end
 
-  unless defined?(Rails)
-    def deep_merge!(other_hash, &block)
-      other_hash.each_pair do |current_key, other_value|
-        this_value = self[current_key]
+  def deep_merge!(other_hash, &block)
+    other_hash.each_pair do |current_key, other_value|
+      this_value = self[current_key]
 
-        self[current_key] = if this_value.is_a?(Hash) && other_value.is_a?(Hash)
-          this_value.deep_merge(other_value, &block)
-        else
-          block_given? && key?(current_key) ? block.call(current_key, this_value, other_value) : other_value
-        end
+      self[current_key] = if this_value.is_a?(Hash) && other_value.is_a?(Hash)
+        this_value.deep_merge(other_value, &block)
+      else
+        block_given? && key?(current_key) ? block.call(current_key, this_value, other_value) : other_value
       end
-
-      self
     end
+
+    self
   end
 
   def except(*keys)
@@ -91,16 +82,12 @@ class Hash
     self
   end
 
-  unless defined?(Rails)
-    def reverse_merge(other_hash)
-      other_hash.merge(self)
-    end
+  def reverse_merge(other_hash)
+    other_hash.merge(self)
   end
 
-  unless defined?(Rails)
-    def reverse_merge!(other_hash)
-      replace(reverse_merge(other_hash))
-    end
+  def reverse_merge!(other_hash)
+    replace(reverse_merge(other_hash))
   end
 
   def sample
@@ -143,37 +130,29 @@ class Hash
     replace(shuffle)
   end
 
-  unless defined?(Rails)
-    def slice(*keys)
-      keys.flatten.each_with_object(self.class.new) { |k, h| h[k] = self[k] if has_key?(k) }
-    end
+  def slice(*keys)
+    keys.flatten.each_with_object(self.class.new) { |k, h| h[k] = self[k] if has_key?(k) }
   end
 
-  unless defined?(Rails)
-    def slice!(*keys)
-      omit = slice(*self.keys - keys)
-      hash = slice(*keys)
+  def slice!(*keys)
+    omit = slice(*self.keys - keys)
+    hash = slice(*keys)
 
-      hash.default      = default
-      hash.default_proc = default_proc if default_proc
+    hash.default = default
+    hash.default_proc = default_proc if default_proc
 
-      replace(hash)
-      omit
-    end
+    replace(hash)
+    omit
   end
 
-  unless defined?(Rails)
-    def stringify_keys
-      dup.stringify_keys!
-    end
+  def stringify_keys
+    dup.stringify_keys!
   end
 
-  unless defined?(Rails)
-    def stringify_keys!
-      inject({}) do |options, (key, value)|
-        options[key.to_s] = value
-        options
-      end
+  def stringify_keys!
+    inject({}) do |options, (key, value)|
+      options[key.to_s] = value
+      options
     end
   end
 
@@ -185,18 +164,14 @@ class Hash
     reject! { |k, v| v.blank? }
   end
 
-  unless defined?(Rails)
-    def symbolize_keys
-      dup.symbolize_keys!
-    end
+  def symbolize_keys
+    dup.symbolize_keys!
   end
 
-  unless defined?(Rails)
-    def symbolize_keys!
-      inject({}) do |options, (key, value)|
-        options[(key.to_sym rescue key) || key] = value
-        options
-      end
+  def symbolize_keys!
+    inject({}) do |options, (key, value)|
+      options[(key.to_sym rescue key) || key] = value
+      options
     end
   end
 
@@ -206,38 +181,32 @@ class Hash
 
   def symbolize_and_underscore_keys!
     inject({}) do |options, (key, value)|
-      options[(key.to_s.gsub(' '.freeze, '_'.freeze).underscore.to_sym rescue key) || key] = value
+      options[(key.to_s.gsub(" ", "_").underscore.to_sym rescue key) || key] = value
       options
     end
   end
 
-  unless defined?(Rails)
-    def transform_keys(&block)
-      dup.transform_keys!(&block)
-    end
+  def transform_keys(&block)
+    dup.transform_keys!(&block)
   end
 
-  unless defined?(Rails)
-    def transform_keys!(&block)
-      return(enum_for(:transform_keys!)) unless block_given?
+  def transform_keys!(&block)
+    return(enum_for(:transform_keys!)) unless block_given?
 
-      keys.each { |k| self[yield(k)] = delete(k) }
-      self
-    end
+    keys.each { |k| self[yield(k)] = delete(k) }
+    self
   end
 
-  unless defined?(Rails)
-    def transform_values(&block)
-      dup.transform_values!(&block)
-    end
+  def transform_values(&block)
+    dup.transform_values!(&block)
   end
 
-  unless defined?(Rails)
-    def transform_values!(&block)
-      return(enum_for(:transform_values!)) unless block_given?
+  def transform_values!(&block)
+    return(enum_for(:transform_values!)) unless block_given?
 
-      each { |k, v| self[k] = yield(v) }
-    end
+    each { |k, v| self[k] = yield(v) }
   end
 
 end
+
+Hash.send(:include, ActiveObject::Hash) if ActiveObject.configuration.hash
