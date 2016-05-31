@@ -1,0 +1,2503 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Active object by drexed</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Active object</h1>
+        <p>Gem for commonly used ruby object helpers.</p>
+
+        <p class="view"><a href="https://github.com/drexed/active_object">View the Project on GitHub <small>drexed/active_object</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/drexed/active_object/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/drexed/active_object/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/drexed/active_object">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="activeobject" class="anchor" href="#activeobject" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ActiveObject</h1>
+
+<p><a href="http://badge.fury.io/rb/active_object"><img src="https://badge.fury.io/rb/active_object.svg" alt="Gem Version"></a>
+<a href="https://travis-ci.org/drexed/active_object"><img src="https://travis-ci.org/drexed/active_object.svg?branch=master" alt="Build Status"></a>
+<a href="https://coveralls.io/r/drexed/active_object"><img src="https://coveralls.io/repos/drexed/active_object/badge.png" alt="Coverage Status"></a></p>
+
+<p>ActiveObject is a collection of commonly used object helpers in a ruby based project.</p>
+
+<p><code>Rails Safe</code> = methods extracted from rails but that do not override that rails method.</p>
+
+<p>Highly recommended extensions:</p>
+
+<ul>
+<li>
+<strong>Hash:</strong> Hashie - <a href="https://github.com/intridea/hashie">https://github.com/intridea/hashie</a>
+</li>
+<li>
+<strong>String:</strong> Escape Utils - <a href="https://github.com/brianmario/escape_utils">https://github.com/brianmario/escape_utils</a>
+</li>
+<li>
+<strong>String:</strong> Fast Blank - <a href="https://github.com/SamSaffron/fast_blank">https://github.com/SamSaffron/fast_blank</a>
+</li>
+<li>
+<strong>Translation:</strong> Fast Gettext - <a href="https://github.com/grosser/fast_gettext">https://github.com/grosser/fast_gettext</a>
+</li>
+<li>
+<strong>Facets:</strong> Facets - <a href="https://github.com/rubyworks/facets">https://github.com/rubyworks/facets</a>
+</li>
+</ul>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>Add this line to your application's Gemfile:</p>
+
+<pre><code>gem 'active_object'
+</code></pre>
+
+<p>And then execute:</p>
+
+<pre><code>$ bundle
+</code></pre>
+
+<p>Or install it yourself as:</p>
+
+<pre><code>$ gem install active_object
+</code></pre>
+
+<h2>
+<a id="table-of-contents" class="anchor" href="#table-of-contents" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents</h2>
+
+<ul>
+<li><a href="#array">Array</a></li>
+<li><a href="#enumerable">Enumerable</a></li>
+<li><a href="#hash">Hash</a></li>
+<li><a href="#integer">Integer</a></li>
+<li><a href="#numeric">Numeric</a></li>
+<li><a href="#object">Object</a></li>
+<li><a href="#Rrange">Range</a></li>
+<li><a href="#string">String</a></li>
+<li><a href="#time">Time</a></li>
+</ul>
+
+<h2>
+<a id="array" class="anchor" href="#array" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Array</h2>
+
+<h4>
+<a id="after" class="anchor" href="#after" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>After:</h4>
+
+<p><code>after</code> returns the value after the given value.</p>
+
+<div class="highlight highlight-source-ruby"><pre>[<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>3<span class="pl-pds">"</span></span>].after(<span class="pl-s"><span class="pl-pds">"</span>2<span class="pl-pds">"</span></span>) <span class="pl-c">#=&gt; "3"</span>
+[<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>3<span class="pl-pds">"</span></span>].after(<span class="pl-s"><span class="pl-pds">"</span>3<span class="pl-pds">"</span></span>) <span class="pl-c">#=&gt; "1"</span>
+[<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>3<span class="pl-pds">"</span></span>].after(<span class="pl-s"><span class="pl-pds">"</span>4<span class="pl-pds">"</span></span>) <span class="pl-c">#=&gt; nil</span></pre></div>
+
+<h4>
+<a id="before" class="anchor" href="#before" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Before:</h4>
+
+<p><code>before</code> returns the value before the given value.</p>
+
+<div class="highlight highlight-source-ruby"><pre>[<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>3<span class="pl-pds">"</span></span>].before(<span class="pl-s"><span class="pl-pds">"</span>2<span class="pl-pds">"</span></span>) <span class="pl-c">#=&gt; "1"</span>
+[<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>3<span class="pl-pds">"</span></span>].before(<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>) <span class="pl-c">#=&gt; "3"</span>
+[<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>3<span class="pl-pds">"</span></span>].before(<span class="pl-s"><span class="pl-pds">"</span>4<span class="pl-pds">"</span></span>) <span class="pl-c">#=&gt; nil</span></pre></div>
+
+<h4>
+<a id="delete-first" class="anchor" href="#delete-first" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Delete First:</h4>
+
+<p><code>delete_first</code> and <code>delete_first!</code> removes the first element from an array. Like Array.shift, but returns the array instead of the removed element.</p>
+
+<div class="highlight highlight-source-ruby"><pre>[<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>3<span class="pl-pds">"</span></span>].delete_first <span class="pl-c">#=&gt; ["2", "3"]</span></pre></div>
+
+<h4>
+<a id="delete-last" class="anchor" href="#delete-last" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Delete Last:</h4>
+
+<p><code>delete_last</code> and <code>delete_last!</code> removes the last element from an array. Like Array.pop, but returns the array instead of the removed element.</p>
+
+<div class="highlight highlight-source-ruby"><pre>[<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>3<span class="pl-pds">"</span></span>].delete_last <span class="pl-c">#=&gt; ["1", "2"]</span></pre></div>
+
+<h4>
+<a id="delete-values" class="anchor" href="#delete-values" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Delete Values:</h4>
+
+<p><code>delete_values</code> delete multiple values from array.</p>
+
+<div class="highlight highlight-source-ruby"><pre>[<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>, <span class="pl-c1">4</span>].delete_values(<span class="pl-c1">1</span>, <span class="pl-c1">3</span>) <span class="pl-c">#=&gt; [2, 4]</span></pre></div>
+
+<h4>
+<a id="duplicates" class="anchor" href="#duplicates" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Duplicates:</h4>
+
+<p><code>duplicates</code> returns list of duplicate elements.</p>
+
+<div class="highlight highlight-source-ruby"><pre>[<span class="pl-c1">1</span>, <span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">2</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>].duplicates    <span class="pl-c">#=&gt; [1, 2]</span>
+[<span class="pl-c1">1</span>, <span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">2</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>].duplicates(<span class="pl-c1">3</span>) <span class="pl-c">#=&gt; [2]</span></pre></div>
+
+<h4>
+<a id="from" class="anchor" href="#from" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>From:</h4>
+
+<p><code>from</code> returns the tail of the array from position. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre>[<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>3<span class="pl-pds">"</span></span>].from(<span class="pl-c1">0</span>) <span class="pl-c">#=&gt; ["1", "2", "3"]</span>
+[<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>3<span class="pl-pds">"</span></span>].from(<span class="pl-c1">1</span>) <span class="pl-c">#=&gt; ["2", "3"]</span>
+[<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>3<span class="pl-pds">"</span></span>].from(<span class="pl-k">-</span><span class="pl-c1">1</span>) <span class="pl-c">#=&gt; ["3"]</span></pre></div>
+
+<h4>
+<a id="groups" class="anchor" href="#groups" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Groups:</h4>
+
+<p><code>groups</code> splits or iterates over the array in number of groups.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">%w(</span>1 2 3 4 5 6 7 8 9 10<span class="pl-pds">)</span></span>.groups(<span class="pl-c1">3</span>) <span class="pl-c">#=&gt; [["1", "2", "3", "4"], ["5", "6", "7"], ["8", "9", "10"]]</span></pre></div>
+
+<h4>
+<a id="in-groups" class="anchor" href="#in-groups" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>In Groups:</h4>
+
+<p><code>in_groups</code> splits or iterates over the array in number of groups, padding any remaining slots with fill_with unless it is false. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">%w(</span>1 2 3 4 5 6 7 8 9 10<span class="pl-pds">)</span></span>.in_groups(<span class="pl-c1">3</span>)           <span class="pl-c">#=&gt; [["1", "2", "3", "4"], ["5", "6", "7", nil], ["8", "9", "10", nil]]</span>
+<span class="pl-s"><span class="pl-pds">%w(</span>1 2 3 4 5 6 7 8 9 10<span class="pl-pds">)</span></span>.in_groups(<span class="pl-c1">3</span>, <span class="pl-s"><span class="pl-pds">'</span>&amp;nbsp;<span class="pl-pds">'</span></span>) <span class="pl-c">#=&gt; [["1", "2", "3", "4"], ["5", "6", "7", "&amp;nbsp;"], ["8", "9", "10", "&amp;nbsp;"]]</span>
+<span class="pl-s"><span class="pl-pds">%w(</span>1 2 3 4 5 6 7 8 9 10<span class="pl-pds">)</span></span>.in_groups(<span class="pl-c1">3</span>, <span class="pl-c1">false</span>)    <span class="pl-c">#=&gt; [["1", "2", "3", "4"], ["5", "6", "7"], ["8", "9", "10"]]</span></pre></div>
+
+<h4>
+<a id="in-groups-of" class="anchor" href="#in-groups-of" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>In Groups Of:</h4>
+
+<p><code>in_groups_of</code> splits or iterates over the array in groups of size number, padding any remaining slots with fill_with unless it is false. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">%w(</span>1 2 3 4 5 6 7 8 9 10<span class="pl-pds">)</span></span>.in_groups_of(<span class="pl-c1">3</span>)           <span class="pl-c">#=&gt; [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"], ["10", nil, nil]]</span>
+<span class="pl-s"><span class="pl-pds">%w(</span>1 2 3 4 5 6 7 8 9 10<span class="pl-pds">)</span></span>.in_groups_of(<span class="pl-c1">3</span>, <span class="pl-s"><span class="pl-pds">'</span>&amp;nbsp;<span class="pl-pds">'</span></span>) <span class="pl-c">#=&gt; [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"], ["10", "&amp;nbsp;", "&amp;nbsp;"]]</span>
+<span class="pl-s"><span class="pl-pds">%w(</span>1 2 3 4 5 6 7 8 9 10<span class="pl-pds">)</span></span>.in_groups_of(<span class="pl-c1">3</span>, <span class="pl-c1">false</span>)    <span class="pl-c">#=&gt; [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"], ["10"]]</span></pre></div>
+
+<h4>
+<a id="probablity" class="anchor" href="#probablity" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Probablity:</h4>
+
+<p><code>probability</code> generates a hash mapping each unique element in the array to the relative frequency, i.e. the probablity, of it appearence.</p>
+
+<div class="highlight highlight-source-ruby"><pre>[<span class="pl-c1">:a</span>, <span class="pl-c1">:b</span>, <span class="pl-c1">:c</span>, <span class="pl-c1">:c</span>].probability <span class="pl-c">#=&gt; { a: 0.25, b: 0.25, c: 0.5 }</span></pre></div>
+
+<h4>
+<a id="reject-values" class="anchor" href="#reject-values" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Reject Values:</h4>
+
+<p><code>reject_values</code> delete multiple values from array from a array copy.</p>
+
+<div class="highlight highlight-source-ruby"><pre>[<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>, <span class="pl-c1">4</span>, <span class="pl-c1">5</span>].reject_values(<span class="pl-c1">2</span>,<span class="pl-c1">4</span>) <span class="pl-c">#=&gt; [1, 3, 5]</span></pre></div>
+
+<h4>
+<a id="sample" class="anchor" href="#sample" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Sample:</h4>
+
+<p><code>sample!</code> deletes a random value and returns that value.</p>
+
+<div class="highlight highlight-source-ruby"><pre>[<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>, <span class="pl-c1">4</span>, <span class="pl-c1">5</span>].sample! <span class="pl-c">#=&gt; 2</span></pre></div>
+
+<h4>
+<a id="split" class="anchor" href="#split" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Split:</h4>
+
+<p><code>split</code> divides the array into one or more subarrays based on a delimiting value or the result of an optional block. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre>[<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>, <span class="pl-c1">4</span>, <span class="pl-c1">5</span>].split(<span class="pl-c1">3</span>)              <span class="pl-c"># =&gt; [[1, 2], [4, 5]]</span>
+(<span class="pl-c1">1</span>..<span class="pl-c1">10</span>).to_a.split { |<span class="pl-smi">i</span>| i <span class="pl-k">%</span> <span class="pl-c1">3</span> <span class="pl-k">==</span> <span class="pl-c1">0</span> } <span class="pl-c"># =&gt; [[1, 2], [4, 5], [7, 8], [10]]</span></pre></div>
+
+<h4>
+<a id="strip" class="anchor" href="#strip" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Strip:</h4>
+
+<p><code>strip</code> and <code>strip!</code> removes blank elements from an array.</p>
+
+<div class="highlight highlight-source-ruby"><pre>[<span class="pl-s"><span class="pl-pds">"</span>this<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>that<span class="pl-pds">"</span></span>, <span class="pl-c1">nil</span>, <span class="pl-c1">false</span>].strip  <span class="pl-c">#=&gt; ["this", "that"]</span>
+<span class="pl-s"><span class="pl-pds">"</span>this    is   a  test<span class="pl-pds">"</span></span>.split(<span class="pl-s"><span class="pl-pds">"</span> <span class="pl-pds">"</span></span>).strip <span class="pl-c">#=&gt; ["this", "is", "a", "test"]</span></pre></div>
+
+<h4>
+<a id="to" class="anchor" href="#to" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>To:</h4>
+
+<p><code>to</code> returns the beginning of the array up to position. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre>[<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>3<span class="pl-pds">"</span></span>].to(<span class="pl-c1">0</span>) <span class="pl-c">#=&gt; ["1"]</span>
+[<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>3<span class="pl-pds">"</span></span>].to(<span class="pl-c1">1</span>) <span class="pl-c">#=&gt; ["1", "2"]</span>
+[<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>3<span class="pl-pds">"</span></span>].to(<span class="pl-k">-</span><span class="pl-c1">1</span>) <span class="pl-c">#=&gt; ["3"]</span></pre></div>
+
+<h4>
+<a id="to-sentence" class="anchor" href="#to-sentence" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>To Sentence:</h4>
+
+<p><code>to_sentence</code> converts the array to a comma-separated sentence where the last element is joined by the connector word. <code>Rails Safe</code></p>
+
+<p><strong>Options:</strong></p>
+
+<ul>
+<li>words_connector:     “, ”</li>
+<li>two_words_connector: “ and ”</li>
+<li>last_word_connector: “, and ”</li>
+</ul>
+
+<div class="highlight highlight-source-ruby"><pre>[].to_sentence                                                                                     <span class="pl-c">#=&gt; ""</span>
+[<span class="pl-s"><span class="pl-pds">"</span>one<span class="pl-pds">"</span></span>].to_sentence                                                                                <span class="pl-c">#=&gt; "one"</span>
+[<span class="pl-s"><span class="pl-pds">"</span>one<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>two<span class="pl-pds">"</span></span>].to_sentence                                                                         <span class="pl-c">#=&gt; "one and two"</span>
+[<span class="pl-s"><span class="pl-pds">"</span>one<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>two<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>three<span class="pl-pds">"</span></span>].to_sentence                                                                <span class="pl-c">#=&gt; "one, two, and three"</span>
+[<span class="pl-s"><span class="pl-pds">"</span>one<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>two<span class="pl-pds">"</span></span>].to_sentence(<span class="pl-c1">two_words_connector:</span> <span class="pl-s"><span class="pl-pds">'</span>-<span class="pl-pds">'</span></span>)                                               <span class="pl-c">#=&gt; "one-two"</span>
+[<span class="pl-s"><span class="pl-pds">"</span>one<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>two<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>three<span class="pl-pds">"</span></span>].to_sentence(<span class="pl-c1">words_connector:</span> <span class="pl-s"><span class="pl-pds">'</span> or <span class="pl-pds">'</span></span>, <span class="pl-c1">last_word_connector:</span> <span class="pl-s"><span class="pl-pds">'</span> or at least <span class="pl-pds">'</span></span>) <span class="pl-c">#=&gt; "one or two or at least three"</span></pre></div>
+
+<h2>
+<a id="enumerable" class="anchor" href="#enumerable" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Enumerable</h2>
+
+<h4>
+<a id="cluster" class="anchor" href="#cluster" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Cluster:</h4>
+
+<p><code>cluster</code> clusters together adjacent elements into a list of sub-arrays.</p>
+
+<div class="highlight highlight-source-ruby"><pre>[<span class="pl-c1">2</span>,<span class="pl-c1">2</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>,<span class="pl-c1">3</span>,<span class="pl-c1">4</span>,<span class="pl-c1">2</span>,<span class="pl-c1">2</span>,<span class="pl-c1">1</span>].cluster { |<span class="pl-smi">x</span>| x } <span class="pl-c">#=&gt; [[2, 2, 2], [3, 3], [4], [2, 2], [1]]</span></pre></div>
+
+<h4>
+<a id="difference" class="anchor" href="#difference" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Difference:</h4>
+
+<p><code>difference</code> returns the difference of a collection of numbers.</p>
+
+<div class="highlight highlight-source-ruby"><pre>[].difference <span class="pl-c">#=&gt; 0</span>
+[].difference(<span class="pl-c1">nil</span>) <span class="pl-c">#=&gt; nil</span>
+[<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>].difference <span class="pl-c">#=&gt; -4</span></pre></div>
+
+<h4>
+<a id="divisible" class="anchor" href="#divisible" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Divisible:</h4>
+
+<p><code>divisible</code> returns the division of a collection of numbers.</p>
+
+<div class="highlight highlight-source-ruby"><pre>[].divisible       <span class="pl-c">#=&gt; 0</span>
+[].divisible(<span class="pl-c1">nil</span>)  <span class="pl-c">#=&gt; nil</span>
+[<span class="pl-c1">16</span>,<span class="pl-c1">4</span>,<span class="pl-c1">2</span>].divisible <span class="pl-c">#=&gt; 2</span></pre></div>
+
+<h4>
+<a id="drop-last" class="anchor" href="#drop-last" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Drop Last:</h4>
+
+<p><code>drop_last</code> drops the last number of elements of a collection.</p>
+
+<div class="highlight highlight-source-ruby"><pre>[].drop_last(<span class="pl-c1">1</span>)      <span class="pl-c">#=&gt; []</span>
+[<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>].drop_last(<span class="pl-c1">1</span>) <span class="pl-c">#=&gt; [1,2]</span>
+[<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>].drop_last(<span class="pl-c1">2</span>) <span class="pl-c">#=&gt; [1]</span></pre></div>
+
+<h4>
+<a id="drop-last-if" class="anchor" href="#drop-last-if" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Drop Last If:</h4>
+
+<p><code>drop_last_if</code> drops the last number of elements of a collection while it meets a criteria.</p>
+
+<div class="highlight highlight-source-ruby"><pre>[].drop_last_if(<span class="pl-k">&amp;</span><span class="pl-c1">:odd?</span>)        <span class="pl-c">#=&gt; []</span>
+[<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>].drop_last_if(<span class="pl-k">&amp;</span><span class="pl-c1">:odd?</span>)   <span class="pl-c">#=&gt; [1,2]</span>
+[<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>,<span class="pl-c1">4</span>].drop_last_if(<span class="pl-k">&amp;</span><span class="pl-c1">:odd?</span>) <span class="pl-c">#=&gt; [1,2,3,4]</span></pre></div>
+
+<h4>
+<a id="exactly" class="anchor" href="#exactly" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exactly:</h4>
+
+<p><code>exactly?</code> returns if there are exactly the number of an element type.</p>
+
+<div class="highlight highlight-source-ruby"><pre>[].exactly?(<span class="pl-c1">1</span>)                 <span class="pl-c">#=&gt; false</span>
+[<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>].excatly?(<span class="pl-c1">3</span>)            <span class="pl-c">#=&gt; true</span>
+[<span class="pl-c1">1</span>,<span class="pl-c1">1</span>,<span class="pl-c1">3</span>,<span class="pl-c1">3</span>].exactly?(<span class="pl-c1">2</span>, <span class="pl-k">&amp;</span><span class="pl-c1">:even?</span>) <span class="pl-c">#=&gt; false</span></pre></div>
+
+<h4>
+<a id="exclude" class="anchor" href="#exclude" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exclude:</h4>
+
+<p><code>exclude?</code> returns true if the collection does not include the object. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre>[<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>].exclude?(<span class="pl-c1">4</span>) <span class="pl-c">#=&gt; true</span>
+[<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>].exclude?(<span class="pl-c1">3</span>) <span class="pl-c">#=&gt; false</span></pre></div>
+
+<h4>
+<a id="expand" class="anchor" href="#expand" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Expand:</h4>
+
+<p><code>expand</code> expand all elements of an Enumerable object.</p>
+
+<div class="highlight highlight-source-ruby"><pre>[<span class="pl-c1">0</span>, <span class="pl-c1">2</span>..<span class="pl-c1">3</span>, <span class="pl-c1">5</span>..<span class="pl-c1">7</span>].expand <span class="pl-c">#=&gt; [0,[2, 3],[5,6,7]]</span></pre></div>
+
+<h4>
+<a id="exponential" class="anchor" href="#exponential" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exponential:</h4>
+
+<p><code>exponential</code> returns the exponential of a collection of numbers.</p>
+
+<div class="highlight highlight-source-ruby"><pre>[].exponential      <span class="pl-c">#=&gt; 0</span>
+[].exponential(<span class="pl-c1">nil</span>) <span class="pl-c">#=&gt; nil</span>
+[<span class="pl-c1">2</span>,<span class="pl-c1">3</span>,<span class="pl-c1">4</span>].exponential <span class="pl-c">#=&gt; 4096</span></pre></div>
+
+<h4>
+<a id="frequencies" class="anchor" href="#frequencies" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Frequencies:</h4>
+
+<p><code>frequencies</code> returns a hash of the number of times a value in an array appears.</p>
+
+<div class="highlight highlight-source-ruby"><pre>[].frequencies                                    <span class="pl-c">#=&gt; {}</span>
+[<span class="pl-c1">1</span>, <span class="pl-c1">:symbol</span>, <span class="pl-s"><span class="pl-pds">'</span>string<span class="pl-pds">'</span></span>, <span class="pl-c1">3</span>, <span class="pl-c1">:symbol</span>, <span class="pl-c1">1</span>].frequencies <span class="pl-c">#=&gt; { 1 =&gt; 2, :symbol =&gt; 2, 'string' =&gt; 1, 3 =&gt; 1 }</span></pre></div>
+
+<h4>
+<a id="incase" class="anchor" href="#incase" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Incase:</h4>
+
+<p><code>incase?</code> the same as #include? but tested using #=== instead of #==.</p>
+
+<div class="highlight highlight-source-ruby"><pre>[<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-s"><span class="pl-pds">"</span>a<span class="pl-pds">"</span></span>].incase?(<span class="pl-c1">String</span>) <span class="pl-c">#=&gt; true</span>
+[<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-s"><span class="pl-pds">"</span>a<span class="pl-pds">"</span></span>].incase?(<span class="pl-c1">3</span>)      <span class="pl-c">#=&gt; false</span></pre></div>
+
+<h4>
+<a id="many" class="anchor" href="#many" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Many:</h4>
+
+<p><code>many?</code> returns if collection has more than one element while respecting nil and false as an element. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre>[].many?                 <span class="pl-c">#=&gt; false</span>
+[<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>].many?            <span class="pl-c">#=&gt; true</span>
+[<span class="pl-c1">1</span>, <span class="pl-c1">false</span>, <span class="pl-c1">nil</span>].many?    <span class="pl-c">#=&gt; true</span>
+[<span class="pl-c1">1</span>,<span class="pl-c1">1</span>,<span class="pl-c1">3</span>,<span class="pl-c1">3</span>].many?(<span class="pl-k">&amp;</span><span class="pl-c1">:even?</span>) <span class="pl-c">#=&gt; false</span>
+</pre></div>
+
+<h4>
+<a id="max" class="anchor" href="#max" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Max:</h4>
+
+<p><code>max</code> returns the largest value of a collection of numbers.</p>
+
+<div class="highlight highlight-source-ruby"><pre>[].max      <span class="pl-c">#=&gt; 0</span>
+[].max(<span class="pl-c1">nil</span>) <span class="pl-c">#=&gt; nil</span>
+[<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>].max <span class="pl-c">#=&gt; 3</span></pre></div>
+
+<h4>
+<a id="min" class="anchor" href="#min" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Min:</h4>
+
+<p><code>min</code> returns the smallest value of a collection of numbers.</p>
+
+<div class="highlight highlight-source-ruby"><pre>[].min      <span class="pl-c">#=&gt; 0</span>
+[].min(<span class="pl-c1">nil</span>) <span class="pl-c">#=&gt; nil</span>
+[<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>].min <span class="pl-c">#=&gt; 1</span></pre></div>
+
+<h4>
+<a id="mean" class="anchor" href="#mean" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Mean:</h4>
+
+<p><code>mean</code> returns the average of a collection of numbers.</p>
+
+<div class="highlight highlight-source-ruby"><pre>[].mean      <span class="pl-c">#=&gt; 0</span>
+[].mean(<span class="pl-c1">nil</span>) <span class="pl-c">#=&gt; nil</span>
+[<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>].mean <span class="pl-c">#=&gt; 2</span></pre></div>
+
+<h4>
+<a id="median" class="anchor" href="#median" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Median:</h4>
+
+<p><code>median</code> returns the middle value of a collection of numbers.</p>
+
+<div class="highlight highlight-source-ruby"><pre>[].median        <span class="pl-c">#=&gt; 0</span>
+[].median(<span class="pl-c1">nil</span>)   <span class="pl-c">#=&gt; nil</span>
+[<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">6</span>].median   <span class="pl-c">#=&gt; 2</span>
+[<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>,<span class="pl-c1">6</span>].median <span class="pl-c">#=&gt; 2.5</span></pre></div>
+
+<h4>
+<a id="mode" class="anchor" href="#mode" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Mode:</h4>
+
+<p><code>mode</code> returns the most frequent value of a collection of numbers.</p>
+
+<div class="highlight highlight-source-ruby"><pre>[].mode        <span class="pl-c">#=&gt; 0</span>
+[].mode(<span class="pl-c1">nil</span>)   <span class="pl-c">#=&gt; nil</span>
+[<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>].mode   <span class="pl-c">#=&gt; nil</span>
+[<span class="pl-c1">1</span>,<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">6</span>].mode <span class="pl-c">#=&gt; 1</span></pre></div>
+
+<h4>
+<a id="multiple" class="anchor" href="#multiple" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Multiple:</h4>
+
+<p><code>multiple</code> returns the multiplication of a collection of numbers.</p>
+
+<div class="highlight highlight-source-ruby"><pre>[].multiple      <span class="pl-c">#=&gt; 0</span>
+[].multiple(<span class="pl-c1">nil</span>) <span class="pl-c">#=&gt; nil</span>
+[<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>].multiple <span class="pl-c">#=&gt; 6</span></pre></div>
+
+<h4>
+<a id="range" class="anchor" href="#range" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Range:</h4>
+
+<p><code>range</code> returns the difference between the smallest and largest value of a collection of numbers.</p>
+
+<div class="highlight highlight-source-ruby"><pre>[].range      <span class="pl-c">#=&gt; 0</span>
+[].range(<span class="pl-c1">nil</span>) <span class="pl-c">#=&gt; nil</span>
+[<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">6</span>].range <span class="pl-c">#=&gt; 5</span></pre></div>
+
+<h4>
+<a id="several" class="anchor" href="#several" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Several:</h4>
+
+<p><code>several?</code> returns if collection has more than one element while not respecting nil and false as an element.</p>
+
+<div class="highlight highlight-source-ruby"><pre>[].several?                 <span class="pl-c">#=&gt; false</span>
+[<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>].several?            <span class="pl-c">#=&gt; true</span>
+[<span class="pl-c1">1</span>, <span class="pl-c1">false</span>, <span class="pl-c1">nil</span>].several?    <span class="pl-c">#=&gt; false</span>
+[<span class="pl-c1">1</span>,<span class="pl-c1">1</span>,<span class="pl-c1">3</span>,<span class="pl-c1">3</span>].several?(<span class="pl-k">&amp;</span><span class="pl-c1">:even?</span>) <span class="pl-c">#=&gt; false</span></pre></div>
+
+<h4>
+<a id="standard-deviation" class="anchor" href="#standard-deviation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Standard Deviation:</h4>
+
+<p><code>standard_deviation</code> returns the standard deviation of elements of a collection.</p>
+
+<div class="highlight highlight-source-ruby"><pre>[].standard_deviation      <span class="pl-c">#=&gt; 0</span>
+[].standard_deviation(<span class="pl-c1">nil</span>) <span class="pl-c">#=&gt; nil</span>
+[<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">6</span>].standard_deviation <span class="pl-c">#=&gt; 2.6457513110645907</span></pre></div>
+
+<h4>
+<a id="sum" class="anchor" href="#sum" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Sum:</h4>
+
+<p><code>sum</code> returns the sum of a collection of numbers. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre>[].sum             <span class="pl-c">#=&gt; 0</span>
+[].sum(<span class="pl-c1">nil</span>)        <span class="pl-c">#=&gt; nil</span>
+[<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>].sum        <span class="pl-c">#=&gt; 6</span>
+[<span class="pl-s"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span>].sum <span class="pl-c">#=&gt; "foobar"</span></pre></div>
+
+<h4>
+<a id="take-last" class="anchor" href="#take-last" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Take Last:</h4>
+
+<p><code>take_last</code> returns the last number of elements of a collection.</p>
+
+<div class="highlight highlight-source-ruby"><pre>[].take_last(<span class="pl-c1">1</span>)      <span class="pl-c">#=&gt; []</span>
+[<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>].take_last(<span class="pl-c1">1</span>) <span class="pl-c">#=&gt; [3]</span>
+[<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>].take_last(<span class="pl-c1">2</span>) <span class="pl-c">#=&gt; [2,3]</span></pre></div>
+
+<h4>
+<a id="take-last-if" class="anchor" href="#take-last-if" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Take Last If:</h4>
+
+<p><code>take_last_if</code> returns the last number of elements of a collection while it meets a criteria.</p>
+
+<div class="highlight highlight-source-ruby"><pre>[].take_last_if(<span class="pl-k">&amp;</span><span class="pl-c1">:odd?</span>)        <span class="pl-c">#=&gt; []</span>
+[<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>].take_last_if(<span class="pl-k">&amp;</span><span class="pl-c1">:odd?</span>)   <span class="pl-c">#=&gt; [3]</span>
+[<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>,<span class="pl-c1">4</span>].take_last_if(<span class="pl-k">&amp;</span><span class="pl-c1">:odd?</span>) <span class="pl-c">#=&gt; []</span></pre></div>
+
+<h4>
+<a id="variance" class="anchor" href="#variance" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Variance:</h4>
+
+<p><code>variance</code> returns the variance of elements of a collection.</p>
+
+<div class="highlight highlight-source-ruby"><pre>[].variance      <span class="pl-c">#=&gt; 0</span>
+[].variance(<span class="pl-c1">nil</span>) <span class="pl-c">#=&gt; nil</span>
+[<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">6</span>].variance <span class="pl-c">#=&gt; 7</span></pre></div>
+
+<h2>
+<a id="hash" class="anchor" href="#hash" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Hash</h2>
+
+<h4>
+<a id="assert-valid-keys" class="anchor" href="#assert-valid-keys" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Assert Valid Keys:</h4>
+
+<p><code>assert_valid_keys</code> raises an error if key is not included in a list of keys. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre>{}.assert_valid_keys(<span class="pl-c1">:foo</span>)                               <span class="pl-c">#=&gt; {}</span>
+{ <span class="pl-c1">foo:</span> <span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span> }.assert_valid_keys(<span class="pl-c1">:foo</span>)                   <span class="pl-c">#=&gt; { foo: "bar" }</span>
+{ <span class="pl-c1">foo:</span> <span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span>, <span class="pl-c1">baz:</span> <span class="pl-s"><span class="pl-pds">"</span>boz<span class="pl-pds">"</span></span> }.assert_valid_keys(<span class="pl-c1">:foo</span>, <span class="pl-c1">:boo</span>) <span class="pl-c">#=&gt; raises "ArgumentError: Unknown key: :baz. Valid keys are: :foo, :boo"</span></pre></div>
+
+<h4>
+<a id="compact" class="anchor" href="#compact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compact:</h4>
+
+<p><code>compact</code> and <code>compact!</code> returns a hash with non nil values. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre>{}.compact                                   <span class="pl-c">#=&gt; {}</span>
+{ <span class="pl-c1">foo:</span> <span class="pl-c1">nil</span> }.compact                         <span class="pl-c">#=&gt; {}</span>
+{ <span class="pl-c1">foo:</span> <span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span>, <span class="pl-c1">baz:</span> <span class="pl-c1">false</span>, <span class="pl-c1">boo:</span> <span class="pl-c1">nil</span> }.compact <span class="pl-c">#=&gt; { foo: "bar", baz: false }</span></pre></div>
+
+<h4>
+<a id="deep-merge" class="anchor" href="#deep-merge" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Deep Merge:</h4>
+
+<p><code>deep_merge</code> and <code>deep_merge!</code> returns a new hash with self and other_hash merged recursively. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre>h1 <span class="pl-k">=</span> { <span class="pl-c1">a:</span> <span class="pl-c1">true</span>, <span class="pl-c1">b:</span> { <span class="pl-c1">c:</span> [<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>] } }
+h2 <span class="pl-k">=</span> { <span class="pl-c1">a:</span> <span class="pl-c1">false</span>, <span class="pl-c1">b:</span> { <span class="pl-c1">x:</span> [<span class="pl-c1">3</span>, <span class="pl-c1">4</span>, <span class="pl-c1">5</span>] } }
+
+h1.deep_merge(h2) <span class="pl-c">#=&gt; { a: false, b: { c: [1, 2, 3], x: [3, 4, 5] } }</span></pre></div>
+
+<h4>
+<a id="except" class="anchor" href="#except" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Except:</h4>
+
+<p><code>except</code> and <code>except!</code> returns a hash that includes everything but the given keys.</p>
+
+<div class="highlight highlight-source-ruby"><pre>{}.except(<span class="pl-c1">:foo</span>)                                                    <span class="pl-c">#=&gt; {}</span>
+{ <span class="pl-c1">foo:</span> <span class="pl-s"><span class="pl-pds">'</span>foo<span class="pl-pds">'</span></span>, <span class="pl-c1">baz:</span> <span class="pl-s"><span class="pl-pds">'</span>baz<span class="pl-pds">'</span></span>, <span class="pl-c1">bar:</span> <span class="pl-s"><span class="pl-pds">'</span>bar<span class="pl-pds">'</span></span> }.except(<span class="pl-c1">:foo</span>)                <span class="pl-c">#=&gt; { baz: 'baz', bar: 'bar' }</span>
+{ <span class="pl-c1">:foo</span> =&gt; <span class="pl-s"><span class="pl-pds">'</span>foo<span class="pl-pds">'</span></span>, <span class="pl-c1">:baz</span> =&gt; <span class="pl-s"><span class="pl-pds">'</span>baz<span class="pl-pds">'</span></span>, <span class="pl-c1">:bar</span> =&gt; <span class="pl-s"><span class="pl-pds">'</span>bar<span class="pl-pds">'</span></span> }.except(<span class="pl-c1">:baz</span>, <span class="pl-c1">:bar</span>) <span class="pl-c">#=&gt; { :foo =&gt; 'foo' }</span></pre></div>
+
+<h4>
+<a id="hmap" class="anchor" href="#hmap" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Hmap:</h4>
+
+<p><code>hmap</code> and <code>hmap!</code> returns a hash that is transformed in place.</p>
+
+<div class="highlight highlight-source-ruby"><pre>{ <span class="pl-c1">a:</span> <span class="pl-c1">1</span>, <span class="pl-c1">b:</span> <span class="pl-c1">2</span>, <span class="pl-c1">c:</span> <span class="pl-c1">3</span> }.hmap { |<span class="pl-smi">k</span>, <span class="pl-smi">v</span>| { k =&gt; v <span class="pl-k">+</span> <span class="pl-c1">3</span> } } <span class="pl-c">#=&gt; { a: 4, b: 5, c: 6 }</span></pre></div>
+
+<h4>
+<a id="nillify" class="anchor" href="#nillify" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Nillify:</h4>
+
+<p><code>nillify</code> and <code>nillify!</code> transforms all blank values to nil.</p>
+
+<div class="highlight highlight-source-ruby"><pre>{ <span class="pl-c1">a:</span> <span class="pl-c1">1</span>, <span class="pl-c1">b:</span> <span class="pl-s"><span class="pl-pds">"</span>test<span class="pl-pds">"</span></span>, <span class="pl-c1">c:</span> <span class="pl-c1">nil</span>, <span class="pl-c1">d:</span> <span class="pl-c1">false</span>, <span class="pl-c1">e:</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>, <span class="pl-c1">f:</span> <span class="pl-s"><span class="pl-pds">"</span> <span class="pl-pds">"</span></span> }.nillify <span class="pl-c">#=&gt; {a: 1, b: 'test', c: nil, d: nil, e: nil, f: nil}</span></pre></div>
+
+<h4>
+<a id="only" class="anchor" href="#only" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Only:</h4>
+
+<p><code>only</code> and <code>only!</code> returns only key/value pairs matching certain keys.</p>
+
+<div class="highlight highlight-source-ruby"><pre>{}.only(<span class="pl-c1">:foo</span>)                                                    <span class="pl-c">#=&gt; {}</span>
+{ <span class="pl-c1">foo:</span> <span class="pl-s"><span class="pl-pds">'</span>foo<span class="pl-pds">'</span></span>, <span class="pl-c1">baz:</span> <span class="pl-s"><span class="pl-pds">'</span>baz<span class="pl-pds">'</span></span>, <span class="pl-c1">bar:</span> <span class="pl-s"><span class="pl-pds">'</span>bar<span class="pl-pds">'</span></span> }.only(<span class="pl-c1">:foo</span>)                <span class="pl-c">#=&gt; { foo: 'foo' }</span>
+{ <span class="pl-c1">:foo</span> =&gt; <span class="pl-s"><span class="pl-pds">'</span>foo<span class="pl-pds">'</span></span>, <span class="pl-c1">:baz</span> =&gt; <span class="pl-s"><span class="pl-pds">'</span>baz<span class="pl-pds">'</span></span>, <span class="pl-c1">:bar</span> =&gt; <span class="pl-s"><span class="pl-pds">'</span>bar<span class="pl-pds">'</span></span> }.only(<span class="pl-c1">:baz</span>, <span class="pl-c1">:bar</span>) <span class="pl-c">#=&gt; { :baz =&gt; 'baz', :bar =&gt; 'bar' }</span></pre></div>
+
+<h4>
+<a id="rename-keys" class="anchor" href="#rename-keys" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Rename Keys:</h4>
+
+<p><code>rename_keys</code> and <code>rename_keys!</code> rename the keys of a hash.</p>
+
+<div class="highlight highlight-source-ruby"><pre>{ <span class="pl-c1">foo:</span> <span class="pl-s"><span class="pl-pds">'</span>foo<span class="pl-pds">'</span></span>, <span class="pl-c1">baz:</span> <span class="pl-s"><span class="pl-pds">'</span>baz<span class="pl-pds">'</span></span> }.rename_keys(<span class="pl-c1">foo:</span> <span class="pl-c1">:bar</span>)                      <span class="pl-c">#=&gt; { bar: 'foo', baz: 'baz' }</span>
+{ <span class="pl-c1">foo:</span> <span class="pl-s"><span class="pl-pds">'</span>foo<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>baz<span class="pl-pds">'</span></span> =&gt; <span class="pl-s"><span class="pl-pds">'</span>baz<span class="pl-pds">'</span></span> }.rename_keys(<span class="pl-c1">foo:</span> <span class="pl-c1">:bar</span>, <span class="pl-s"><span class="pl-pds">'</span>baz<span class="pl-pds">'</span></span> =&gt; <span class="pl-s"><span class="pl-pds">'</span>tick<span class="pl-pds">'</span></span>) <span class="pl-c">#=&gt; { bar: 'foo', tick: 'baz' }</span></pre></div>
+
+<h4>
+<a id="reverse-merge" class="anchor" href="#reverse-merge" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Reverse Merge:</h4>
+
+<p><code>reverse_merge</code> and <code>reverse_merge!</code> merges one hash into other hash. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre>{}.reverse_merge!(<span class="pl-c1">foo:</span> <span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span>)                         <span class="pl-c">#=&gt; { foo: "bar" }</span>
+{ <span class="pl-c1">foo:</span> <span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span> }.reverse_merge!(<span class="pl-c1">baz:</span> <span class="pl-s"><span class="pl-pds">"</span>boo<span class="pl-pds">"</span></span>, <span class="pl-c1">boo:</span> <span class="pl-s"><span class="pl-pds">"</span>bam<span class="pl-pds">"</span></span>) <span class="pl-c">#=&gt; { foo: "bar", baz: "boo", boo: "bam" }</span></pre></div>
+
+<h4>
+<a id="sample-1" class="anchor" href="#sample-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Sample:</h4>
+
+<p><code>sample</code> returns a random key-value pair.
+<code>sample!</code> deletes a random key-value pair and returns that pair.</p>
+
+<div class="highlight highlight-source-ruby"><pre>h <span class="pl-k">=</span> { <span class="pl-c1">a:</span> <span class="pl-c1">1</span>, <span class="pl-c1">b:</span> <span class="pl-c1">2</span>, <span class="pl-c1">c:</span> <span class="pl-c1">3</span>, <span class="pl-c1">d:</span> <span class="pl-c1">4</span> }
+
+h.sample  <span class="pl-c">#=&gt; [:c, 3]</span>
+h.sample! <span class="pl-c">#=&gt; [:a, 1]</span></pre></div>
+
+<h4>
+<a id="sample-key" class="anchor" href="#sample-key" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Sample Key:</h4>
+
+<p><code>sample_key</code> returns a random key.
+<code>sample_key!</code> delete a random key-value pair, returning the key.</p>
+
+<div class="highlight highlight-source-ruby"><pre>h <span class="pl-k">=</span> { <span class="pl-c1">a:</span> <span class="pl-c1">1</span>, <span class="pl-c1">b:</span> <span class="pl-c1">2</span>, <span class="pl-c1">c:</span> <span class="pl-c1">3</span>, <span class="pl-c1">d:</span> <span class="pl-c1">4</span> }
+
+h.sample_key  <span class="pl-c">#=&gt; :b</span>
+h.sample_key! <span class="pl-c">#=&gt; :d</span></pre></div>
+
+<h4>
+<a id="sample-value" class="anchor" href="#sample-value" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Sample Value:</h4>
+
+<p><code>sample_value</code> returns a random value.
+<code>sample_value!</code> delete a random key-value pair, returning the value.</p>
+
+<div class="highlight highlight-source-ruby"><pre>h <span class="pl-k">=</span> { <span class="pl-c1">a:</span> <span class="pl-c1">1</span>, <span class="pl-c1">b:</span> <span class="pl-c1">2</span>, <span class="pl-c1">c:</span> <span class="pl-c1">3</span>, <span class="pl-c1">d:</span> <span class="pl-c1">4</span> }
+
+h.sample_value  <span class="pl-c">#=&gt; 1</span>
+h.sample_value! <span class="pl-c">#=&gt; 3</span></pre></div>
+
+<h4>
+<a id="shuffle" class="anchor" href="#shuffle" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Shuffle:</h4>
+
+<p><code>shuffle</code> returns a copy of the hash with values arranged in new random order.
+<code>shuffle!</code> returns the hash with values arranged in new random order.</p>
+
+<div class="highlight highlight-source-ruby"><pre>h <span class="pl-k">=</span> { <span class="pl-c1">a:</span> <span class="pl-c1">1</span>, <span class="pl-c1">b:</span> <span class="pl-c1">2</span>, <span class="pl-c1">c:</span> <span class="pl-c1">3</span>, <span class="pl-c1">d:</span> <span class="pl-c1">4</span> }
+
+h.shuffle  <span class="pl-c">#=&gt; { b: 2, c: 3, a: 1, d: 4 }</span>
+h.shuffle! <span class="pl-c">#=&gt; { d: 4, b: 2, c: 3, a: 1 }</span></pre></div>
+
+<h4>
+<a id="slice" class="anchor" href="#slice" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Slice:</h4>
+
+<p><code>slice</code> a hash to include only the given keys. Returns a hash containing the given keys. <code>Rails Safe</code>
+<code>slice!</code> replaces the hash with only the given keys. Returns a hash containing the removed key/value pairs. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre>h <span class="pl-k">=</span> { <span class="pl-c1">a:</span> <span class="pl-c1">1</span>, <span class="pl-c1">b:</span> <span class="pl-c1">2</span>, <span class="pl-c1">c:</span> <span class="pl-c1">3</span>, <span class="pl-c1">d:</span> <span class="pl-c1">4</span> }
+
+h.slice(<span class="pl-c1">:a</span>, <span class="pl-c1">:b</span>)  <span class="pl-c">#=&gt; { a: 1, b: 2 }</span>
+h.slice!(<span class="pl-c1">:a</span>, <span class="pl-c1">:b</span>) <span class="pl-c">#=&gt; { c: 3, d: 4 }</span></pre></div>
+
+<h4>
+<a id="stringify-keys" class="anchor" href="#stringify-keys" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Stringify Keys:</h4>
+
+<p><code>stringify_keys</code> and <code>stringify_keys!</code> converts the hash keys to strings. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre>{ <span class="pl-c1">foo:</span> <span class="pl-s"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span> =&gt; <span class="pl-s"><span class="pl-pds">'</span>bar<span class="pl-pds">'</span></span> }.stringify_keys <span class="pl-c">#=&gt; { "foo" =&gt; "foo", "baz" =&gt; "baz" }</span></pre></div>
+
+<h4>
+<a id="strip-1" class="anchor" href="#strip-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Strip:</h4>
+
+<p><code>strip</code> and <code>strip!</code> returns a hash with non nil, false, or blank values.</p>
+
+<div class="highlight highlight-source-ruby"><pre>{}.strip                                                      <span class="pl-c">#=&gt; {}</span>
+{ <span class="pl-c1">foo:</span> <span class="pl-c1">nil</span>, <span class="pl-c1">baz:</span> <span class="pl-c1">false</span>, <span class="pl-c1">boo:</span> <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>, <span class="pl-c1">faz:</span> <span class="pl-s"><span class="pl-pds">'</span> <span class="pl-pds">'</span></span> }.strip             <span class="pl-c">#=&gt; {}</span>
+{ <span class="pl-c1">foo:</span> <span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span>, <span class="pl-c1">baz:</span> <span class="pl-c1">false</span>, <span class="pl-c1">boo:</span> <span class="pl-c1">nil</span>, <span class="pl-c1">boz:</span> <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>, <span class="pl-c1">faz:</span> <span class="pl-s"><span class="pl-pds">'</span> <span class="pl-pds">'</span></span> }.strip <span class="pl-c">#=&gt; { foo: "bar" }</span></pre></div>
+
+<h4>
+<a id="symbolize-keys" class="anchor" href="#symbolize-keys" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Symbolize Keys:</h4>
+
+<p><code>symbolize_keys</code> and <code>symbolize_keys!</code> converts the hash keys to symbols. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre>{ <span class="pl-c1">foo:</span> <span class="pl-s"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span> =&gt; <span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span> }.symbolize_keys <span class="pl-c">#=&gt; { foo: "foo", baz: "baz" }</span></pre></div>
+
+<h4>
+<a id="symbolize-and-underscore-keys" class="anchor" href="#symbolize-and-underscore-keys" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Symbolize and Underscore Keys:</h4>
+
+<p><code>symbolize_and_underscore_keys</code> and <code>symbolize_and_underscore_keys!</code> symbolize and underscore hash keys.</p>
+
+<div class="highlight highlight-source-ruby"><pre>{ <span class="pl-s"><span class="pl-pds">"</span>firstName<span class="pl-pds">"</span></span> =&gt; <span class="pl-s"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>last Name<span class="pl-pds">"</span></span> =&gt; <span class="pl-s"><span class="pl-pds">"</span>test<span class="pl-pds">"</span></span> }.symbolize_and_underscore_keys <span class="pl-c">#=&gt; { first_name: "foo", last_name: "test" }</span></pre></div>
+
+<h4>
+<a id="transform-keys" class="anchor" href="#transform-keys" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Transform Keys:</h4>
+
+<p><code>transform_keys</code> and <code>transform_keys!</code> a new hash with all keys converted using the block operation. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre>{ <span class="pl-c1">foo:</span> <span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span>, <span class="pl-c1">baz:</span> <span class="pl-s"><span class="pl-pds">"</span>boo<span class="pl-pds">"</span></span> }.transform_keys { |<span class="pl-smi">k</span>| k.to_s.upcase } <span class="pl-c">#=&gt; { "FOO" =&gt; "bar", "BAZ" =&gt; "boo" }</span></pre></div>
+
+<h4>
+<a id="transform-values" class="anchor" href="#transform-values" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Transform Values:</h4>
+
+<p><code>transform_values</code> and <code>transform_values!</code> a new hash with all values converted using the block operation. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre>{ <span class="pl-c1">foo:</span> <span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span>, <span class="pl-c1">baz:</span> <span class="pl-s"><span class="pl-pds">"</span>boo<span class="pl-pds">"</span></span> }.transform_values { |<span class="pl-smi">v</span>| v.to_s.upcase } <span class="pl-c">#=&gt; {foo: "BAR", baz: "BOO" }</span></pre></div>
+
+<h2>
+<a id="integer" class="anchor" href="#integer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Integer</h2>
+
+<h4>
+<a id="factorial" class="anchor" href="#factorial" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Factorial:</h4>
+
+<p><code>factorial</code> calculate the factorial of an integer.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">4</span>.factorial <span class="pl-c">#=&gt; 24</span></pre></div>
+
+<h4>
+<a id="of" class="anchor" href="#of" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Of:</h4>
+
+<p><code>of</code> is like #times but returns a collection of the yield results.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.of { |<span class="pl-smi">i</span>| <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pse">#{</span><span class="pl-s1">i<span class="pl-k">+</span><span class="pl-c1">1</span></span><span class="pl-pse"><span class="pl-s1">}</span></span><span class="pl-pds">"</span></span> } <span class="pl-c">#=&gt; ["1", "2", "3"]</span></pre></div>
+
+<h4>
+<a id="roman" class="anchor" href="#roman" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Roman:</h4>
+
+<p><code>roman</code> converts this integer to a roman numeral.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">49</span>.roman <span class="pl-c">#=&gt; "XLIX"</span></pre></div>
+
+<h4>
+<a id="time" class="anchor" href="#time" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Time:</h4>
+
+<p><code>time</code> returns a Time object for the given Integer.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.time <span class="pl-c">#=&gt; "1969-12-31 19:00:03.000000000 -0500"</span></pre></div>
+
+<h2>
+<a id="numeric" class="anchor" href="#numeric" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Numeric</h2>
+
+<h4>
+<a id="add" class="anchor" href="#add" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Add:</h4>
+
+<p><code>add</code> returns the sum of two numbers.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">4</span>.add(<span class="pl-c1">2</span>) <span class="pl-c">#=&gt; 6</span></pre></div>
+
+<h4>
+<a id="bytes-in-bytes" class="anchor" href="#bytes-in-bytes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Bytes in Bytes:</h4>
+
+<p><code>byte_in_bytes</code> and <code>bytes_in_bytes</code> returns self.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.bytes_in_bytes <span class="pl-c">#=&gt; 3</span></pre></div>
+
+<h4>
+<a id="centigrams-in-grams" class="anchor" href="#centigrams-in-grams" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Centigrams in Grams:</h4>
+
+<p><code>centigram_in_grams</code> and <code>centigrams_in_grams</code> returns the amount of grams in n centigrams.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.centigrams_in_grams <span class="pl-c">#=&gt; 0.03</span></pre></div>
+
+<h4>
+<a id="centimeters-in-meters" class="anchor" href="#centimeters-in-meters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Centimeters in Meters:</h4>
+
+<p><code>centimeter_in_meters</code> and <code>centimeters_in_meters</code> returns the amount of meters in n centimeters.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.centimeters_in_meters <span class="pl-c">#=&gt; 0.03</span></pre></div>
+
+<h4>
+<a id="centuries_in_seconds" class="anchor" href="#centuries_in_seconds" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Centuries_in_seconds:</h4>
+
+<p><code>century_in_seconds</code> and <code>centuries_in_seconds</code> returns the amount of seconds in n centuries.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.centuries_in_seconds <span class="pl-c">#=&gt; 9467280000.0</span></pre></div>
+
+<h4>
+<a id="days-in-seconds" class="anchor" href="#days-in-seconds" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Days in Seconds:</h4>
+
+<p><code>day_in_seconds</code> and <code>days_in_seconds</code> returns the amount of seconds in n days.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.days_in_seconds <span class="pl-c">#=&gt; 259200</span></pre></div>
+
+<h4>
+<a id="decades-in-seconds" class="anchor" href="#decades-in-seconds" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Decades in Seconds:</h4>
+
+<p><code>decade_in_seconds</code> and <code>decades_in_seconds</code> returns the amount of seconds in n decades.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.decades_in_seconds <span class="pl-c">#=&gt; 946728000.0</span></pre></div>
+
+<h4>
+<a id="decagrams-in-grams" class="anchor" href="#decagrams-in-grams" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Decagrams in Grams:</h4>
+
+<p><code>decagram_in_grams</code> and <code>decagrams_in_grams</code> returns the amount of grams in n decagrams.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.decagrams_in_grams <span class="pl-c">#=&gt; 30</span></pre></div>
+
+<h4>
+<a id="decameters-in-meters" class="anchor" href="#decameters-in-meters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Decameters in Meters:</h4>
+
+<p><code>decameter_in_meters</code> and <code>decameters_in_meters</code> returns the amount of meters in n decameters.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.decameters_in_meters <span class="pl-c">#=&gt; 30</span></pre></div>
+
+<h4>
+<a id="decigrams-in-grams" class="anchor" href="#decigrams-in-grams" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Decigrams in Grams:</h4>
+
+<p><code>decigram_in_grams</code> and <code>decigrams_in_grams</code> returns the amount of grams in n decigrams.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.decigrams_in_grams <span class="pl-c">#=&gt; 0.3</span></pre></div>
+
+<h4>
+<a id="decimeters-in-meters" class="anchor" href="#decimeters-in-meters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Decimeters in Meters:</h4>
+
+<p><code>decimeter_in_meters</code> and <code>decimeters_in_meters</code> returns the amount of meters in n decimeters.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.decimeters_in_meters <span class="pl-c">#=&gt; 0.3</span></pre></div>
+
+<h4>
+<a id="distance" class="anchor" href="#distance" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Distance:</h4>
+
+<p><code>distance</code> returns the absolute difference between numbers.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">5</span>.distance(<span class="pl-c1">3</span>) <span class="pl-c">#=&gt; 2</span>
+<span class="pl-c1">3</span>.distance(<span class="pl-c1">5</span>) <span class="pl-c">#=&gt; 2</span></pre></div>
+
+<h4>
+<a id="divide" class="anchor" href="#divide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Divide:</h4>
+
+<p><code>divide</code> returns the division of two numbers.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">4</span>.divide(<span class="pl-c1">2</span>) <span class="pl-c">#=&gt; 2</span></pre></div>
+
+<h4>
+<a id="exabytes-in-bytes" class="anchor" href="#exabytes-in-bytes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exabytes in Bytes:</h4>
+
+<p><code>exabyte_in_bytes</code> and <code>exabytes_in_bytes</code> returns the amount of bytes in n exabytes.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.exabytes_in_bytes <span class="pl-c">#=&gt; 3458764513820540928</span></pre></div>
+
+<h4>
+<a id="feet-in-inches" class="anchor" href="#feet-in-inches" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Feet in Inches:</h4>
+
+<p><code>foot_in_inches</code> and <code>feet_in_inches</code> returns the amount of inches in n feet.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.feet_in_inches <span class="pl-c">#=&gt; 36</span></pre></div>
+
+<h4>
+<a id="gigabytes-in-bytes" class="anchor" href="#gigabytes-in-bytes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Gigabytes in Bytes:</h4>
+
+<p><code>gigabyte_in_bytes</code> and <code>gigabytes_in_bytes</code> returns the amount of bytes in n gigabytes.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.gigabytes_in_bytes <span class="pl-c">#=&gt; 3221225472</span></pre></div>
+
+<h4>
+<a id="grams-in-grams" class="anchor" href="#grams-in-grams" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Grams in Grams:</h4>
+
+<p><code>gram_in_grams</code> and <code>grams_in_grams</code> returns self.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.grams_in_grams <span class="pl-c">#=&gt; 3</span></pre></div>
+
+<h4>
+<a id="greater-than" class="anchor" href="#greater-than" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Greater Than:</h4>
+
+<p><code>greater_than?</code> returns true if self is greater than n.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.greater_than?(<span class="pl-c1">2</span>) <span class="pl-c">#=&gt; true</span>
+<span class="pl-c1">3</span>.greater_than?(<span class="pl-c1">3</span>) <span class="pl-c">#=&gt; false</span>
+<span class="pl-c1">3</span>.greater_than?(<span class="pl-c1">4</span>) <span class="pl-c">#=&gt; false</span></pre></div>
+
+<h4>
+<a id="greater-than-or-equal-to" class="anchor" href="#greater-than-or-equal-to" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Greater Than or Equal To:</h4>
+
+<p><code>greater_than_or_equal_to?</code> returns true if self is greater than or equal to n.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.greater_than_or_equal_to?(<span class="pl-c1">2</span>) <span class="pl-c">#=&gt; true</span>
+<span class="pl-c1">3</span>.greater_than_or_equal_to?(<span class="pl-c1">3</span>) <span class="pl-c">#=&gt; true</span>
+<span class="pl-c1">3</span>.greater_than_or_equal_to?(<span class="pl-c1">4</span>) <span class="pl-c">#=&gt; false</span></pre></div>
+
+<h4>
+<a id="hectograms-in-grams" class="anchor" href="#hectograms-in-grams" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Hectograms in Grams:</h4>
+
+<p><code>hectogram_in_grams</code> and <code>hectograms_in_grams</code> returns the amount of grams in n hectograms.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.hectograms_in_grams <span class="pl-c">#=&gt; 300</span></pre></div>
+
+<h4>
+<a id="hectometers-in-meters" class="anchor" href="#hectometers-in-meters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Hectometers in Meters:</h4>
+
+<p><code>hectometer_in_meters</code> and <code>hectometers_in_meters</code> returns the amount of meters in n hectometers.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.hectometers_in_meters <span class="pl-c">#=&gt; 300</span></pre></div>
+
+<h4>
+<a id="hours-in-seconds" class="anchor" href="#hours-in-seconds" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Hours in Seconds:</h4>
+
+<p><code>hour_in_seconds</code> and <code>hours_in_seconds</code> returns the amount of seconds in n hours.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.hours_in_seconds <span class="pl-c">#=&gt; 10800</span></pre></div>
+
+<h4>
+<a id="inches-in-inches" class="anchor" href="#inches-in-inches" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Inches in Inches:</h4>
+
+<p><code>inch_in_inches</code> and <code>inches_in_inches</code> returns the amount of inches in n inches.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.inches_in_inches <span class="pl-c">#=&gt; 3</span></pre></div>
+
+<h4>
+<a id="inside" class="anchor" href="#inside" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Inside:</h4>
+
+<p><code>inside?</code> returns true if n is greater than start and less than finish. Similar to between but does not return true if equal to self.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.inside?(<span class="pl-c1">1</span>, <span class="pl-c1">5</span>) <span class="pl-c">#=&gt; true</span>
+<span class="pl-c1">3</span>.inside?(<span class="pl-c1">3</span>, <span class="pl-c1">5</span>) <span class="pl-c">#=&gt; false</span></pre></div>
+
+<h4>
+<a id="kilobytes-in-bytes" class="anchor" href="#kilobytes-in-bytes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Kilobytes in Bytes:</h4>
+
+<p><code>kilobyte_in_bytes</code> and <code>kilobytes_in_bytes</code> returns the amount of bytes in n kilobytes.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.kilobytes_in_bytes <span class="pl-c">#=&gt; 3072</span></pre></div>
+
+<h4>
+<a id="kilograms-in-grams" class="anchor" href="#kilograms-in-grams" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Kilograms in Grams:</h4>
+
+<p><code>kilogram_in_grams</code> and <code>kilograms_in_grams</code> returns the amount of grams in n kilograms.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.kilograms_in_grams <span class="pl-c">#=&gt; 3000</span></pre></div>
+
+<h4>
+<a id="kilometers-in-meters" class="anchor" href="#kilometers-in-meters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Kilometers in Meters:</h4>
+
+<p><code>kilometer_in_meters</code> and <code>kilometers_in_meters</code> returns the amount of meters in n kilometers.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.kilometers_in_meters <span class="pl-c">#=&gt; 3000</span></pre></div>
+
+<h4>
+<a id="less-than" class="anchor" href="#less-than" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Less Than:</h4>
+
+<p><code>less_than?</code> returns true if self is less than n.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.less_than?(<span class="pl-c1">2</span>) <span class="pl-c">#=&gt; false</span>
+<span class="pl-c1">3</span>.less_than?(<span class="pl-c1">3</span>) <span class="pl-c">#=&gt; false</span>
+<span class="pl-c1">3</span>.less_than?(<span class="pl-c1">4</span>) <span class="pl-c">#=&gt; true</span></pre></div>
+
+<h4>
+<a id="less-than-or-equal-to" class="anchor" href="#less-than-or-equal-to" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Less Than or Equal To:</h4>
+
+<p><code>less_than_or_equal_to?</code> returns true if self is less than or equal to n.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.less_than_or_equal_to?(<span class="pl-c1">2</span>) <span class="pl-c">#=&gt; false</span>
+<span class="pl-c1">3</span>.less_than_or_equal_to?(<span class="pl-c1">3</span>) <span class="pl-c">#=&gt; true</span>
+<span class="pl-c1">3</span>.less_than_or_equal_to?(<span class="pl-c1">4</span>) <span class="pl-c">#=&gt; true</span></pre></div>
+
+<h4>
+<a id="metric-ton-in-ounces" class="anchor" href="#metric-ton-in-ounces" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Metric Ton in Ounces:</h4>
+
+<p><code>metric_ton_in_ounces</code> and <code>metric_tons_in_ounces</code> returns the amount of grams in n metric_tons.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.metric_tons_in_ounces <span class="pl-c">#=&gt; 3000000</span></pre></div>
+
+<h4>
+<a id="megabytes-in-bytes" class="anchor" href="#megabytes-in-bytes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Megabytes in Bytes:</h4>
+
+<p><code>megabyte_in_bytes</code> and <code>megabytes_in_bytes</code> returns the amount of bytes in n megabytes.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.megabytes_in_bytes <span class="pl-c">#=&gt; 3145728</span></pre></div>
+
+<h4>
+<a id="meters-in-meters" class="anchor" href="#meters-in-meters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Meters in Meters:</h4>
+
+<p><code>meter_in_meters</code> and <code>meters_in_meters</code> returns self.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.meters_in_meters <span class="pl-c">#=&gt; 3</span></pre></div>
+
+<h4>
+<a id="miles-in-inches" class="anchor" href="#miles-in-inches" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Miles in Inches:</h4>
+
+<p><code>mile_in_inches</code> and <code>miles_in_inches</code> returns the amount of inches in n miles.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.miles_in_inches <span class="pl-c">#=&gt; 190080</span></pre></div>
+
+<h4>
+<a id="millenniums-in-seconds" class="anchor" href="#millenniums-in-seconds" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Millenniums in Seconds:</h4>
+
+<p><code>millennium_in_seconds</code> and <code>millenniums_in_seconds</code> returns the amount of seconds in n millenniums.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.millenniums_in_seconds <span class="pl-c">#=&gt; 94672800000.0</span></pre></div>
+
+<h4>
+<a id="milligrams-in-grams" class="anchor" href="#milligrams-in-grams" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Milligrams in Grams:</h4>
+
+<p><code>milligram_in_grams</code> and <code>milligrams_in_grams</code> returns the amount of grams in n milligrams.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.milligrams_in_grams <span class="pl-c">#=&gt; 0.003</span></pre></div>
+
+<h4>
+<a id="millimeters-in-meters" class="anchor" href="#millimeters-in-meters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Millimeters in Meters:</h4>
+
+<p><code>millimeter_in_meters</code> and <code>millimeters_in_meters</code> returns the amount of meters in n millimeters.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.millimeters_in_meters <span class="pl-c">#=&gt; 0.003</span></pre></div>
+
+<h4>
+<a id="minutes-in-seconds" class="anchor" href="#minutes-in-seconds" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Minutes in Seconds:</h4>
+
+<p><code>minute_in_seconds</code> and <code>minutes_in_seconds</code> returns the amount of seconds in n minutes.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.minutes_in_seconds <span class="pl-c">#=&gt; 180</span></pre></div>
+
+<h4>
+<a id="multiply" class="anchor" href="#multiply" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Multiply:</h4>
+
+<p><code>multiply</code> returns the multiplication of two numbers.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">4</span>.multiply(<span class="pl-c1">2</span>) <span class="pl-c">#=&gt; 8</span></pre></div>
+
+<h4>
+<a id="multiple-of" class="anchor" href="#multiple-of" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Multiple Of:</h4>
+
+<p><code>multiple_of?</code> returns true if a number can be evenly divided by n. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">9</span>.multiple_of?(<span class="pl-c1">3</span>) <span class="pl-c">#=&gt; true</span>
+<span class="pl-c1">7</span>.multiple_of?(<span class="pl-c1">3</span>) <span class="pl-c">#=&gt; false</span></pre></div>
+
+<h4>
+<a id="nautical-miles-in-inches" class="anchor" href="#nautical-miles-in-inches" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Nautical Miles in Inches:</h4>
+
+<p><code>nautical_mile_in_inches</code> and <code>nautical_miles_in_inches</code> returns the amount of inches in n nautical miles.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.nautical_miles_in_inches <span class="pl-c">#=&gt; 218740.26239999998</span></pre></div>
+
+<h4>
+<a id="negative" class="anchor" href="#negative" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Negative:</h4>
+
+<p><code>negative?</code> returns true if a number is less than zero.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">-</span><span class="pl-c1">1</span>.negative? <span class="pl-c">#=&gt; true</span>
+<span class="pl-c1">1</span>.negative? <span class="pl-c">#=&gt; false</span></pre></div>
+
+<h4>
+<a id="ordinal" class="anchor" href="#ordinal" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Ordinal:</h4>
+
+<p><code>ordinal</code> returns the suffix that should be added to a number to denote the position in an ordered sequence such as 1st, 2nd, 3rd, 4th. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>.ordinal  <span class="pl-c">#=&gt; "th"</span>
+<span class="pl-s"><span class="pl-pds">"</span>2<span class="pl-pds">"</span></span>.ordinal  <span class="pl-c">#=&gt; "nd"</span>
+<span class="pl-s"><span class="pl-pds">"</span>3<span class="pl-pds">"</span></span>.ordinal  <span class="pl-c">#=&gt; "rd"</span>
+<span class="pl-s"><span class="pl-pds">"</span>11<span class="pl-pds">"</span></span>.ordinal <span class="pl-c">#=&gt; "th"</span></pre></div>
+
+<h4>
+<a id="ordinalize" class="anchor" href="#ordinalize" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Ordinalize:</h4>
+
+<p><code>ordinalize</code> transforms a number into an ordinal string used to denote the position in an ordered sequence such as 1st, 2nd, 3rd, 4th. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>.ordinalize  <span class="pl-c">#=&gt; "1th"</span>
+<span class="pl-s"><span class="pl-pds">"</span>2<span class="pl-pds">"</span></span>.ordinalize  <span class="pl-c">#=&gt; "2nd"</span>
+<span class="pl-s"><span class="pl-pds">"</span>3<span class="pl-pds">"</span></span>.ordinalize  <span class="pl-c">#=&gt; "3rd"</span>
+<span class="pl-s"><span class="pl-pds">"</span>11<span class="pl-pds">"</span></span>.ordinalize <span class="pl-c">#=&gt; "4th"</span></pre></div>
+
+<h4>
+<a id="ounces-in-ounces" class="anchor" href="#ounces-in-ounces" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Ounces in Ounces:</h4>
+
+<p><code>ounce_in_ounces</code> and <code>ounces_in_ounces</code> returns self.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.ounces_in_ounces <span class="pl-c">#=&gt; 48</span></pre></div>
+
+<h4>
+<a id="outside" class="anchor" href="#outside" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Outside:</h4>
+
+<p><code>outside?</code> returns true if n is less than start or greater than finish.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.outside?(<span class="pl-c1">4</span>, <span class="pl-c1">5</span>) <span class="pl-c">#=&gt; true</span>
+<span class="pl-c1">3</span>.outside?(<span class="pl-c1">3</span>, <span class="pl-c1">5</span>) <span class="pl-c">#=&gt; false</span></pre></div>
+
+<h4>
+<a id="pad" class="anchor" href="#pad" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pad:</h4>
+
+<p><code>pad</code> returns a string reprensentation of the number padded with pad_num to a specified length.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.pad                <span class="pl-c">#=&gt; "003"</span>
+<span class="pl-c1">3</span>.pad(<span class="pl-c1">pad_number:</span> <span class="pl-c1">1</span>) <span class="pl-c">#=&gt; "113"</span>
+<span class="pl-c1">3</span>.pad(<span class="pl-c1">precision:</span> <span class="pl-c1">4</span>)  <span class="pl-c">#=&gt; "0003"</span></pre></div>
+
+<h4>
+<a id="pad-precision" class="anchor" href="#pad-precision" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pad Precision:</h4>
+
+<p><code>pad_precision</code> returns a string of padded after the '.' to n amount.</p>
+
+<p><strong>Options</strong></p>
+
+<ul>
+<li> pad_number: 0</li>
+<li> precision: 2</li>
+<li> separator: "..."</li>
+</ul>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.pad_precision                <span class="pl-c">#=&gt; "3.00"</span>
+<span class="pl-c1">3.5</span>.pad_precision              <span class="pl-c">#=&gt; "3.50"</span>
+<span class="pl-c1">3</span>.pad_precision(<span class="pl-c1">pad_number:</span> <span class="pl-c1">1</span>) <span class="pl-c">#=&gt; "3.11"</span></pre></div>
+
+<h4>
+<a id="petabytes-in-bytes" class="anchor" href="#petabytes-in-bytes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Petabytes in Bytes:</h4>
+
+<p><code>petabyte_in_bytes</code> and <code>pegabytes_in_bytes</code> returns the amount of bytes in n petabytes.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.petabytes_in_bytes <span class="pl-c">#=&gt; 3377699720527872</span></pre></div>
+
+<h4>
+<a id="positive" class="anchor" href="#positive" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Positive:</h4>
+
+<p><code>positive?</code> returns true if a number is greater than zero.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">1</span>.positive? <span class="pl-c">#=&gt; true</span>
+<span class="pl-k">-</span><span class="pl-c1">1</span>.positive? <span class="pl-c">#=&gt; false</span></pre></div>
+
+<h4>
+<a id="pounds-in-ounces" class="anchor" href="#pounds-in-ounces" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pounds in Ounces:</h4>
+
+<p><code>pound_in_ounces</code> and <code>pounds_in_ounces</code> returns the amount of ounces in n pounds.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.pounds_in_ounces <span class="pl-c">#=&gt; 48</span></pre></div>
+
+<h4>
+<a id="power" class="anchor" href="#power" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Power:</h4>
+
+<p><code>power</code> returns the nth power of a number.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">4</span>.power(<span class="pl-c1">2</span>) <span class="pl-c">#=&gt; 16</span></pre></div>
+
+<h4>
+<a id="root" class="anchor" href="#root" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Root:</h4>
+
+<p><code>root</code> returns the nth root of a number.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">4</span>.root(<span class="pl-c1">2</span>) <span class="pl-c">#=&gt; 2</span></pre></div>
+
+<h4>
+<a id="seconds-in-seconds" class="anchor" href="#seconds-in-seconds" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Seconds in Seconds:</h4>
+
+<p><code>second_in_seconds</code> and <code>seconds_in_seconds</code> returns self.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.seconds <span class="pl-c">#=&gt; 3</span></pre></div>
+
+<h4>
+<a id="stones-in-ounces" class="anchor" href="#stones-in-ounces" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Stones in Ounces:</h4>
+
+<p><code>stone_in_ounces</code> and <code>stone_in_ounces</code> returns the amount of ounces in n stones.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.stones_in_ounces <span class="pl-c">#=&gt; 672</span></pre></div>
+
+<h4>
+<a id="subtract" class="anchor" href="#subtract" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Subtract:</h4>
+
+<p><code>subtract</code> returns the difference of two numbers.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">4</span>.subtract(<span class="pl-c1">2</span>) <span class="pl-c">#=&gt; 2</span></pre></div>
+
+<h4>
+<a id="terabytes-in-bytes" class="anchor" href="#terabytes-in-bytes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Terabytes in Bytes:</h4>
+
+<p><code>terabyte_in_bytes</code> and <code>terabytes_in_bytes</code> returns the amount of bytes in n terabytes.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.terabytes_in_bytes <span class="pl-c">#=&gt; 3298534883328</span></pre></div>
+
+<h4>
+<a id="to-byte" class="anchor" href="#to-byte" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>To Byte:</h4>
+
+<p><code>to_byte_in_bytes</code> converts a byte size from one unit to another unit.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">1</span>.to_byte(<span class="pl-c1">:byte</span>, <span class="pl-c1">:byte</span>)          <span class="pl-c">#=&gt; 1 #B</span>
+<span class="pl-c1">5120</span>.to_byte(<span class="pl-c1">:byte</span>, <span class="pl-c1">:kilobyte</span>)   <span class="pl-c">#=&gt; 5 #MB</span>
+<span class="pl-c1">1</span>.to_byte(<span class="pl-c1">:megabyte</span>, <span class="pl-c1">:kilobyte</span>)  <span class="pl-c">#=&gt; 1024 #KB</span>
+<span class="pl-c1">80</span>.to_byte(<span class="pl-c1">:megabyte</span>, <span class="pl-c1">:gigabyte</span>) <span class="pl-c">#=&gt; 0.078125 #GB</span></pre></div>
+
+<h4>
+<a id="to-currency" class="anchor" href="#to-currency" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>To Currency:</h4>
+
+<p><code>to_currency</code> converts a number to currency string.</p>
+
+<p><strong>Options</strong></p>
+
+<ul>
+<li> precision: 2</li>
+<li> unit: "$"</li>
+</ul>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.to_currency            <span class="pl-c">#=&gt; "$3.00"</span>
+<span class="pl-c1">3.1</span>.to_currency          <span class="pl-c">#=&gt; "$3.10"</span>
+<span class="pl-c1">3.11</span>.to_currency         <span class="pl-c">#=&gt; "$3.11"</span>
+<span class="pl-c1">3.11111</span>.to_currency      <span class="pl-c">#=&gt; "$3.11"</span>
+<span class="pl-c1">3</span>.to_currency(<span class="pl-c1">unit:</span> <span class="pl-s"><span class="pl-pds">"</span>@<span class="pl-pds">"</span></span>) <span class="pl-c">#=&gt; "@3.00"</span></pre></div>
+
+<h4>
+<a id="to-length" class="anchor" href="#to-length" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>To Length:</h4>
+
+<p><code>to_length</code> converts a length from one unit to another unit.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">12</span>.to_length(<span class="pl-c1">:inches</span>, <span class="pl-c1">:feet</span>)         <span class="pl-c">#=&gt; 12 #IN</span>
+<span class="pl-c1">3000</span>.to_length(<span class="pl-c1">:meters</span>, <span class="pl-c1">:kilometers</span>) <span class="pl-c">#=&gt; 3 #KM</span>
+<span class="pl-c1">1</span>.to_length(<span class="pl-c1">:feet</span>, <span class="pl-c1">:centimeters</span>)     <span class="pl-c">#=&gt; 30.479999999999997 #CM</span>
+<span class="pl-c1">1</span>.to_length(<span class="pl-c1">:kilometer</span>, <span class="pl-c1">:yards</span>)      <span class="pl-c">#=&gt; 1093.6138888888888 #YDS</span></pre></div>
+
+<h4>
+<a id="to-mass" class="anchor" href="#to-mass" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>To Mass:</h4>
+
+<p><code>to_mass</code> converts a mass from one unit to another unit.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">16</span>.to_mass(<span class="pl-c1">:ounces</span>, <span class="pl-c1">:pounds</span>)        <span class="pl-c">#=&gt; 1 #LB</span>
+<span class="pl-c1">1</span>.to_mass(<span class="pl-c1">:centigrams</span>, <span class="pl-c1">:milligrams</span>) <span class="pl-c">#=&gt; 10 #MG</span>
+<span class="pl-c1">3</span>.to_mass(<span class="pl-c1">:pound</span>, <span class="pl-c1">:kilogram</span>)        <span class="pl-c">#=&gt; 1.360776 #KG</span>
+<span class="pl-c1">1</span>.to_mass(<span class="pl-c1">:kilograms</span>, <span class="pl-c1">:pounds</span>)      <span class="pl-c">#=&gt; 2.204625 #LB</span></pre></div>
+
+<h4>
+<a id="to-nearest-value" class="anchor" href="#to-nearest-value" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>To Nearest Value:</h4>
+
+<p><code>to_nearest value</code> return the value in values that is nearest to the number.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">5</span>.to_nearest_value([<span class="pl-c1">1</span>, <span class="pl-c1">3</span>, <span class="pl-c1">6</span>, <span class="pl-c1">9</span>])           <span class="pl-c">#=&gt; 6</span>
+<span class="pl-c1">3.5</span>.to_nearest_value([<span class="pl-c1">3.0</span>, <span class="pl-c1">3.3</span>, <span class="pl-c1">3.6</span>, <span class="pl-c1">3.9</span>]) <span class="pl-c">#=&gt; 3.6</span></pre></div>
+
+<h4>
+<a id="to-percantage" class="anchor" href="#to-percantage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>To Percantage:</h4>
+
+<p><code>to_percentage</code> converts a number to percentage string.</p>
+
+<p><strong>Options</strong></p>
+
+<ul>
+<li> precision: 2</li>
+<li> unit: "%"</li>
+</ul>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.to_percentage            <span class="pl-c">#=&gt; "3.00%"</span>
+<span class="pl-c1">3.1</span>.to_percentage          <span class="pl-c">#=&gt; "3.10%"</span>
+<span class="pl-c1">3.11</span>.to_percentage         <span class="pl-c">#=&gt; "3.11%"</span>
+<span class="pl-c1">3.11111</span>.to_percentage      <span class="pl-c">#=&gt; "3.11%"</span>
+<span class="pl-c1">3</span>.to_percentage(<span class="pl-c1">unit:</span> <span class="pl-s"><span class="pl-pds">"</span>@<span class="pl-pds">"</span></span>) <span class="pl-c">#=&gt; "3.00@"</span></pre></div>
+
+<h4>
+<a id="to-temperature" class="anchor" href="#to-temperature" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>To Temperature:</h4>
+
+<p><code>to_temperature</code> converts a temperature from one unit to another unit.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">100</span>.to_temperature(<span class="pl-c1">:celsius</span>, <span class="pl-c1">:fahrenheit</span>) <span class="pl-c">#=&gt; 212 #F</span>
+<span class="pl-c1">212</span>.to_temperature(<span class="pl-c1">:fahrenheit</span>, <span class="pl-c1">:celsius</span>) <span class="pl-c">#=&gt; 100 #C</span>
+<span class="pl-c1">212</span>.to_temperature(<span class="pl-c1">:fahrenheit</span>, <span class="pl-c1">:kelvin</span>)  <span class="pl-c">#=&gt; 373.15 #K</span></pre></div>
+
+<h4>
+<a id="to-time" class="anchor" href="#to-time" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>To Time:</h4>
+
+<p><code>to_time</code> converts a time unit from one unit to another unit.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">120</span>.to_time(<span class="pl-c1">:seconds</span>, <span class="pl-c1">:mintues</span>) <span class="pl-c">#=&gt; 2 #MIN</span>
+<span class="pl-c1">3</span>.to_time(<span class="pl-c1">:hours</span>, <span class="pl-c1">:days</span>)        <span class="pl-c">#=&gt; 3 #DAY</span>
+<span class="pl-c1">2</span>.to_time(<span class="pl-c1">:days</span>, <span class="pl-c1">:seconds</span>)      <span class="pl-c">#=&gt; 172800 #SEC</span>
+<span class="pl-c1">1825</span>.to_time(<span class="pl-c1">:days</span>, <span class="pl-c1">:years</span>)     <span class="pl-c">#=&gt; 4.996577686516085 #YR</span></pre></div>
+
+<h4>
+<a id="tons-in-ounces" class="anchor" href="#tons-in-ounces" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Tons in Ounces:</h4>
+
+<p><code>ton_in_ounces</code> and <code>ton_in_ounces</code> returns the amount of ounces in n tons.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.tons_in_ounces <span class="pl-c">#=&gt; 96000</span></pre></div>
+
+<h4>
+<a id="weeks-in-seconds" class="anchor" href="#weeks-in-seconds" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Weeks in Seconds:</h4>
+
+<p><code>week_in_seconds</code> and <code>weeks_in_seconds</code> returns the amount of seconds in n weeks.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.weeks_in_seconds <span class="pl-c">#=&gt; 1814400</span></pre></div>
+
+<h4>
+<a id="within" class="anchor" href="#within" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Within:</h4>
+
+<p><code>within?</code> determines if another number is approximately equal within a given epsilon</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">10.006</span>.within?(<span class="pl-c1">10</span>, <span class="pl-c1">0.1</span>) <span class="pl-c">#=&gt;  true</span></pre></div>
+
+<h4>
+<a id="yards-in-inches" class="anchor" href="#yards-in-inches" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Yards in Inches:</h4>
+
+<p><code>yard_in_inches</code> and <code>yards_in_inches</code> returns the amount of inches in n yards.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.yards_in_inches <span class="pl-c">#=&gt; 108</span></pre></div>
+
+<h4>
+<a id="years-in-seconds" class="anchor" href="#years-in-seconds" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Years in Seconds:</h4>
+
+<p><code>year_in_seconds</code> and <code>years_in_seconds</code> returns the amount of seconds in n years.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">3</span>.years_in_seconds <span class="pl-c">#=&gt; 94672800.0</span></pre></div>
+
+<h2>
+<a id="object" class="anchor" href="#object" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Object</h2>
+
+<h4>
+<a id="array-1" class="anchor" href="#array-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Array:</h4>
+
+<p><code>array?</code> determines if an object is an array.</p>
+
+<div class="highlight highlight-source-ruby"><pre>[].array?              <span class="pl-c">#=&gt; true</span>
+<span class="pl-s"><span class="pl-pds">"</span>Awesome Sting<span class="pl-pds">"</span></span>.array? <span class="pl-c">#=&gt; false</span></pre></div>
+
+<h4>
+<a id="blank" class="anchor" href="#blank" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Blank:</h4>
+
+<p><code>blank?</code> determines if an object is empty or nil. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>.blank?              <span class="pl-c">#=&gt; true</span>
+<span class="pl-s"><span class="pl-pds">"</span>Awesome Sting<span class="pl-pds">"</span></span>.blank? <span class="pl-c">#=&gt; false</span></pre></div>
+
+<h4>
+<a id="boolean" class="anchor" href="#boolean" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Boolean:</h4>
+
+<p><code>boolean?</code> determines if an object is an boolean.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">1</span>.boolean?     <span class="pl-c">#=&gt; true</span>
+<span class="pl-c1">false</span>.boolean? <span class="pl-c">#=&gt; true</span>
+<span class="pl-s"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span>.boolean? <span class="pl-c">#=&gt; false</span></pre></div>
+
+<h4>
+<a id="false" class="anchor" href="#false" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>False:</h4>
+
+<p><code>false?</code> determines if an object is false.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">false</span>.false? <span class="pl-c">#=&gt; true</span>
+<span class="pl-c1">true</span>.false?  <span class="pl-c">#=&gt; false</span></pre></div>
+
+<h4>
+<a id="falsey" class="anchor" href="#falsey" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Falsey:</h4>
+
+<p><code>falsey?</code> determines if an object is false, nil, or 0.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">false</span>.falsey? <span class="pl-c">#=&gt; true</span>
+<span class="pl-c1">true</span>.falsey?  <span class="pl-c">#=&gt; false</span>
+<span class="pl-c1">0</span>.falsey?     <span class="pl-c">#=&gt; true</span></pre></div>
+
+<h4>
+<a id="float" class="anchor" href="#float" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Float:</h4>
+
+<p><code>float?</code> determines if an object is a float.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">1.0</span>.float? <span class="pl-c">#=&gt; true</span>
+<span class="pl-c1">1</span>.float?   <span class="pl-c">#=&gt; false</span></pre></div>
+
+<h4>
+<a id="hash-1" class="anchor" href="#hash-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Hash:</h4>
+
+<p><code>hash?</code> determines if an object is a hash.</p>
+
+<div class="highlight highlight-source-ruby"><pre>{}.hash? <span class="pl-c">#=&gt; true</span>
+[].hash? <span class="pl-c">#=&gt; false</span></pre></div>
+
+<h4>
+<a id="integer-1" class="anchor" href="#integer-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Integer:</h4>
+
+<p><code>integer?</code> determines if an object is a integer.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">1</span>.integer?   <span class="pl-c">#=&gt; true</span>
+<span class="pl-c1">1.0</span>.integer? <span class="pl-c">#=&gt; false</span></pre></div>
+
+<h4>
+<a id="numeric-1" class="anchor" href="#numeric-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Numeric:</h4>
+
+<p><code>numeric?</code> determines if an object is numeric.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">1</span>.numeric?     <span class="pl-c">#=&gt; true</span>
+<span class="pl-c1">1.0</span>.numeric?   <span class="pl-c">#=&gt; true</span>
+<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span>.numeric? <span class="pl-c">#=&gt; false</span></pre></div>
+
+<h4>
+<a id="numeral" class="anchor" href="#numeral" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Numeral:</h4>
+
+<p><code>numeral?</code> determines if an object's string value is numeral.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>-32.50<span class="pl-pds">"</span></span>.numeral? <span class="pl-c">#=&gt; true</span>
+<span class="pl-s"><span class="pl-pds">"</span>$2.55<span class="pl-pds">"</span></span>.numeral?  <span class="pl-c">#=&gt; false</span></pre></div>
+
+<h4>
+<a id="palindrome" class="anchor" href="#palindrome" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Palindrome:</h4>
+
+<p><code>palindrome?</code> determines if an object is equal when reversed.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>racecar<span class="pl-pds">"</span></span>.palindrome? <span class="pl-c">#=&gt; true</span>
+<span class="pl-c1">12321</span>.palindrome?     <span class="pl-c">#=&gt; true</span>
+<span class="pl-s"><span class="pl-pds">"</span>example<span class="pl-pds">"</span></span>.palindrome? <span class="pl-c">#=&gt; false</span>
+<span class="pl-c1">12345</span>.palindrome?     <span class="pl-c">#=&gt; false</span></pre></div>
+
+<h4>
+<a id="present" class="anchor" href="#present" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Present:</h4>
+
+<p><code>present?</code> determines if an object is not empty or nil. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>Awesome Sting<span class="pl-pds">"</span></span>.present? <span class="pl-c">#=&gt; true</span>
+<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>.present?              <span class="pl-c">#=&gt; false</span></pre></div>
+
+<h4>
+<a id="range-1" class="anchor" href="#range-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Range:</h4>
+
+<p><code>range?</code> determines if an object is a range.</p>
+
+<div class="highlight highlight-source-ruby"><pre>(<span class="pl-c1">1</span>..<span class="pl-c1">2</span>).range? <span class="pl-c">#=&gt; true</span>
+<span class="pl-c1">1</span>.range?      <span class="pl-c">#=&gt; false</span></pre></div>
+
+<h4>
+<a id="salvage" class="anchor" href="#salvage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Salvage:</h4>
+
+<p><code>salvage</code> returns a placeholder if object is blank?.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span> <span class="pl-pds">"</span></span>.salvage        <span class="pl-c">#=&gt; "---"</span>
+<span class="pl-c1">nil</span>.salvage(<span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span>) <span class="pl-c">#=&gt; "bar"</span>
+<span class="pl-c1">123</span>.salvage        <span class="pl-c">#=&gt; 123</span></pre></div>
+
+<h4>
+<a id="string" class="anchor" href="#string" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>String:</h4>
+
+<p><code>string?</code> determines if an object is a string.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span>.string? <span class="pl-c">#=&gt; true</span>
+<span class="pl-c1">1</span>.string?     <span class="pl-c">#=&gt; false</span></pre></div>
+
+<h4>
+<a id="time-1" class="anchor" href="#time-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Time:</h4>
+
+<p><code>time?</code> determines if an object is a time.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">Time</span>.now.time? <span class="pl-c">#=&gt; true</span>
+<span class="pl-s"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span>.time?    <span class="pl-c">#=&gt; false</span></pre></div>
+
+<h4>
+<a id="true" class="anchor" href="#true" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>True:</h4>
+
+<p><code>true?</code> determines if an object is true.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">true</span>.true?  <span class="pl-c">#=&gt; true</span>
+<span class="pl-c1">false</span>.true? <span class="pl-c">#=&gt; false</span></pre></div>
+
+<h4>
+<a id="truthy" class="anchor" href="#truthy" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Truthy:</h4>
+
+<p><code>truthy?</code> determines if an object is true or 1.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">true</span>.truthy?  <span class="pl-c">#=&gt; true</span>
+<span class="pl-c1">false</span>.truthy? <span class="pl-c">#=&gt; false</span>
+<span class="pl-c1">1</span>.truthy?     <span class="pl-c">#=&gt; true</span></pre></div>
+
+<h4>
+<a id="try" class="anchor" href="#try" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Try:</h4>
+
+<p><code>try</code> and <code>try!</code> invokes the public method whose name goes as first argument just like public_send does, except that if the receiver does not respond to it the call returns nil rather than raising an exception. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>example<span class="pl-pds">"</span></span>.try(<span class="pl-c1">:upcase</span>)      <span class="pl-c">#=&gt; "EXAMPLE"</span>
+<span class="pl-s"><span class="pl-pds">"</span>example<span class="pl-pds">"</span></span>.try(<span class="pl-c1">:fake_method</span>) <span class="pl-c">#=&gt; nil</span></pre></div>
+
+<h2>
+<a id="range-2" class="anchor" href="#range-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Range</h2>
+
+<h4>
+<a id="combine" class="anchor" href="#combine" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Combine:</h4>
+
+<p><code>combine</code> returns two concated ranges.</p>
+
+<div class="highlight highlight-source-ruby"><pre>(<span class="pl-c1">1</span>..<span class="pl-c1">3</span>).combine(<span class="pl-c1">7</span>..<span class="pl-c1">9</span>) <span class="pl-c">#=&gt; [1, 2, 3, 7, 8, 9]</span></pre></div>
+
+<h4>
+<a id="include-with-range" class="anchor" href="#include-with-range" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Include With Range:</h4>
+
+<p><code>include_with_range?</code> determines if a range includes another range. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre>(<span class="pl-c1">1</span>..<span class="pl-c1">5</span>).include?(<span class="pl-c1">1</span>..<span class="pl-c1">5</span>) <span class="pl-c"># =&gt; true</span>
+(<span class="pl-c1">1</span>..<span class="pl-c1">5</span>).include?(<span class="pl-c1">2</span>..<span class="pl-c1">3</span>) <span class="pl-c"># =&gt; true</span>
+(<span class="pl-c1">1</span>..<span class="pl-c1">5</span>).include?(<span class="pl-c1">2</span>..<span class="pl-c1">6</span>) <span class="pl-c"># =&gt; false</span></pre></div>
+
+<h4>
+<a id="overlaps" class="anchor" href="#overlaps" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Overlaps:</h4>
+
+<p><code>overlaps?</code> determines if two ranges overlap each other. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre>(<span class="pl-c1">1</span>..<span class="pl-c1">5</span>).overlaps?(<span class="pl-c1">4</span>..<span class="pl-c1">6</span>) <span class="pl-c"># =&gt; true</span>
+(<span class="pl-c1">1</span>..<span class="pl-c1">5</span>).overlaps?(<span class="pl-c1">7</span>..<span class="pl-c1">9</span>) <span class="pl-c"># =&gt; false</span></pre></div>
+
+<h4>
+<a id="sample-2" class="anchor" href="#sample-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Sample:</h4>
+
+<p><code>sample</code> returns a random element from the range.</p>
+
+<div class="highlight highlight-source-ruby"><pre>(<span class="pl-c1">1</span>..<span class="pl-c1">5</span>).sample <span class="pl-c"># =&gt; 4</span></pre></div>
+
+<h4>
+<a id="shuffle-1" class="anchor" href="#shuffle-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Shuffle:</h4>
+
+<p><code>shuffle</code> returns a copy of a shuffled range of elements.
+<code>shuffle!</code> returns a shuffled range of elements.</p>
+
+<div class="highlight highlight-source-ruby"><pre>(<span class="pl-c1">1</span>..<span class="pl-c1">5</span>).shuffle  <span class="pl-c"># =&gt; [2, 5, 1, 4, 3]</span>
+(<span class="pl-c1">1</span>..<span class="pl-c1">5</span>).shuffle! <span class="pl-c"># =&gt; [3, 4, 5, 2, 1]</span></pre></div>
+
+<h4>
+<a id="within-1" class="anchor" href="#within-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Within:</h4>
+
+<p><code>within?</code> determines if one range is within another.</p>
+
+<div class="highlight highlight-source-ruby"><pre>(<span class="pl-c1">1</span>..<span class="pl-c1">5</span>).within?(<span class="pl-c1">2</span>..<span class="pl-c1">4</span>) <span class="pl-c"># =&gt; true</span>
+(<span class="pl-c1">1</span>..<span class="pl-c1">5</span>).within?(<span class="pl-c1">4</span>..<span class="pl-c1">6</span>) <span class="pl-c"># =&gt; false</span></pre></div>
+
+<h2>
+<a id="string-1" class="anchor" href="#string-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>String</h2>
+
+<h4>
+<a id="any" class="anchor" href="#any" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Any:</h4>
+
+<p><code>any?</code> determines if a string includes a set of string(s).</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>example string<span class="pl-pds">"</span></span>.any?(<span class="pl-s"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span>)           <span class="pl-c">#=&gt; false</span>
+<span class="pl-s"><span class="pl-pds">"</span>example string<span class="pl-pds">"</span></span>.any?(<span class="pl-s"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>string<span class="pl-pds">"</span></span>) <span class="pl-c">#=&gt; true</span></pre></div>
+
+<h4>
+<a id="at" class="anchor" href="#at" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>At:</h4>
+
+<p><code>at</code> returns the characters at index position, matching string, or regex. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>example_string<span class="pl-pds">"</span></span>.at(<span class="pl-c1">0</span>)     <span class="pl-c">#=&gt; "e"</span>
+<span class="pl-s"><span class="pl-pds">"</span>example_string<span class="pl-pds">"</span></span>.at(<span class="pl-k">-</span><span class="pl-c1">2</span>)    <span class="pl-c">#=&gt; "n"</span>
+<span class="pl-s"><span class="pl-pds">"</span>example_string<span class="pl-pds">"</span></span>.at(<span class="pl-c1">1</span>..<span class="pl-c1">3</span>)  <span class="pl-c">#=&gt; "xam"</span>
+<span class="pl-s"><span class="pl-pds">"</span>example_string<span class="pl-pds">"</span></span>.at(<span class="pl-s"><span class="pl-pds">"</span>e_s<span class="pl-pds">"</span></span>) <span class="pl-c">#=&gt; "e_s"</span>
+<span class="pl-s"><span class="pl-pds">"</span>example_string<span class="pl-pds">"</span></span>.at(<span class="pl-sr"><span class="pl-pds">/</span>ple<span class="pl-pds">/</span></span>) <span class="pl-c">#=&gt; "ple"</span>
+<span class="pl-s"><span class="pl-pds">"</span>example_string<span class="pl-pds">"</span></span>.at(<span class="pl-c1">99</span>)    <span class="pl-c">#=&gt; nil</span></pre></div>
+
+<h4>
+<a id="camelize" class="anchor" href="#camelize" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Camelize:</h4>
+
+<p><code>camelize</code> and <code>camelize!</code> transfroms a string to camelcase. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>example_string<span class="pl-pds">"</span></span>.camelize         <span class="pl-c">#=&gt; "ExampleString"</span>
+<span class="pl-s"><span class="pl-pds">"</span>example_String<span class="pl-pds">"</span></span>.camecase         <span class="pl-c">#=&gt; "ExampleString"</span>
+<span class="pl-s"><span class="pl-pds">"</span>example_string<span class="pl-pds">"</span></span>.camelize(<span class="pl-c1">:lower</span>) <span class="pl-c">#=&gt; "exampleString"</span>
+<span class="pl-s"><span class="pl-pds">"</span>example_String<span class="pl-pds">"</span></span>.camecase(<span class="pl-c1">:lower</span>) <span class="pl-c">#=&gt; "exampleString"</span></pre></div>
+
+<h4>
+<a id="classify" class="anchor" href="#classify" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Classify:</h4>
+
+<p><code>classify</code> and <code>classify!</code> creates a class name from a string like Rails does for table names to models. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>example_string<span class="pl-pds">"</span></span>.classify      <span class="pl-c">#=&gt; "ExampleString"</span>
+<span class="pl-s"><span class="pl-pds">"</span>example_string/test<span class="pl-pds">"</span></span>.classify <span class="pl-c">#=&gt; "ExampleString::Test"</span>
+<span class="pl-s"><span class="pl-pds">"</span>example_string.test<span class="pl-pds">"</span></span>.classify <span class="pl-c">#=&gt; "Test"</span></pre></div>
+
+<h4>
+<a id="constantize" class="anchor" href="#constantize" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Constantize:</h4>
+
+<p><code>constantize</code> converts a string in an object. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>Example::String<span class="pl-pds">"</span></span>.constantize <span class="pl-c">#=&gt; Class Object</span></pre></div>
+
+<h4>
+<a id="dasherize" class="anchor" href="#dasherize" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dasherize:</h4>
+
+<p><code>dasherize</code> and <code>dasherize!</code> replaces underscores with dashes in the string. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>example_string<span class="pl-pds">"</span></span>.dasherize <span class="pl-c">#=&gt; "example-string"</span></pre></div>
+
+<h4>
+<a id="deconstantize" class="anchor" href="#deconstantize" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Deconstantize:</h4>
+
+<p><code>deconstantize</code> and <code>deconstantize!</code> removes the rightmost segment from the constant expression in the string. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>Example::String<span class="pl-pds">"</span></span>.deconstantize   <span class="pl-c"># =&gt; "Example"</span>
+<span class="pl-s"><span class="pl-pds">"</span>::Example::String<span class="pl-pds">"</span></span>.deconstantize <span class="pl-c"># =&gt; "::Example"</span>
+<span class="pl-s"><span class="pl-pds">"</span>String<span class="pl-pds">"</span></span>.deconstantize            <span class="pl-c"># =&gt; ""</span>
+<span class="pl-s"><span class="pl-pds">"</span>::String<span class="pl-pds">"</span></span>.deconstantize          <span class="pl-c"># =&gt; ""</span>
+<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>.deconstantize                  <span class="pl-c"># =&gt; ""</span></pre></div>
+
+<h4>
+<a id="demodulize" class="anchor" href="#demodulize" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Demodulize:</h4>
+
+<p><code>demodulize</code> and <code>demodulize!</code> removes the module part from the expression in the string. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>Example::String<span class="pl-pds">"</span></span>.demodulize <span class="pl-c">#=&gt; "String"</span>
+<span class="pl-s"><span class="pl-pds">"</span>String<span class="pl-pds">"</span></span>.demodulize          <span class="pl-c">#=&gt; "String"</span></pre></div>
+
+<h4>
+<a id="domain" class="anchor" href="#domain" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Domain:</h4>
+
+<p><code>domain</code> extracts the domain name from a URL.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>http://www.example.com/fake-page<span class="pl-pds">"</span></span>.domain <span class="pl-c">#=&gt; "www.example.com"</span>
+<span class="pl-s"><span class="pl-pds">"</span>example string<span class="pl-pds">"</span></span>.domain                   <span class="pl-c">#=&gt; "example string"</span></pre></div>
+
+<h4>
+<a id="downcase" class="anchor" href="#downcase" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Downcase:</h4>
+
+<p><code>downcase?</code> returns true if all characters are lowercase.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>example<span class="pl-pds">"</span></span>.downcase? <span class="pl-c">#=&gt; true</span>
+<span class="pl-s"><span class="pl-pds">"</span>Example<span class="pl-pds">"</span></span>.downcase? <span class="pl-c">#=&gt; false</span>
+<span class="pl-s"><span class="pl-pds">"</span>EXAMPLE<span class="pl-pds">"</span></span>.downcase? <span class="pl-c">#=&gt; false</span></pre></div>
+
+<h4>
+<a id="ellipsize" class="anchor" href="#ellipsize" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Ellipsize:</h4>
+
+<p><code>ellipsize</code> truncate a string in the middle.</p>
+
+<p><strong>Options</strong></p>
+
+<ul>
+<li> offset: 4</li>
+<li> separator: "..."</li>
+</ul>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ<span class="pl-pds">"</span></span>.ellipsize(<span class="pl-c1">30</span>)                   <span class="pl-c">#=&gt; "0123...WXYZ"</span>
+<span class="pl-s"><span class="pl-pds">"</span>0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ<span class="pl-pds">"</span></span>.ellipsize(<span class="pl-c1">50</span>)                   <span class="pl-c">#=&gt; "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"</span>
+<span class="pl-s"><span class="pl-pds">"</span>0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ<span class="pl-pds">"</span></span>.ellipsize(<span class="pl-c1">30</span>, <span class="pl-c1">offset:</span> <span class="pl-c1">2</span>)        <span class="pl-c">#=&gt; "01...YZ"</span>
+<span class="pl-s"><span class="pl-pds">"</span>0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ<span class="pl-pds">"</span></span>.ellipsize(<span class="pl-c1">30</span>, <span class="pl-c1">separator:</span> <span class="pl-s"><span class="pl-pds">"</span>+++<span class="pl-pds">"</span></span>) <span class="pl-c">#=&gt; "0123+++WXYZ"</span></pre></div>
+
+<h4>
+<a id="exclude-1" class="anchor" href="#exclude-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exclude:</h4>
+
+<p><code>exclude?</code> returns true if the string does not include the other string. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>example_string<span class="pl-pds">"</span></span>.exclude?(<span class="pl-s"><span class="pl-pds">"</span>exa<span class="pl-pds">"</span></span>) <span class="pl-c">#=&gt; false</span>
+<span class="pl-s"><span class="pl-pds">"</span>example_string<span class="pl-pds">"</span></span>.exclude?(<span class="pl-s"><span class="pl-pds">"</span>xxx<span class="pl-pds">"</span></span>) <span class="pl-c">#=&gt; true</span></pre></div>
+
+<h4>
+<a id="first" class="anchor" href="#first" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>First:</h4>
+
+<p><code>first</code> returns the first character. If a limit is supplied, returns a substring from the beginning of the string until it reaches the limit value. If the given limit is greater than or equal to the string length, returns a copy of self. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>example<span class="pl-pds">"</span></span>.first    <span class="pl-c">#=&gt; "e"</span>
+<span class="pl-s"><span class="pl-pds">"</span>example<span class="pl-pds">"</span></span>.first(<span class="pl-c1">0</span>) <span class="pl-c">#=&gt; ""</span>
+<span class="pl-s"><span class="pl-pds">"</span>example<span class="pl-pds">"</span></span>.first(<span class="pl-c1">3</span>) <span class="pl-c">#=&gt; "exa"</span></pre></div>
+
+<h4>
+<a id="from-1" class="anchor" href="#from-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>From:</h4>
+
+<p><code>from</code> returns a substring from the given position to the end of the string. If the position is negative, it is counted from the end of the string. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>example<span class="pl-pds">"</span></span>.from(<span class="pl-c1">0</span>) <span class="pl-c">#=&gt; "example"</span>
+<span class="pl-s"><span class="pl-pds">"</span>example<span class="pl-pds">"</span></span>.from(<span class="pl-c1">3</span>) <span class="pl-c">#=&gt; "mple"</span></pre></div>
+
+<h4>
+<a id="humanize" class="anchor" href="#humanize" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Humanize:</h4>
+
+<p><code>humanize</code> and <code>humanize!</code> transforms a string to a human readable string. <code>Rails Safe</code></p>
+
+<p><strong>Options</strong></p>
+
+<ul>
+<li> capitalize: true</li>
+</ul>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>ExampleString<span class="pl-pds">"</span></span>.humanize                     <span class="pl-c">#=&gt; "Example string"</span>
+<span class="pl-s"><span class="pl-pds">"</span>_example_string_id<span class="pl-pds">"</span></span>.humanize                <span class="pl-c">#=&gt; "Example string"</span>
+<span class="pl-s"><span class="pl-pds">"</span>example_string<span class="pl-pds">"</span></span>.humanize(<span class="pl-c1">capitalize:</span> <span class="pl-c1">false</span>) <span class="pl-c">#=&gt; "example string"</span></pre></div>
+
+<h4>
+<a id="indent" class="anchor" href="#indent" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Indent:</h4>
+
+<p><code>indent</code> and <code>indent!</code> indents the lines in the receiver. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>example<span class="pl-pds">"</span></span>.indent(<span class="pl-c1">2</span>)       <span class="pl-c">#=&gt; "  example"</span>
+<span class="pl-s"><span class="pl-pds">"</span>example<span class="pl-pds">"</span></span>.indent(<span class="pl-c1">2</span>, <span class="pl-s"><span class="pl-pds">"</span><span class="pl-cce">\t</span><span class="pl-pds">"</span></span>) <span class="pl-c">#=&gt; "\t\texample"</span></pre></div>
+
+<h4>
+<a id="index-all" class="anchor" href="#index-all" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Index all:</h4>
+
+<p><code>index_all</code> returns the index values of matching patterns.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>012324507654301243<span class="pl-pds">"</span></span>.index_all(<span class="pl-c1">0</span>)                           <span class="pl-c">#=&gt; [0,7,13]</span>
+<span class="pl-s"><span class="pl-pds">"</span>the apple is the best fruit in the world<span class="pl-pds">"</span></span>.index_all(<span class="pl-s"><span class="pl-pds">"</span>the<span class="pl-pds">"</span></span>) <span class="pl-c">#=&gt; [0,13,31]</span>
+<span class="pl-s"><span class="pl-pds">"</span>asdfasdfasdf<span class="pl-pds">"</span></span>.index_all(<span class="pl-sr"><span class="pl-pds">/</span>sd<span class="pl-pds">/</span></span>)                              <span class="pl-c">#=&gt; [1,5,9]</span></pre></div>
+
+<h4>
+<a id="labelize" class="anchor" href="#labelize" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Labelize:</h4>
+
+<p><code>labelize</code> and <code>labelize!</code> transforms a string to a human readable string.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>example string<span class="pl-pds">"</span></span>.labelize     <span class="pl-c">#=&gt; "Example string"</span>
+<span class="pl-s"><span class="pl-pds">"</span>_example_string_id<span class="pl-pds">"</span></span>.labelize <span class="pl-c">#=&gt; "Example string ID"</span>
+<span class="pl-s"><span class="pl-pds">"</span>ExampleString<span class="pl-pds">"</span></span>.labelize      <span class="pl-c">#=&gt; "Example string"</span></pre></div>
+
+<h4>
+<a id="last" class="anchor" href="#last" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Last:</h4>
+
+<p><code>last</code> returns the last character of the string. If a limit is supplied, returns a substring from the end of the string until it reaches the limit value (counting backwards). If the given limit is greater than or equal to the string length, returns a copy of self. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>example<span class="pl-pds">"</span></span>.last     <span class="pl-c">#=&gt; "e"</span>
+<span class="pl-s"><span class="pl-pds">"</span>example<span class="pl-pds">"</span></span>.last(<span class="pl-c1">0</span>)  <span class="pl-c">#=&gt; ""</span>
+<span class="pl-s"><span class="pl-pds">"</span>example<span class="pl-pds">"</span></span>.first(<span class="pl-c1">3</span>) <span class="pl-c">#=&gt; "ple"</span></pre></div>
+
+<h4>
+<a id="mixcase" class="anchor" href="#mixcase" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Mixcase:</h4>
+
+<p><code>mixcase?</code> returns true if characters are mixedcase.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>Example<span class="pl-pds">"</span></span>.mixedcase? <span class="pl-c">#=&gt; true</span>
+<span class="pl-s"><span class="pl-pds">"</span>EXAMPLE<span class="pl-pds">"</span></span>.mixedcase? <span class="pl-c">#=&gt; false</span>
+<span class="pl-s"><span class="pl-pds">"</span>example<span class="pl-pds">"</span></span>.mixedcase? <span class="pl-c">#=&gt; false</span></pre></div>
+
+<h4>
+<a id="ordinal-1" class="anchor" href="#ordinal-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Ordinal:</h4>
+
+<p><code>ordinal</code> returns the suffix that should be added to a number to denote the position in an ordered sequence such as 1st, 2nd, 3rd, 4th. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>.ordinal  <span class="pl-c">#=&gt; "th"</span>
+<span class="pl-s"><span class="pl-pds">"</span>2<span class="pl-pds">"</span></span>.ordinal  <span class="pl-c">#=&gt; "nd"</span>
+<span class="pl-s"><span class="pl-pds">"</span>3<span class="pl-pds">"</span></span>.ordinal  <span class="pl-c">#=&gt; "rd"</span>
+<span class="pl-s"><span class="pl-pds">"</span>11<span class="pl-pds">"</span></span>.ordinal <span class="pl-c">#=&gt; "th"</span></pre></div>
+
+<h4>
+<a id="ordinalize-1" class="anchor" href="#ordinalize-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Ordinalize:</h4>
+
+<p><code>ordinalize</code> transforms a number into an ordinal string used to denote the position in an ordered sequence such as 1st, 2nd, 3rd, 4th. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>.ordinalize  <span class="pl-c">#=&gt; "1th"</span>
+<span class="pl-s"><span class="pl-pds">"</span>2<span class="pl-pds">"</span></span>.ordinalize  <span class="pl-c">#=&gt; "2nd"</span>
+<span class="pl-s"><span class="pl-pds">"</span>3<span class="pl-pds">"</span></span>.ordinalize  <span class="pl-c">#=&gt; "3rd"</span>
+<span class="pl-s"><span class="pl-pds">"</span>11<span class="pl-pds">"</span></span>.ordinalize <span class="pl-c">#=&gt; "4th"</span></pre></div>
+
+<h4>
+<a id="parameterize" class="anchor" href="#parameterize" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Parameterize:</h4>
+
+<p><code>parameterize</code> and <code>parameterize!</code> makes string suitable for a dashed url parameter string. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>example_string<span class="pl-pds">"</span></span>.parameterize      <span class="pl-c">#=&gt; "example-string"</span>
+<span class="pl-s"><span class="pl-pds">"</span>example_string<span class="pl-pds">"</span></span>.parameterize(<span class="pl-s"><span class="pl-pds">"</span>?<span class="pl-pds">"</span></span>) <span class="pl-c">#=&gt; "example?string"</span></pre></div>
+
+<h4>
+<a id="pollute" class="anchor" href="#pollute" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pollute:</h4>
+
+<p><code>pollute</code> and <code>pollute!</code> pollutes the space between every letter in a string, so it will be exempt from any impending string searches.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>test<span class="pl-pds">"</span></span>.pollute      <span class="pl-c">#=&gt; "t^--^--^e^--^--^s^--^--^t^--^--^"</span>
+<span class="pl-s"><span class="pl-pds">"</span>test<span class="pl-pds">"</span></span>.pollute(<span class="pl-s"><span class="pl-pds">"</span>-<span class="pl-pds">"</span></span>) <span class="pl-c">#=&gt; "t-e-s-t-"</span></pre></div>
+
+<h4>
+<a id="pop" class="anchor" href="#pop" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pop:</h4>
+
+<p><code>pop</code> returns the last character of a string.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>test<span class="pl-pds">"</span></span>.pop <span class="pl-c">#=&gt; "t"</span></pre></div>
+
+<h4>
+<a id="push" class="anchor" href="#push" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Push:</h4>
+
+<p><code>push</code> concats string to self.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>test<span class="pl-pds">"</span></span>.push(<span class="pl-s"><span class="pl-pds">"</span>er<span class="pl-pds">"</span></span>) <span class="pl-c">#=&gt; "tester"</span></pre></div>
+
+<h4>
+<a id="remove" class="anchor" href="#remove" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Remove:</h4>
+
+<p><code>remove</code> and <code>remove!</code> removes every instance of a string.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>this thing that thing<span class="pl-pds">"</span></span>.remove(<span class="pl-s"><span class="pl-pds">"</span>thing<span class="pl-pds">"</span></span>)        <span class="pl-c">#=&gt; "this  that "</span>
+<span class="pl-s"><span class="pl-pds">"</span>this thing that thing<span class="pl-pds">"</span></span>.remove(<span class="pl-c1">1</span>..<span class="pl-c1">3</span>)           <span class="pl-c">#=&gt; "t thing that thing"</span>
+<span class="pl-s"><span class="pl-pds">"</span>this thing that them<span class="pl-pds">"</span></span>.remove(<span class="pl-s"><span class="pl-pds">"</span>thing<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>them<span class="pl-pds">"</span></span>) <span class="pl-c">#=&gt; "this  that "</span>
+<span class="pl-s"><span class="pl-pds">"</span>this thing that them<span class="pl-pds">"</span></span>.remove(<span class="pl-s"><span class="pl-pds">"</span>thing<span class="pl-pds">"</span></span>, <span class="pl-c1">1</span>..<span class="pl-c1">3</span>)   <span class="pl-c">#=&gt; "t  that them"</span></pre></div>
+
+<h4>
+<a id="remove-tags" class="anchor" href="#remove-tags" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Remove Tags:</h4>
+
+<p><code>remove_tags</code> and <code>remove_tags!</code> removes HTML tags from a string.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>example<span class="pl-pds">"</span></span>.strip_tags                                   <span class="pl-c">#=&gt; "example"</span>
+<span class="pl-s"><span class="pl-pds">"</span>&lt;a href='http://example.com'&gt;click&lt;/a&gt;<span class="pl-pds">"</span></span>.strip_tags    <span class="pl-c">#=&gt; "click"</span>
+<span class="pl-s"><span class="pl-pds">"</span>this is &lt;b&gt;bold&lt;/b&gt; and &lt;em&gt;emphatic&lt;/em&gt;<span class="pl-pds">"</span></span>.strip_tags <span class="pl-c">#=&gt; "this is bold and emphatic"</span></pre></div>
+
+<h4>
+<a id="sample-3" class="anchor" href="#sample-3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Sample:</h4>
+
+<p><code>sample</code> and <code>sample!</code> deletes a random value and returns that value.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>this thing that<span class="pl-pds">"</span></span>.sample            <span class="pl-c">#=&gt; "thing"</span>
+<span class="pl-s"><span class="pl-pds">"</span>this thing that<span class="pl-pds">"</span></span>.sample(<span class="pl-s"><span class="pl-pds">"</span> thing <span class="pl-pds">"</span></span>) <span class="pl-c">#=&gt; "that"</span></pre></div>
+
+<h4>
+<a id="shift" class="anchor" href="#shift" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Shift:</h4>
+
+<p><code>shift</code> and <code>shift!</code> removes the first instance of a string.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>this thing that thing<span class="pl-pds">"</span></span>.shift                 <span class="pl-c">#=&gt; "t"</span>
+<span class="pl-s"><span class="pl-pds">"</span>this thing that thing<span class="pl-pds">"</span></span>.shift(<span class="pl-s"><span class="pl-pds">"</span>thing<span class="pl-pds">"</span></span>)        <span class="pl-c">#=&gt; "this  that thing"</span>
+<span class="pl-s"><span class="pl-pds">"</span>this thing that thing<span class="pl-pds">"</span></span>.shift(<span class="pl-s"><span class="pl-pds">"</span>this<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>that<span class="pl-pds">"</span></span>) <span class="pl-c">#=&gt; " thing  thing"</span></pre></div>
+
+<h4>
+<a id="shuffle-2" class="anchor" href="#shuffle-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Shuffle:</h4>
+
+<p><code>shuffle</code> and <code>shuffle!</code> randomizes the characters in a string.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>ruby rules<span class="pl-pds">"</span></span>.sample  <span class="pl-c">#=&gt; "e lybrsuur"</span>
+<span class="pl-s"><span class="pl-pds">"</span>ruby rules<span class="pl-pds">"</span></span>.sample! <span class="pl-c">#=&gt; "rblse syru"</span></pre></div>
+
+<h4>
+<a id="sift" class="anchor" href="#sift" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Sift:</h4>
+
+<p><code>sift</code> and <code>sift!</code> returns a string matching any character in a pattern.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>qa2ws3ed4rf5tg6yh7uj8ik9ol<span class="pl-pds">"</span></span>.sift(<span class="pl-s"><span class="pl-pds">"</span>0123456789<span class="pl-pds">"</span></span>)          <span class="pl-c">#=&gt; "23456789"</span>
+<span class="pl-s"><span class="pl-pds">"</span>qa2ws3ed4rf5tg6yh7uj8ik9ol<span class="pl-pds">"</span></span>.sift(<span class="pl-c1">0</span>..<span class="pl-c1">9</span>)                  <span class="pl-c">#=&gt; "23456789"</span>
+<span class="pl-s"><span class="pl-pds">"</span>qa2ws3ed4rf5tg6yh7uj8ik9ol<span class="pl-pds">"</span></span>.sift([<span class="pl-c1">0</span>,<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>,<span class="pl-c1">4</span>,<span class="pl-c1">5</span>,<span class="pl-c1">6</span>,<span class="pl-c1">7</span>,<span class="pl-c1">8</span>,<span class="pl-c1">9</span>]) <span class="pl-c">#=&gt; "23456789"</span></pre></div>
+
+<h4>
+<a id="slugify" class="anchor" href="#slugify" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Slugify:</h4>
+
+<p><code>slugify</code> and <code>slugify!</code> generates a permalink-style string, with odd characters removed.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>example<span class="pl-pds">"</span></span>.slugify                  <span class="pl-c">#=&gt; "example"</span>
+<span class="pl-s"><span class="pl-pds">"</span>example string<span class="pl-pds">"</span></span>.slugify           <span class="pl-c">#=&gt; "example-string"</span>
+<span class="pl-s"><span class="pl-pds">"</span>Example string @@@ test!<span class="pl-pds">"</span></span>.slugify <span class="pl-c">#=&gt; "example-string-test"</span></pre></div>
+
+<h4>
+<a id="sort" class="anchor" href="#sort" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Sort:</h4>
+
+<p><code>sort</code> and <code>sort!</code> sorts a string.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>adbec<span class="pl-pds">"</span></span>.sort <span class="pl-c">#=&gt; "abcde"</span></pre></div>
+
+<h4>
+<a id="squish" class="anchor" href="#squish" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Squish:</h4>
+
+<p><code>squish</code> and <code>squish!</code> returns the string, first removing all whitespace on both ends of the string, and then changing remaining consecutive whitespace groups into one space each. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>example    string<span class="pl-pds">"</span></span>.squish        <span class="pl-c">#=&gt; "example string"</span>
+<span class="pl-s"><span class="pl-pds">"</span>example  <span class="pl-cce">\n</span>   <span class="pl-cce">\t</span>  string<span class="pl-pds">"</span></span>.squish <span class="pl-c">#=&gt; "example string"</span>
+<span class="pl-s"><span class="pl-pds">"</span>   example    string   <span class="pl-pds">"</span></span>.squish  <span class="pl-c">#=&gt; "example string"</span></pre></div>
+
+<h4>
+<a id="titleize" class="anchor" href="#titleize" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Titleize:</h4>
+
+<p><code>titleize</code> and <code>titleize!</code> capitalizes each word in a string. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>example string<span class="pl-pds">"</span></span>.titleize     <span class="pl-c">#=&gt; "Example String"</span>
+<span class="pl-s"><span class="pl-pds">"</span>_example_string_id<span class="pl-pds">"</span></span>.titleize <span class="pl-c">#=&gt; "Example String"</span>
+<span class="pl-s"><span class="pl-pds">"</span>ExampleString<span class="pl-pds">"</span></span>.titleize      <span class="pl-c">#=&gt; "Example String"</span></pre></div>
+
+<h4>
+<a id="to-1" class="anchor" href="#to-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>To:</h4>
+
+<p><code>to</code> returns a substring from the beginning of the string to the given position. If the position is negative, it is counted from the end of the string. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>example<span class="pl-pds">"</span></span>.to(<span class="pl-c1">0</span>)  <span class="pl-c">#=&gt; "example"</span>
+<span class="pl-s"><span class="pl-pds">"</span>example<span class="pl-pds">"</span></span>.to(<span class="pl-c1">3</span>)  <span class="pl-c">#=&gt; "exam"</span>
+<span class="pl-s"><span class="pl-pds">"</span>example<span class="pl-pds">"</span></span>.to(<span class="pl-k">-</span><span class="pl-c1">2</span>) <span class="pl-c">#=&gt; "exampl"</span></pre></div>
+
+<h4>
+<a id="truncate" class="anchor" href="#truncate" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Truncate:</h4>
+
+<p><code>truncate</code> a given text after a given length if text is longer than length. <code>Rails Safe</code></p>
+
+<p><strong>Options</strong></p>
+
+<ul>
+<li> omission: "..."</li>
+<li> separator: " "</li>
+</ul>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>example string<span class="pl-pds">"</span></span>.truncate(<span class="pl-c1">3</span>)                          <span class="pl-c">#=&gt; "..."</span>
+<span class="pl-s"><span class="pl-pds">"</span>example string<span class="pl-pds">"</span></span>.truncate(<span class="pl-c1">6</span>)                          <span class="pl-c">#=&gt; "exa..."</span>
+<span class="pl-s"><span class="pl-pds">"</span>example string<span class="pl-pds">"</span></span>.truncate(<span class="pl-c1">12</span>, <span class="pl-c1">separator:</span> <span class="pl-s"><span class="pl-pds">"</span> <span class="pl-pds">"</span></span>)         <span class="pl-c">#=&gt; "example..."</span>
+<span class="pl-s"><span class="pl-pds">"</span>example string<span class="pl-pds">"</span></span>.truncate(<span class="pl-c1">13</span>, <span class="pl-c1">omission:</span> <span class="pl-s"><span class="pl-pds">"</span>... (more)<span class="pl-pds">"</span></span>) <span class="pl-c">#=&gt; "exa... (more)"</span>
+<span class="pl-s"><span class="pl-pds">"</span>example string<span class="pl-pds">"</span></span>.truncate(<span class="pl-c1">15</span>)                         <span class="pl-c">#=&gt; "example string"</span></pre></div>
+
+<h4>
+<a id="truncate-words" class="anchor" href="#truncate-words" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Truncate Words:</h4>
+
+<p><code>truncate_words</code> truncates a given text after a given number of words. <code>Rails Safe</code></p>
+
+<p><strong>Options</strong></p>
+
+<ul>
+<li> omission: "..."</li>
+<li> separator: " "</li>
+</ul>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>example string test<span class="pl-pds">"</span></span>.truncate_words(<span class="pl-c1">1</span>)                                                                <span class="pl-c">#=&gt; "example..."</span>
+<span class="pl-s"><span class="pl-pds">'</span>Once&lt;br&gt;upon&lt;br&gt;a&lt;br&gt;time&lt;br&gt;in&lt;br&gt;a&lt;br&gt;world<span class="pl-pds">'</span></span>.truncate_words(<span class="pl-c1">5</span>, <span class="pl-c1">separator:</span> <span class="pl-s"><span class="pl-pds">'</span>&lt;br&gt;<span class="pl-pds">'</span></span>)                   <span class="pl-c">#=&gt; "Once&lt;br&gt;upon&lt;br&gt;a&lt;br&gt;time&lt;br&gt;in..."</span>
+<span class="pl-s"><span class="pl-pds">'</span>And they found that many people were sleeping better.<span class="pl-pds">'</span></span>.truncate_words(<span class="pl-c1">5</span>, <span class="pl-c1">omission:</span> <span class="pl-s"><span class="pl-pds">'</span>... (continued)<span class="pl-pds">'</span></span>) <span class="pl-c">#=&gt; "And they found that many... (continued)"</span></pre></div>
+
+<h4>
+<a id="underscore" class="anchor" href="#underscore" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Underscore:</h4>
+
+<p><code>underscore</code> and <code>underscore!</code> transforms a string to snakecase. <code>Rails Safe</code></p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>ExampleString<span class="pl-pds">"</span></span>.underscore       <span class="pl-c">#=&gt; "example_string"</span>
+<span class="pl-s"><span class="pl-pds">"</span>exampleString<span class="pl-pds">"</span></span>.underscore       <span class="pl-c">#=&gt; "example_string"</span>
+<span class="pl-s"><span class="pl-pds">"</span>ExampleString::Test<span class="pl-pds">"</span></span>.underscore <span class="pl-c">#=&gt; "example_string/test"</span></pre></div>
+
+<h4>
+<a id="unpollute" class="anchor" href="#unpollute" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Unpollute:</h4>
+
+<p><code>unpollute</code> and <code>unpollute!</code> removes the default or custom pollution character. Can also be used to remove an unwanted character.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>t^--^--^e^--^--^s^--^--^t^--^--^<span class="pl-pds">"</span></span>.unpollute <span class="pl-c">#=&gt; "test"</span>
+<span class="pl-s"><span class="pl-pds">"</span>t-e-s-t-<span class="pl-pds">"</span></span>.unpollute                         <span class="pl-c">#=&gt; "test"</span></pre></div>
+
+<h4>
+<a id="upcase" class="anchor" href="#upcase" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Upcase:</h4>
+
+<p><code>upcase?</code> returns true if all characters are uppercase.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>EXAMPLE<span class="pl-pds">"</span></span>.upcase? <span class="pl-c">#=&gt; true</span>
+<span class="pl-s"><span class="pl-pds">"</span>example<span class="pl-pds">"</span></span>.upcase? <span class="pl-c">#=&gt; false</span>
+<span class="pl-s"><span class="pl-pds">"</span>Example<span class="pl-pds">"</span></span>.upcase? <span class="pl-c">#=&gt; false</span></pre></div>
+
+<h4>
+<a id="unshift" class="anchor" href="#unshift" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Unshift:</h4>
+
+<p><code>unshift</code> and <code>unshift!</code> prepends string(s) to self.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-s"><span class="pl-pds">"</span>this thing that thing<span class="pl-pds">"</span></span>.unshift(<span class="pl-s"><span class="pl-pds">"</span>thing <span class="pl-pds">"</span></span>)         <span class="pl-c">#=&gt; "thing this thing that thing"</span>
+<span class="pl-s"><span class="pl-pds">"</span>this thing that thing<span class="pl-pds">"</span></span>.unshift(<span class="pl-s"><span class="pl-pds">"</span>this <span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>that <span class="pl-pds">"</span></span>) <span class="pl-c">#=&gt; "this that this thing that thing"</span></pre></div>
+
+<h2>
+<a id="time-2" class="anchor" href="#time-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Time</h2>
+
+<p><em>Note:</em> also works with Date class.</p>
+
+<h4>
+<a id="format" class="anchor" href="#format" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Format:</h4>
+
+<p><code>format</code> converts a Date or Time object to format it using a human readable string.</p>
+
+<p><strong>Rules</strong></p>
+
+<ul>
+<li> Characters: a-z 0-9 _</li>
+<li> Characters can only be used to generate a format part</li>
+</ul>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">Date</span>.today.format(<span class="pl-s"><span class="pl-pds">"</span>year<span class="pl-pds">"</span></span>)                                <span class="pl-c">#=&gt; "2014"</span>
+<span class="pl-c1">Time</span>.now.format(<span class="pl-s"><span class="pl-pds">"</span>month_name day, year hour:minute ampm<span class="pl-pds">"</span></span>) <span class="pl-c">#=&gt; "January 09, 2014 02:31 pm"</span></pre></div>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Key</th>
+<th>Equivalent <code>strftime</code>
+</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Month - digits zero-padded</td>
+<td>
+<code>m</code> or <code>month</code> or <code>month_padded</code>
+</td>
+<td>%m</td>
+<td>(01..12)</td>
+</tr>
+<tr>
+<td>Month - digits unpadded</td>
+<td>
+<code>mm</code> or <code>Month</code> or <code>month_unpadded</code>
+</td>
+<td>%-m</td>
+<td>(1..12)</td>
+</tr>
+<tr>
+<td>Month - digits blank-padded</td>
+<td>
+<code>mmm</code> or <code>MONTH</code> or <code>day_blank</code>
+</td>
+<td>%_m</td>
+<td>( 1..12)</td>
+</tr>
+<tr>
+<td>Month - name</td>
+<td>
+<code>mmmm</code> or <code>month_name</code>
+</td>
+<td>%B</td>
+<td>January</td>
+</tr>
+<tr>
+<td>Month - name abbreviated</td>
+<td>
+<code>mmmmm</code> or <code>month_name_abbr</code>
+</td>
+<td>%b</td>
+<td>Jan</td>
+</tr>
+<tr>
+<td>Day - digits zero-padded</td>
+<td>
+<code>d</code> or <code>day</code> or <code>day_padded</code>
+</td>
+<td>%d</td>
+<td>(01..31)</td>
+</tr>
+<tr>
+<td>Day - digits unpadded</td>
+<td>
+<code>dd</code> or <code>Day</code> or <code>day_unpadded</code>
+</td>
+<td>%-d</td>
+<td>(1..31)</td>
+</tr>
+<tr>
+<td>Day - digits blank-padded</td>
+<td>
+<code>ddd</code> or <code>DAY</code> or <code>day_blank</code>
+</td>
+<td>%_d</td>
+<td>( 1..31)</td>
+</tr>
+<tr>
+<td>Day - digits of the year</td>
+<td>
+<code>dddd</code> or <code>day_of_the_year</code>
+</td>
+<td>%j</td>
+<td>(001..366)</td>
+</tr>
+<tr>
+<td>Week - starting monday</td>
+<td>
+<code>wwwww</code> or <code>week</code>
+</td>
+<td>%M</td>
+<td>(00..53)</td>
+</tr>
+<tr>
+<td>Week - starting sunday</td>
+<td>
+<code>wwwwww</code> or <code>weekday_offset</code>
+</td>
+<td>%M</td>
+<td>(00..53)</td>
+</tr>
+<tr>
+<td>Weekday - starting monday</td>
+<td>
+<code>w</code> or <code>weekday</code>
+</td>
+<td>%M</td>
+<td>(1..7)</td>
+</tr>
+<tr>
+<td>Weekday - starting sunday</td>
+<td>
+<code>ww</code> or <code>weekday</code>
+</td>
+<td>%M</td>
+<td>(0..6)</td>
+</tr>
+<tr>
+<td>Weekday - name</td>
+<td>
+<code>www</code> or <code>weekday_name</code>
+</td>
+<td>%M</td>
+<td>Sunday</td>
+</tr>
+<tr>
+<td>Weekday - name abbreviated</td>
+<td>
+<code>wwww</code> or <code>weekday_name_abbr</code>
+</td>
+<td>%M</td>
+<td>Sun</td>
+</tr>
+<tr>
+<td>Year - digits two</td>
+<td>
+<code>yy</code> or <code>yr</code>
+</td>
+<td>%y</td>
+<td>(00..99)</td>
+</tr>
+<tr>
+<td>Year - digits four</td>
+<td>
+<code>yyyy</code> or <code>year</code>
+</td>
+<td>%Y</td>
+<td>1999</td>
+</tr>
+<tr>
+<td>Hour - digits zero-padded</td>
+<td>
+<code>h</code> or <code>hour</code> or <code>hour_padded</code>
+</td>
+<td>%H</td>
+<td>(00..23)</td>
+</tr>
+<tr>
+<td>Hour - digits blank-padded</td>
+<td>
+<code>hh</code> or <code>HOUR</code> or <code>hour_blank</code>
+</td>
+<td>%k</td>
+<td>( 0..23)</td>
+</tr>
+<tr>
+<td>Hour - digits zero-padded</td>
+<td>
+<code>hhh</code> or <code>hour_imperical</code> or <code>hour_imperical_padded</code>
+</td>
+<td>%I</td>
+<td>(01..12)</td>
+</tr>
+<tr>
+<td>Hour - digits blank-padded</td>
+<td>
+<code>hhhh</code> or <code>HOUR_IMPERICAL</code> or <code>hour_imperical_blank</code>
+</td>
+<td>%l</td>
+<td>( 1..12)</td>
+</tr>
+<tr>
+<td>Minute - minute</td>
+<td>
+<code>n</code> or <code>minute</code>
+</td>
+<td>%M</td>
+<td>(00..59)</td>
+</tr>
+<tr>
+<td>Second - second</td>
+<td>
+<code>s</code> or <code>second</code>
+</td>
+<td>%S</td>
+<td>(00..60)</td>
+</tr>
+<tr>
+<td>Meridian - lowercase</td>
+<td>
+<code>ampm</code> or <code>meridian</code>
+</td>
+<td>%p</td>
+<td>am..pm</td>
+</tr>
+<tr>
+<td>Meridian - uppercase</td>
+<td>
+<code>AMPM</code> or <code>MERIDIAN</code>
+</td>
+<td>%P</td>
+<td>AM..PM</td>
+</tr>
+<tr>
+<td>Time Zone - time zone</td>
+<td>
+<code>z</code> or <code>time_zone</code>
+</td>
+<td>%z</td>
+<td>+0900</td>
+</tr>
+<tr>
+<td>Time Zone - hour and minute offset</td>
+<td>
+<code>zz</code> or <code>time_zone_offset</code>
+</td>
+<td>%z</td>
+<td>+09:00</td>
+</tr>
+<tr>
+<td>Time Zone - hour, minute and second offset</td>
+<td>
+<code>zzz</code> or <code>time_zone_offset_full</code>
+</td>
+<td>%z</td>
+<td>+09:00:00</td>
+</tr>
+</tbody>
+</table>
+
+<h4>
+<a id="to-format--stamp" class="anchor" href="#to-format--stamp" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>To Format / Stamp:</h4>
+
+<p><code>to_format</code> and <code>stamp</code> converts a Date or Time object to a predefined format.</p>
+
+<p><strong>For a full list check out the time extention file.</strong></p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">Time</span>.now.to_format(<span class="pl-c1">:year</span>) <span class="pl-c">#=&gt; "2014"</span>
+<span class="pl-c1">Time</span>.now.stamp(<span class="pl-c1">:datetime</span>) <span class="pl-c">#=&gt; "January 09, 2014 02:31 pm"</span></pre></div>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Key</th>
+<th>Equivalent <code>strftime</code>
+</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Month - digits zero-padded</td>
+<td>
+<code>:month</code> or <code>:month_padded</code>
+</td>
+<td>%A</td>
+<td>(01..12)</td>
+</tr>
+<tr>
+<td>Month - digits unpadded</td>
+<td><code>:month_unpadded</code></td>
+<td>%a</td>
+<td>(1..12)</td>
+</tr>
+<tr>
+<td>Month - digits blank-padded</td>
+<td><code>:month_blank</code></td>
+<td>%a</td>
+<td>( 1..12)</td>
+</tr>
+<tr>
+<td>Month - name</td>
+<td><code>:month_name</code></td>
+<td>%A</td>
+<td>January</td>
+</tr>
+<tr>
+<td>Month - name abbreviated</td>
+<td><code>:month_name_abbr</code></td>
+<td>%a</td>
+<td>Jan</td>
+</tr>
+<tr>
+<td>Month - digits zero-padded</td>
+<td>
+<code>:month_year</code> or <code>:month_padded_year</code>
+</td>
+<td>%A</td>
+<td>(01..12) 2015</td>
+</tr>
+<tr>
+<td>Month - digits unpadded</td>
+<td><code>:month_unpadded_year</code></td>
+<td>%a</td>
+<td>(1..12) 2015</td>
+</tr>
+<tr>
+<td>Month - digits blank-padded</td>
+<td><code>:month_blank_year</code></td>
+<td>%a</td>
+<td>( 1..12) 2015</td>
+</tr>
+<tr>
+<td>Month - name</td>
+<td><code>:month_name_year</code></td>
+<td>%A</td>
+<td>January 2015</td>
+</tr>
+<tr>
+<td>Month - name abbreviated</td>
+<td><code>:month_name_abbr_year</code></td>
+<td>%a</td>
+<td>Jan 2015</td>
+</tr>
+<tr>
+<td>Weekday - digits zero-padded</td>
+<td><code>:weekday_padded</code></td>
+<td>%A</td>
+<td>(01..31)</td>
+</tr>
+<tr>
+<td>Weekday - digits unpadded</td>
+<td><code>:weekday_unpadded</code></td>
+<td>%a</td>
+<td>(1..31)</td>
+</tr>
+<tr>
+<td>Weekday - digits blank-padded</td>
+<td><code>:weekday_blank</code></td>
+<td>%a</td>
+<td>( 1..31)</td>
+</tr>
+<tr>
+<td>Weekday - name</td>
+<td><code>:weekday_name</code></td>
+<td>%A</td>
+<td>Sunday</td>
+</tr>
+<tr>
+<td>Weekday - name abbreviated</td>
+<td><code>:weekday_name_abbr</code></td>
+<td>%a</td>
+<td>Sun</td>
+</tr>
+<tr>
+<td>Year - digits two</td>
+<td><code>:yr</code></td>
+<td>%y</td>
+<td>(00..99)</td>
+</tr>
+<tr>
+<td>Year - digits four</td>
+<td><code>:year</code></td>
+<td>%Y</td>
+<td>1999</td>
+</tr>
+<tr>
+<td>Hour - digits zero-padded</td>
+<td>
+<code>:hour</code> or <code>:hour_padded</code>
+</td>
+<td>%H</td>
+<td>(00..23)</td>
+</tr>
+<tr>
+<td>Hour - digits blank-padded</td>
+<td><code>:hour_blank</code></td>
+<td>%k</td>
+<td>( 0..23)</td>
+</tr>
+<tr>
+<td>Hour - digits zero-padded imperical</td>
+<td><code>:hour_imperical_padded</code></td>
+<td>%I</td>
+<td>(01..12)</td>
+</tr>
+<tr>
+<td>Hour - digits blank-padded imperical</td>
+<td><code>:hour_imperical_blank</code></td>
+<td>%l</td>
+<td>( 1..12)</td>
+</tr>
+<tr>
+<td>Minute - minute</td>
+<td><code>:minute</code></td>
+<td>%M</td>
+<td>(00..59)</td>
+</tr>
+<tr>
+<td>Second - second</td>
+<td><code>:second</code></td>
+<td>%S</td>
+<td>(00..60)</td>
+</tr>
+<tr>
+<td>Time Zone - time zone</td>
+<td><code>:time_zone</code></td>
+<td>%z</td>
+<td>+0900</td>
+</tr>
+<tr>
+<td>Time Zone - hour and minute offset</td>
+<td><code>:time_zone_offset</code></td>
+<td>%z</td>
+<td>+09:00</td>
+</tr>
+<tr>
+<td>Time Zone - hour, minute and second offset</td>
+<td><code>:time_zone_offset_full</code></td>
+<td>%z</td>
+<td>+09:00:00</td>
+</tr>
+<tr>
+<td>Date - name</td>
+<td><code>:date</code></td>
+<td>%B %-d, %Y</td>
+<td>January 9, 2014</td>
+</tr>
+<tr>
+<td>Date - name abbreviated</td>
+<td><code>:date_abbr</code></td>
+<td>%b %-d, %Y</td>
+<td>Jan 9, 2014</td>
+</tr>
+<tr>
+<td>Date - iso</td>
+<td><code>:date_iso</code></td>
+<td>%Y-%m-%d</td>
+<td>2014-01-09</td>
+</tr>
+<tr>
+<td>Datetime - name</td>
+<td><code>:datetime</code></td>
+<td>%B %-d, %Y %H:%M</td>
+<td>January 9, 2014 00:31</td>
+</tr>
+<tr>
+<td>Datetime - name abbreviated</td>
+<td><code>:datetime_abbr</code></td>
+<td>%b %-d, %Y %H:%M</td>
+<td>Jan 9, 2014 00:31</td>
+</tr>
+<tr>
+<td>Datetime - iso</td>
+<td><code>:datetime_iso</code></td>
+<td>%Y-%m-%d %H:%M</td>
+<td>2014-01-09 00:31</td>
+</tr>
+<tr>
+<td>Datetime - name imperical</td>
+<td><code>:datetime_imperical</code></td>
+<td>%B %-d, %Y %H:%M</td>
+<td>January 9, 2014 12:31 am</td>
+</tr>
+<tr>
+<td>Datetime - name abbreviated imperical</td>
+<td><code>:datetime_imperical_abbr</code></td>
+<td>%b %-d, %Y %H:%M</td>
+<td>Jan 9, 2014 12:31 am</td>
+</tr>
+<tr>
+<td>Datetime - iso imperical</td>
+<td><code>:datetime_imperical_iso</code></td>
+<td>%Y-%m-%d %H:%M</td>
+<td>2014-01-09 12:31 am</td>
+</tr>
+<tr>
+<td>Datetime - name time zone</td>
+<td><code>:datetime_tzn</code></td>
+<td>%B %-d, %Y %H:%M %Z</td>
+<td>January 9, 2014 00:31 UTC</td>
+</tr>
+<tr>
+<td>Datetime - name abbreviated time zone</td>
+<td><code>:datetime_abbr_tzn</code></td>
+<td>%b %-d, %Y %H:%M %Z</td>
+<td>Jan 9, 2014 00:31 UTC</td>
+</tr>
+<tr>
+<td>Datetime - iso time zone</td>
+<td><code>:datetime_iso_tzn</code></td>
+<td>%Y-%m-%d %H:%M %z</td>
+<td>2014-01-09 00:31 +0000</td>
+</tr>
+<tr>
+<td>Datetime - name imperical time zone</td>
+<td><code>:datetime_imperical_tzn</code></td>
+<td>%B %-d, %Y %H:%M %Z</td>
+<td>January 9, 2014 12:31 am UTC</td>
+</tr>
+<tr>
+<td>Datetime - name abbreviated imperical time zone</td>
+<td><code>:datetime_imperical_abbr_tzn</code></td>
+<td>%b %-d, %Y %H:%M %Z</td>
+<td>Jan 9, 2014 12:31 am UTC</td>
+</tr>
+<tr>
+<td>Datetime - iso imperical time zone</td>
+<td><code>:datetime_imperical_iso_tzn</code></td>
+<td>%Y-%m-%d %H:%M %z</td>
+<td>2014-01-09 12:31 am +0000</td>
+</tr>
+<tr>
+<td>Day - name</td>
+<td><code>:day</code></td>
+<td>%B %-d</td>
+<td>January 9</td>
+</tr>
+<tr>
+<td>Day - name abbreviated</td>
+<td><code>:day_abbr</code></td>
+<td>%b %-d</td>
+<td>Jan 9</td>
+</tr>
+<tr>
+<td>Day - iso</td>
+<td><code>:day_iso</code></td>
+<td>%m-%d</td>
+<td>01-09</td>
+</tr>
+<tr>
+<td>Daytime - name</td>
+<td><code>:daytime</code></td>
+<td>%B %-d %H:%M</td>
+<td>January 9 00:31</td>
+</tr>
+<tr>
+<td>Daytime - name abbreviated</td>
+<td><code>:daytime_abbr</code></td>
+<td>%b %-d %H:%M</td>
+<td>Jan 9 00:31</td>
+</tr>
+<tr>
+<td>Daytime - iso</td>
+<td><code>:daytime_iso</code></td>
+<td>%m-%d %H:%M</td>
+<td>01-09 00:31</td>
+</tr>
+<tr>
+<td>Daytime - name imperical</td>
+<td><code>:daytime_imperical</code></td>
+<td>%B %-d %H:%M</td>
+<td>January 9 12:31 am</td>
+</tr>
+<tr>
+<td>Daytime - name abbreviated imperical</td>
+<td><code>:daytime_imperical_abbr</code></td>
+<td>%b %-d %H:%M</td>
+<td>Jan 9 12:31 am</td>
+</tr>
+<tr>
+<td>Daytime - iso imperical</td>
+<td><code>:daytime_imperical_iso</code></td>
+<td>%m-%d %H:%M</td>
+<td>01-09 12:31 am</td>
+</tr>
+<tr>
+<td>Time - zero-padded</td>
+<td>
+<code>:time</code> or <code>:time_padded</code>
+</td>
+<td>%H:%M</td>
+<td>00:31</td>
+</tr>
+<tr>
+<td>Time - blank-padded</td>
+<td><code>:time_blank</code></td>
+<td>%k:%M %z</td>
+<td>0:31</td>
+</tr>
+<tr>
+<td>Time - zero-padded imperical</td>
+<td>
+<code>:time_imperical</code> or <code>:time_imperical_padded</code>
+</td>
+<td>%I:%M %P</td>
+<td>07:31</td>
+</tr>
+<tr>
+<td>Time - blank-padded imperical</td>
+<td><code>:time_imperical_blank</code></td>
+<td>%l:%M %P</td>
+<td>7:31</td>
+</tr>
+<tr>
+<td>Time - with time zone</td>
+<td><code>:time_tz</code></td>
+<td>%H:%M %z</td>
+<td>00:31 +0000</td>
+</tr>
+<tr>
+<td>Time - with time zone name</td>
+<td><code>:time_tzn</code></td>
+<td>%H:%M %Z</td>
+<td>00:31 UTC</td>
+</tr>
+</tbody>
+</table>
+
+<h2>
+<a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributing</h2>
+
+<ol>
+<li>Fork it ( <a href="http://github.com/">http://github.com/</a>/active_object/fork )</li>
+<li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li>
+<li>Commit your changes (<code>git commit -am 'Add some feature'</code>)</li>
+<li>Push to the branch (<code>git push origin my-new-feature</code>)</li>
+<li>Create new Pull Request</li>
+</ol>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/drexed">drexed</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
