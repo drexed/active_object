@@ -17,7 +17,7 @@ Highly recommended extensions:
 
 Add this line to your application's Gemfile:
 
-    gem 'active_object'
+    gem "active_object"
 
 And then execute:
 
