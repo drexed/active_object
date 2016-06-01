@@ -1,6 +1,6 @@
-require 'spec_helper'
+require "spec_helper"
 
-describe Date do
+describe ActiveObject::Date do
 
   describe "#format" do
     date = Date.parse("2014-01-09")

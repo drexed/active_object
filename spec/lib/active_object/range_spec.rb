@@ -1,6 +1,6 @@
-require 'spec_helper'
+require "spec_helper"
 
-describe Range do
+describe ActiveObject::Range do
 
   describe "#combine" do
     it "to be [1, 2, 3, 4, 5, 6]" do

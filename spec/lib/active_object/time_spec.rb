@@ -1,6 +1,6 @@
-require 'spec_helper'
+require "spec_helper"
 
-describe Time do
+describe ActiveObject::Time do
 
   describe "#format" do
     datetime = Time.parse("2014-01-09 00:31:58 UTC")

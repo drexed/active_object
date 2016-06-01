@@ -1,6 +1,6 @@
-require 'spec_helper'
+require "spec_helper"
 
-describe Object do
+describe ActiveObject::Object do
 
   describe "#array?" do
     it "to be true" do

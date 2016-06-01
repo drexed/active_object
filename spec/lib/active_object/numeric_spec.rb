@@ -1,6 +1,6 @@
-require 'spec_helper'
+require "spec_helper"
 
-describe Numeric do
+describe ActiveObject::Numeric do
 
   describe "#add" do
     it "to be 6" do

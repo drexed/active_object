@@ -1,5 +1,5 @@
-require 'active_object/version'
-require 'active_object/configuration'
+require "active_object/version"
+require "active_object/configuration"
 
 module ActiveObject
 
@@ -21,15 +21,15 @@ module ActiveObject
 
 end
 
-require 'active_object/array'
-require 'active_object/date'
-require 'active_object/enumerable'
-require 'active_object/hash'
-require 'active_object/integer'
-require 'active_object/numeric'
-require 'active_object/object'
-require 'active_object/range'
-require 'active_object/string'
-require 'active_object/time'
+require "active_object/array"
+require "active_object/date"
+require "active_object/enumerable"
+require "active_object/hash"
+require "active_object/integer"
+require "active_object/numeric"
+require "active_object/object"
+require "active_object/range"
+require "active_object/string"
+require "active_object/time"
 
-require 'generators/active_object/install_generator'
+require "generators/active_object/install_generator"

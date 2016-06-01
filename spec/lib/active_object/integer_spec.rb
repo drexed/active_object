@@ -1,6 +1,6 @@
-require 'spec_helper'
+require "spec_helper"
 
-describe Integer do
+describe ActiveObject::Integer do
 
   describe "#factorial" do
     it "to be 24" do

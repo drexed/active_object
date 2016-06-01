@@ -104,6 +104,8 @@ module Enumerable
     sum.to_f / collection_length.to_f
   end
 
+  alias_method :average, :mean
+
   def median(identity=0)
     collection_length   = length.to_f
     collection_sorted = sort

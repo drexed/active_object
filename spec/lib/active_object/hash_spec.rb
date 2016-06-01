@@ -1,6 +1,6 @@
-require 'spec_helper'
+require "spec_helper"
 
-describe Hash do
+describe ActiveObject::Hash do
 
   describe "#assert_valid_keys" do
     it "to be {}" do

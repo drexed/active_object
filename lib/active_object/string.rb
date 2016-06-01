@@ -89,6 +89,10 @@ module ActiveObject::String
     limit >= length ? self : to(limit - 1)
   end
 
+  def format(*args)
+    super(self, *(args.flatten))
+  end
+
   def from(position)
     self[position..-1]
   end
@@ -374,4 +378,4 @@ module ActiveObject::String
 
 end
 
-String.send(:include, ActiveObject::String) if ActiveObject.configuration.string
+String.send(:include, ActiveObject::String) if ActiveObject.configuration.autoload_string

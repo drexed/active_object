@@ -6,8 +6,6 @@
 
 ActiveObject is a collection of commonly used object helpers in a ruby based project.
 
-`Rails Safe` = methods extracted from rails but that do not override that rails method.
-
 Highly recommended extensions:
   * **Hash:** Hashie - https://github.com/intridea/hashie
   * **String:** Escape Utils - https://github.com/brianmario/escape_utils
@@ -31,6 +29,7 @@ Or install it yourself as:
 
 ## Table of Contents
 
+* [Configuration](#configuration)
 * [Array](#array)
 * [Enumerable](#enumerable)
 * [Hash](#hash)
@@ -40,6 +39,29 @@ Or install it yourself as:
 * [Range](#Rrange)
 * [String](#string)
 * [Time](#time)
+
+## Configuration
+
+`rails g active_object:install` will generate the following `active_object.rb` file:
+
+```ruby
+# config/initalizers/active_object.rb
+
+ActiveObject.configure do |config|
+  # option = default
+
+  config.autoload_array = true
+  config.autoload_date = true
+  config.autoload_enumerable = true
+  config.autoload_hash = true
+  config.autoload_integer = true
+  config.autoload_numeric = true
+  config.autoload_object = true
+  config.autoload_range = true
+  config.autoload_string = true
+  config.autoload_time = true
+end
+```
 
 ## Array
 
@@ -91,7 +113,7 @@ Or install it yourself as:
 ```
 
 ####From:####
-`from` returns the tail of the array from position. `Rails Safe`
+`from` returns the tail of the array from position.
 
 ```ruby
 ["1", "2", "3"].from(0) #=> ["1", "2", "3"]
@@ -107,7 +129,7 @@ Or install it yourself as:
 ```
 
 ####In Groups:####
-`in_groups` splits or iterates over the array in number of groups, padding any remaining slots with fill_with unless it is false. `Rails Safe`
+`in_groups` splits or iterates over the array in number of groups, padding any remaining slots with fill_with unless it is false.
 
 ```ruby
 %w(1 2 3 4 5 6 7 8 9 10).in_groups(3)           #=> [["1", "2", "3", "4"], ["5", "6", "7", nil], ["8", "9", "10", nil]]
@@ -116,7 +138,7 @@ Or install it yourself as:
 ```
 
 ####In Groups Of:####
-`in_groups_of` splits or iterates over the array in groups of size number, padding any remaining slots with fill_with unless it is false. `Rails Safe`
+`in_groups_of` splits or iterates over the array in groups of size number, padding any remaining slots with fill_with unless it is false.
 
 ```ruby
 %w(1 2 3 4 5 6 7 8 9 10).in_groups_of(3)           #=> [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"], ["10", nil, nil]]
@@ -146,7 +168,7 @@ Or install it yourself as:
 ```
 
 ####Split:####
-`split` divides the array into one or more subarrays based on a delimiting value or the result of an optional block. `Rails Safe`
+`split` divides the array into one or more subarrays based on a delimiting value or the result of an optional block.
 
 ```ruby
 [1, 2, 3, 4, 5].split(3)              # => [[1, 2], [4, 5]]
@@ -162,7 +184,7 @@ Or install it yourself as:
 ```
 
 ####To:####
-`to` returns the beginning of the array up to position. `Rails Safe`
+`to` returns the beginning of the array up to position.
 
 ```ruby
 ["1", "2", "3"].to(0) #=> ["1"]
@@ -171,7 +193,7 @@ Or install it yourself as:
 ```
 
 ####To Sentence:####
-`to_sentence` converts the array to a comma-separated sentence where the last element is joined by the connector word. `Rails Safe`
+`to_sentence` converts the array to a comma-separated sentence where the last element is joined by the connector word.
 
 **Options:**
  * words_connector:     “, ”
@@ -242,7 +264,7 @@ Or install it yourself as:
 ```
 
 ####Exclude:####
-`exclude?` returns true if the collection does not include the object. `Rails Safe`
+`exclude?` returns true if the collection does not include the object.
 
 ```ruby
 [1, 2, 3].exclude?(4) #=> true
@@ -282,7 +304,7 @@ Or install it yourself as:
 ```
 
 ####Many:####
-`many?` returns if collection has more than one element while respecting nil and false as an element. `Rails Safe`
+`many?` returns if collection has more than one element while respecting nil and false as an element.
 
 ```ruby
 [].many?                 #=> false
@@ -311,7 +333,7 @@ Or install it yourself as:
 ```
 
 ####Mean:####
-`mean` returns the average of a collection of numbers.
+`mean` and `average` returns the average of a collection of numbers.
 
 ```ruby
 [].mean      #=> 0
@@ -377,7 +399,7 @@ Or install it yourself as:
 ```
 
 ####Sum:####
-`sum` returns the sum of a collection of numbers. `Rails Safe`
+`sum` returns the sum of a collection of numbers.
 
 ```ruby
 [].sum             #=> 0
@@ -416,7 +438,7 @@ Or install it yourself as:
 ## Hash
 
 ####Assert Valid Keys:####
-`assert_valid_keys` raises an error if key is not included in a list of keys. `Rails Safe`
+`assert_valid_keys` raises an error if key is not included in a list of keys.
 
 ```ruby
 {}.assert_valid_keys(:foo)                               #=> {}
@@ -425,7 +447,7 @@ Or install it yourself as:
 ```
 
 ####Compact:####
-`compact` and `compact!` returns a hash with non nil values. `Rails Safe`
+`compact` and `compact!` returns a hash with non nil values.
 
 ```ruby
 {}.compact                                   #=> {}
@@ -434,7 +456,7 @@ Or install it yourself as:
 ```
 
 ####Deep Merge:####
-`deep_merge` and `deep_merge!` returns a new hash with self and other_hash merged recursively. `Rails Safe`
+`deep_merge` and `deep_merge!` returns a new hash with self and other_hash merged recursively.
 
 ```ruby
 h1 = { a: true, b: { c: [1, 2, 3] } }
@@ -484,7 +506,7 @@ h1.deep_merge(h2) #=> { a: false, b: { c: [1, 2, 3], x: [3, 4, 5] } }
 ```
 
 ####Reverse Merge:####
-`reverse_merge` and `reverse_merge!` merges one hash into other hash. `Rails Safe`
+`reverse_merge` and `reverse_merge!` merges one hash into other hash.
 
 ```ruby
 {}.reverse_merge!(foo: "bar")                         #=> { foo: "bar" }
@@ -536,8 +558,8 @@ h.shuffle! #=> { d: 4, b: 2, c: 3, a: 1 }
 ```
 
 ####Slice:####
-`slice` a hash to include only the given keys. Returns a hash containing the given keys. `Rails Safe`
-`slice!` replaces the hash with only the given keys. Returns a hash containing the removed key/value pairs. `Rails Safe`
+`slice` a hash to include only the given keys. Returns a hash containing the given keys.
+`slice!` replaces the hash with only the given keys. Returns a hash containing the removed key/value pairs.
 
 ```ruby
 h = { a: 1, b: 2, c: 3, d: 4 }
@@ -547,7 +569,7 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 ```
 
 ####Stringify Keys:####
-`stringify_keys` and `stringify_keys!` converts the hash keys to strings. `Rails Safe`
+`stringify_keys` and `stringify_keys!` converts the hash keys to strings.
 
 ```ruby
 { foo: "foo", "bar" => 'bar' }.stringify_keys #=> { "foo" => "foo", "baz" => "baz" }
@@ -563,7 +585,7 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 ```
 
 ####Symbolize Keys:####
-`symbolize_keys` and `symbolize_keys!` converts the hash keys to symbols. `Rails Safe`
+`symbolize_keys` and `symbolize_keys!` converts the hash keys to symbols.
 
 ```ruby
 { foo: "foo", "bar" => "bar" }.symbolize_keys #=> { foo: "foo", baz: "baz" }
@@ -577,14 +599,14 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 ```
 
 ####Transform Keys:####
-`transform_keys` and `transform_keys!` a new hash with all keys converted using the block operation. `Rails Safe`
+`transform_keys` and `transform_keys!` a new hash with all keys converted using the block operation.
 
 ```ruby
 { foo: "bar", baz: "boo" }.transform_keys { |k| k.to_s.upcase } #=> { "FOO" => "bar", "BAZ" => "boo" }
 ```
 
 ####Transform Values:####
-`transform_values` and `transform_values!` a new hash with all values converted using the block operation. `Rails Safe`
+`transform_values` and `transform_values!` a new hash with all values converted using the block operation.
 
 ```ruby
 { foo: "bar", baz: "boo" }.transform_values { |v| v.to_s.upcase } #=> {foo: "BAR", baz: "BOO" }
@@ -898,7 +920,7 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 ```
 
 ####Multiple Of:####
-`multiple_of?` returns true if a number can be evenly divided by n. `Rails Safe`
+`multiple_of?` returns true if a number can be evenly divided by n.
 
 ```ruby
 9.multiple_of?(3) #=> true
@@ -921,7 +943,7 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 ```
 
 ####Ordinal:####
-`ordinal` returns the suffix that should be added to a number to denote the position in an ordered sequence such as 1st, 2nd, 3rd, 4th. `Rails Safe`
+`ordinal` returns the suffix that should be added to a number to denote the position in an ordered sequence such as 1st, 2nd, 3rd, 4th.
 
 ```ruby
 "1".ordinal  #=> "th"
@@ -931,7 +953,7 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 ```
 
 ####Ordinalize:####
-`ordinalize` transforms a number into an ordinal string used to denote the position in an ordered sequence such as 1st, 2nd, 3rd, 4th. `Rails Safe`
+`ordinalize` transforms a number into an ordinal string used to denote the position in an ordered sequence such as 1st, 2nd, 3rd, 4th.
 
 ```ruby
 "1".ordinalize  #=> "1th"
@@ -1175,7 +1197,7 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 ```
 
 ####Blank:####
-`blank?` determines if an object is empty or nil. `Rails Safe`
+`blank?` determines if an object is empty or nil.
 
 ```ruby
 "".blank?              #=> true
@@ -1260,7 +1282,7 @@ true.falsey?  #=> false
 ```
 
 ####Present:####
-`present?` determines if an object is not empty or nil. `Rails Safe`
+`present?` determines if an object is not empty or nil.
 
 ```ruby
 "Awesome Sting".present? #=> true
@@ -1318,7 +1340,7 @@ false.truthy? #=> false
 ```
 
 ####Try:####
-`try` and `try!` invokes the public method whose name goes as first argument just like public_send does, except that if the receiver does not respond to it the call returns nil rather than raising an exception. `Rails Safe`
+`try` and `try!` invokes the public method whose name goes as first argument just like public_send does, except that if the receiver does not respond to it the call returns nil rather than raising an exception.
 
 ```ruby
 "example".try(:upcase)      #=> "EXAMPLE"
@@ -1335,7 +1357,7 @@ false.truthy? #=> false
 ```
 
 ####Include With Range:####
-`include_with_range?` determines if a range includes another range. `Rails Safe`
+`include_with_range?` determines if a range includes another range.
 
 ```ruby
 (1..5).include?(1..5) # => true
@@ -1344,7 +1366,7 @@ false.truthy? #=> false
 ```
 
 ####Overlaps:####
-`overlaps?` determines if two ranges overlap each other. `Rails Safe`
+`overlaps?` determines if two ranges overlap each other.
 
 ```ruby
 (1..5).overlaps?(4..6) # => true
@@ -1386,7 +1408,7 @@ false.truthy? #=> false
 ```
 
 ####At:####
-`at` returns the characters at index position, matching string, or regex. `Rails Safe`
+`at` returns the characters at index position, matching string, or regex.
 
 ```ruby
 "example_string".at(0)     #=> "e"
@@ -1398,7 +1420,7 @@ false.truthy? #=> false
 ```
 
 ####Camelize:####
-`camelize` and `camelize!` transfroms a string to camelcase. `Rails Safe`
+`camelize` and `camelize!` transfroms a string to camelcase.
 
 ```ruby
 "example_string".camelize         #=> "ExampleString"
@@ -1408,7 +1430,7 @@ false.truthy? #=> false
 ```
 
 ####Classify:####
-`classify` and `classify!` creates a class name from a string like Rails does for table names to models. `Rails Safe`
+`classify` and `classify!` creates a class name from a string like Rails does for table names to models.
 
 ```ruby
 "example_string".classify      #=> "ExampleString"
@@ -1417,21 +1439,21 @@ false.truthy? #=> false
 ```
 
 ####Constantize:####
-`constantize` converts a string in an object. `Rails Safe`
+`constantize` converts a string in an object.
 
 ```ruby
 "Example::String".constantize #=> Class Object
 ```
 
 ####Dasherize:####
-`dasherize` and `dasherize!` replaces underscores with dashes in the string. `Rails Safe`
+`dasherize` and `dasherize!` replaces underscores with dashes in the string.
 
 ```ruby
 "example_string".dasherize #=> "example-string"
 ```
 
 ####Deconstantize:####
-`deconstantize` and `deconstantize!` removes the rightmost segment from the constant expression in the string. `Rails Safe`
+`deconstantize` and `deconstantize!` removes the rightmost segment from the constant expression in the string.
 
 ```ruby
 "Example::String".deconstantize   # => "Example"
@@ -1442,7 +1464,7 @@ false.truthy? #=> false
 ```
 
 ####Demodulize:####
-`demodulize` and `demodulize!` removes the module part from the expression in the string. `Rails Safe`
+`demodulize` and `demodulize!` removes the module part from the expression in the string.
 
 ```ruby
 "Example::String".demodulize #=> "String"
@@ -1481,7 +1503,7 @@ false.truthy? #=> false
 ```
 
 ####Exclude:####
-`exclude?` returns true if the string does not include the other string. `Rails Safe`
+`exclude?` returns true if the string does not include the other string.
 
 ```ruby
 "example_string".exclude?("exa") #=> false
@@ -1489,7 +1511,7 @@ false.truthy? #=> false
 ```
 
 ####First:####
-`first` returns the first character. If a limit is supplied, returns a substring from the beginning of the string until it reaches the limit value. If the given limit is greater than or equal to the string length, returns a copy of self. `Rails Safe`
+`first` returns the first character. If a limit is supplied, returns a substring from the beginning of the string until it reaches the limit value. If the given limit is greater than or equal to the string length, returns a copy of self.
 
 ```ruby
 "example".first    #=> "e"
@@ -1497,8 +1519,17 @@ false.truthy? #=> false
 "example".first(3) #=> "exa"
 ```
 
+####Format:####
+`format` returns an interpolated string that allows for options.
+
+```ruby
+"example %s".format("string")                              #=> "example string"
+"test %{one} %{two}".format(one: "example", two: "string") #=> "test example string"
+"%d + %d".format([1, 2])                                   #=> "1 + 2"
+```
+
 ####From:####
-`from` returns a substring from the given position to the end of the string. If the position is negative, it is counted from the end of the string. `Rails Safe`
+`from` returns a substring from the given position to the end of the string. If the position is negative, it is counted from the end of the string.
 
 ```ruby
 "example".from(0) #=> "example"
@@ -1506,7 +1537,7 @@ false.truthy? #=> false
 ```
 
 ####Humanize:####
-`humanize` and `humanize!` transforms a string to a human readable string. `Rails Safe`
+`humanize` and `humanize!` transforms a string to a human readable string.
 
 **Options**
  *  capitalize: true
@@ -1518,7 +1549,7 @@ false.truthy? #=> false
 ```
 
 ####Indent:####
-`indent` and `indent!` indents the lines in the receiver. `Rails Safe`
+`indent` and `indent!` indents the lines in the receiver.
 
 ```ruby
 "example".indent(2)       #=> "  example"
@@ -1544,7 +1575,7 @@ false.truthy? #=> false
 ```
 
 ####Last:####
-`last` returns the last character of the string. If a limit is supplied, returns a substring from the end of the string until it reaches the limit value (counting backwards). If the given limit is greater than or equal to the string length, returns a copy of self. `Rails Safe`
+`last` returns the last character of the string. If a limit is supplied, returns a substring from the end of the string until it reaches the limit value (counting backwards). If the given limit is greater than or equal to the string length, returns a copy of self.
 
 ```ruby
 "example".last     #=> "e"
@@ -1562,7 +1593,7 @@ false.truthy? #=> false
 ```
 
 ####Ordinal:####
-`ordinal` returns the suffix that should be added to a number to denote the position in an ordered sequence such as 1st, 2nd, 3rd, 4th. `Rails Safe`
+`ordinal` returns the suffix that should be added to a number to denote the position in an ordered sequence such as 1st, 2nd, 3rd, 4th.
 
 ```ruby
 "1".ordinal  #=> "th"
@@ -1572,7 +1603,7 @@ false.truthy? #=> false
 ```
 
 ####Ordinalize:####
-`ordinalize` transforms a number into an ordinal string used to denote the position in an ordered sequence such as 1st, 2nd, 3rd, 4th. `Rails Safe`
+`ordinalize` transforms a number into an ordinal string used to denote the position in an ordered sequence such as 1st, 2nd, 3rd, 4th.
 
 ```ruby
 "1".ordinalize  #=> "1th"
@@ -1582,7 +1613,7 @@ false.truthy? #=> false
 ```
 
 ####Parameterize:####
-`parameterize` and `parameterize!` makes string suitable for a dashed url parameter string. `Rails Safe`
+`parameterize` and `parameterize!` makes string suitable for a dashed url parameter string.
 
 ```ruby
 "example_string".parameterize      #=> "example-string"
@@ -1681,7 +1712,7 @@ false.truthy? #=> false
 ```
 
 ####Squish:####
-`squish` and `squish!` returns the string, first removing all whitespace on both ends of the string, and then changing remaining consecutive whitespace groups into one space each. `Rails Safe`
+`squish` and `squish!` returns the string, first removing all whitespace on both ends of the string, and then changing remaining consecutive whitespace groups into one space each.
 
 ```ruby
 "example    string".squish        #=> "example string"
@@ -1690,7 +1721,7 @@ false.truthy? #=> false
 ```
 
 ####Titleize:####
-`titleize` and `titleize!` capitalizes each word in a string. `Rails Safe`
+`titleize` and `titleize!` capitalizes each word in a string.
 
 ```ruby
 "example string".titleize     #=> "Example String"
@@ -1699,7 +1730,7 @@ false.truthy? #=> false
 ```
 
 ####To:####
-`to` returns a substring from the beginning of the string to the given position. If the position is negative, it is counted from the end of the string. `Rails Safe`
+`to` returns a substring from the beginning of the string to the given position. If the position is negative, it is counted from the end of the string.
 
 ```ruby
 "example".to(0)  #=> "example"
@@ -1708,7 +1739,7 @@ false.truthy? #=> false
 ```
 
 ####Truncate:####
-`truncate` a given text after a given length if text is longer than length. `Rails Safe`
+`truncate` a given text after a given length if text is longer than length.
 
 **Options**
  *  omission: "..."
@@ -1723,7 +1754,7 @@ false.truthy? #=> false
 ```
 
 ####Truncate Words:####
-`truncate_words` truncates a given text after a given number of words. `Rails Safe`
+`truncate_words` truncates a given text after a given number of words.
 
 **Options**
  *  omission: "..."
@@ -1736,7 +1767,7 @@ false.truthy? #=> false
 ```
 
 ####Underscore:####
-`underscore` and `underscore!` transforms a string to snakecase. `Rails Safe`
+`underscore` and `underscore!` transforms a string to snakecase.
 
 ```ruby
 "ExampleString".underscore       #=> "example_string"

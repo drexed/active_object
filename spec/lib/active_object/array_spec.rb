@@ -1,6 +1,6 @@
-require 'spec_helper'
+require "spec_helper"
 
-describe Array do
+describe ActiveObject::Array do
 
   describe "#after" do
     it "to be 3" do

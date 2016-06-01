@@ -64,4 +64,4 @@ module ActiveObject::Time
 
 end
 
-Time.send(:include, ActiveObject::Time) if ActiveObject.configuration.time
+Time.send(:include, ActiveObject::Time) if ActiveObject.configuration.autoload_time

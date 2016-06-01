@@ -1,10 +1,28 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe Enumerable do
 
+  describe "#average" do
+    it "to be 0" do
+      expect([].average).to eq(0)
+    end
+
+    it "to be nil" do
+      expect([].average(nil)).to eq(nil)
+    end
+
+    it "to be 2" do
+      expect([1, 2, 3].average).to eq(2)
+    end
+
+    it "to be 2.5" do
+      expect([1, 2, 3, 4].average).to eq(2.5)
+    end
+  end
+
   describe "#cluster" do
-    it "to be [2,2,2,3,3,4,2,2,1]" do
-      expect([2,2,2,3,3,4,2,2,1].cluster { |x| x }).to eq([[2, 2, 2], [3, 3], [4], [2, 2], [1]])
+    it "to be [[2, 2, 2], [3, 3], [4], [2, 2], [1]]" do
+      expect([2, 2, 2, 3, 3, 4, 2, 2, 1].cluster { |x| x }).to eq([[2, 2, 2], [3, 3], [4], [2, 2], [1]])
     end
   end
 

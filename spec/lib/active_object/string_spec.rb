@@ -1,6 +1,6 @@
-require 'spec_helper'
+require "spec_helper"
 
-describe String do
+describe ActiveObject::String do
 
   describe "#any?" do
     it "to be true" do
@@ -182,6 +182,20 @@ describe String do
 
     it "to be exa" do
       expect("example".first(3)).to eq("exa")
+    end
+  end
+
+  describe "#format" do
+    it "to be example string" do
+      expect("example %s".format("string")).to eq("example string")
+    end
+
+    it "to be test example string" do
+      expect("test %{one} %{two}".format(one: "example", two: "string")).to eq("test example string")
+    end
+
+    it "to be 1 + 2" do
+      expect("%d + %d".format([1, 2])).to eq("1 + 2")
     end
   end
 
