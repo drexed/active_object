@@ -34,6 +34,16 @@ module ActiveObject::Array
     return(result)
   end
 
+  def dig(key, *rest)
+    if value = (self[key] rescue nil)
+      if rest.empty?
+        value
+      elsif value.respond_to?(:dig)
+        value.dig(*rest)
+      end
+    end
+  end
+
   def duplicates(minimum=2)
     hash = Hash.new(0)
 
@@ -84,6 +94,17 @@ module ActiveObject::Array
     end
 
     block_given? ? collection.each_slice(number) { |slice| yield(slice) } : collection.each_slice(number).to_a
+  end
+
+  def percentile(percentage)
+    size = self.size
+
+    if size > 1
+      index = size * percentage / 100.0
+      self.sort[index]
+    else
+      self.first
+    end
   end
 
   def probability

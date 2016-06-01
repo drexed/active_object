@@ -104,6 +104,13 @@ end
 [1, 2, 3, 4].delete_values(1, 3) #=> [2, 4]
 ```
 
+####Dig:####
+`dig` returns the value of a nested array.
+
+```ruby
+["zero", ["ten", "eleven", "twelve"], "two"].dig(1, 2) #=> "twelve"
+```
+
 ####Duplicates:####
 `duplicates` returns list of duplicate elements.
 
@@ -144,6 +151,15 @@ end
 %w(1 2 3 4 5 6 7 8 9 10).in_groups_of(3)           #=> [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"], ["10", nil, nil]]
 %w(1 2 3 4 5 6 7 8 9 10).in_groups_of(3, '&nbsp;') #=> [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"], ["10", "&nbsp;", "&nbsp;"]]
 %w(1 2 3 4 5 6 7 8 9 10).in_groups_of(3, false)    #=> [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"], ["10"]]
+```
+
+####Percentile:####
+`percentile` returns the percentile value for a given percentage.
+
+```ruby
+[1, 2, 3, 4].percentile(49)    # => 2
+[1, 2, 3, 4].percentile(50)    # => 3
+[1, 2, 3, 4, 5].percentile(50) # => 3
 ```
 
 ####Probablity:####
@@ -465,6 +481,16 @@ h2 = { a: false, b: { x: [3, 4, 5] } }
 h1.deep_merge(h2) #=> { a: false, b: { c: [1, 2, 3], x: [3, 4, 5] } }
 ```
 
+####Dig:####
+`dig` returns the value of a nested hash.
+
+```ruby
+h1 = { a: { b: { c: :d } } }
+
+h1.dig(:a, :b)     #=> { c: :d }
+h1.dig(:a, :b, :c) #=> :d
+```
+
 ####Except:####
 `except` and `except!` returns a hash that includes everything but the given keys.
 
@@ -679,6 +705,15 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 3.centuries_in_seconds #=> 9467280000.0
 ```
 
+####Clamp:####
+`clamp` returns a comparable between a lower and upper bound.
+
+```ruby
+1.clamp(3, 6) # => 3
+5.clamp(3..6) # => 5
+8.clamp(3, 6) # => 6
+```
+
 ####Days in Seconds:####
 `day_in_seconds` and `days_in_seconds` returns the amount of seconds in n days.
 
@@ -718,6 +753,13 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 
 ```ruby
 3.decimeters_in_meters #=> 0.3
+```
+
+####degrees_to_radians:####
+`degrees_to_radians` returns number of degrees into radians.
+
+```ruby
+90.degrees_to_radians #=> 1.5707963267948966
 ```
 
 ####Distance:####

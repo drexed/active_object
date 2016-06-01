@@ -37,6 +37,16 @@ module ActiveObject::Hash
     self
   end
 
+  def dig(key, *rest)
+    if value = (self[key] rescue nil)
+      if rest.empty?
+        value
+      elsif value.respond_to?(:dig)
+        value.dig(*rest)
+      end
+    end
+  end
+
   def except(*keys)
     dup.except!(*keys)
   end

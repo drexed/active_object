@@ -91,6 +91,14 @@ module ActiveObject::Numeric
 
   alias_method :century_in_seconds, :centuries_in_seconds
 
+  def clamp(min, max=nil)
+    if max.nil? && min.is_a?(Range)
+      self < min.min ? min.min : self > min.max ? min.max : self
+    else
+      self < min ? min : self > max ? max : self
+    end
+  end
+
   def days_in_seconds
     self * DAY
   end
@@ -130,6 +138,12 @@ module ActiveObject::Numeric
   def decrement(amount=1.0)
     self + amount
   end
+
+  def degrees_to_radians
+    self * Math::PI / 180.0
+  end
+
+  alias_method :degree_to_radians, :degrees_to_radians
 
   def distance(n)
     (self - n).abs

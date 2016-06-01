@@ -36,6 +36,23 @@ describe ActiveObject::Numeric do
     end
   end
 
+  describe "#clamp" do
+    it "to be 3" do
+      expect(1.clamp(3, 6)).to eq(3)
+      expect(1.clamp(3..6)).to eq(3)
+    end
+
+    it "to be 5" do
+      expect(5.clamp(3, 6)).to eq(5)
+      expect(5.clamp(3..6)).to eq(5)
+    end
+
+    it "to be 6" do
+      expect(8.clamp(3, 6)).to eq(6)
+      expect(8.clamp(3..6)).to eq(6)
+    end
+  end
+
   describe "#day_in_second" do
     it "to be 259200" do
       expect(3.day_in_seconds).to eq(259200)
@@ -85,6 +102,12 @@ describe ActiveObject::Numeric do
 
     it "to be 1.5" do
       expect(1.decrement(0.5)).to eq(1.5)
+    end
+  end
+
+  describe "#degrees_to_radians" do
+    it "to be 1.5707963267948966" do
+      expect(90.degrees_to_radians).to eq(1.5707963267948966)
     end
   end
 

@@ -53,6 +53,12 @@ describe ActiveObject::Array do
     end
   end
 
+  describe "#dig" do
+    it "to be twelve" do
+      expect(["zero", ["ten", "eleven", "twelve"], "two"].dig(1, 2)).to eq("twelve")
+    end
+  end
+
   describe "#duplicates" do
     it "to be [1, 2]" do
       expect([1, 1, 2, 2, 2, 3].duplicates).to eq([1, 2])
@@ -108,6 +114,17 @@ describe ActiveObject::Array do
 
     it "to be [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'] ['10']]" do
       expect(%w(1 2 3 4 5 6 7 8 9 10).in_groups_of(3, false)).to eq([["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"], ["10"]])
+    end
+  end
+
+  describe "#percentile" do
+    it "to be 2" do
+      expect([1, 2, 3, 4].percentile(49)).to eq(2)
+    end
+
+    it "to be 3" do
+      expect([1, 2, 3, 4].percentile(50)).to eq(3)
+      expect([1, 2, 3, 4, 5].percentile(50)).to eq(3)
     end
   end
 

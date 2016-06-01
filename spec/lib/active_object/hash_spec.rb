@@ -43,6 +43,18 @@ describe ActiveObject::Hash do
     end
   end
 
+  describe "#dig" do
+    h1 = { a: { b: { c: :d } } }
+
+    it "to be { c: :d }" do
+      expect(h1.dig(:a, :b)).to eq({ c: :d })
+    end
+
+    it "to be :d" do
+      expect(h1.dig(:a, :b, :c)).to eq(:d)
+    end
+  end
+
   describe "#except(!)" do
     it "to be {}" do
       expect({}.except(:foo)).to eq({})
