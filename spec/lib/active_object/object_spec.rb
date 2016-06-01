@@ -34,7 +34,6 @@ describe ActiveObject::Object do
     it "to be true" do
       expect(false.boolean?).to eq(true)
       expect(true.boolean?).to eq(true)
-      expect(nil.boolean?).to eq(true)
       expect(0.boolean?).to eq(true)
       expect(1.boolean?).to eq(true)
     end

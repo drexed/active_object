@@ -1,4 +1,6 @@
 module ActiveObject::Object
+  FALSE_VALUES = [false, 0, "0", "false", "FALSE", "f", "F"]
+  TRUE_VALUES = [true, 1, "1", "true", "TRUE", "t", "T"]
 
   def array?
     is_a?(Array)
@@ -11,7 +13,7 @@ module ActiveObject::Object
   end
 
   def boolean?
-    [false, "false", true, "true", nil, 0, "0", 1, "1"].include?(self)
+    TRUE_VALUES.include?(self) || FALSE_VALUES.include?(self)
   end
 
   def false?
@@ -19,7 +21,7 @@ module ActiveObject::Object
   end
 
   def falsey?
-    [false, "false", nil, 0, "0", "1"].include?(self)
+    nil? || FALSE_VALUES.include?(self)
   end
 
   def float?
@@ -71,7 +73,7 @@ module ActiveObject::Object
   end
 
   def truthy?
-    !falsey?
+    TRUE_VALUES.include?(self)
   end
 
   def try(*a, &b)

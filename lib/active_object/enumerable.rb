@@ -107,10 +107,10 @@ module Enumerable
   alias_method :average, :mean
 
   def median(identity=0)
-    collection_length   = length.to_f
+    collection_length = length.to_f
     collection_sorted = sort
 
-    return(identity) unless collection_length > 0
+    return(identity) unless collection_length > 0.0
 
     if (collection_length % 2).zero?
       (collection_sorted[(collection_length / 2.0) -1.0] + collection_sorted[collection_length / 2.0]) / 2.0

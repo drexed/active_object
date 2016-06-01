@@ -31,7 +31,7 @@ module ActiveObject::Array
   def delete_values(*args)
     result = []
     args.each { |v| result << delete(v) }
-    return(result)
+    result
   end
 
   def dig(key, *rest)
@@ -100,7 +100,7 @@ module ActiveObject::Array
     size = self.size
 
     if size > 1
-      index = size * percentage / 100.0
+      index = (size * percentage) / 100.0
       self.sort[index]
     else
       self.first
@@ -131,7 +131,7 @@ module ActiveObject::Array
   def split(number=nil)
     if block_given?
       inject([[]]) do |results, element|
-        yield(element) ? results << [] : results.last << element
+        yield(element) ? (results << []) : (results.last << element)
         results
       end
     else
@@ -162,8 +162,6 @@ module ActiveObject::Array
   end
 
   def to_sentence(options={})
-    options.assert_valid_keys(:words_connector, :two_words_connector, :last_word_connector)
-
     default_connectors = {
       words_connector: ", ",
       two_words_connector: " and ",
