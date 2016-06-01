@@ -11,7 +11,7 @@ describe ActiveObject::InstallGenerator, type: :generator do
   it "to be true" do
     sample_path = "spec/lib/generators/tmp/config/initializers/active_object.rb"
 
-    expect_file = File.read('spec/support/generators/sample.rb')
+    expect_file = File.read("spec/support/generators/sample.rb")
     sample_file = File.read(sample_path)
 
     expect(File.exist?(sample_path)).to eq(true)
