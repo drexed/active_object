@@ -236,4 +236,72 @@ describe ActiveObject::Date do
     end
   end
 
+  describe "#difference" do
+    past_date = Date.parse("2014-01-09")
+    future_date = Date.parse("2015-01-10")
+
+    context "#count_seconds_since" do
+      it "to be 31622400.0" do
+        expect(future_date.count_seconds_since(past_date)).to eq(31622400.0)
+        expect(past_date.count_seconds_since(future_date)).to eq(31622400.0)
+      end
+    end
+
+    context "#count_minutes_since" do
+      it "to be 527040.0" do
+        expect(future_date.count_minutes_since(past_date)).to eq(527040.0)
+        expect(past_date.count_minutes_since(future_date)).to eq(527040.0)
+      end
+    end
+
+    context "#count_hours_since" do
+      it "to be 8784.0" do
+        expect(future_date.count_hours_since(past_date)).to eq(8784.0)
+        expect(past_date.count_hours_since(future_date)).to eq(8784.0)
+      end
+    end
+
+    context "#count_days_since" do
+      it "to be 366.0" do
+        expect(future_date.count_days_since(past_date)).to eq(366.0)
+        expect(past_date.count_days_since(future_date)).to eq(366.0)
+      end
+    end
+
+    context "#count_weeks_since" do
+      it "to be 52.285714285714285" do
+        expect(future_date.count_weeks_since(past_date)).to eq(52.285714285714285)
+        expect(past_date.count_weeks_since(future_date)).to eq(52.285714285714285)
+      end
+    end
+
+    context "#count_years_since" do
+      it "to be 1.002053388090349" do
+        expect(future_date.count_years_since(past_date)).to eq(1.002053388090349)
+        expect(past_date.count_years_since(future_date)).to eq(1.002053388090349)
+      end
+    end
+
+    context "#count_decades_since" do
+      it "to be 0.10020533880903491" do
+        expect(future_date.count_decades_since(past_date)).to eq(0.10020533880903491)
+        expect(past_date.count_decades_since(future_date)).to eq(0.10020533880903491)
+      end
+    end
+
+    context "#count_centuries_since" do
+      it "to be 0.01002053388090349" do
+        expect(future_date.count_centuries_since(past_date)).to eq(0.01002053388090349)
+        expect(past_date.count_centuries_since(future_date)).to eq(0.01002053388090349)
+      end
+    end
+
+    context "#count_milleniums_since" do
+      it "to be 0.001002053388090349" do
+        expect(future_date.count_milleniums_since(past_date)).to eq(0.001002053388090349)
+        expect(past_date.count_milleniums_since(future_date)).to eq(0.001002053388090349)
+      end
+    end
+  end
+
 end

@@ -1846,6 +1846,18 @@ false.truthy? #=> false
 
 *Note:* also works with Date class.
 
+####Count:####
+`count_[DURATION]_[TERM]` converts a Date or Time object to format it using a human readable string.
+
+**Durations/Terms**
+ *  seconds, minutes, hours, days, weeks, years, decades, centuries, millenniums
+ *  since, until
+
+```ruby
+Date.today.count_hours_since(Date.yesterday)      #=> "24.0"
+Time.now.count_minutes_until(20.minutes.from_now) #=> "20.0"
+```
+
 ####Format:####
 `format` converts a Date or Time object to format it using a human readable string.
 
