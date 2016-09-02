@@ -83,7 +83,7 @@ module ActiveObject::Array
   def in_groups_of(number, fill_with=nil)
     if number.to_i <= 0
       raise ArgumentError,
-        "Group length must be a positive integer, was #{number.inspect}"
+            "Group length must be a positive integer, was #{number.inspect}"
     end
 
     if fill_with == false
@@ -163,15 +163,15 @@ module ActiveObject::Array
 
   def to_sentence(options={})
     default_connectors = {
-      words_connector: ", ",
-      two_words_connector: " and ",
-      last_word_connector: ", and "
+      words_connector: ', ',
+      two_words_connector: ' and ',
+      last_word_connector: ', and '
     }
     options = default_connectors.merge!(options)
 
     case length
     when 0
-      ""
+      ''
     when 1
       self[0].to_s.dup
     when 2

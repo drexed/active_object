@@ -1,6 +1,6 @@
 module ActiveObject::Object
-  FALSE_VALUES = [false, 0, "0", "false", "FALSE", "f", "F"]
-  TRUE_VALUES = [true, 1, "1", "true", "TRUE", "t", "T"]
+  FALSE_VALUES = [false, 0, '0', 'false', 'FALSE', 'f', 'F']
+  TRUE_VALUES = [true, 1, '1', 'true', 'TRUE', 't', 'T']
 
   def array?
     is_a?(Array)
@@ -56,7 +56,7 @@ module ActiveObject::Object
     is_a?(Range)
   end
 
-  def salvage(placeholder="---")
+  def salvage(placeholder='---')
     blank? ? placeholder : self
   end
 

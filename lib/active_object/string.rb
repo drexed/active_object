@@ -27,7 +27,7 @@ module ActiveObject::String
   alias_method :camelcase!, :camelize!
 
   def classify
-    to_s.sub(/.*\./, "").camelize
+    to_s.sub(/.*\./, '').camelize
   end
 
   def classify!
@@ -39,7 +39,7 @@ module ActiveObject::String
   end
 
   def dasherize
-    gsub(/_/, "-")
+    gsub(/_/, '-')
   end
 
   def dasherize!
@@ -47,7 +47,7 @@ module ActiveObject::String
   end
 
   def deconstantize
-    to_s[0, rindex("::") || 0]
+    to_s[0, rindex('::') || 0]
   end
 
   def deconstantize!
@@ -55,7 +55,7 @@ module ActiveObject::String
   end
 
   def demodulize
-    to_s.gsub(/^.*::/, "")
+    to_s.gsub(/^.*::/, '')
   end
 
   def demodulize!
@@ -73,7 +73,7 @@ module ActiveObject::String
   def ellipsize(ellipsize_at, options={})
      return(self) if length <= ellipsize_at
 
-     separator = options.fetch(:separator, "...")
+     separator = options.fetch(:separator, '...')
      offset = options.fetch(:offset, 4)
 
      "#{self[0, offset]}#{separator}#{self[-offset, offset]}"
@@ -84,7 +84,7 @@ module ActiveObject::String
   end
 
   def first(limit=1)
-    return("") if limit.zero?
+    return('') if limit.zero?
 
     limit >= length ? self : to(limit - 1)
   end
@@ -101,8 +101,8 @@ module ActiveObject::String
     capitalize = options.fetch(:capitalize, true)
 
     underscore.
-    gsub(/_id\z/, "").
-    tr("_", " ").
+    gsub(/_id\z/, '').
+    tr('_', ' ').
     squish.
     gsub(/([a-z\d]*)/i) { |s| s.downcase }.
     gsub(/\A\w/) { |s| capitalize ? s.upcase : s }
@@ -141,11 +141,11 @@ module ActiveObject::String
     capitalize = options.fetch(:capitalize, true)
 
     underscore.
-    tr("_", " ").
+    tr('_', ' ').
     squish.
     gsub(/([a-z\d]*)/i) { |s| s.downcase }.
     gsub(/\A\w/) { |s| capitalize ? s.upcase : s }.
-    gsub(/ id\z/, " ID")
+    gsub(/ id\z/, ' ID')
   end
 
   alias_method :labelcase, :labelize
@@ -158,7 +158,7 @@ module ActiveObject::String
 
 
   def last(limit=1)
-    return("") if limit.zero?
+    return('') if limit.zero?
 
     limit >= length ? self : from(-limit)
   end
@@ -175,19 +175,19 @@ module ActiveObject::String
     to_i.ordinalize
   end
 
-  def parameterize(seperator="-")
+  def parameterize(seperator='-')
     underscore.gsub(/\s+/, seperator).downcase
   end
 
-  def parameterize!(seperator="-")
+  def parameterize!(seperator='-')
     replace(parameterize(seperator))
   end
 
-  def pollute(delimiter="^--^--^")
-    split("").map { |c| "#{c}#{delimiter}" }.join
+  def pollute(delimiter='^--^--^')
+    split('').map { |c| "#{c}#{delimiter}" }.join
   end
 
-  def pollute!(delimiter="^--^--^")
+  def pollute!(delimiter='^--^--^')
     replace(pollute(delimiter))
   end
 
@@ -206,7 +206,7 @@ module ActiveObject::String
       if p.is_a?(Range)
         string.slice!(p)
       else
-        string.gsub!(p, "")
+        string.gsub!(p, '')
       end
     end
 
@@ -218,14 +218,14 @@ module ActiveObject::String
   end
 
   def remove_tags
-    gsub(/<\/?[^>]*>/, "")
+    gsub(/<\/?[^>]*>/, '')
   end
 
   def remove_tags!
     replace(remove_tags)
   end
 
-  def sample(separator=" ")
+  def sample(separator=' ')
     split(separator).sample
   end
 
@@ -238,7 +238,7 @@ module ActiveObject::String
       self[0]
     else
       string = dup
-      patterns.flatten.each { |p| string.sub!(p, "") }
+      patterns.flatten.each { |p| string.sub!(p, '') }
       string
     end
   end
@@ -247,11 +247,11 @@ module ActiveObject::String
     replace(shift(*patterns))
   end
 
-  def shuffle(separator="")
+  def shuffle(separator='')
     split(separator).shuffle.join
   end
 
-  def shuffle!(separator="")
+  def shuffle!(separator='')
     replace(shuffle(separator))
   end
 
@@ -261,7 +261,7 @@ module ActiveObject::String
                     when Array then chars_to_keep.map { |c| c.to_s }
                     when Range then chars_to_keep.to_a.map { |c| c.to_s }
                     else
-                      raise TypeError, "Invalid parameter"
+                      raise TypeError, 'Invalid parameter'
                     end
 
     chars.keep_if { |chr| chars_to_keep.include?(chr) }.join
@@ -272,10 +272,10 @@ module ActiveObject::String
   end
 
   def slugify
-    gsub(/[^\x00-\x7F]+/, "").
-    gsub(/[^\w_ \-]+/i, "").
-    gsub(/[ \-]+/i, "-").
-    gsub(/^\-|\-$/i, "").
+    gsub(/[^\x00-\x7F]+/, '').
+    gsub(/[^\w_ \-]+/i, '').
+    gsub(/[ \-]+/i, '-').
+    gsub(/^\-|\-$/i, '').
     downcase
   end
 
@@ -284,7 +284,7 @@ module ActiveObject::String
   end
 
   def squish
-    strip.gsub(/\s+/, " ")
+    strip.gsub(/\s+/, ' ')
   end
 
   def squish!
@@ -318,7 +318,7 @@ module ActiveObject::String
   def truncate(truncate_at, options={})
     return(dup) unless length > truncate_at
 
-    omission = options.fetch(:omission, "...")
+    omission = options.fetch(:omission, '...')
     size_with_room_for_omission = truncate_at - omission.length
 
     stop = if options.fetch(:separator, false)
@@ -342,10 +342,10 @@ module ActiveObject::String
   end
 
   def underscore
-    gsub(/::/, "/").
+    gsub(/::/, '/').
     gsub(/([A-Z\d]+)([A-Z][a-z])/, "\1_\2").
     gsub(/([a-z\d])([A-Z])/, "\1_\2").
-    tr("-", "_").
+    tr('-', '_').
     downcase
   end
 
@@ -353,11 +353,11 @@ module ActiveObject::String
     replace(underscore)
   end
 
-  def unpollute(delimiter="^--^--^")
-    gsub(delimiter, "")
+  def unpollute(delimiter='^--^--^')
+    gsub(delimiter, '')
   end
 
-  def unpollute!(delimiter="^--^--^")
+  def unpollute!(delimiter='^--^--^')
     replace(unpollute(delimiter))
   end
 
@@ -366,7 +366,7 @@ module ActiveObject::String
   end
 
   def unshift(*patterns)
-    string = ""
+    string = ''
     patterns.flatten.each { |p| string.concat(p) }
     string.concat(self)
     string

@@ -15,7 +15,7 @@ module ActiveObject::Integer
   end
 
   def roman
-    return("") if zero?
+    return('') if zero?
     return("-#{(-self).roman}") if self < 0
 
     ROMAN_VALUES.each { |k, v| return("#{k}#{(self - v).roman}") if v <= self }

@@ -313,13 +313,13 @@ module ActiveObject::Numeric
     abs_number = abs
 
     if (11..13).cover?(abs_number % 100)
-      "th"
+      'th'
     else
       case abs_number % 10
-      when 1; "st"
-      when 2; "nd"
-      when 3; "rd"
-      else "th"
+      when 1; 'st'
+      when 2; 'nd'
+      when 3; 'rd'
+      else 'th'
       end
     end
   end
@@ -348,7 +348,7 @@ module ActiveObject::Numeric
   def pad_precision(options={})
     pad_number = options.fetch(:pad_number, 0)
     precision = options.fetch(:precision, 2)
-    separator = options.fetch(:separator, ".")
+    separator = options.fetch(:separator, '.')
     string = to_s
 
     string << separator unless string.include?(separator)
@@ -407,14 +407,14 @@ module ActiveObject::Numeric
   def to_byte(from, to)
     unless BYTE_KEYS.include?(from) && BYTE_KEYS.include?(to)
       raise ArgumentError,
-        "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}. Valid keys are: #{BYTE_KEYS.map(&:inspect).join(', ')}"
+            "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}. Valid keys are: #{BYTE_KEYS.map(&:inspect).join(', ')}"
     end
 
     to_f * 1.send("#{from}_in_bytes").to_f / 1.send("#{to}_in_bytes").to_f
   end
 
   def to_currency(options={})
-    unit = options.fetch(:unit, "$")
+    unit = options.fetch(:unit, '$')
 
     "#{unit}#{pad_precision(options.only(:precision))}"
   end
@@ -425,7 +425,7 @@ module ActiveObject::Numeric
 
     unless valid_keys.include?(from) && valid_keys.include?(to)
       raise ArgumentError,
-        "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', ')}"
+            "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', ')}"
     end
 
     case to
@@ -452,7 +452,7 @@ module ActiveObject::Numeric
 
     unless valid_keys.include?(from) && valid_keys.include?(to)
       raise ArgumentError,
-        "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', ')}"
+            "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', ')}"
     end
 
     case to
@@ -490,7 +490,7 @@ module ActiveObject::Numeric
   end
 
   def to_percentage(options={})
-    unit = options.fetch(:unit, "%")
+    unit = options.fetch(:unit, '%')
 
     "#{pad_precision(options.only(:precision))}#{unit}"
   end
@@ -498,7 +498,7 @@ module ActiveObject::Numeric
   def to_temperature(from, to)
     unless TEMPERATURE_KEYS.include?(from) && TEMPERATURE_KEYS.include?(to)
       raise ArgumentError,
-        "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}. Valid keys are: #{TEMPERATURE_KEYS.map(&:inspect).join(', ')}"
+            "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}. Valid keys are: #{TEMPERATURE_KEYS.map(&:inspect).join(', ')}"
     end
 
     case to
@@ -516,7 +516,7 @@ module ActiveObject::Numeric
   def to_time(from, to)
     unless TIME_KEYS.include?(from) && TIME_KEYS.include?(to)
       raise ArgumentError,
-        "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}. Valid keys are: #{TIME_KEYS.map(&:inspect).join(', ')}"
+            "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}. Valid keys are: #{TIME_KEYS.map(&:inspect).join(', ')}"
     end
 
     (to_f * 1.send("#{from}_in_seconds").to_f) / 1.send("#{to}_in_seconds").to_f

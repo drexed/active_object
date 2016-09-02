@@ -6,7 +6,7 @@ module ActiveObject::Hash
     each_key do |k|
       unless valid_keys.include?(k)
         raise ArgumentError,
-          "Unknown key: #{k.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', ')}"
+              "Unknown key: #{k.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', ')}"
       end
     end
   end
@@ -191,7 +191,7 @@ module ActiveObject::Hash
 
   def symbolize_and_underscore_keys!
     inject({}) do |options, (key, value)|
-      options[(key.to_s.gsub(" ", "_").underscore.to_sym rescue key) || key] = value
+      options[(key.to_s.gsub(' ', '_').underscore.to_sym rescue key) || key] = value
       options
     end
   end
