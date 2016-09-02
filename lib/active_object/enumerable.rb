@@ -123,7 +123,7 @@ module Enumerable
     return(identity) unless length > 0
 
     frequency_distribution = inject(Hash.new(0)) { |h, v| h[v] += 1; h }
-    frequency_top_two = frequency_distribution.sort { |k, v| v[1] <=> k[1] }.take(2)
+    frequency_top_two = frequency_distribution.sort_by { |k, v| -v }.take(2)
 
     if frequency_top_two.length == 1
       frequency_top_two.first.first

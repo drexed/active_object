@@ -339,16 +339,16 @@ module ActiveObject::Numeric
   end
 
   def pad(options={})
-    pad_number = options.fetch(:pad_number, 0)
-    precision = options.fetch(:precision, 3)
+    pad_number = options[:pad_number] || 0
+    precision = options[:precision] || 3
 
     to_s.rjust(precision, pad_number.to_s)
   end
 
   def pad_precision(options={})
-    pad_number = options.fetch(:pad_number, 0)
-    precision = options.fetch(:precision, 2)
-    separator = options.fetch(:separator, '.')
+    pad_number = options[:pad_number] || 0
+    precision = options[:precision] || 2
+    separator = options[:separator] || '.'
     string = to_s
 
     string << separator unless string.include?(separator)
@@ -414,7 +414,7 @@ module ActiveObject::Numeric
   end
 
   def to_currency(options={})
-    unit = options.fetch(:unit, '$')
+    unit = options[:unit] || '$'
 
     "#{unit}#{pad_precision(options.only(:precision))}"
   end
@@ -490,7 +490,7 @@ module ActiveObject::Numeric
   end
 
   def to_percentage(options={})
-    unit = options.fetch(:unit, '%')
+    unit = options[:unit] || '%'
 
     "#{pad_precision(options.only(:precision))}#{unit}"
   end

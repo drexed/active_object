@@ -116,7 +116,7 @@ module ActiveObject::Array
       differ += 1.0
     end
 
-    hash.keys.each { |e| hash[e] /= differ }
+    hash.each_key { |e| hash[e] /= differ }
     hash
   end
 

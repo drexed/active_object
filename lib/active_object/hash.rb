@@ -20,7 +20,7 @@ module ActiveObject::Hash
   end
 
   def deep_merge(other_hash, &block)
-    dup.deep_merge!(other_hash, &block)
+    dup.deep_merge!(other_hash, yield(block))
   end
 
   def deep_merge!(other_hash, &block)
@@ -28,9 +28,9 @@ module ActiveObject::Hash
       this_value = self[current_key]
 
       self[current_key] = if this_value.is_a?(Hash) && other_value.is_a?(Hash)
-        this_value.deep_merge(other_value, &block)
+        this_value.deep_merge(other_value, yield(block))
       else
-        block_given? && key?(current_key) ? block.call(current_key, this_value, other_value) : other_value
+        block_given? && key?(current_key) ? yield(current_key, this_value, other_value) : other_value
       end
     end
 
@@ -61,7 +61,7 @@ module ActiveObject::Hash
   end
 
   def hmap!(&block)
-    inject({}) { |hash, (k, v)| hash.merge(block.call(k, v)) }
+    inject({}) { |hash, (k, v)| hash.merge(yield(k, v)) }
   end
 
   def nillify
@@ -191,7 +191,7 @@ module ActiveObject::Hash
 
   def symbolize_and_underscore_keys!
     inject({}) do |options, (key, value)|
-      options[(key.to_s.gsub(' ', '_').underscore.to_sym rescue key) || key] = value
+      options[(key.to_s.tr(' ', '_').underscore.to_sym rescue key) || key] = value
       options
     end
   end
@@ -203,7 +203,7 @@ module ActiveObject::Hash
   def transform_keys!(&block)
     return(enum_for(:transform_keys!)) unless block_given?
 
-    keys.each { |k| self[yield(k)] = delete(k) }
+    each_key { |k| self[yield(k)] = delete(k) }
     self
   end
 

@@ -73,8 +73,8 @@ module ActiveObject::String
   def ellipsize(ellipsize_at, options={})
      return(self) if length <= ellipsize_at
 
-     separator = options.fetch(:separator, '...')
-     offset = options.fetch(:offset, 4)
+     separator = options[:separator] || '...'
+     offset = options[:offset] || 4
 
      "#{self[0, offset]}#{separator}#{self[-offset, offset]}"
   end
@@ -98,7 +98,7 @@ module ActiveObject::String
   end
 
   def humanize(options={})
-    capitalize = options.fetch(:capitalize, true)
+    capitalize = options[:capitalize] || true
 
     underscore.
     gsub(/_id\z/, '').
@@ -138,7 +138,7 @@ module ActiveObject::String
   end
 
   def labelize(options={})
-    capitalize = options.fetch(:capitalize, true)
+    capitalize = options[:capitalize] || true
 
     underscore.
     tr('_', ' ').
@@ -318,11 +318,11 @@ module ActiveObject::String
   def truncate(truncate_at, options={})
     return(dup) unless length > truncate_at
 
-    omission = options.fetch(:omission, '...')
+    omission = options[:omission] || '...'
     size_with_room_for_omission = truncate_at - omission.length
 
-    stop = if options.fetch(:separator, false)
-      rindex(options.fetch(:separator, ""), size_with_room_for_omission) || size_with_room_for_omission
+    stop = if options[:separator] || false
+      rindex(options[:separator] || "", size_with_room_for_omission) || size_with_room_for_omission
     else
       size_with_room_for_omission
     end
@@ -331,11 +331,11 @@ module ActiveObject::String
   end
 
   def truncate_words(words_count, options={})
-    sep = options.fetch(:separator, /\s+/)
+    sep = options[:separator] || /\s+/
     sep = Regexp.escape(sep.to_s) unless Regexp === sep
 
     if self =~ /\A((?:.+?#{sep}){#{words_count - 1}}.+?)#{sep}.*/m
-      "#{$1}#{options.fetch(:omission, '...')}"
+      "#{$1}#{options[:omissio] || '...'}"
     else
       self
     end
