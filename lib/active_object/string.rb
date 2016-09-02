@@ -2,7 +2,7 @@ module ActiveObject::String
 
   def any?(*keys)
     included = false
-    keys.flatten.each { |k| break if included = include?(k) }
+    keys.flatten.each { |key| break if included = include?(key) }
     included
   end
 
@@ -10,7 +10,7 @@ module ActiveObject::String
     self[position]
   end
 
-  def camelize(first_letter=:upper)
+  def camelize(first_letter = :upper)
     if first_letter.to_sym != :lower
       to_s.gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase }
     else
@@ -70,7 +70,7 @@ module ActiveObject::String
     downcase == self
   end
 
-  def ellipsize(ellipsize_at, options={})
+  def ellipsize(ellipsize_at, options = {})
      return(self) if length <= ellipsize_at
 
      separator = options[:separator] || '...'
@@ -83,7 +83,7 @@ module ActiveObject::String
     !include?(string)
   end
 
-  def first(limit=1)
+  def first(limit = 1)
     return('') if limit.zero?
 
     limit >= length ? self : to(limit - 1)
@@ -97,29 +97,29 @@ module ActiveObject::String
     self[position..-1]
   end
 
-  def humanize(options={})
+  def humanize(options = {})
     capitalize = options[:capitalize] || true
 
     underscore.
     gsub(/_id\z/, '').
     tr('_', ' ').
     squish.
-    gsub(/([a-z\d]*)/i) { |s| s.downcase }.
-    gsub(/\A\w/) { |s| capitalize ? s.upcase : s }
+    gsub(/([a-z\d]*)/i) { |str| str.downcase }.
+    gsub(/\A\w/) { |str| capitalize ? str.upcase : str }
   end
 
-  def humanize!(options={})
+  def humanize!(options = {})
     replace(humanize(options))
   end
 
-  def indent(amount, indent_string=nil, indent_empty_lines=false)
-    indent_string = indent_string || self[/^[ \t]/] || " "
+  def indent(amount, indent_string = nil, indent_empty_lines = false)
+    indent_string = indent_string || self[/^[ \t]/] || ' '
     substitutes = indent_empty_lines ? /^/ : /^(?!$)/
 
     gsub(substitutes, indent_string * amount)
   end
 
-  def indent!(amount, indent_string=nil, indent_empty_lines=false)
+  def indent!(amount, indent_string = nil, indent_empty_lines = false)
     replace(indent(amount, indent_string, indent_empty_lines))
   end
 
@@ -137,27 +137,27 @@ module ActiveObject::String
     arr_indexes.reverse
   end
 
-  def labelize(options={})
+  def labelize(options = {})
     capitalize = options[:capitalize] || true
 
     underscore.
     tr('_', ' ').
     squish.
-    gsub(/([a-z\d]*)/i) { |s| s.downcase }.
-    gsub(/\A\w/) { |s| capitalize ? s.upcase : s }.
+    gsub(/([a-z\d]*)/i) { |str| str.downcase }.
+    gsub(/\A\w/) { |str| capitalize ? str.upcase : str }.
     gsub(/ id\z/, ' ID')
   end
 
   alias_method :labelcase, :labelize
 
-  def labelize!(options={})
+  def labelize!(options = {})
     replace(labelize(options))
   end
 
   alias_method :labelcase!, :labelize!
 
 
-  def last(limit=1)
+  def last(limit = 1)
     return('') if limit.zero?
 
     limit >= length ? self : from(-limit)
@@ -175,19 +175,19 @@ module ActiveObject::String
     to_i.ordinalize
   end
 
-  def parameterize(seperator='-')
+  def parameterize(seperator = '-')
     underscore.gsub(/\s+/, seperator).downcase
   end
 
-  def parameterize!(seperator='-')
+  def parameterize!(seperator = '-')
     replace(parameterize(seperator))
   end
 
-  def pollute(delimiter='^--^--^')
-    split('').map { |c| "#{c}#{delimiter}" }.join
+  def pollute(delimiter = '^--^--^')
+    split('').map { |chr| "#{chr}#{delimiter}" }.join
   end
 
-  def pollute!(delimiter='^--^--^')
+  def pollute!(delimiter = '^--^--^')
     replace(pollute(delimiter))
   end
 
@@ -202,12 +202,8 @@ module ActiveObject::String
   def remove(*patterns)
     string = dup
 
-    patterns.flatten.each do |p|
-      if p.is_a?(Range)
-        string.slice!(p)
-      else
-        string.gsub!(p, '')
-      end
+    patterns.flatten.each do |pat|
+      pat.is_a?(Range) ? string.slice!(pat) : string.gsub!(pat, '')
     end
 
     string
@@ -225,11 +221,11 @@ module ActiveObject::String
     replace(remove_tags)
   end
 
-  def sample(separator=' ')
+  def sample(separator = ' ')
     split(separator).sample
   end
 
-  def sample!(separator=" ")
+  def sample!(separator = ' ')
     replace(sample(separator))
   end
 
@@ -238,7 +234,7 @@ module ActiveObject::String
       self[0]
     else
       string = dup
-      patterns.flatten.each { |p| string.sub!(p, '') }
+      patterns.flatten.each { |pat| string.sub!(pat, '') }
       string
     end
   end
@@ -247,19 +243,19 @@ module ActiveObject::String
     replace(shift(*patterns))
   end
 
-  def shuffle(separator='')
+  def shuffle(separator = '')
     split(separator).shuffle.join
   end
 
-  def shuffle!(separator='')
+  def shuffle!(separator = '')
     replace(shuffle(separator))
   end
 
   def sift(chars_to_keep)
     chars_to_keep = case chars_to_keep
                     when String then chars_to_keep.chars
-                    when Array then chars_to_keep.map { |c| c.to_s }
-                    when Range then chars_to_keep.to_a.map { |c| c.to_s }
+                    when Array then chars_to_keep.map { |chr| chr.to_s }
+                    when Range then chars_to_keep.to_a.map { |chr| chr.to_s }
                     else
                       raise TypeError, 'Invalid parameter'
                     end
@@ -321,8 +317,9 @@ module ActiveObject::String
     omission = options[:omission] || '...'
     size_with_room_for_omission = truncate_at - omission.length
 
-    stop = if options[:separator] || false
-      rindex(options[:separator] || "", size_with_room_for_omission) || size_with_room_for_omission
+    seperator = options[:separator]
+    stop = if seperator || false
+      rindex(seperator || '', size_with_room_for_omission) || size_with_room_for_omission
     else
       size_with_room_for_omission
     end
@@ -367,7 +364,7 @@ module ActiveObject::String
 
   def unshift(*patterns)
     string = ''
-    patterns.flatten.each { |p| string.concat(p) }
+    patterns.flatten.each { |pat| string.concat(pat) }
     string.concat(self)
     string
   end

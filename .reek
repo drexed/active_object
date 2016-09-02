@@ -1,6 +1,14 @@
 ---
 Attribute:
   enabled: false
+BooleanParameter:
+  enabled: false
+ControlParameter:
+  enabled: false
+DuplicateMethodCall:
+  exclude:
+    - 'ActiveObject::String#camelize'
+    - 'ActiveObject::String#sift'
 FeatureEnvy:
   enabled: false
 IrresponsibleModule:

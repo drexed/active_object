@@ -84,7 +84,7 @@ module ActiveObject::Object
     if obj.empty? && block_given?
       block.arity.zero? ? instance_eval(yield(block)) : yield(self)
     else
-      public_send(obj, yield(block))
+      public_send(*obj, yield(block))
     end
   end
 
