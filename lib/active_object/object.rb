@@ -1,6 +1,6 @@
 module ActiveObject::Object
-  FALSE_VALUES = [false, 0, '0', 'false', 'FALSE', 'f', 'F']
-  TRUE_VALUES = [true, 1, '1', 'true', 'TRUE', 't', 'T']
+  FALSE_VALUES = [false, 0, '0', 'false', 'FALSE', 'f', 'F'].freeze
+  TRUE_VALUES = [true, 1, '1', 'true', 'TRUE', 't', 'T'].freeze
 
   def array?
     is_a?(Array)
@@ -56,7 +56,7 @@ module ActiveObject::Object
     is_a?(Range)
   end
 
-  def salvage(placeholder='---')
+  def salvage(placeholder = '---')
     blank? ? placeholder : self
   end
 
@@ -76,15 +76,15 @@ module ActiveObject::Object
     TRUE_VALUES.include?(self)
   end
 
-  def try(*a, &b)
-    try!(*a, &b) if a.empty? || respond_to?(a.first)
+  def try(*obj, &block)
+    try!(*obj, yield(block)) if obj.empty? || respond_to?(obj.first)
   end
 
-  def try!(*a, &b)
-    if a.empty? && block_given?
-      b.arity.zero? ? instance_eval(&b) : yield(self)
+  def try!(*obj, &block)
+    if obj.empty? && block_given?
+      block.arity.zero? ? instance_eval(yield(block)) : yield(self)
     else
-      public_send(*a, &b)
+      public_send(obj, yield(block))
     end
   end
 
