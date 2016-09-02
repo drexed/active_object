@@ -378,4 +378,4 @@ module ActiveObject::String
 
 end
 
-String.send(:include, ActiveObject::String) if ActiveObject.configuration.autoload_string
+String.send(:include, ActiveObject::String) if ActiveObject::Settings.config.autoload_string

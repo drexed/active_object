@@ -1,25 +1,5 @@
 require "active_object/version"
-require "active_object/configuration"
-
-module ActiveObject
-
-  class << self
-    attr_accessor :configuration
-  end
-
-  def self.configuration
-    @configuration ||= Configuration.new
-  end
-
-  def self.configuration=(config)
-    @configuration = config
-  end
-
-  def self.configure
-    yield(configuration)
-  end
-
-end
+require "active_object/settings"
 
 require "active_object/array"
 require "active_object/date"

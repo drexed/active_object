@@ -1,4 +1,4 @@
-ActiveObject.configure do |config|
+ActiveObject::Settings.configure do |config|
   config.autoload_array = true
   config.autoload_date = true
   config.autoload_enumerable = true

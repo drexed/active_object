@@ -90,4 +90,4 @@ module ActiveObject::Object
 
 end
 
-Object.send(:include, ActiveObject::Object) if ActiveObject.configuration.autoload_object
+Object.send(:include, ActiveObject::Object) if ActiveObject::Settings.config.autoload_object
