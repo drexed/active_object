@@ -17,7 +17,7 @@ Highly recommended extensions:
 
 Add this line to your application's Gemfile:
 
-    gem "active_object"
+    gem 'active_object'
 
 And then execute:
 
@@ -48,8 +48,6 @@ Or install it yourself as:
 # config/initalizers/active_object.rb
 
 ActiveObject.configure do |config|
-  # option = default
-
   config.autoload_array = true
   config.autoload_date = true
   config.autoload_enumerable = true
@@ -69,32 +67,32 @@ end
 `after` returns the value after the given value.
 
 ```ruby
-["1", "2", "3"].after("2") #=> "3"
-["1", "2", "3"].after("3") #=> "1"
-["1", "2", "3"].after("4") #=> nil
+['1', '2', '3'].after('2') #=> '3'
+['1', '2', '3'].after('3') #=> '1'
+['1', '2', '3'].after('4') #=> nil
 ```
 
 ####Before:####
 `before` returns the value before the given value.
 
 ```ruby
-["1", "2", "3"].before("2") #=> "1"
-["1", "2", "3"].before("1") #=> "3"
-["1", "2", "3"].before("4") #=> nil
+['1', '2', '3'].before('2') #=> '1'
+['1', '2', '3'].before('1') #=> '3'
+['1', '2', '3'].before('4') #=> nil
 ```
 
 ####Delete First:####
 `delete_first` and `delete_first!` removes the first element from an array. Like Array.shift, but returns the array instead of the removed element.
 
 ```ruby
-["1", "2", "3"].delete_first #=> ["2", "3"]
+['1', '2', '3'].delete_first #=> ['2', '3']
 ```
 
 ####Delete Last:####
 `delete_last` and `delete_last!` removes the last element from an array. Like Array.pop, but returns the array instead of the removed element.
 
 ```ruby
-["1", "2", "3"].delete_last #=> ["1", "2"]
+['1', '2', '3'].delete_last #=> ['1', '2']
 ```
 
 ####Delete Values:####
@@ -108,7 +106,7 @@ end
 `dig` returns the value of a nested array.
 
 ```ruby
-["zero", ["ten", "eleven", "twelve"], "two"].dig(1, 2) #=> "twelve"
+['zero', ['ten', 'eleven', 'twelve'], 'two'].dig(1, 2) #=> 'twelve'
 ```
 
 ####Duplicates:####
@@ -123,34 +121,34 @@ end
 `from` returns the tail of the array from position.
 
 ```ruby
-["1", "2", "3"].from(0) #=> ["1", "2", "3"]
-["1", "2", "3"].from(1) #=> ["2", "3"]
-["1", "2", "3"].from(-1) #=> ["3"]
+['1', '2', '3'].from(0) #=> ['1', '2', '3']
+['1', '2', '3'].from(1) #=> ['2', '3']
+['1', '2', '3'].from(-1) #=> ['3']
 ```
 
 ####Groups:####
 `groups` splits or iterates over the array in number of groups.
 
 ```ruby
-%w(1 2 3 4 5 6 7 8 9 10).groups(3) #=> [["1", "2", "3", "4"], ["5", "6", "7"], ["8", "9", "10"]]
+%w(1 2 3 4 5 6 7 8 9 10).groups(3) #=> [['1', '2', '3', '4'], ['5', '6', '7'], ['8', '9', '10']]
 ```
 
 ####In Groups:####
 `in_groups` splits or iterates over the array in number of groups, padding any remaining slots with fill_with unless it is false.
 
 ```ruby
-%w(1 2 3 4 5 6 7 8 9 10).in_groups(3)           #=> [["1", "2", "3", "4"], ["5", "6", "7", nil], ["8", "9", "10", nil]]
-%w(1 2 3 4 5 6 7 8 9 10).in_groups(3, '&nbsp;') #=> [["1", "2", "3", "4"], ["5", "6", "7", "&nbsp;"], ["8", "9", "10", "&nbsp;"]]
-%w(1 2 3 4 5 6 7 8 9 10).in_groups(3, false)    #=> [["1", "2", "3", "4"], ["5", "6", "7"], ["8", "9", "10"]]
+%w(1 2 3 4 5 6 7 8 9 10).in_groups(3)           #=> [['1', '2', '3', '4'], ['5', '6', '7', nil], ['8', '9', '10', nil]]
+%w(1 2 3 4 5 6 7 8 9 10).in_groups(3, '&nbsp;') #=> [['1', '2', '3', '4'], ['5', '6', '7', '&nbsp;'], ['8', '9', '10', '&nbsp;']]
+%w(1 2 3 4 5 6 7 8 9 10).in_groups(3, false)    #=> [['1', '2', '3', '4'], ['5', '6', '7'], ['8', '9', '10']]
 ```
 
 ####In Groups Of:####
 `in_groups_of` splits or iterates over the array in groups of size number, padding any remaining slots with fill_with unless it is false.
 
 ```ruby
-%w(1 2 3 4 5 6 7 8 9 10).in_groups_of(3)           #=> [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"], ["10", nil, nil]]
-%w(1 2 3 4 5 6 7 8 9 10).in_groups_of(3, '&nbsp;') #=> [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"], ["10", "&nbsp;", "&nbsp;"]]
-%w(1 2 3 4 5 6 7 8 9 10).in_groups_of(3, false)    #=> [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"], ["10"]]
+%w(1 2 3 4 5 6 7 8 9 10).in_groups_of(3)           #=> [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'], ['10', nil, nil]]
+%w(1 2 3 4 5 6 7 8 9 10).in_groups_of(3, '&nbsp;') #=> [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'], ['10', '&nbsp;', '&nbsp;']]
+%w(1 2 3 4 5 6 7 8 9 10).in_groups_of(3, false)    #=> [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'], ['10']]
 ```
 
 ####Percentile:####
@@ -195,17 +193,17 @@ end
 `strip` and `strip!` removes blank elements from an array.
 
 ```ruby
-["this", "", "that", nil, false].strip  #=> ["this", "that"]
-"this    is   a  test".split(" ").strip #=> ["this", "is", "a", "test"]
+['this', '', 'that', nil, false].strip  #=> ['this', 'that']
+'this    is   a  test'.split(' ').strip #=> ['this', 'is', 'a', 'test']
 ```
 
 ####To:####
 `to` returns the beginning of the array up to position.
 
 ```ruby
-["1", "2", "3"].to(0) #=> ["1"]
-["1", "2", "3"].to(1) #=> ["1", "2"]
-["1", "2", "3"].to(-1) #=> ["3"]
+['1', '2', '3'].to(0) #=> ['1']
+['1', '2', '3'].to(1) #=> ['1', '2']
+['1', '2', '3'].to(-1) #=> ['3']
 ```
 
 ####To Sentence:####
@@ -217,12 +215,12 @@ end
  * last_word_connector: “, and ”
 
 ```ruby
-[].to_sentence                                                                                     #=> ""
-["one"].to_sentence                                                                                #=> "one"
-["one", "two"].to_sentence                                                                         #=> "one and two"
-["one", "two", "three"].to_sentence                                                                #=> "one, two, and three"
-["one", "two"].to_sentence(two_words_connector: '-')                                               #=> "one-two"
-["one", "two", "three"].to_sentence(words_connector: ' or ', last_word_connector: ' or at least ') #=> "one or two or at least three"
+[].to_sentence                                                                                     #=> ''
+['one'].to_sentence                                                                                #=> 'one'
+['one', 'two'].to_sentence                                                                         #=> 'one and two'
+['one', 'two', 'three'].to_sentence                                                                #=> 'one, two, and three'
+['one', 'two'].to_sentence(two_words_connector: '-')                                               #=> 'one-two'
+['one', 'two', 'three'].to_sentence(words_connector: ' or ', last_word_connector: ' or at least ') #=> 'one or two or at least three'
 ```
 
 ## Enumerable
@@ -315,8 +313,8 @@ end
 `incase?` the same as #include? but tested using #=== instead of #==.
 
 ```ruby
-[1, 2, "a"].incase?(String) #=> true
-[1, 2, "a"].incase?(3)      #=> false
+[1, 2, 'a'].incase?(String) #=> true
+[1, 2, 'a'].incase?(3)      #=> false
 ```
 
 ####Many:####
@@ -421,7 +419,7 @@ end
 [].sum             #=> 0
 [].sum(nil)        #=> nil
 [1,2,3].sum        #=> 6
-["foo", "bar"].sum #=> "foobar"
+['foo', 'bar'].sum #=> 'foobar'
 ```
 
 ####Take Last:####
@@ -458,8 +456,8 @@ end
 
 ```ruby
 {}.assert_valid_keys(:foo)                               #=> {}
-{ foo: "bar" }.assert_valid_keys(:foo)                   #=> { foo: "bar" }
-{ foo: "bar", baz: "boz" }.assert_valid_keys(:foo, :boo) #=> raises "ArgumentError: Unknown key: :baz. Valid keys are: :foo, :boo"
+{ foo: 'bar' }.assert_valid_keys(:foo)                   #=> { foo: 'bar' }
+{ foo: 'bar', baz: 'boz' }.assert_valid_keys(:foo, :boo) #=> raises 'ArgumentError: Unknown key: :baz. Valid keys are: :foo, :boo'
 ```
 
 ####Compact:####
@@ -468,7 +466,7 @@ end
 ```ruby
 {}.compact                                   #=> {}
 { foo: nil }.compact                         #=> {}
-{ foo: "bar", baz: false, boo: nil }.compact #=> { foo: "bar", baz: false }
+{ foo: 'bar', baz: false, boo: nil }.compact #=> { foo: 'bar', baz: false }
 ```
 
 ####Deep Merge:####
@@ -511,7 +509,7 @@ h1.dig(:a, :b, :c) #=> :d
 `nillify` and `nillify!` transforms all blank values to nil.
 
 ```ruby
-{ a: 1, b: "test", c: nil, d: false, e: "", f: " " }.nillify #=> {a: 1, b: 'test', c: nil, d: nil, e: nil, f: nil}
+{ a: 1, b: 'test', c: nil, d: false, e: '', f: ' ' }.nillify #=> {a: 1, b: 'test', c: nil, d: nil, e: nil, f: nil}
 ```
 
 ####Only:####
@@ -535,8 +533,8 @@ h1.dig(:a, :b, :c) #=> :d
 `reverse_merge` and `reverse_merge!` merges one hash into other hash.
 
 ```ruby
-{}.reverse_merge!(foo: "bar")                         #=> { foo: "bar" }
-{ foo: "bar" }.reverse_merge!(baz: "boo", boo: "bam") #=> { foo: "bar", baz: "boo", boo: "bam" }
+{}.reverse_merge!(foo: 'bar')                         #=> { foo: 'bar' }
+{ foo: 'bar' }.reverse_merge!(baz: 'boo', boo: 'bam') #=> { foo: 'bar', baz: 'boo', boo: 'bam' }
 ```
 
 ####Sample:####
@@ -598,7 +596,7 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 `stringify_keys` and `stringify_keys!` converts the hash keys to strings.
 
 ```ruby
-{ foo: "foo", "bar" => 'bar' }.stringify_keys #=> { "foo" => "foo", "baz" => "baz" }
+{ foo: 'foo', 'bar' => 'bar' }.stringify_keys #=> { 'foo' => 'foo', 'baz' => 'baz' }
 ```
 
 ####Strip:####
@@ -607,35 +605,35 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 ```ruby
 {}.strip                                                      #=> {}
 { foo: nil, baz: false, boo: '', faz: ' ' }.strip             #=> {}
-{ foo: "bar", baz: false, boo: nil, boz: '', faz: ' ' }.strip #=> { foo: "bar" }
+{ foo: 'bar', baz: false, boo: nil, boz: '', faz: ' ' }.strip #=> { foo: 'bar' }
 ```
 
 ####Symbolize Keys:####
 `symbolize_keys` and `symbolize_keys!` converts the hash keys to symbols.
 
 ```ruby
-{ foo: "foo", "bar" => "bar" }.symbolize_keys #=> { foo: "foo", baz: "baz" }
+{ foo: 'foo', 'bar' => 'bar' }.symbolize_keys #=> { foo: 'foo', baz: 'baz' }
 ```
 
 ####Symbolize and Underscore Keys:####
 `symbolize_and_underscore_keys` and `symbolize_and_underscore_keys!` symbolize and underscore hash keys.
 
 ```ruby
-{ "firstName" => "foo", "last Name" => "test" }.symbolize_and_underscore_keys #=> { first_name: "foo", last_name: "test" }
+{ 'firstName' => 'foo', 'last Name' => 'test' }.symbolize_and_underscore_keys #=> { first_name: 'foo', last_name: 'test' }
 ```
 
 ####Transform Keys:####
 `transform_keys` and `transform_keys!` a new hash with all keys converted using the block operation.
 
 ```ruby
-{ foo: "bar", baz: "boo" }.transform_keys { |k| k.to_s.upcase } #=> { "FOO" => "bar", "BAZ" => "boo" }
+{ foo: 'bar', baz: 'boo' }.transform_keys { |k| k.to_s.upcase } #=> { 'FOO' => 'bar', 'BAZ' => 'boo' }
 ```
 
 ####Transform Values:####
 `transform_values` and `transform_values!` a new hash with all values converted using the block operation.
 
 ```ruby
-{ foo: "bar", baz: "boo" }.transform_values { |v| v.to_s.upcase } #=> {foo: "BAR", baz: "BOO" }
+{ foo: 'bar', baz: 'boo' }.transform_values { |v| v.to_s.upcase } #=> {foo: 'BAR', baz: 'BOO' }
 ```
 
 ## Integer
@@ -651,21 +649,21 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 `of` is like #times but returns a collection of the yield results.
 
 ```ruby
-3.of { |i| "#{i+1}" } #=> ["1", "2", "3"]
+3.of { |i| '#{i+1}' } #=> ['1', '2', '3']
 ```
 
 ####Roman:####
 `roman` converts this integer to a roman numeral.
 
 ```ruby
-49.roman #=> "XLIX"
+49.roman #=> 'XLIX'
 ```
 
 ####Time:####
 `time` returns a Time object for the given Integer.
 
 ```ruby
-3.time #=> "1969-12-31 19:00:03.000000000 -0500"
+3.time #=> '1969-12-31 19:00:03.000000000 -0500'
 ```
 
 ## Numeric
@@ -988,20 +986,20 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 `ordinal` returns the suffix that should be added to a number to denote the position in an ordered sequence such as 1st, 2nd, 3rd, 4th.
 
 ```ruby
-"1".ordinal  #=> "th"
-"2".ordinal  #=> "nd"
-"3".ordinal  #=> "rd"
-"11".ordinal #=> "th"
+'1'.ordinal  #=> 'th'
+'2'.ordinal  #=> 'nd'
+'3'.ordinal  #=> 'rd'
+'11'.ordinal #=> 'th'
 ```
 
 ####Ordinalize:####
 `ordinalize` transforms a number into an ordinal string used to denote the position in an ordered sequence such as 1st, 2nd, 3rd, 4th.
 
 ```ruby
-"1".ordinalize  #=> "1th"
-"2".ordinalize  #=> "2nd"
-"3".ordinalize  #=> "3rd"
-"11".ordinalize #=> "4th"
+'1'.ordinalize  #=> '1th'
+'2'.ordinalize  #=> '2nd'
+'3'.ordinalize  #=> '3rd'
+'11'.ordinalize #=> '4th'
 ```
 
 ####Ounces in Ounces:####
@@ -1023,9 +1021,9 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 `pad` returns a string reprensentation of the number padded with pad_num to a specified length.
 
 ```ruby
-3.pad                #=> "003"
-3.pad(pad_number: 1) #=> "113"
-3.pad(precision: 4)  #=> "0003"
+3.pad                #=> '003'
+3.pad(pad_number: 1) #=> '113'
+3.pad(precision: 4)  #=> '0003'
 ```
 
 ####Pad Precision:####
@@ -1034,12 +1032,12 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 **Options**
  *  pad_number: 0
  *  precision: 2
- *  separator: "..."
+ *  separator: '...'
 
 ```ruby
-3.pad_precision                #=> "3.00"
-3.5.pad_precision              #=> "3.50"
-3.pad_precision(pad_number: 1) #=> "3.11"
+3.pad_precision                #=> '3.00'
+3.5.pad_precision              #=> '3.50'
+3.pad_precision(pad_number: 1) #=> '3.11'
 ```
 
 ####Petabytes in Bytes:####
@@ -1121,14 +1119,14 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 
 **Options**
  *  precision: 2
- *  unit: "$"
+ *  unit: '$'
 
 ```ruby
-3.to_currency            #=> "$3.00"
-3.1.to_currency          #=> "$3.10"
-3.11.to_currency         #=> "$3.11"
-3.11111.to_currency      #=> "$3.11"
-3.to_currency(unit: "@") #=> "@3.00"
+3.to_currency            #=> '$3.00'
+3.1.to_currency          #=> '$3.10'
+3.11.to_currency         #=> '$3.11'
+3.11111.to_currency      #=> '$3.11'
+3.to_currency(unit: '@') #=> '@3.00'
 ```
 
 ####To Length:####
@@ -1164,14 +1162,14 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 
 **Options**
  *  precision: 2
- *  unit: "%"
+ *  unit: '%'
 
 ```ruby
-3.to_percentage            #=> "3.00%"
-3.1.to_percentage          #=> "3.10%"
-3.11.to_percentage         #=> "3.11%"
-3.11111.to_percentage      #=> "3.11%"
-3.to_percentage(unit: "@") #=> "3.00@"
+3.to_percentage            #=> '3.00%'
+3.1.to_percentage          #=> '3.10%'
+3.11.to_percentage         #=> '3.11%'
+3.11111.to_percentage      #=> '3.11%'
+3.to_percentage(unit: '@') #=> '3.00@'
 ```
 
 ####To Temperature:####
@@ -1235,15 +1233,15 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 
 ```ruby
 [].array?              #=> true
-"Awesome Sting".array? #=> false
+'Awesome Sting'.array? #=> false
 ```
 
 ####Blank:####
 `blank?` determines if an object is empty or nil.
 
 ```ruby
-"".blank?              #=> true
-"Awesome Sting".blank? #=> false
+''.blank?              #=> true
+'Awesome Sting'.blank? #=> false
 ```
 
 ####Boolean:####
@@ -1252,7 +1250,7 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 ```ruby
 1.boolean?     #=> true
 false.boolean? #=> true
-"foo".boolean? #=> false
+'foo'.boolean? #=> false
 ```
 
 ####False:####
@@ -1302,24 +1300,24 @@ true.falsey?  #=> false
 ```ruby
 1.numeric?     #=> true
 1.0.numeric?   #=> true
-"1.0".numeric? #=> false
+'1.0'.numeric? #=> false
 ```
 
 ####Numeral:####
 `numeral?` determines if an object's string value is numeral.
 
 ```ruby
-"-32.50".numeral? #=> true
-"$2.55".numeral?  #=> false
+'-32.50'.numeral? #=> true
+'$2.55'.numeral?  #=> false
 ```
 
 ####Palindrome:####
 `palindrome?` determines if an object is equal when reversed.
 
 ```ruby
-"racecar".palindrome? #=> true
+'racecar'.palindrome? #=> true
 12321.palindrome?     #=> true
-"example".palindrome? #=> false
+'example'.palindrome? #=> false
 12345.palindrome?     #=> false
 ```
 
@@ -1327,8 +1325,8 @@ true.falsey?  #=> false
 `present?` determines if an object is not empty or nil.
 
 ```ruby
-"Awesome Sting".present? #=> true
-"".present?              #=> false
+'Awesome Sting'.present? #=> true
+''.present?              #=> false
 ```
 
 ####Range:####
@@ -1343,8 +1341,8 @@ true.falsey?  #=> false
 `salvage` returns a placeholder if object is blank?.
 
 ```ruby
-" ".salvage        #=> "---"
-nil.salvage("bar") #=> "bar"
+' '.salvage        #=> '---'
+nil.salvage('bar') #=> 'bar'
 123.salvage        #=> 123
 ```
 
@@ -1352,7 +1350,7 @@ nil.salvage("bar") #=> "bar"
 `string?` determines if an object is a string.
 
 ```ruby
-"foo".string? #=> true
+'foo'.string? #=> true
 1.string?     #=> false
 ```
 
@@ -1361,7 +1359,7 @@ nil.salvage("bar") #=> "bar"
 
 ```ruby
 Time.now.time? #=> true
-"foo".time?    #=> false
+'foo'.time?    #=> false
 ```
 
 ####True:####
@@ -1385,8 +1383,8 @@ false.truthy? #=> false
 `try` and `try!` invokes the public method whose name goes as first argument just like public_send does, except that if the receiver does not respond to it the call returns nil rather than raising an exception.
 
 ```ruby
-"example".try(:upcase)      #=> "EXAMPLE"
-"example".try(:fake_method) #=> nil
+'example'.try(:upcase)      #=> 'EXAMPLE'
+'example'.try(:fake_method) #=> nil
 ```
 
 ## Range
@@ -1445,89 +1443,89 @@ false.truthy? #=> false
 `any?` determines if a string includes a set of string(s).
 
 ```ruby
-"example string".any?("foo")           #=> false
-"example string".any?("foo", "string") #=> true
+'example string'.any?('foo')           #=> false
+'example string'.any?('foo', 'string') #=> true
 ```
 
 ####At:####
 `at` returns the characters at index position, matching string, or regex.
 
 ```ruby
-"example_string".at(0)     #=> "e"
-"example_string".at(-2)    #=> "n"
-"example_string".at(1..3)  #=> "xam"
-"example_string".at("e_s") #=> "e_s"
-"example_string".at(/ple/) #=> "ple"
-"example_string".at(99)    #=> nil
+'example_string'.at(0)     #=> 'e'
+'example_string'.at(-2)    #=> 'n'
+'example_string'.at(1..3)  #=> 'xam'
+'example_string'.at('e_s') #=> 'e_s'
+'example_string'.at(/ple/) #=> 'ple'
+'example_string'.at(99)    #=> nil
 ```
 
 ####Camelize:####
 `camelize` and `camelize!` transfroms a string to camelcase.
 
 ```ruby
-"example_string".camelize         #=> "ExampleString"
-"example_String".camecase         #=> "ExampleString"
-"example_string".camelize(:lower) #=> "exampleString"
-"example_String".camecase(:lower) #=> "exampleString"
+'example_string'.camelize         #=> 'ExampleString'
+'example_String'.camecase         #=> 'ExampleString'
+'example_string'.camelize(:lower) #=> 'exampleString'
+'example_String'.camecase(:lower) #=> 'exampleString'
 ```
 
 ####Classify:####
 `classify` and `classify!` creates a class name from a string like Rails does for table names to models.
 
 ```ruby
-"example_string".classify      #=> "ExampleString"
-"example_string/test".classify #=> "ExampleString::Test"
-"example_string.test".classify #=> "Test"
+'example_string'.classify      #=> 'ExampleString'
+'example_string/test'.classify #=> 'ExampleString::Test'
+'example_string.test'.classify #=> 'Test'
 ```
 
 ####Constantize:####
 `constantize` converts a string in an object.
 
 ```ruby
-"Example::String".constantize #=> Class Object
+'Example::String'.constantize #=> Class Object
 ```
 
 ####Dasherize:####
 `dasherize` and `dasherize!` replaces underscores with dashes in the string.
 
 ```ruby
-"example_string".dasherize #=> "example-string"
+'example_string'.dasherize #=> 'example-string'
 ```
 
 ####Deconstantize:####
 `deconstantize` and `deconstantize!` removes the rightmost segment from the constant expression in the string.
 
 ```ruby
-"Example::String".deconstantize   # => "Example"
-"::Example::String".deconstantize # => "::Example"
-"String".deconstantize            # => ""
-"::String".deconstantize          # => ""
-"".deconstantize                  # => ""
+'Example::String'.deconstantize   # => 'Example'
+'::Example::String'.deconstantize # => '::Example'
+'String'.deconstantize            # => ''
+'::String'.deconstantize          # => ''
+''.deconstantize                  # => ''
 ```
 
 ####Demodulize:####
 `demodulize` and `demodulize!` removes the module part from the expression in the string.
 
 ```ruby
-"Example::String".demodulize #=> "String"
-"String".demodulize          #=> "String"
+'Example::String'.demodulize #=> 'String'
+'String'.demodulize          #=> 'String'
 ```
 
 ####Domain:####
 `domain` extracts the domain name from a URL.
 
 ```ruby
-"http://www.example.com/fake-page".domain #=> "www.example.com"
-"example string".domain                   #=> "example string"
+'http://www.example.com/fake-page'.domain #=> 'www.example.com'
+'example string'.domain                   #=> 'example string'
 ```
 
 ####Downcase:####
 `downcase?` returns true if all characters are lowercase.
 
 ```ruby
-"example".downcase? #=> true
-"Example".downcase? #=> false
-"EXAMPLE".downcase? #=> false
+'example'.downcase? #=> true
+'Example'.downcase? #=> false
+'EXAMPLE'.downcase? #=> false
 ```
 
 ####Ellipsize:####
@@ -1535,47 +1533,47 @@ false.truthy? #=> false
 
 **Options**
  *  offset: 4
- *  separator: "..."
+ *  separator: '...'
 
 ```ruby
-"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".ellipsize(30)                   #=> "0123...WXYZ"
-"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".ellipsize(50)                   #=> "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".ellipsize(30, offset: 2)        #=> "01...YZ"
-"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".ellipsize(30, separator: "+++") #=> "0123+++WXYZ"
+'0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.ellipsize(30)                   #=> '0123...WXYZ'
+'0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.ellipsize(50)                   #=> '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+'0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.ellipsize(30, offset: 2)        #=> '01...YZ'
+'0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.ellipsize(30, separator: '+++') #=> '0123+++WXYZ'
 ```
 
 ####Exclude:####
 `exclude?` returns true if the string does not include the other string.
 
 ```ruby
-"example_string".exclude?("exa") #=> false
-"example_string".exclude?("xxx") #=> true
+'example_string'.exclude?('exa') #=> false
+'example_string'.exclude?('xxx') #=> true
 ```
 
 ####First:####
 `first` returns the first character. If a limit is supplied, returns a substring from the beginning of the string until it reaches the limit value. If the given limit is greater than or equal to the string length, returns a copy of self.
 
 ```ruby
-"example".first    #=> "e"
-"example".first(0) #=> ""
-"example".first(3) #=> "exa"
+'example'.first    #=> 'e'
+'example'.first(0) #=> ''
+'example'.first(3) #=> 'exa'
 ```
 
 ####Format:####
 `format` returns an interpolated string that allows for options.
 
 ```ruby
-"example %s".format("string")                              #=> "example string"
-"test %{one} %{two}".format(one: "example", two: "string") #=> "test example string"
-"%d + %d".format([1, 2])                                   #=> "1 + 2"
+'example %s'.format('string')                              #=> 'example string'
+'test %{one} %{two}'.format(one: 'example', two: 'string') #=> 'test example string'
+'%d + %d'.format([1, 2])                                   #=> '1 + 2'
 ```
 
 ####From:####
 `from` returns a substring from the given position to the end of the string. If the position is negative, it is counted from the end of the string.
 
 ```ruby
-"example".from(0) #=> "example"
-"example".from(3) #=> "mple"
+'example'.from(0) #=> 'example'
+'example'.from(3) #=> 'mple'
 ```
 
 ####Humanize:####
@@ -1585,278 +1583,266 @@ false.truthy? #=> false
  *  capitalize: true
 
 ```ruby
-"ExampleString".humanize                     #=> "Example string"
-"_example_string_id".humanize                #=> "Example string"
-"example_string".humanize(capitalize: false) #=> "example string"
+'ExampleString'.humanize                     #=> 'Example string'
+'_example_string_id'.humanize                #=> 'Example string'
+'example_string'.humanize(capitalize: false) #=> 'example string'
 ```
 
 ####Indent:####
 `indent` and `indent!` indents the lines in the receiver.
 
 ```ruby
-"example".indent(2)       #=> "  example"
-"example".indent(2, "\t") #=> "\t\texample"
+'example'.indent(2)       #=> '  example'
+'example'.indent(2, '\t') #=> '\t\texample'
 ```
 
 ####Index all:####
 `index_all` returns the index values of matching patterns.
 
 ```ruby
-"012324507654301243".index_all(0)                           #=> [0,7,13]
-"the apple is the best fruit in the world".index_all("the") #=> [0,13,31]
-"asdfasdfasdf".index_all(/sd/)                              #=> [1,5,9]
+'012324507654301243'.index_all(0)                           #=> [0,7,13]
+'the apple is the best fruit in the world'.index_all('the') #=> [0,13,31]
+'asdfasdfasdf'.index_all(/sd/)                              #=> [1,5,9]
 ```
 
 ####Labelize:####
 `labelize` and `labelize!` transforms a string to a human readable string.
 
 ```ruby
-"example string".labelize     #=> "Example string"
-"_example_string_id".labelize #=> "Example string ID"
-"ExampleString".labelize      #=> "Example string"
+'example string'.labelize     #=> 'Example string'
+'_example_string_id'.labelize #=> 'Example string ID'
+'ExampleString'.labelize      #=> 'Example string'
 ```
 
 ####Last:####
 `last` returns the last character of the string. If a limit is supplied, returns a substring from the end of the string until it reaches the limit value (counting backwards). If the given limit is greater than or equal to the string length, returns a copy of self.
 
 ```ruby
-"example".last     #=> "e"
-"example".last(0)  #=> ""
-"example".first(3) #=> "ple"
+'example'.last     #=> 'e'
+'example'.last(0)  #=> ''
+'example'.first(3) #=> 'ple'
 ```
 
 ####Mixcase:####
 `mixcase?` returns true if characters are mixedcase.
 
 ```ruby
-"Example".mixedcase? #=> true
-"EXAMPLE".mixedcase? #=> false
-"example".mixedcase? #=> false
+'Example'.mixedcase? #=> true
+'EXAMPLE'.mixedcase? #=> false
+'example'.mixedcase? #=> false
 ```
 
 ####Ordinal:####
 `ordinal` returns the suffix that should be added to a number to denote the position in an ordered sequence such as 1st, 2nd, 3rd, 4th.
 
 ```ruby
-"1".ordinal  #=> "th"
-"2".ordinal  #=> "nd"
-"3".ordinal  #=> "rd"
-"11".ordinal #=> "th"
+'1'.ordinal  #=> 'th'
+'2'.ordinal  #=> 'nd'
+'3'.ordinal  #=> 'rd'
+'11'.ordinal #=> 'th'
 ```
 
 ####Ordinalize:####
 `ordinalize` transforms a number into an ordinal string used to denote the position in an ordered sequence such as 1st, 2nd, 3rd, 4th.
 
 ```ruby
-"1".ordinalize  #=> "1th"
-"2".ordinalize  #=> "2nd"
-"3".ordinalize  #=> "3rd"
-"11".ordinalize #=> "4th"
+'1'.ordinalize  #=> '1th'
+'2'.ordinalize  #=> '2nd'
+'3'.ordinalize  #=> '3rd'
+'11'.ordinalize #=> '4th'
 ```
 
 ####Parameterize:####
 `parameterize` and `parameterize!` makes string suitable for a dashed url parameter string.
 
 ```ruby
-"example_string".parameterize      #=> "example-string"
-"example_string".parameterize("?") #=> "example?string"
+'example_string'.parameterize      #=> 'example-string'
+'example_string'.parameterize('?') #=> 'example?string'
 ```
 
 ####Pollute:####
 `pollute` and `pollute!` pollutes the space between every letter in a string, so it will be exempt from any impending string searches.
 
 ```ruby
-"test".pollute      #=> "t^--^--^e^--^--^s^--^--^t^--^--^"
-"test".pollute("-") #=> "t-e-s-t-"
+'test'.pollute      #=> 't^--^--^e^--^--^s^--^--^t^--^--^'
+'test'.pollute('-') #=> 't-e-s-t-'
 ```
 
 ####Pop:####
 `pop` returns the last character of a string.
 
 ```ruby
-"test".pop #=> "t"
+'test'.pop #=> 't'
 ```
 
 ####Push:####
 `push` concats string to self.
 
 ```ruby
-"test".push("er") #=> "tester"
+'test'.push('er') #=> 'tester'
 ```
 
 ####Remove:####
 `remove` and `remove!` removes every instance of a string.
 
 ```ruby
-"this thing that thing".remove("thing")        #=> "this  that "
-"this thing that thing".remove(1..3)           #=> "t thing that thing"
-"this thing that them".remove("thing", "them") #=> "this  that "
-"this thing that them".remove("thing", 1..3)   #=> "t  that them"
+'this thing that thing'.remove('thing')        #=> 'this  that '
+'this thing that thing'.remove(1..3)           #=> 't thing that thing'
+'this thing that them'.remove('thing', 'them') #=> 'this  that '
+'this thing that them'.remove('thing', 1..3)   #=> 't  that them'
 ```
 
 ####Remove Tags:####
 `remove_tags` and `remove_tags!` removes HTML tags from a string.
 
 ```ruby
-"example".strip_tags                                   #=> "example"
-"<a href='http://example.com'>click</a>".strip_tags    #=> "click"
-"this is <b>bold</b> and <em>emphatic</em>".strip_tags #=> "this is bold and emphatic"
+'example'.strip_tags                                   #=> 'example'
+'<a href='http://example.com'>click</a>'.strip_tags    #=> 'click'
+'this is <b>bold</b> and <em>emphatic</em>'.strip_tags #=> 'this is bold and emphatic'
 ```
 
 ####Sample:####
 `sample` and `sample!` deletes a random value and returns that value.
 
 ```ruby
-"this thing that".sample            #=> "thing"
-"this thing that".sample(" thing ") #=> "that"
+'this thing that'.sample            #=> 'thing'
+'this thing that'.sample(' thing ') #=> 'that'
 ```
 
 ####Shift:####
 `shift` and `shift!` removes the first instance of a string.
 
 ```ruby
-"this thing that thing".shift                 #=> "t"
-"this thing that thing".shift("thing")        #=> "this  that thing"
-"this thing that thing".shift("this", "that") #=> " thing  thing"
+'this thing that thing'.shift                 #=> 't'
+'this thing that thing'.shift('thing')        #=> 'this  that thing'
+'this thing that thing'.shift('this', 'that') #=> ' thing  thing'
 ```
 
 ####Shuffle:####
 `shuffle` and `shuffle!` randomizes the characters in a string.
 
 ```ruby
-"ruby rules".sample  #=> "e lybrsuur"
-"ruby rules".sample! #=> "rblse syru"
+'ruby rules'.sample  #=> 'e lybrsuur'
+'ruby rules'.sample! #=> 'rblse syru'
 ```
 
 ####Sift:####
 `sift` and `sift!` returns a string matching any character in a pattern.
 
 ```ruby
-"qa2ws3ed4rf5tg6yh7uj8ik9ol".sift("0123456789")          #=> "23456789"
-"qa2ws3ed4rf5tg6yh7uj8ik9ol".sift(0..9)                  #=> "23456789"
-"qa2ws3ed4rf5tg6yh7uj8ik9ol".sift([0,1,2,3,4,5,6,7,8,9]) #=> "23456789"
+'qa2ws3ed4rf5tg6yh7uj8ik9ol'.sift('0123456789')          #=> '23456789'
+'qa2ws3ed4rf5tg6yh7uj8ik9ol'.sift(0..9)                  #=> '23456789'
+'qa2ws3ed4rf5tg6yh7uj8ik9ol'.sift([0,1,2,3,4,5,6,7,8,9]) #=> '23456789'
 ```
 
 ####Slugify:####
 `slugify` and `slugify!` generates a permalink-style string, with odd characters removed.
 
 ```ruby
-"example".slugify                  #=> "example"
-"example string".slugify           #=> "example-string"
-"Example string @@@ test!".slugify #=> "example-string-test"
+'example'.slugify                  #=> 'example'
+'example string'.slugify           #=> 'example-string'
+'Example string @@@ test!'.slugify #=> 'example-string-test'
 ```
 
 ####Sort:####
 `sort` and `sort!` sorts a string.
 
 ```ruby
-"adbec".sort #=> "abcde"
+'adbec'.sort #=> 'abcde'
 ```
 
 ####Squish:####
 `squish` and `squish!` returns the string, first removing all whitespace on both ends of the string, and then changing remaining consecutive whitespace groups into one space each.
 
 ```ruby
-"example    string".squish        #=> "example string"
-"example  \n   \t  string".squish #=> "example string"
-"   example    string   ".squish  #=> "example string"
+'example    string'.squish        #=> 'example string'
+'example  \n   \t  string'.squish #=> 'example string'
+'   example    string   '.squish  #=> 'example string'
 ```
 
 ####Titleize:####
 `titleize` and `titleize!` capitalizes each word in a string.
 
 ```ruby
-"example string".titleize     #=> "Example String"
-"_example_string_id".titleize #=> "Example String"
-"ExampleString".titleize      #=> "Example String"
+'example string'.titleize     #=> 'Example String'
+'_example_string_id'.titleize #=> 'Example String'
+'ExampleString'.titleize      #=> 'Example String'
 ```
 
 ####To:####
 `to` returns a substring from the beginning of the string to the given position. If the position is negative, it is counted from the end of the string.
 
 ```ruby
-"example".to(0)  #=> "example"
-"example".to(3)  #=> "exam"
-"example".to(-2) #=> "exampl"
+'example'.to(0)  #=> 'example'
+'example'.to(3)  #=> 'exam'
+'example'.to(-2) #=> 'exampl'
 ```
 
 ####Truncate:####
 `truncate` a given text after a given length if text is longer than length.
 
 **Options**
- *  omission: "..."
- *  separator: " "
+ *  omission: '...'
+ *  separator: ' '
 
 ```ruby
-"example string".truncate(3)                          #=> "..."
-"example string".truncate(6)                          #=> "exa..."
-"example string".truncate(12, separator: " ")         #=> "example..."
-"example string".truncate(13, omission: "... (more)") #=> "exa... (more)"
-"example string".truncate(15)                         #=> "example string"
+'example string'.truncate(3)                          #=> '...'
+'example string'.truncate(6)                          #=> 'exa...'
+'example string'.truncate(12, separator: ' ')         #=> 'example...'
+'example string'.truncate(13, omission: '... (more)') #=> 'exa... (more)'
+'example string'.truncate(15)                         #=> 'example string'
 ```
 
 ####Truncate Words:####
 `truncate_words` truncates a given text after a given number of words.
 
 **Options**
- *  omission: "..."
- *  separator: " "
+ *  omission: '...'
+ *  separator: ' '
 
 ```ruby
-"example string test".truncate_words(1)                                                                #=> "example..."
-'Once<br>upon<br>a<br>time<br>in<br>a<br>world'.truncate_words(5, separator: '<br>')                   #=> "Once<br>upon<br>a<br>time<br>in..."
-'And they found that many people were sleeping better.'.truncate_words(5, omission: '... (continued)') #=> "And they found that many... (continued)"
+'example string test'.truncate_words(1)                                                                #=> 'example...'
+'Once<br>upon<br>a<br>time<br>in<br>a<br>world'.truncate_words(5, separator: '<br>')                   #=> 'Once<br>upon<br>a<br>time<br>in...'
+'And they found that many people were sleeping better.'.truncate_words(5, omission: '... (continued)') #=> 'And they found that many... (continued)'
 ```
 
 ####Underscore:####
 `underscore` and `underscore!` transforms a string to snakecase.
 
 ```ruby
-"ExampleString".underscore       #=> "example_string"
-"exampleString".underscore       #=> "example_string"
-"ExampleString::Test".underscore #=> "example_string/test"
+'ExampleString'.underscore       #=> 'example_string'
+'exampleString'.underscore       #=> 'example_string'
+'ExampleString::Test'.underscore #=> 'example_string/test'
 ```
 
 ####Unpollute:####
 `unpollute` and `unpollute!` removes the default or custom pollution character. Can also be used to remove an unwanted character.
 
 ```ruby
-"t^--^--^e^--^--^s^--^--^t^--^--^".unpollute #=> "test"
-"t-e-s-t-".unpollute                         #=> "test"
+'t^--^--^e^--^--^s^--^--^t^--^--^'.unpollute #=> 'test'
+'t-e-s-t-'.unpollute                         #=> 'test'
 ```
 
 ####Upcase:####
 `upcase?` returns true if all characters are uppercase.
 
 ```ruby
-"EXAMPLE".upcase? #=> true
-"example".upcase? #=> false
-"Example".upcase? #=> false
+'EXAMPLE'.upcase? #=> true
+'example'.upcase? #=> false
+'Example'.upcase? #=> false
 ```
 
 ####Unshift:####
 `unshift` and `unshift!` prepends string(s) to self.
 
 ```ruby
-"this thing that thing".unshift("thing ")         #=> "thing this thing that thing"
-"this thing that thing".unshift("this ", "that ") #=> "this that this thing that thing"
+'this thing that thing'.unshift('thing ')         #=> 'thing this thing that thing'
+'this thing that thing'.unshift('this ', 'that ') #=> 'this that this thing that thing'
 ```
 
 ## Time
 
 *Note:* also works with Date class.
-
-####Count:####
-`count_[DURATION]_[TERM]` converts a Date or Time object to format it using a human readable string.
-
-**Durations/Terms**
- *  seconds, minutes, hours, days, weeks, years, decades, centuries, millenniums
- *  since, until
-
-```ruby
-Date.today.count_hours_since(Date.yesterday)      #=> "24.0"
-Time.now.count_minutes_until(20.minutes.from_now) #=> "20.0"
-```
 
 ####Format:####
 `format` converts a Date or Time object to format it using a human readable string.
@@ -1866,8 +1852,8 @@ Time.now.count_minutes_until(20.minutes.from_now) #=> "20.0"
  *  Characters can only be used to generate a format part
 
 ```ruby
-Date.today.format("year")                                #=> "2014"
-Time.now.format("month_name day, year hour:minute ampm") #=> "January 09, 2014 02:31 pm"
+Date.today.format('year')                                #=> '2014'
+Time.now.format('month_name day, year hour:minute ampm') #=> 'January 09, 2014 02:31 pm'
 ```
 
 | Name | Key | Equivalent `strftime` | Result |
@@ -1907,8 +1893,8 @@ Time.now.format("month_name day, year hour:minute ampm") #=> "January 09, 2014 0
 **For a full list check out the time extention file.**
 
 ```ruby
-Time.now.to_format(:year) #=> "2014"
-Time.now.stamp(:datetime) #=> "January 09, 2014 02:31 pm"
+Time.now.to_format(:year) #=> '2014'
+Time.now.stamp(:datetime) #=> 'January 09, 2014 02:31 pm'
 ```
 
 | Name | Key | Equivalent `strftime` | Result |

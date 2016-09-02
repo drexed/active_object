@@ -1,0 +1,32 @@
+AllCops:
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  TargetRubyVersion: 2.3
+LineLength:
+  Max: 120
+Rails/Delegate:
+  Enabled: false
+Rails/Output:
+  Enabled: false
+Style/Alias:
+  EnforcedStyle: prefer_alias_method
+Style/BracesAroundHashParameters:
+  Enabled: false
+Style/ClosingParenthesisIndentation:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/EmptyLinesAroundBlockBody:
+  Enabled: false
+Style/EmptyLinesAroundClassBody:
+  Enabled: false
+Style/EmptyLinesAroundModuleBody:
+  Enabled: false
+Style/FirstParameterIndentation:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/MultilineMethodCallIndentation:
+  EnforcedStyle: aligned
+Style/RescueModifier:
+  Enabled: false
