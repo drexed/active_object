@@ -1,6 +1,8 @@
 ---
 Attribute:
   enabled: false
+FeatureEnvy:
+  enabled: false
 IrresponsibleModule:
   enabled: false
 NilCheck:
@@ -11,6 +13,10 @@ NestedIterators:
   max_allowed_nesting: 2
 PrimaDonnaMethod:
   enabled: false
+TooManyConstants:
+  exclude:
+    - 'ActiveObject::Date'
+    - 'ActiveObject::Time'
 TooManyStatements:
   max_statements: 10
 UtilityFunction:
