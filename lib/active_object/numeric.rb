@@ -1,29 +1,24 @@
 module ActiveObject::Numeric
-
   MILLI = 0.001
   CENTI = MILLI * 10.0
   DECI = CENTI * 10.0
   DECA = 10.0
   HECTO = DECA * 10.0
   KILO = HECTO * 10.0
-
   KILOBYTE = 1024.0
   MEGABYTE = KILOBYTE * 1024.0
   GIGABYTE = MEGABYTE * 1024.0
   TERABYTE = GIGABYTE * 1024.0
   PETABYTE = TERABYTE * 1024.0
   EXABYTE = PETABYTE * 1024.0
-
   FEET = 12.0
   YARD = FEET * 3.0
   MILE = YARD * 1760.0
   NAUTICAL_MILE = MILE * 1.15078
-
   METRIC_TON = KILO * 1000.0
   POUND = 16.0
   STONE = POUND * 14.0
   TON = POUND * 2000.0
-
   MINUTE = 60.0
   HOUR = MINUTE * 60.0
   DAY = HOUR * 24.0
@@ -34,33 +29,27 @@ module ActiveObject::Numeric
   MILLENNIUM = CENTURY * 10.0
 
   BYTE_KEYS = [
-    :byte, :bytes, :kilobyte, :kilobytes, :megabyte, :megabytes, :gigabyte,
-    :gigabytes, :terabyte, :terabytes, :petabyte, :petabytes, :exabyte, :exabytes
+    :byte, :bytes, :kilobyte, :kilobytes, :megabyte, :megabytes, :gigabyte, :gigabytes, :terabyte, :terabytes,
+    :petabyte, :petabytes, :exabyte, :exabytes
   ]
   LENGTH_KEYS = {
     metric: [
-      :meter, :meters, :millimeter, :millimeters, :centimeter, :centimeters,
-      :decimeter, :decimeters, :decameter, :decameters, :hectometer, :hectometers,
-      :kilometer, :kilometers
+      :meter, :meters, :millimeter, :millimeters, :centimeter, :centimeters, :decimeter, :decimeters, :decameter,
+      :decameters, :hectometer, :hectometers, :kilometer, :kilometers
     ],
-    imperical: [
-      :inch, :inches, :foot, :feet, :yard, :yards, :mile, :miles,
-      :nautical_mile, :nautical_miles
-    ]
+    imperical: [ :inch, :inches, :foot, :feet, :yard, :yards, :mile, :miles, :nautical_mile, :nautical_miles ]
   }
   MASS_KEYS = {
     metric: [
-      :gram, :grams, :milligram, :milligrams, :centigram, :centigrams,
-      :decigram, :decigrams, :decagram, :decagrams, :hectogram, :hectograms,
-      :kilogram, :kilograms, :metric_ton, :metric_tons
+      :gram, :grams, :milligram, :milligrams, :centigram, :centigrams, :decigram, :decigrams, :decagram, :decagrams,
+      :hectogram, :hectograms, :kilogram, :kilograms, :metric_ton, :metric_tons
     ],
     imperical: [:ounce, :ounces, :pound, :pounds, :stone, :stones, :ton, :tons]
   }
   TEMPERATURE_KEYS = [:celsius, :fahrenheit, :kelvin]
   TIME_KEYS = [
-    :second, :seconds, :minute, :minutes, :hour, :hours, :day, :days,
-    :week, :weeks, :year, :years, :decade, :decades, :century, :centuries,
-    :millennium, :millenniums
+    :second, :seconds, :minute, :minutes, :hour, :hours, :day, :days, :week, :weeks, :year, :years, :decade, :decades,
+    :century, :centuries, :millennium, :millenniums
   ]
 
   def add(num)
