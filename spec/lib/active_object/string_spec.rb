@@ -250,17 +250,17 @@ describe ActiveObject::String do
   end
 
   describe '#index_all' do
-    it 'to be [0,7,13]' do
-      expect('012324507654301243'.index_all(0)).to eq([0,7,13])
-      expect('012324507654301243'.index_all('0')).to eq([0,7,13])
+    it 'to be [0, 7, 13]' do
+      expect('012324507654301243'.index_all(0)).to eq([0, 7, 13])
+      expect('012324507654301243'.index_all('0')).to eq([0, 7, 13])
     end
 
-    it 'to be [0,13,31]' do
-      expect('the apple is the best fruit in the world'.index_all('the')).to eq([0,13,31])
+    it 'to be [0, 13, 31]' do
+      expect('the apple is the best fruit in the world'.index_all('the')).to eq([0, 13, 31])
     end
 
-    it 'to be [1,5,9]' do
-      expect('asdfasdfasdf'.index_all(/sd/)).to eq([1,5,9])
+    it 'to be [1, 5, 9]' do
+      expect('asdfasdfasdf'.index_all(/sd/)).to eq([1, 5, 9])
     end
   end
 
@@ -448,8 +448,8 @@ describe ActiveObject::String do
       expect('qa2ws3ed4rf5tg6yh7uj8ik9ol'.sift!('0123456789')).to eq('23456789')
       expect('qa2ws3ed4rf5tg6yh7uj8ik9ol'.sift(0..9)).to eq('23456789')
       expect('qa2ws3ed4rf5tg6yh7uj8ik9ol'.sift!(0..9)).to eq('23456789')
-      expect('qa2ws3ed4rf5tg6yh7uj8ik9ol'.sift([0,1,2,3,4,5,6,7,8,9])).to eq('23456789')
-      expect('qa2ws3ed4rf5tg6yh7uj8ik9ol'.sift!([0,1,2,3,4,5,6,7,8,9])).to eq('23456789')
+      expect('qa2ws3ed4rf5tg6yh7uj8ik9ol'.sift([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])).to eq('23456789')
+      expect('qa2ws3ed4rf5tg6yh7uj8ik9ol'.sift!([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])).to eq('23456789')
     end
   end
 
@@ -548,11 +548,15 @@ describe ActiveObject::String do
     end
 
     it 'to be Once<br>upon<br>a<br>time<br>in...' do
-      expect('Once<br>upon<br>a<br>time<br>in<br>a<br>world'.truncate_words(5, separator: '<br>')).to eq('Once<br>upon<br>a<br>time<br>in...')
+      str = 'Once<br>upon<br>a<br>time<br>in<br>a<br>world'
+
+      expect(str.truncate_words(5, separator: '<br>')).to eq('Once<br>upon<br>a<br>time<br>in...')
     end
 
     it 'to be And they found that many... (continued)' do
-      expect('And they found that many people were sleeping better.'.truncate_words(5, omission: '... (continued)')).to eq('And they found that many... (continued)')
+      str = 'And they found that many people were sleeping better.'
+
+      expect(str.truncate_words(5, omission: '... (continued)')).to eq('And they found that many... (continued)')
     end
   end
 

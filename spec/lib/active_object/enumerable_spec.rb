@@ -109,8 +109,8 @@ describe Enumerable do
   end
 
   describe '#expand' do
-    it 'to be [0,[2, 3],[5,6,7]]' do
-      expect([0, 2..3, 5..7].expand).to eq([0,[2, 3],[5,6,7]])
+    it 'to be [0, [2, 3], [5, 6, 7]]' do
+      expect([0, 2..3, 5..7].expand).to eq([0, [2, 3], [5, 6, 7]])
     end
   end
 
@@ -218,11 +218,11 @@ describe Enumerable do
     end
 
     it 'to be 2' do
-      expect([1,2,6].median).to eq(2)
+      expect([1, 2, 6].median).to eq(2)
     end
 
     it 'to be 2.5' do
-      expect([1,2,3,6].median).to eq(2.5)
+      expect([1, 2, 3, 6].median).to eq(2.5)
     end
   end
 
@@ -233,11 +233,11 @@ describe Enumerable do
 
     it 'to be nil' do
       expect([].mode(nil)).to eq(nil)
-      expect([1,2,3].mode).to eq(nil)
+      expect([1, 2, 3].mode).to eq(nil)
     end
 
     it 'to be 1' do
-      expect([1,1,2,46].mode).to eq(1)
+      expect([1, 1, 2, 46].mode).to eq(1)
     end
 
     it 'to be 3.5' do
@@ -269,7 +269,7 @@ describe Enumerable do
     end
 
     it 'to be 5' do
-      expect([1,2,6].range).to eq(5)
+      expect([1, 2, 6].range).to eq(5)
     end
   end
 
@@ -300,7 +300,7 @@ describe Enumerable do
     end
 
     it 'to be 2.6457513110645907' do
-      expect([1,2,6].standard_deviation).to eq(2.6457513110645907)
+      expect([1, 2, 6].standard_deviation).to eq(2.6457513110645907)
     end
   end
 
@@ -314,7 +314,7 @@ describe Enumerable do
     end
 
     it 'to be "foobar"' do
-      expect(['foo', 'bar'].sum).to eq('foobar')
+      expect(%w(foo bar).sum).to eq('foobar')
     end
   end
 
@@ -356,7 +356,7 @@ describe Enumerable do
     end
 
     it 'to be 7' do
-      expect([1,2,6].variance).to eq(7)
+      expect([1, 2, 6].variance).to eq(7)
     end
   end
 

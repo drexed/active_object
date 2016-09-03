@@ -190,7 +190,9 @@ describe ActiveObject::Time do
       end
 
       it 'to be "January 9, 2014 12:31 am +0000"' do
-        expect(datetime.format('month_name day_unpadded, year hour_imperical:minute ampm time_zone')).to eq('January 9, 2014 12:31 am +0000')
+        str = 'month_name day_unpadded, year hour_imperical:minute ampm time_zone'
+
+        expect(datetime.format(str)).to eq('January 9, 2014 12:31 am +0000')
       end
     end
   end

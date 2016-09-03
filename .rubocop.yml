@@ -22,11 +22,15 @@ Style/EmptyLinesAroundClassBody:
   Enabled: false
 Style/EmptyLinesAroundModuleBody:
   Enabled: false
+Style/HashSyntax:
+  Enabled: false
 Style/FirstParameterIndentation:
   Enabled: false
 Style/FrozenStringLiteralComment:
   Enabled: false
 Style/MultilineMethodCallIndentation:
   EnforcedStyle: aligned
+Style/NumericLiterals:
+  Enabled: false
 Style/RescueModifier:
   Enabled: false

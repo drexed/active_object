@@ -55,7 +55,7 @@ describe ActiveObject::Array do
 
   describe '#dig' do
     it 'to be twelve' do
-      expect(['zero', ['ten', 'eleven', 'twelve'], 'two'].dig(1, 2)).to eq('twelve')
+      expect(['zero', %w(ten eleven twelve), 'two'].dig(1, 2)).to eq('twelve')
     end
   end
 
@@ -85,35 +85,62 @@ describe ActiveObject::Array do
 
   describe '#groups' do
     it 'to be [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"], ["10"]]' do
-      expect(%w(1 2 3 4 5 6 7 8 9 10).groups(3)).to eq([['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'], ['10']])
+      expect(%w(1 2 3 4 5 6 7 8 9 10).groups(3)).to eq([%w(1 2 3), %w(4 5 6), %w(7 8 9), %w(10)])
     end
   end
 
   describe '#in_groups' do
     it 'to be [["1", "2", "3", "4"], ["5", "6", "7", nil], ["8", "9", "10", nil]]' do
-      expect(%w(1 2 3 4 5 6 7 8 9 10).in_groups(3)).to eq([['1', '2', '3', '4'], ['5', '6', '7', nil], ['8', '9', '10', nil]])
+      expect(%w(1 2 3 4 5 6 7 8 9 10).in_groups(3)).to eq([
+                                                            %w(1 2 3 4),
+                                                            ['5', '6', '7', nil],
+                                                            ['8', '9', '10', nil]
+                                                          ])
     end
 
     it 'to be [["1", "2", "3", "4"], ["5", "6", "7", "&nbsp;"], ["8", "9", "10", "&nbsp;"]]' do
-      expect(%w(1 2 3 4 5 6 7 8 9 10).in_groups(3, '&nbsp;')).to eq([['1', '2', '3', '4'], ['5', '6', '7', '&nbsp;'], ['8', '9', '10', '&nbsp;']])
+      expect(%w(1 2 3 4 5 6 7 8 9 10).in_groups(3, '&nbsp;')).to eq([
+                                                                      %w(1 2 3 4),
+                                                                      ['5', '6', '7', '&nbsp;'],
+                                                                      ['8', '9', '10', '&nbsp;']
+                                                                    ])
     end
 
     it 'to be [["1", "2", "3", "4"], ["5", "6", "7"], ["8", "9", "10"]]' do
-      expect(%w(1 2 3 4 5 6 7 8 9 10).in_groups(3, false)).to eq([['1', '2', '3', '4'], ['5', '6', '7'], ['8', '9', '10']])
+      expect(%w(1 2 3 4 5 6 7 8 9 10).in_groups(3, false)).to eq([
+                                                                   %w(1 2 3 4),
+                                                                   %w(5 6 7),
+                                                                   %w(8 9 10)
+                                                                 ])
     end
   end
 
   describe '#in_groups_of' do
     it 'to be [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"], ["10", nil, nil]]' do
-      expect(%w(1 2 3 4 5 6 7 8 9 10).in_groups_of(3)).to eq([['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'], ['10', nil, nil]])
+      expect(%w(1 2 3 4 5 6 7 8 9 10).in_groups_of(3)).to eq([
+                                                               %w(1 2 3),
+                                                               %w(4 5 6),
+                                                               %w(7 8 9),
+                                                               ['10', nil, nil]
+                                                             ])
     end
 
     it 'to be [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"], ["10", "&nbsp;", "&nbsp;"]]' do
-      expect(%w(1 2 3 4 5 6 7 8 9 10).in_groups_of(3, '&nbsp;')).to eq([['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'], ['10', '&nbsp;', '&nbsp;']])
+      expect(%w(1 2 3 4 5 6 7 8 9 10).in_groups_of(3, '&nbsp;')).to eq([
+                                                                         %w(1 2 3),
+                                                                         %w(4 5 6),
+                                                                         %w(7 8 9),
+                                                                         ['10', '&nbsp;', '&nbsp;']
+                                                                       ])
     end
 
     it 'to be [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"], ["10"]]' do
-      expect(%w(1 2 3 4 5 6 7 8 9 10).in_groups_of(3, false)).to eq([['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'], ['10']])
+      expect(%w(1 2 3 4 5 6 7 8 9 10).in_groups_of(3, false)).to eq([
+                                                                      %w(1 2 3),
+                                                                      %w(4 5 6),
+                                                                      %w(7 8 9),
+                                                                      %w(10)
+                                                                    ])
     end
   end
 
@@ -154,19 +181,19 @@ describe ActiveObject::Array do
     end
 
     it 'to be [[1, 2], [4, 5], [7, 8], [10]]' do
-      expect((1..10).to_a.split { |i| i % 3 == 0 }).to eq([[1, 2], [4, 5], [7, 8], [10]])
+      expect((1..10).to_a.split { |i| (i % 3).zero? }).to eq([[1, 2], [4, 5], [7, 8], [10]])
     end
   end
 
   describe '#strip(!)' do
     it 'to be ["this", "is", "a", "test"]' do
-      expect('this    is   a  test'.split(' ').strip).to eq(['this', 'is', 'a', 'test'])
-      expect('this    is   a  test'.split(' ').strip!).to eq(['this', 'is', 'a', 'test'])
+      expect('this    is   a  test'.split(' ').strip).to eq(%w(this is a test))
+      expect('this    is   a  test'.split(' ').strip!).to eq(%w(this is a test))
     end
 
     it 'to be ["this", "that"]' do
-      expect(['this', '', 'that', nil, false].strip).to eq(['this', 'that'])
-      expect(['this', '', 'that', nil, false].strip!).to eq(['this', 'that'])
+      expect(['this', '', 'that', nil, false].strip).to eq(%w(this that))
+      expect(['this', '', 'that', nil, false].strip!).to eq(%w(this that))
     end
   end
 
@@ -190,23 +217,25 @@ describe ActiveObject::Array do
     end
 
     it 'to be "one"' do
-      expect(['one'].to_sentence).to eq('one')
+      expect(%w(one).to_sentence).to eq('one')
     end
 
     it 'to be "one and two"' do
-      expect(['one', 'two'].to_sentence).to eq('one and two')
+      expect(%w(one two).to_sentence).to eq('one and two')
     end
 
     it 'to be "one, two, and three"' do
-      expect(['one', 'two', 'three'].to_sentence).to eq('one, two, and three')
+      expect(%w(one two three).to_sentence).to eq('one, two, and three')
     end
 
     it 'to be "one-two"' do
-      expect(['one', 'two'].to_sentence(two_words_connector: '-')).to eq('one-two')
+      expect(%w(one two).to_sentence(two_words_connector: '-')).to eq('one-two')
     end
 
     it 'to be "one or two or at least three"' do
-      expect(['one', 'two', 'three'].to_sentence(words_connector: ' or ', last_word_connector: ' or at least ')).to eq('one or two or at least three')
+      str = 'one or two or at least three'
+
+      expect(%w(one two three).to_sentence(words_connector: ' or ', last_word_connector: ' or at least ')).to eq(str)
     end
   end
 

@@ -65,7 +65,9 @@ describe ActiveObject::Hash do
       expect({ foo: 1, baz: 2, bar: 3 }.except(:baz, :bar)).to eq({ foo: 1 })
       expect({ foo: 1, baz: 2, bar: 3 }.except!(:baz, :bar)).to eq({ foo: 1 })
       expect({ :foo => 1, :baz => 2, :bar => 3 }.except(:baz, :bar)).to eq({ :foo => 1 })
-      expect({ :foo => 1, :baz => 2, :bar => 3 }.except([:baz, :bar])).to eq({ :foo => 1 }) unless defined?(ActiveSupport)
+      unless defined?(ActiveSupport)
+        expect({ :foo => 1, :baz => 2, :bar => 3 }.except([:baz, :bar])).to eq({ :foo => 1 })
+      end
       expect({ :foo => 1, :baz => 2, :bar => 3 }.except!(:baz, :bar)).to eq({ :foo => 1 })
     end
 
@@ -86,8 +88,10 @@ describe ActiveObject::Hash do
 
   describe '#nillify' do
     it 'to be {a: 1, b: "test", c: nil, d: nil, e: nil, f: nil}' do
-      expect({ a: 1, b: 'test', c: nil, d: false, e: '', f: ' ' }.nillify).to eq({a: 1, b: 'test', c: nil, d: nil, e: nil, f: nil})
-      expect({ a: 1, b: 'test', c: nil, d: false, e: '', f: ' ' }.nillify!).to eq({a: 1, b: 'test', c: nil, d: nil, e: nil, f: nil})
+      hsh = { a: 1, b: 'test', c: nil, d: false, e: '', f: ' ' }
+
+      expect(hsh.nillify).to eq({ a: 1, b: 'test', c: nil, d: nil, e: nil, f: nil })
+      expect(hsh.nillify!).to eq({ a: 1, b: 'test', c: nil, d: nil, e: nil, f: nil })
     end
   end
 
@@ -246,8 +250,10 @@ describe ActiveObject::Hash do
 
   describe '#symbolize_and_underscore_keys(!)' do
     it 'to be { foo_bar: "example", baz_bar: "string" }' do
-      expect({ 'foo Bar' => 'example', bazBar: 'string' }.symbolize_and_underscore_keys).to eq({ foo_bar: 'example', baz_bar: 'string' })
-      expect({ 'foo Bar' => 'example', bazBar: 'string' }.symbolize_and_underscore_keys!).to eq({ foo_bar: 'example', baz_bar: 'string' })
+      hsh = { 'foo Bar' => 'example', bazBar: 'string' }
+
+      expect(hsh.symbolize_and_underscore_keys).to eq({ foo_bar: 'example', baz_bar: 'string' })
+      expect(hsh.symbolize_and_underscore_keys!).to eq({ foo_bar: 'example', baz_bar: 'string' })
     end
   end
 
