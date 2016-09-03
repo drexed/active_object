@@ -7,6 +7,10 @@ ControlParameter:
   enabled: false
 DuplicateMethodCall:
   exclude:
+    - 'ActiveObject::Array#to_sentence'
+    - 'ActiveObject::Array#split'
+    - 'ActiveObject::Array#probability'
+    - 'ActiveObject::Array#in_groups_of'
     - 'ActiveObject::Numeric'
     - 'ActiveObject::String#camelize'
     - 'ActiveObject::String#sift'
@@ -29,5 +33,7 @@ TooManyConstants:
     - 'ActiveObject::Time'
 TooManyStatements:
   max_statements: 10
+  exclude:
+    - 'ActiveObject::Array#in_groups'
 UtilityFunction:
   enabled: false

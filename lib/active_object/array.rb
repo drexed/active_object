@@ -30,7 +30,7 @@ module ActiveObject::Array
 
   def delete_values(*args)
     result = []
-    args.each { |v| result << delete(v) }
+    args.each { |val| result << delete(val) }
     result
   end
 
@@ -44,11 +44,11 @@ module ActiveObject::Array
     end
   end
 
-  def duplicates(minimum=2)
+  def duplicates(minimum = 2)
     hash = Hash.new(0)
 
-    each { |i| hash[i] += 1 }
-    hash.delete_if { |k, v| v < minimum }.keys
+    each { |val| hash[val] += 1 }
+    hash.delete_if { |_, val| val < minimum }.keys
   end
 
   def from(position)
@@ -58,9 +58,9 @@ module ActiveObject::Array
   def groups(number)
     return([]) if number <= 0
 
-    n, r = length.divmod(number)
-    collection = (0..(n - 1)).collect { |i| self[(i * number), number] }
-    r > 0 ? collection << self[-r, r] : collection
+    num, rem = length.divmod(number)
+    collection = (0..(num - 1)).collect { |val| self[(val * number), number] }
+    rem > 0 ? collection << self[-rem, rem] : collection
   end
 
   def in_groups(number, fill_with=nil)
@@ -70,14 +70,15 @@ module ActiveObject::Array
 
     collection = []
     start = 0
-    number.times do |i|
-      grouping = division + (modulo > 0 && modulo > i ? 1 : 0)
+    number.times do |int|
+      mod_gt_zero = modulo > 0
+      grouping = division + (mod_gt_zero && modulo > int ? 1 : 0)
       collection << last_group = slice(start, grouping)
-      last_group << fill_with if fill_with != false && modulo > 0 && grouping == division
+      last_group << fill_with if fill_with != false && mod_gt_zero && grouping == division
       start += grouping
     end
 
-    block_given? ? collection.each { |g| yield(g) } : collection
+    block_given? ? collection.each { |val| yield(val) } : collection
   end
 
   def in_groups_of(number, fill_with=nil)
@@ -93,7 +94,7 @@ module ActiveObject::Array
       collection = dup.concat(Array.new(padding, fill_with))
     end
 
-    block_given? ? collection.each_slice(number) { |slice| yield(slice) } : collection.each_slice(number).to_a
+    block_given? ? collection.each_slice(number) { |val| yield(val) } : collection.each_slice(number).to_a
   end
 
   def percentile(percentage)
@@ -111,17 +112,17 @@ module ActiveObject::Array
     hash = Hash.new(0.0)
     differ = 0.0
 
-    each do |e|
-      hash[e] += 1.0
+    each do |val|
+      hash[val] += 1.0
       differ += 1.0
     end
 
-    hash.each_key { |e| hash[e] /= differ }
+    hash.each_key { |val| hash[val] /= differ }
     hash
   end
 
   def reject_values(*args)
-    reject { |x| args.include?(x) }
+    reject { |val| args.include?(val) }
   end
 
   def sample!
@@ -150,7 +151,7 @@ module ActiveObject::Array
   end
 
   def strip
-    reject { |v| v.blank? }
+    reject { |val| val.blank? }
   end
 
   def strip!
