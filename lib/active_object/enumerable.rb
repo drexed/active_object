@@ -3,8 +3,10 @@ module Enumerable
   def cluster(&block)
     result = []
     each do |ele|
-      if result.last && (yield(result.last.last) == yield(ele))
-        result.last << ele
+      last_res = result.last
+
+      if last_res && (yield(last_res.last) == yield(ele))
+        last_res << ele
       else
         result << [ele]
       end
@@ -111,11 +113,13 @@ module Enumerable
     collection_sorted = sort
 
     return(identity) unless collection_length > 0.0
+    half_collection = collection_length / 2.0
+    sorted_collection = collection_sorted[half_collection]
 
     if (collection_length % 2).zero?
-      (collection_sorted[(collection_length / 2.0) -1.0] + collection_sorted[collection_length / 2.0]) / 2.0
+      (collection_sorted[half_collection -1.0] + sorted_collection) / 2.0
     else
-      collection_sorted[collection_length / 2.0]
+      sorted_collection
     end
   end
 
@@ -124,13 +128,12 @@ module Enumerable
 
     frequency_distribution = inject(Hash.new(0)) { |hsh, val| hsh[val] += 1; hsh }
     frequency_top_two = frequency_distribution.sort_by { |_, val| -val }.take(2)
+    top_two_first = frequency_top_two.first
 
-    if frequency_top_two.length == 1
-      frequency_top_two.first.first
-    elsif frequency_top_two.first.last == frequency_top_two.last.last
+    if frequency_top_two.length != 1 && top_two_first.last == frequency_top_two.last.last
       nil
     else
-      frequency_top_two.first.first
+      top_two_first.first
     end
   end
 
