@@ -7,7 +7,7 @@ module ActiveObject::Integer
 
   def factorial
     return(1) if zero?
-    2.upto(self).inject(1) { |p, n| p * n }
+    2.upto(self).inject(1) { |prd, num| prd * num }
   end
 
   def of(&block)
@@ -18,7 +18,7 @@ module ActiveObject::Integer
     return('') if zero?
     return("-#{(-self).roman}") if self < 0
 
-    ROMAN_VALUES.each { |k, v| return("#{k}#{(self - v).roman}") if v <= self }
+    ROMAN_VALUES.each { |key, val| return("#{key}#{(self - val).roman}") if val <= self }
   end
 
   def time
