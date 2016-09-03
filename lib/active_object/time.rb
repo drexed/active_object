@@ -104,7 +104,7 @@ module ActiveObject::Time
     delimiters = string.scan(/\W+/)
     formatters = string.scan(/[a-z0-9_]+/i)
 
-    string = formatters.map { |unit| "%#{STRING_UNITS.fetch(unit.to_sym)}#{delimiters.shift || ''}" }
+    string = formatters.map { |unit| "%#{STRING_UNITS.fetch(unit.to_sym)}#{delimiters.shift}" }
 
     strftime(string.join)
   end
