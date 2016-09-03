@@ -529,9 +529,10 @@ module ActiveObject::Numeric
   def within?(number, epsilon = 0.01)
     return(self == number) if epsilon.zero?
 
-    alpha, beta = to_f, number.to_f
+    alpha = to_f
+    beta = number.to_f
 
-    (alpha.zero? || beta.zero?) ? ((alpha - beta).abs < epsilon) : ((alpha / beta - 1).abs < epsilon)
+    alpha.zero? || beta.zero? ? (alpha - beta).abs < epsilon : (alpha / beta - 1).abs < epsilon
   end
 
   def yards_in_inches
