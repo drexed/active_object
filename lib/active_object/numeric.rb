@@ -63,8 +63,8 @@ module ActiveObject::Numeric
     :millennium, :millenniums
   ]
 
-  def add(n)
-    self + n
+  def add(num)
+    self + num
   end
 
   def bytes_in_bytes
@@ -91,11 +91,14 @@ module ActiveObject::Numeric
 
   alias_method :century_in_seconds, :centuries_in_seconds
 
-  def clamp(min, max=nil)
-    if max.nil? && min.is_a?(Range)
-      self < min.min ? min.min : self > min.max ? min.max : self
+  def clamp(minimum, maximum = nil)
+    if maximum.nil? && minimum.is_a?(Range)
+      min_min = minimum.min
+      min_max = minimum.max
+
+      self < min_min ? min_min : self > min_max ? min_max : self
     else
-      self < min ? min : self > max ? max : self
+      self < minimum ? minimum : self > maximum ? maximum : self
     end
   end
 
@@ -135,7 +138,7 @@ module ActiveObject::Numeric
 
   alias_method :decimeter_in_meters, :decimeters_in_meters
 
-  def decrement(amount=1.0)
+  def decrement(amount = 1.0)
     self + amount
   end
 
@@ -145,12 +148,12 @@ module ActiveObject::Numeric
 
   alias_method :degree_to_radians, :degrees_to_radians
 
-  def distance(n)
-    (self - n).abs
+  def distance(num)
+    (self - num).abs
   end
 
-  def divide(n)
-    self / n
+  def divide(num)
+    self / num
   end
 
   def exabytes_in_bytes
@@ -177,12 +180,12 @@ module ActiveObject::Numeric
 
   alias_method :gram_in_grams, :grams_in_grams
 
-  def greater_than?(n)
-    self > n
+  def greater_than?(num)
+    self > num
   end
 
-  def greater_than_or_equal_to?(n)
-    self >= n
+  def greater_than_or_equal_to?(num)
+    self >= num
   end
 
   def hectograms_in_grams
@@ -209,7 +212,7 @@ module ActiveObject::Numeric
 
   alias_method :inch_in_inches, :inches_in_inches
 
-  def increment(amount=1.0)
+  def increment(amount = 1.0)
     self + amount
   end
 
@@ -235,12 +238,12 @@ module ActiveObject::Numeric
 
   alias_method :kilogram_in_grams, :kilograms_in_grams
 
-  def less_than?(n)
-    self < n
+  def less_than?(num)
+    self < num
   end
 
-  def less_than_or_equal_to?(n)
-    self <= n
+  def less_than_or_equal_to?(num)
+    self <= num
   end
 
   def metric_tons_in_grams
@@ -291,8 +294,8 @@ module ActiveObject::Numeric
 
   alias_method :minute_in_seconds, :minutes_in_seconds
 
-  def multiply(n)
-    self * n
+  def multiply(num)
+    self * num
   end
 
   def multiple_of?(number)
@@ -374,12 +377,12 @@ module ActiveObject::Numeric
 
   alias_method :pound_in_ounces, :pounds_in_ounces
 
-  def power(n)
-    self ** n
+  def power(num)
+    self ** num
   end
 
-  def root(n)
-    self ** (1.0 / n)
+  def root(num)
+    self ** (1.0 / num)
   end
 
   def seconds_in_seconds
@@ -394,8 +397,8 @@ module ActiveObject::Numeric
 
   alias_method :stone_in_ounces, :stones_in_ounces
 
-  def subtract(n)
-    self - n
+  def subtract(num)
+    self - num
   end
 
   def terabytes_in_bytes
@@ -421,7 +424,7 @@ module ActiveObject::Numeric
 
   def to_length(from, to)
     metric_keys = LENGTH_KEYS.fetch(:metric)
-    valid_keys = LENGTH_KEYS.collect { |k, v| v }.flatten
+    valid_keys = LENGTH_KEYS.collect { |key, val| val }.flatten
 
     unless valid_keys.include?(from) && valid_keys.include?(to)
       raise ArgumentError,
@@ -448,7 +451,7 @@ module ActiveObject::Numeric
 
   def to_mass(from, to)
     metric_keys = MASS_KEYS.fetch(:metric)
-    valid_keys = MASS_KEYS.collect { |k, v| v }.flatten
+    valid_keys = MASS_KEYS.collect { |key, val| val }.flatten
 
     unless valid_keys.include?(from) && valid_keys.include?(to)
       raise ArgumentError,
@@ -473,23 +476,23 @@ module ActiveObject::Numeric
     end
   end
 
-  def to_nearest_value(values=[])
+  def to_nearest_value(values = [])
     return(self) if values.length.zero?
 
     value = values.first
     difference = (self - value).abs
 
-    values.each do |v|
-      if (self - v).abs < difference
-        difference = (self - v).abs
-        value = v
+    values.each do |val|
+      if (self - val).abs < difference
+        difference = (self - val).abs
+        value = val
       end
     end
 
     value
   end
 
-  def to_percentage(options={})
+  def to_percentage(options = {})
     unit = options[:unit] || '%'
 
     "#{pad_precision(options.only(:precision))}#{unit}"
@@ -534,12 +537,12 @@ module ActiveObject::Numeric
 
   alias_method :week_in_seconds, :weeks_in_seconds
 
-  def within?(number, epsilon=0.01)
+  def within?(number, epsilon = 0.01)
     return(self == number) if epsilon.zero?
 
-    a, b = to_f, number.to_f
+    alpha, beta = to_f, number.to_f
 
-    (a.zero? || b.zero?) ? ((a - b).abs < epsilon) : ((a / b - 1).abs < epsilon)
+    (alpha.zero? || beta.zero?) ? ((alpha - beta).abs < epsilon) : ((alpha / beta - 1).abs < epsilon)
   end
 
   def yards_in_inches

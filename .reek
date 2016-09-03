@@ -24,6 +24,7 @@ PrimaDonnaMethod:
 TooManyConstants:
   exclude:
     - 'ActiveObject::Date'
+    - 'ActiveObject::Numeric'
     - 'ActiveObject::Time'
 TooManyStatements:
   max_statements: 10
