@@ -417,7 +417,6 @@ end
 
 ```ruby
 [].sum             #=> 0
-[].sum(nil)        #=> nil
 [1,2,3].sum        #=> 6
 ['foo', 'bar'].sum #=> 'foobar'
 ```

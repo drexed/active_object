@@ -2,38 +2,38 @@ module Enumerable
 
   def cluster(&block)
     result = []
-    each do |element|
-      if result.last && (yield(result.last.last) == yield(element))
-        result.last << element
+    each do |ele|
+      if result.last && (yield(result.last.last) == yield(ele))
+        result.last << ele
       else
-        result << [element]
+        result << [ele]
       end
     end
     result
   end
 
-  def difference(identity=0, &block)
+  def difference(identity = 0, &block)
     if block_given?
       map(&block).difference(identity)
     else
-      inject { |d, v| d - v } || identity
+      inject { |key, val| key - val } || identity
     end
   end
 
-  def divisible(identity=0, &block)
+  def divisible(identity = 0, &block)
     if block_given?
       map(&block).divisible(identity)
     else
-      inject { |d, v| d / v } || identity
+      inject { |key, val| key / val } || identity
     end
   end
 
-  def drop_last(n)
+  def drop_last(num)
     collection_length = to_a.length
 
-    return(self) if n > collection_length
+    return(self) if num > collection_length
 
-    self[0...(collection_length - n)]
+    self[0...(collection_length - num)]
   end
 
   def drop_last_if
@@ -41,16 +41,16 @@ module Enumerable
 
     result = []
     dropping = true
-    reverse_each do |value|
-      result.unshift(value) unless dropping &&= yield(value)
+    reverse_each do |val|
+      result.unshift(val) unless dropping &&= yield(val)
     end
     result
   end
 
-  def exactly?(n)
+  def exactly?(num)
     found_count = 0
-    block_given? ? each { |*o| found_count += 1 if yield(*o) } : each { |o| found_count += 1 if o }
-    (found_count > n) ? false : n == found_count
+    block_given? ? each { |*opt| found_count += 1 if yield(*opt) } : each { |opt| found_count += 1 if opt }
+    (found_count > num) ? false : num == found_count
   end
 
   def exclude?(object)
@@ -58,30 +58,30 @@ module Enumerable
   end
 
   def expand
-    map { |n| n.is_a?(Enumerable) ? n.expand : n }
+    map { |val| val.is_a?(Enumerable) ? val.expand : val }
   end
 
-  def exponential(identity=0, &block)
+  def exponential(identity = 0, &block)
     if block_given?
       map(&block).exponential(identity)
     else
-      inject { |d, v| d ** v } || identity
+      inject { |key, val| key ** val } || identity
     end
   end
 
   def frequencies
-    each_with_object(Hash.new(0)) { |e, a| a[e] += 1 }
+    each_with_object(Hash.new(0)) { |key, hsh| hsh[key] += 1 }
   end
 
   def incase?(object)
-    any? { |x| object === x }
+    any? { |val| object === val }
   end
 
   def many?
     found_count = 0
     if block_given?
-      any? do |v|
-        found_count += 1 if yield v
+      any? do |val|
+        found_count += 1 if yield val
         found_count > 1
       end
     else
@@ -89,15 +89,15 @@ module Enumerable
     end
   end
 
-  def max(identity=0)
+  def max(identity = 0)
     (length rescue count) > 0 ? sort.last : identity
   end
 
-  def min(identity=0)
+  def min(identity = 0)
     (length rescue count) > 0 ? sort.first : identity
   end
 
-  def mean(identity=0)
+  def mean(identity = 0)
     return(identity) unless length > 0
 
     collection_length = length
@@ -106,7 +106,7 @@ module Enumerable
 
   alias_method :average, :mean
 
-  def median(identity=0)
+  def median(identity = 0)
     collection_length = length.to_f
     collection_sorted = sort
 
@@ -119,11 +119,11 @@ module Enumerable
     end
   end
 
-  def mode(identity=0)
+  def mode(identity = 0)
     return(identity) unless length > 0
 
-    frequency_distribution = inject(Hash.new(0)) { |h, v| h[v] += 1; h }
-    frequency_top_two = frequency_distribution.sort_by { |k, v| -v }.take(2)
+    frequency_distribution = inject(Hash.new(0)) { |hsh, val| hsh[val] += 1; hsh }
+    frequency_top_two = frequency_distribution.sort_by { |_, val| -val }.take(2)
 
     if frequency_top_two.length == 1
       frequency_top_two.first.first
@@ -134,15 +134,15 @@ module Enumerable
     end
   end
 
-  def multiple(identity=0, &block)
+  def multiple(identity = 0, &block)
     if block_given?
       map(&block).multiple(identity)
     else
-      inject { |d, v| d * v } || identity
+      inject { |key, val| key * val } || identity
     end
   end
 
-  def range(identity=0)
+  def range(identity = 0)
     return(identity) unless length > 0
 
     collection_sorted = sort
@@ -151,7 +151,7 @@ module Enumerable
 
   def several?
     found_count = 0
-    block_given? ? each { |*o| found_count += 1 if yield(*o) } : each { |o| found_count += 1 if o }
+    block_given? ? each { |*opt| found_count += 1 if yield(*opt) } : each { |opt| found_count += 1 if opt }
     (found_count > 1) ? true : false
   end
 
@@ -161,36 +161,36 @@ module Enumerable
     Math.sqrt(variance)
   end
 
-  def sum(identity=0, &block)
+  def sum(identity = 0, &block)
     if block_given?
       map(&block).sum(identity)
     else
-      inject { |s, v| s + v } || identity
+      inject { |sum, val| sum + val } || identity
     end
   end
 
-  def take_last(n)
+  def take_last(num)
     collection_length = to_a.length
 
-    return(self) if n > collection_length
+    return(self) if num > collection_length
 
-    self[(collection_length - n)..-1]
+    self[(collection_length - num)..-1]
   end
 
   def take_last_if
     return(to_enum(:take_last_if)) unless block_given?
 
     result = []
-    reverse_each { |e| yield(e) ? result.unshift(e) : break }
+    reverse_each { |val| yield(val) ? result.unshift(val) : break }
     result
   end
 
-  def variance(identity=0)
+  def variance(identity = 0)
     collection_length = length
 
     return(identity) if collection_length <= 1
 
-    sum = inject(0.0) { |s,v| s + (v - mean) ** 2.0 }
+    sum = inject(0.0) { |sum, val| sum + (val - mean) ** 2.0 }
     sum.to_f / (collection_length.to_f - 1.0)
   end
 

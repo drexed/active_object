@@ -3,20 +3,20 @@ module ActiveObject::Hash
   def assert_valid_keys(*valid_keys)
     valid_keys.flatten!
 
-    each_key do |k|
-      unless valid_keys.include?(k)
+    each_key do |key|
+      unless valid_keys.include?(key)
         raise ArgumentError,
-              "Unknown key: #{k.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', ')}"
+              "Unknown key: #{key.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', ')}"
       end
     end
   end
 
   def compact
-    select { |k, v| !v.nil? }
+    select { |key, val| !val.nil? }
   end
 
   def compact!
-    reject! { |k, v| v.nil? }
+    reject! { |key, val| val.nil? }
   end
 
   def deep_merge(other_hash, &block)
@@ -52,7 +52,7 @@ module ActiveObject::Hash
   end
 
   def except!(*keys)
-    keys.flatten.each { |k| delete(k) }
+    keys.flatten.each { |key| delete(key) }
     self
   end
 
@@ -61,7 +61,7 @@ module ActiveObject::Hash
   end
 
   def hmap!(&block)
-    inject({}) { |hash, (k, v)| hash.merge(yield(k, v)) }
+    inject({}) { |hash, (key, val)| hash.merge(yield(key, val)) }
   end
 
   def nillify
@@ -69,7 +69,7 @@ module ActiveObject::Hash
   end
 
   def nillify!
-    each { |k, v| self[k] = nil if !v.nil? && (v.try(:blank?) || v.try(:to_s).blank?) }
+    each { |key, val| self[key] = nil if !val.nil? && (val.try(:blank?) || val.try(:to_s).blank?) }
   end
 
   def only(*keys)
@@ -78,7 +78,7 @@ module ActiveObject::Hash
 
   def only!(*keys)
     hash = {}
-    keys.flatten.each { |k| hash[k] = self[k] if self.has_key?(k) }
+    keys.flatten.each { |key| hash[key] = self[key] if self.has_key?(key) }
     replace(hash)
   end
 
@@ -88,7 +88,7 @@ module ActiveObject::Hash
 
   def rename_keys!(*keys)
     keys = Hash[*keys.flatten]
-    keys.each { |k, v| self[v] = delete(k) if self[k] }
+    keys.each { |key, val| self[val] = delete(key) if self[key] }
     self
   end
 
@@ -141,7 +141,7 @@ module ActiveObject::Hash
   end
 
   def slice(*keys)
-    keys.flatten.each_with_object(self.class.new) { |k, h| h[k] = self[k] if has_key?(k) }
+    keys.flatten.each_with_object(self.class.new) { |key, hsh| hsh[key] = self[key] if has_key?(key) }
   end
 
   def slice!(*keys)
@@ -160,18 +160,18 @@ module ActiveObject::Hash
   end
 
   def stringify_keys!
-    inject({}) do |options, (key, value)|
-      options[key.to_s] = value
+    inject({}) do |options, (key, val)|
+      options[key.to_s] = val
       options
     end
   end
 
   def strip
-    select { |k, v| !v.blank? }
+    select { |key, val| !val.blank? }
   end
 
   def strip!
-    reject! { |k, v| v.blank? }
+    reject! { |key, val| val.blank? }
   end
 
   def symbolize_keys
@@ -179,8 +179,8 @@ module ActiveObject::Hash
   end
 
   def symbolize_keys!
-    inject({}) do |options, (key, value)|
-      options[(key.to_sym rescue key) || key] = value
+    inject({}) do |options, (key, val)|
+      options[(key.to_sym rescue key) || key] = val
       options
     end
   end
@@ -190,8 +190,8 @@ module ActiveObject::Hash
   end
 
   def symbolize_and_underscore_keys!
-    inject({}) do |options, (key, value)|
-      options[(key.to_s.tr(' ', '_').underscore.to_sym rescue key) || key] = value
+    inject({}) do |options, (key, val)|
+      options[(key.to_s.tr(' ', '_').underscore.to_sym rescue key) || key] = val
       options
     end
   end
@@ -203,7 +203,7 @@ module ActiveObject::Hash
   def transform_keys!(&block)
     return(enum_for(:transform_keys!)) unless block_given?
 
-    each_key { |k| self[yield(k)] = delete(k) }
+    each_key { |key| self[yield(key)] = delete(key) }
     self
   end
 
@@ -214,7 +214,7 @@ module ActiveObject::Hash
   def transform_values!(&block)
     return(enum_for(:transform_values!)) unless block_given?
 
-    each { |k, v| self[k] = yield(v) }
+    each { |key, val| self[key] = yield(val) }
   end
 
 end

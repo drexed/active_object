@@ -309,10 +309,6 @@ describe Enumerable do
       expect([].sum).to eq(0)
     end
 
-    it "to be nil" do
-      expect([].sum(nil)).to eq(nil)
-    end
-
     it "to be 6" do
       expect([1, 2, 3].sum).to eq(6)
     end
