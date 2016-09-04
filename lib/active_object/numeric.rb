@@ -29,28 +29,31 @@ module ActiveObject::Numeric
   MILLENNIUM = CENTURY * 10.0
 
   BYTE_KEYS = [
-    :byte, :bytes, :kilobyte, :kilobytes, :megabyte, :megabytes, :gigabyte, :gigabytes, :terabyte, :terabytes,
-    :petabyte, :petabytes, :exabyte, :exabytes
-  ]
+    :byte, :bytes, :kilobyte, :kilobytes, :megabyte, :megabytes, :gigabyte, :gigabytes, :terabyte,
+    :terabytes, :petabyte, :petabytes, :exabyte, :exabytes
+  ].freeze
   LENGTH_KEYS = {
     metric: [
-      :meter, :meters, :millimeter, :millimeters, :centimeter, :centimeters, :decimeter, :decimeters, :decameter,
-      :decameters, :hectometer, :hectometers, :kilometer, :kilometers
+      :meter, :meters, :millimeter, :millimeters, :centimeter, :centimeters, :decimeter,
+      :decimeters, :decameter, :decameters, :hectometer, :hectometers, :kilometer, :kilometers
     ],
-    imperical: [ :inch, :inches, :foot, :feet, :yard, :yards, :mile, :miles, :nautical_mile, :nautical_miles ]
-  }
+    imperical: [
+      :inch, :inches, :foot, :feet, :yard, :yards, :mile, :miles, :nautical_mile, :nautical_miles
+    ]
+  }.freeze
   MASS_KEYS = {
     metric: [
-      :gram, :grams, :milligram, :milligrams, :centigram, :centigrams, :decigram, :decigrams, :decagram, :decagrams,
-      :hectogram, :hectograms, :kilogram, :kilograms, :metric_ton, :metric_tons
+      :gram, :grams, :milligram, :milligrams, :centigram, :centigrams, :decigram, :decigrams,
+      :decagram, :decagrams, :hectogram, :hectograms, :kilogram, :kilograms, :metric_ton,
+      :metric_tons
     ],
     imperical: [:ounce, :ounces, :pound, :pounds, :stone, :stones, :ton, :tons]
-  }
-  TEMPERATURE_KEYS = [:celsius, :fahrenheit, :kelvin]
+  }.freeze
+  TEMPERATURE_KEYS = [:celsius, :fahrenheit, :kelvin].freeze
   TIME_KEYS = [
-    :second, :seconds, :minute, :minutes, :hour, :hours, :day, :days, :week, :weeks, :year, :years, :decade, :decades,
-    :century, :centuries, :millennium, :millenniums
-  ]
+    :second, :seconds, :minute, :minutes, :hour, :hours, :day, :days, :week, :weeks, :year, :years,
+    :decade, :decades, :century, :centuries, :millennium, :millenniums
+  ].freeze
 
   def add(num)
     self + num
@@ -80,16 +83,20 @@ module ActiveObject::Numeric
 
   alias_method :century_in_seconds, :centuries_in_seconds
 
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def clamp(minimum, maximum = nil)
     if maximum.nil? && minimum.is_a?(Range)
       min_min = minimum.min
       min_max = minimum.max
 
-      self < min_min ? min_min : self > min_max ? min_max : self
+      return(min_min) if self < min_min
+      self > min_max ? min_max : self
     else
-      self < minimum ? minimum : self > maximum ? maximum : self
+      return(minimum) if self < minimum
+      self > maximum ? maximum : self
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   def days_in_seconds
     self * DAY
@@ -288,7 +295,7 @@ module ActiveObject::Numeric
   end
 
   def multiple_of?(number)
-    number != 0 ? modulo(number).zero? : zero?
+    number.zero? ? zero? : modulo(number).zero?
   end
 
   def nautical_miles_in_inches
@@ -297,27 +304,27 @@ module ActiveObject::Numeric
 
   alias_method :nautical_mile_in_inches, :nautical_miles_in_inches
 
+  # rubocop:disable Style/NumericPredicate
   def negative?
     self < 0
   end
+  # rubocop:enable Style/NumericPredicate
 
   def ordinal
-    abs_number = abs
-
-    if (11..13).cover?(abs_number % 100)
+    if (11..13).cover?(abs % 100)
       'th'
     else
-      case abs_number % 10
-      when 1; 'st'
-      when 2; 'nd'
-      when 3; 'rd'
+      case abs % 10
+      when 1 then 'st'
+      when 2 then 'nd'
+      when 3 then 'rd'
       else 'th'
       end
     end
   end
 
   def ordinalize
-    "#{self}#{self.ordinal}"
+    "#{self}#{ordinal}"
   end
 
   def ounces_in_ounces
@@ -330,25 +337,32 @@ module ActiveObject::Numeric
     (self < start) || (finish < self)
   end
 
-  def pad(options={})
+  def pad(options = {})
     pad_number = options[:pad_number] || 0
     precision = options[:precision] || 3
 
     to_s.rjust(precision, pad_number.to_s)
   end
 
-  def pad_precision(options={})
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/MethodLength, Metrics/PerceivedComplexity
+  def pad_precision(options = {})
     pad_number = options[:pad_number] || 0
     precision = options[:precision] || 2
     separator = options[:separator] || '.'
     string = to_s
 
     string << separator unless string.include?(separator)
-    ljust_count =  string.split(separator).first.length
-    ljust_count += (string.count(separator) + precision) if precision > 0
-    num_count =  string.length
-    ljust_count >= num_count ? string.ljust(ljust_count, pad_number.to_s) : string[0..(ljust_count - 1)]
+    ljust_count = string.split(separator).first.length
+    ljust_count += (string.count(separator) + precision) if precision.positive?
+    if ljust_count >= string.length
+      string.ljust(ljust_count, pad_number.to_s)
+    else
+      string[0..(ljust_count - 1)]
+    end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/MethodLength, Metrics/PerceivedComplexity
 
   def petabytes_in_bytes
     self * PETABYTE
@@ -356,9 +370,11 @@ module ActiveObject::Numeric
 
   alias_method :petabyte_in_bytes, :petabytes_in_bytes
 
+  # rubocop:disable Style/NumericPredicate
   def positive?
     self > 0
   end
+  # rubocop:enable Style/NumericPredicate
 
   def pounds_in_ounces
     self * POUND
@@ -367,11 +383,11 @@ module ActiveObject::Numeric
   alias_method :pound_in_ounces, :pounds_in_ounces
 
   def power(num)
-    self ** num
+    self**num
   end
 
   def root(num)
-    self ** (1.0 / num)
+    self**(1.0 / num)
   end
 
   def seconds_in_seconds
@@ -397,33 +413,26 @@ module ActiveObject::Numeric
   alias_method :terabyte_in_bytes, :terabytes_in_bytes
 
   def to_byte(from, to)
-    unless BYTE_KEYS.include?(from) && BYTE_KEYS.include?(to)
-      raise ArgumentError,
-            "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}. Valid keys are: #{BYTE_KEYS.map(&:inspect).join(', ')}"
-    end
+    assert_valid_keys!(BYTE_KEYS, from, to)
 
     to_f * 1.send("#{from}_in_bytes").to_f / 1.send("#{to}_in_bytes").to_f
   end
 
-  def to_currency(options={})
+  def to_currency(options = {})
     unit = options[:unit] || '$'
 
     "#{unit}#{pad_precision(options.only(:precision))}"
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def to_length(from, to)
+    assert_valid_keys!(LENGTH_KEYS.values.flatten, from, to)
     metric_keys = LENGTH_KEYS.fetch(:metric)
-    valid_keys = LENGTH_KEYS.collect { |key, val| val }.flatten
-
-    unless valid_keys.include?(from) && valid_keys.include?(to)
-      raise ArgumentError,
-            "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', ')}"
-    end
+    return(self) if from == to
 
     case to
-    when from
-      self
-    when :meter, :meters, :millimeter, :millimeters, :centimeter, :centimeters, :decimeter, :decimeters, :decameter, :decameters, :hectometer, :hectometers, :kilometer, :kilometers
+    when :meter, :meters, :millimeter, :millimeters, :centimeter, :centimeters, :decimeter,
+         :decimeters, :decameter, :decameters, :hectometer, :hectometers, :kilometer, :kilometers
       if metric_keys.include?(from)
         to_f * 1.send("#{from}_in_meters").to_f / 1.send("#{to}_in_meters").to_f
       else
@@ -437,20 +446,18 @@ module ActiveObject::Numeric
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def to_mass(from, to)
+    assert_valid_keys!(MASS_KEYS.values.flatten, from, to)
     metric_keys = MASS_KEYS.fetch(:metric)
-    valid_keys = MASS_KEYS.collect { |key, val| val }.flatten
-
-    unless valid_keys.include?(from) && valid_keys.include?(to)
-      raise ArgumentError,
-            "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', ')}"
-    end
+    return(self) if from == to
 
     case to
-    when from
-      self
-    when :gram, :grams, :milligram, :milligrams, :centigram, :centigrams, :decigram, :decigrams, :decagram, :decagrams, :hectogram, :hectograms, :kilogram, :kilograms, :metric_ton, :metric_tons
+    when :gram, :grams, :milligram, :milligrams, :centigram, :centigrams, :decigram, :decigrams,
+         :decagram, :decagrams, :hectogram, :hectograms, :kilogram, :kilograms, :metric_ton,
+         :metric_tons
       if metric_keys.include?(from)
         to_f * 1.send("#{from}_in_grams").to_f / 1.send("#{to}_in_grams").to_f
       else
@@ -464,6 +471,7 @@ module ActiveObject::Numeric
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def to_nearest_value(values = [])
     return(self) if values.length.zero?
@@ -487,15 +495,12 @@ module ActiveObject::Numeric
     "#{pad_precision(options.only(:precision))}#{unit}"
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
   def to_temperature(from, to)
-    unless TEMPERATURE_KEYS.include?(from) && TEMPERATURE_KEYS.include?(to)
-      raise ArgumentError,
-            "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}. Valid keys are: #{TEMPERATURE_KEYS.map(&:inspect).join(', ')}"
-    end
+    assert_valid_keys!(TEMPERATURE_KEYS, from, to)
+    return(self) if from == to
 
     case to
-    when from
-      self
     when :celsius
       from == :kelvin ? (self - 273.15) : ((self - 32.0) * 5.0 / 9.0)
     when :fahrenheit
@@ -504,12 +509,10 @@ module ActiveObject::Numeric
       from == :celsius ? (self + 273.15) : (((self - 32.0) * 5.0 / 9.0) + 273.15)
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
   def to_time(from, to)
-    unless TIME_KEYS.include?(from) && TIME_KEYS.include?(to)
-      raise ArgumentError,
-            "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}. Valid keys are: #{TIME_KEYS.map(&:inspect).join(', ')}"
-    end
+    assert_valid_keys!(TIME_KEYS, from, to)
 
     (to_f * 1.send("#{from}_in_seconds").to_f) / 1.send("#{to}_in_seconds").to_f
   end
@@ -546,6 +549,18 @@ module ActiveObject::Numeric
   end
 
   alias_method :year_in_seconds, :years_in_seconds
+
+  private
+
+  def assert_valid_keys!(cns, from, to)
+    unless cns.include?(from) && cns.include?(to)
+      raise ArgumentError,
+            [
+              "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}.",
+              "Valid keys are: #{cns.map(&:inspect).join(', ')}"
+            ].join(' ')
+    end
+  end
 
 end
 
