@@ -335,7 +335,7 @@ module ActiveObject::String
 
   def truncate_words(words_count, options = {})
     sep = options[:separator] || /\s+/
-    sep = Regexp.escape(sep.to_s) unless Regexp == sep
+    sep = Regexp.escape(sep.to_s) unless sep.is_a(Regexp)
 
     if self =~ /\A((?:.+?#{sep}){#{words_count - 1}}.+?)#{sep}.*/m
       "#{Regexp.last_match(1)}#{options[:omissio] || '...'}"
