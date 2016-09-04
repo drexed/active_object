@@ -12,38 +12,43 @@ module ActiveObject::Hash
   end
 
   def compact
-    select { |key, val| !val.nil? }
+    select { |_, val| !val.nil? }
   end
 
   def compact!
-    reject! { |key, val| val.nil? }
+    reject! { |_, val| val.nil? }
   end
 
   def deep_merge(other_hash, &block)
     dup.deep_merge!(other_hash, yield(block))
   end
 
+  # rubocop:disable Metrics/MethodLength
   def deep_merge!(other_hash, &block)
     other_hash.each_pair do |current_key, other_value|
       this_value = self[current_key]
 
       self[current_key] = if this_value.is_a?(Hash) && other_value.is_a?(Hash)
-        this_value.deep_merge(other_value, yield(block))
-      else
-        block_given? && key?(current_key) ? yield(current_key, this_value, other_value) : other_value
-      end
+                            this_value.deep_merge(other_value, yield(block))
+                          elsif block_given? && key?(current_key)
+                            yield(current_key, this_value, other_value)
+                          else
+                            other_value
+                          end
     end
 
     self
   end
+  # rubocop:enable Metrics/MethodLength
 
   def dig(key, *rest)
-    if value = (self[key] rescue nil)
-      if rest.empty?
-        value
-      elsif value.respond_to?(:dig)
-        value.dig(*rest)
-      end
+    value = (self[key] rescue nil)
+    return if value.nil?
+
+    if rest.empty?
+      value
+    elsif value.respond_to?(:dig)
+      value.dig(*rest)
     end
   end
 
@@ -60,9 +65,11 @@ module ActiveObject::Hash
     dup.hmap!(&block)
   end
 
+  # rubocop:disable Lint/UnusedMethodArgument
   def hmap!(&block)
     inject({}) { |hash, (key, val)| hash.merge(yield(key, val)) }
   end
+  # rubocop:enable Lint/UnusedMethodArgument
 
   def nillify
     dup.nillify!
@@ -78,7 +85,7 @@ module ActiveObject::Hash
 
   def only!(*keys)
     hash = {}
-    keys.flatten.each { |key| hash[key] = self[key] if self.has_key?(key) }
+    keys.flatten.each { |key| hash[key] = self[key] if key?(key) }
     replace(hash)
   end
 
@@ -117,7 +124,7 @@ module ActiveObject::Hash
   end
 
   def sample_key!
-    key, value = sample
+    key, = sample
     delete(key)
     key
   end
@@ -141,7 +148,9 @@ module ActiveObject::Hash
   end
 
   def slice(*keys)
-    keys.flatten.each_with_object(self.class.new) { |key, hsh| hsh[key] = self[key] if has_key?(key) }
+    keys
+      .flatten
+      .each_with_object(self.class.new) { |key, hsh| hsh[key] = self[key] if key?(key) }
   end
 
   def slice!(*keys)
@@ -160,18 +169,17 @@ module ActiveObject::Hash
   end
 
   def stringify_keys!
-    inject({}) do |options, (key, val)|
+    each_with_object({}) do |(key, val), options|
       options[key.to_s] = val
-      options
     end
   end
 
   def strip
-    select { |key, val| !val.blank? }
+    select { |_, val| !val.blank? }
   end
 
   def strip!
-    reject! { |key, val| val.blank? }
+    reject! { |_, val| val.blank? }
   end
 
   def symbolize_keys
@@ -179,9 +187,8 @@ module ActiveObject::Hash
   end
 
   def symbolize_keys!
-    inject({}) do |options, (key, val)|
+    each_with_object({}) do |(key, val), options|
       options[(key.to_sym rescue key) || key] = val
-      options
     end
   end
 
@@ -190,9 +197,8 @@ module ActiveObject::Hash
   end
 
   def symbolize_and_underscore_keys!
-    inject({}) do |options, (key, val)|
+    each_with_object({}) do |(key, val), options|
       options[(key.to_s.tr(' ', '_').underscore.to_sym rescue key) || key] = val
-      options
     end
   end
 
@@ -200,22 +206,26 @@ module ActiveObject::Hash
     dup.transform_keys!(&block)
   end
 
+  # rubocop:disable Lint/UnusedMethodArgument
   def transform_keys!(&block)
     return(enum_for(:transform_keys!)) unless block_given?
 
     each_key { |key| self[yield(key)] = delete(key) }
     self
   end
+  # rubocop:enable Lint/UnusedMethodArgument
 
   def transform_values(&block)
     dup.transform_values!(&block)
   end
 
+  # rubocop:disable Lint/UnusedMethodArgument
   def transform_values!(&block)
     return(enum_for(:transform_values!)) unless block_given?
 
     each { |key, val| self[key] = yield(val) }
   end
+  # rubocop:enable Lint/UnusedMethodArgument
 
 end
 
