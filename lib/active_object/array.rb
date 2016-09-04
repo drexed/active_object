@@ -35,12 +35,13 @@ module ActiveObject::Array
   end
 
   def dig(key, *rest)
-    if value = (self[key] rescue nil)
-      if rest.empty?
-        value
-      elsif value.respond_to?(:dig)
-        value.dig(*rest)
-      end
+    value = (self[key] rescue nil)
+    return if value.nil?
+
+    if rest.empty?
+      value
+    elsif value.respond_to?(:dig)
+      value.dig(*rest)
     end
   end
 
@@ -60,10 +61,11 @@ module ActiveObject::Array
 
     num, rem = length.divmod(number)
     collection = (0..(num - 1)).collect { |val| self[(val * number), number] }
-    rem > 0 ? collection << self[-rem, rem] : collection
+    rem.positive? ? collection << self[-rem, rem] : collection
   end
 
-  def in_groups(number, fill_with=nil)
+  # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/AbcSize
+  def in_groups(number, fill_with = nil)
     collection_length = length
     division = collection_length.div(number)
     modulo = collection_length % number
@@ -71,7 +73,7 @@ module ActiveObject::Array
     collection = []
     start = 0
     number.times do |int|
-      mod_gt_zero = modulo > 0
+      mod_gt_zero = modulo.positive?
       grouping = division + (mod_gt_zero && modulo > int ? 1 : 0)
       collection << last_group = slice(start, grouping)
       last_group << fill_with if fill_with != false && mod_gt_zero && grouping == division
@@ -80,8 +82,10 @@ module ActiveObject::Array
 
     block_given? ? collection.each { |val| yield(val) } : collection
   end
+  # rubocop:enable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/AbcSize
 
-  def in_groups_of(number, fill_with=nil)
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  def in_groups_of(number, fill_with = nil)
     if number.to_i <= 0
       raise ArgumentError,
             "Group length must be a positive integer, was #{number.inspect}"
@@ -94,17 +98,22 @@ module ActiveObject::Array
       collection = dup.concat(Array.new(padding, fill_with))
     end
 
-    block_given? ? collection.each_slice(number) { |val| yield(val) } : collection.each_slice(number).to_a
+    if block_given?
+      collection.each_slice(number) { |val| yield(val) }
+    else
+      collection.each_slice(number).to_a
+    end
   end
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   def percentile(percentage)
-    size = self.size
+    total_size = size
 
-    if size > 1
-      index = (size * percentage) / 100.0
-      self.sort[index]
+    if total_size > 1
+      index = (total_size * percentage) / 100.0
+      sort[index]
     else
-      self.first
+      first
     end
   end
 
@@ -129,14 +138,16 @@ module ActiveObject::Array
     delete_at(Random.rand(length - 1))
   end
 
-  def split(number=nil)
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  def split(number = nil)
     if block_given?
-      inject([[]]) do |results, element|
+      each_with_object([[]]) do |element, results|
         yield(element) ? (results << []) : (results.last << element)
-        results
       end
     else
-      results, arr = [[]], dup
+      results = [[]]
+      arr = dup
+
       until arr.empty?
         if (idx = arr.index(number))
           results.last.concat(arr.shift(idx))
@@ -146,12 +157,14 @@ module ActiveObject::Array
           results.last.concat(arr.shift(arr.length))
         end
       end
+
       results
     end
   end
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   def strip
-    reject { |val| val.blank? }
+    reject(&:blank?)
   end
 
   def strip!
@@ -162,7 +175,8 @@ module ActiveObject::Array
     position >= 0 ? first(position + 1) : self[0..position]
   end
 
-  def to_sentence(options={})
+  # rubocop:disable Metrics/MethodLength
+  def to_sentence(options = {})
     default_connectors = {
       words_connector: ', ',
       two_words_connector: ' and ',
@@ -181,6 +195,7 @@ module ActiveObject::Array
       "#{self[0...-1].join(options[:words_connector])}#{options[:last_word_connector]}#{self[-1]}"
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
 end
 

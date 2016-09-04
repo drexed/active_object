@@ -1,5 +1,6 @@
 module Enumerable
 
+  # rubocop:disable Lint/UnusedMethodArgument
   def cluster(&block)
     result = []
     each do |ele|
@@ -13,6 +14,7 @@ module Enumerable
     end
     result
   end
+  # rubocop:enable Lint/UnusedMethodArgument
 
   def difference(identity = 0, &block)
     if block_given?
@@ -51,8 +53,12 @@ module Enumerable
 
   def exactly?(num)
     found_count = 0
-    block_given? ? each { |*opt| found_count += 1 if yield(*opt) } : each { |opt| found_count += 1 if opt }
-    (found_count > num) ? false : num == found_count
+    if block_given?
+      each { |*opt| found_count += 1 if yield(*opt) }
+    else
+      each { |opt| found_count += 1 if opt }
+    end
+    found_count > num ? false : num == found_count
   end
 
   def exclude?(object)
@@ -67,7 +73,7 @@ module Enumerable
     if block_given?
       map(&block).exponential(identity)
     else
-      inject { |key, val| key ** val } || identity
+      inject { |key, val| key**val } || identity
     end
   end
 
@@ -75,9 +81,11 @@ module Enumerable
     each_with_object(Hash.new(0)) { |key, hsh| hsh[key] += 1 }
   end
 
+  # rubocop:disable Style/CaseEquality
   def incase?(object)
     any? { |val| object === val }
   end
+  # rubocop:enable Style/CaseEquality
 
   def many?
     found_count = 0
@@ -92,15 +100,15 @@ module Enumerable
   end
 
   def max(identity = 0)
-    (length rescue count) > 0 ? sort.last : identity
+    (length rescue count).positive? ? sort.last : identity
   end
 
   def min(identity = 0)
-    (length rescue count) > 0 ? sort.first : identity
+    (length rescue count).positive? ? sort.first : identity
   end
 
   def mean(identity = 0)
-    return(identity) unless length > 0
+    return(identity) unless length.positive?
 
     collection_length = length
     sum.to_f / collection_length.to_f
@@ -117,16 +125,17 @@ module Enumerable
     sorted_collection = collection_sorted[half_collection]
 
     if (collection_length % 2).zero?
-      (collection_sorted[half_collection -1.0] + sorted_collection) / 2.0
+      (collection_sorted[half_collection - 1.0] + sorted_collection) / 2.0
     else
       sorted_collection
     end
   end
 
+  # rubocop:disable Metrics/AbcSize
   def mode(identity = 0)
-    return(identity) unless length > 0
+    return(identity) unless length.positive?
 
-    frequency_distribution = inject(Hash.new(0)) { |hsh, val| hsh[val] += 1; hsh }
+    frequency_distribution = each_with_object(Hash.new(0)) { |val, hsh| hsh[val] += 1 }
     frequency_top_two = frequency_distribution.sort_by { |_, val| -val }.take(2)
     top_two_first = frequency_top_two.first
 
@@ -136,6 +145,7 @@ module Enumerable
       top_two_first.first
     end
   end
+  # rubocop:ensable Metrics/AbcSize
 
   def multiple(identity = 0, &block)
     if block_given?
@@ -146,7 +156,7 @@ module Enumerable
   end
 
   def range(identity = 0)
-    return(identity) unless length > 0
+    return(identity) unless length.positive?
 
     collection_sorted = sort
     collection_sorted.last - collection_sorted.first
@@ -154,11 +164,15 @@ module Enumerable
 
   def several?
     found_count = 0
-    block_given? ? each { |*opt| found_count += 1 if yield(*opt) } : each { |opt| found_count += 1 if opt }
-    (found_count > 1) ? true : false
+    if block_given?
+      each { |*opt| found_count += 1 if yield(*opt) }
+    else
+      each { |opt| found_count += 1 if opt }
+    end
+    found_count > 1 ? true : false
   end
 
-  def standard_deviation(identity=0)
+  def standard_deviation(identity = 0)
     return(identity) if length < 2
 
     Math.sqrt(variance)
@@ -193,8 +207,8 @@ module Enumerable
 
     return(identity) if collection_length <= 1
 
-    sum = inject(0.0) { |sum, val| sum + (val - mean) ** 2.0 }
-    sum.to_f / (collection_length.to_f - 1.0)
+    total = inject(0.0) { |sum, val| sum + (val - mean)**2.0 }
+    total.to_f / (collection_length.to_f - 1.0)
   end
 
 end
