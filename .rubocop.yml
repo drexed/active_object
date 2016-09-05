@@ -3,7 +3,7 @@ AllCops:
   DisplayStyleGuide: true
   TargetRubyVersion: 2.3
   Exclude:
-    - 'spec/lib/active_object/*'
+    - 'spec/**/**/*'
 LineLength:
   Max: 100
 Metrics/ModuleLength:
