@@ -98,11 +98,9 @@ module ActiveObject::Array
       collection = dup.concat(Array.new(padding, fill_with))
     end
 
-    if block_given?
-      collection.each_slice(number) { |val| yield(val) }
-    else
-      collection.each_slice(number).to_a
-    end
+    sliced_collection = collection.each_slice(number)
+
+    block_given? ? sliced_collection { |val| yield(val) } : sliced_collection.to_a
   end
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 

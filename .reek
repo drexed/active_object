@@ -10,10 +10,7 @@ DuplicateMethodCall:
     - 'ActiveObject::Array#to_sentence'
     - 'ActiveObject::Array#split'
     - 'ActiveObject::Array#probability'
-    - 'ActiveObject::Array#in_groups_of'
     - 'ActiveObject::Numeric'
-    - 'ActiveObject::String#camelize'
-    - 'ActiveObject::String#sift'
 FeatureEnvy:
   enabled: false
 IrresponsibleModule:

@@ -429,17 +429,18 @@ module ActiveObject::Numeric
     assert_valid_keys!(LENGTH_KEYS.values.flatten, from, to)
     metric_keys = LENGTH_KEYS.fetch(:metric)
     return(self) if from == to
+    metrics_included_from = metric_keys.include?(from)
 
     case to
     when :meter, :meters, :millimeter, :millimeters, :centimeter, :centimeters, :decimeter,
          :decimeters, :decameter, :decameters, :hectometer, :hectometers, :kilometer, :kilometers
-      if metric_keys.include?(from)
+      if metrics_included_from
         to_f * 1.send("#{from}_in_meters").to_f / 1.send("#{to}_in_meters").to_f
       else
         to_f * ((1.send("#{from}_in_inches").to_f * 0.0254) / 1.send("#{to}_in_meters").to_f)
       end
     when :inch, :inches, :foot, :feet, :yard, :yards, :mile, :miles, :nautical_mile, :nautical_miles
-      if metric_keys.include?(from)
+      if metrics_included_from
         to_f * ((1.send("#{from}_in_meters").to_f * 39.3701) / 1.send("#{to}_in_inches").to_f)
       else
         to_f * 1.send("#{from}_in_inches").to_f / 1.send("#{to}_in_inches").to_f
@@ -453,18 +454,19 @@ module ActiveObject::Numeric
     assert_valid_keys!(MASS_KEYS.values.flatten, from, to)
     metric_keys = MASS_KEYS.fetch(:metric)
     return(self) if from == to
+    metrics_included_from = metric_keys.include?(from)
 
     case to
     when :gram, :grams, :milligram, :milligrams, :centigram, :centigrams, :decigram, :decigrams,
          :decagram, :decagrams, :hectogram, :hectograms, :kilogram, :kilograms, :metric_ton,
          :metric_tons
-      if metric_keys.include?(from)
+      if metrics_included_from
         to_f * 1.send("#{from}_in_grams").to_f / 1.send("#{to}_in_grams").to_f
       else
         to_f * ((1.send("#{from}_in_ounces") * 28.3495).to_f / 1.send("#{to}_in_grams").to_f)
       end
     when :ounce, :ounces, :pound, :pounds, :stone, :stones, :ton, :tons
-      if metric_keys.include?(from)
+      if metrics_included_from
         to_f * ((1.send("#{from}_in_grams") * 0.035274).to_f / 1.send("#{to}_in_ounces").to_f)
       else
         to_f * 1.send("#{from}_in_ounces").to_f / 1.send("#{to}_in_ounces").to_f

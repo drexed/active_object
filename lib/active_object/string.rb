@@ -13,17 +13,17 @@ module ActiveObject::String
     self[position]
   end
 
-  # rubocop:disable Metrics/AbcSize
   def camelize(first_letter = :upper)
     if first_letter.to_sym != :lower
+      regex_last = Regexp.last_match(1).upcase
+
       to_s
-        .gsub(%r{\/(.?)}) { "::#{Regexp.last_match(1).upcase}" }
-        .gsub(%r{^/(?:^|_)(.)}) { Regexp.last_match(1).upcase }
+        .gsub(%r{\/(.?)}) { "::#{regex_last}" }
+        .gsub(%r{^/(?:^|_)(.)}) { regex_last }
     else
       "#{to_s.first.chr.downcase}#{camelize(self)[1..-1]}"
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   alias_method :camelcase, :camelize
 
