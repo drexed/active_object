@@ -31,4 +31,4 @@ module ActiveObject::Range
 
 end
 
-Range.send(:include, ActiveObject::Range) if ActiveObject::Settings.config.autoload_range
+Range.include(ActiveObject::Range) if ActiveObject::Settings.config.autoload_range

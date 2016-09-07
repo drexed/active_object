@@ -566,4 +566,4 @@ module ActiveObject::Numeric
 
 end
 
-Numeric.send(:include, ActiveObject::Numeric) if ActiveObject::Settings.config.autoload_numeric
+Numeric.include(ActiveObject::Numeric) if ActiveObject::Settings.config.autoload_numeric

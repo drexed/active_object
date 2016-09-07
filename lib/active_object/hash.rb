@@ -229,4 +229,4 @@ module ActiveObject::Hash
 
 end
 
-Hash.send(:include, ActiveObject::Hash) if ActiveObject::Settings.config.autoload_hash
+Hash.include(ActiveObject::Hash) if ActiveObject::Settings.config.autoload_hash

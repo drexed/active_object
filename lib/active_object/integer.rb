@@ -26,4 +26,4 @@ module ActiveObject::Integer
 
 end
 
-Integer.send(:include, ActiveObject::Integer) if ActiveObject::Settings.config.autoload_integer
+Integer.include(ActiveObject::Integer) if ActiveObject::Settings.config.autoload_integer

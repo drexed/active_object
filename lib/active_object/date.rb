@@ -99,4 +99,4 @@ module ActiveObject::Date
 
 end
 
-Date.send(:include, ActiveObject::Date) if ActiveObject::Settings.config.autoload_date
+Date.include(ActiveObject::Date) if ActiveObject::Settings.config.autoload_date

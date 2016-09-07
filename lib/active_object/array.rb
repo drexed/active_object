@@ -197,4 +197,4 @@ module ActiveObject::Array
 
 end
 
-Array.send(:include, ActiveObject::Array) if ActiveObject::Settings.config.autoload_array
+Array.include(ActiveObject::Array) if ActiveObject::Settings.config.autoload_array
