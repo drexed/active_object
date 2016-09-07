@@ -42,11 +42,10 @@ Or install it yourself as:
 
 ## Configuration
 
-`rails g active_object:install` will generate the following `active_object.rb` file:
+`rails generate active_object:install` will generate the following file:
+`../config/initalizers/active_object.rb`
 
 ```ruby
-# config/initalizers/active_object.rb
-
 ActiveObject.configure do |config|
   config.autoload_array = true
   config.autoload_date = true
