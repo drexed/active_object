@@ -15,19 +15,20 @@ FeatureEnvy:
   enabled: false
 IrresponsibleModule:
   enabled: false
-NilCheck:
+LongParameterList:
   enabled: false
 ManualDispatch:
   enabled: false
 NestedIterators:
   max_allowed_nesting: 2
+NilCheck:
+  enabled: false
 PrimaDonnaMethod:
   enabled: false
+RepeatedConditional:
+  enabled: false
 TooManyConstants:
-  exclude:
-    - 'ActiveObject::Date'
-    - 'ActiveObject::Numeric'
-    - 'ActiveObject::Time'
+  enabled: false
 TooManyStatements:
   max_statements: 10
   exclude:
