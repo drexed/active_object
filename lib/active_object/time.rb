@@ -1,14 +1,14 @@
 module ActiveObject::Time
-  MINUTE = 60.0
-  HOUR = MINUTE * 60.0
-  DAY = HOUR * 24.0
-  WEEK = DAY * 7.0
-  YEAR = DAY * 365.25
-  DECADE = YEAR * 10.0
-  CENTURY = DECADE * 10.0
-  MILLENNIUM = CENTURY * 10.0
+  MINUTE ||= 60.0
+  HOUR ||= MINUTE * 60.0
+  DAY ||= HOUR * 24.0
+  WEEK ||= DAY * 7.0
+  YEAR ||= DAY * 365.25
+  DECADE ||= YEAR * 10.0
+  CENTURY ||= DECADE * 10.0
+  MILLENNIUM ||= CENTURY * 10.0
 
-  KEY_UNITS = {
+  KEY_UNITS ||= {
     month: '%m', month_padded: '%m', month_unpadded: '%-m', month_blank: '%_m', month_name: '%B',
     month_name_abbr: '%b', month_year: '%m %Y', month_padded_year: '%m %Y',
     month_unpadded_year: '%-m %Y', month_blank_year: '%_m %Y', month_name_year: '%B %Y',
@@ -31,7 +31,7 @@ module ActiveObject::Time
     time_imperical_padded: '%I:%M %P', time_imperical_blank: '%l:%M %P',
     time_imperical_tz: '%I:%M %P %z', time_imperical_tzn: '%I:%M %P %Z'
   }.freeze
-  STRING_UNITS = {
+  STRING_UNITS ||= {
     d: 'd', day: 'd', day_padded: 'd', dd: '-d', Day: '-d', day_unpadded: '-d', ddd: '_d', zz: ':z',
     DAY: '_d', day_blank: '_d', dddd: 'j', day_of_the_year: 'j', m: 'm', month: 'm', hhhh: 'l',
     month_padded: 'm', mm: '-m', Month: '-m', month_unpadded: '-m', mmm: '_m', MONTH: '_m',
