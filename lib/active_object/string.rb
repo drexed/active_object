@@ -17,9 +17,7 @@ module ActiveObject::String
     if first_letter.to_sym != :lower
       regex_last = Regexp.last_match(1).upcase
 
-      to_s
-        .gsub(%r{\/(.?)}) { "::#{regex_last}" }
-        .gsub(%r{^/(?:^|_)(.)}) { regex_last }
+      to_s.gsub(%r{\/(.?)}) { "::#{regex_last}" }.gsub(%r{^/(?:^|_)(.)}) { regex_last }
     else
       "#{to_s.first.chr.downcase}#{camelize(self)[1..-1]}"
     end
@@ -78,7 +76,7 @@ module ActiveObject::String
   end
 
   def ellipsize(ellipsize_at, options = {})
-    return(self) if length <= ellipsize_at
+    return self if length <= ellipsize_at
 
     separator = options[:separator] || '...'
     offset = options[:offset] || 4
@@ -91,7 +89,7 @@ module ActiveObject::String
   end
 
   def first(limit = 1)
-    return('') if limit.zero?
+    return '' if limit.zero?
 
     limit >= length ? self : to(limit - 1)
   end
@@ -107,12 +105,11 @@ module ActiveObject::String
   def humanize(options = {})
     capitalize = options[:capitalize] || true
 
-    underscore
-      .gsub(/_id\z/, '')
-      .tr('_', ' ')
-      .squish
-      .gsub(/([a-z\d]*)/i, &:downcase)
-      .gsub(/\A\w/) { |str| capitalize ? str.upcase : str }
+    underscore.gsub(/_id\z/, '')
+              .tr('_', ' ')
+              .squish
+              .gsub(/([a-z\d]*)/i, &:downcase)
+              .gsub(/\A\w/) { |str| capitalize ? str.upcase : str }
   end
 
   def humanize!(options = {})
@@ -147,12 +144,11 @@ module ActiveObject::String
   def labelize(options = {})
     capitalize = options[:capitalize] || true
 
-    underscore
-      .tr('_', ' ')
-      .squish
-      .gsub(/([a-z\d]*)/i, &:downcase)
-      .gsub(/\A\w/) { |str| capitalize ? str.upcase : str }
-      .gsub(/ id\z/, ' ID')
+    underscore.tr('_', ' ')
+              .squish
+              .gsub(/([a-z\d]*)/i, &:downcase)
+              .gsub(/\A\w/) { |str| capitalize ? str.upcase : str }
+              .gsub(/ id\z/, ' ID')
   end
 
   alias_method :labelcase, :labelize
@@ -164,7 +160,7 @@ module ActiveObject::String
   alias_method :labelcase!, :labelize!
 
   def last(limit = 1)
-    return('') if limit.zero?
+    return '' if limit.zero?
 
     limit >= length ? self : from(-limit)
   end
@@ -181,12 +177,12 @@ module ActiveObject::String
     to_i.ordinalize
   end
 
-  def parameterize(seperator = '-')
-    underscore.gsub(/\s+/, seperator).downcase
+  def parameterize(separator: '-')
+    underscore.gsub(/\s+/, separator).downcase
   end
 
-  def parameterize!(seperator = '-')
-    replace(parameterize(seperator))
+  def parameterize!(separator: '-')
+    replace(parameterize(separator: separator))
   end
 
   def pollute(delimiter = '^--^--^')
@@ -207,11 +203,7 @@ module ActiveObject::String
 
   def remove(*patterns)
     string = dup
-
-    patterns.flatten.each do |pat|
-      pat.is_a?(Range) ? string.slice!(pat) : string.gsub!(pat, '')
-    end
-
+    patterns.flatten.each { |pat| pat.is_a?(Range) ? string.slice!(pat) : string.gsub!(pat, '') }
     string
   end
 
@@ -236,13 +228,11 @@ module ActiveObject::String
   end
 
   def shift(*patterns)
-    if patterns.empty?
-      self[0]
-    else
-      string = dup
-      patterns.flatten.each { |pat| string.sub!(pat, '') }
-      string
-    end
+    return self[0] if patterns.empty?
+
+    string = dup
+    patterns.flatten.each { |pat| string.sub!(pat, '') }
+    string
   end
 
   def shift!(*patterns)
@@ -274,11 +264,11 @@ module ActiveObject::String
   end
 
   def slugify
-    gsub(/[^\x00-\x7F]+/, '')
-      .gsub(/[^\w_ \-]+/i, '')
-      .gsub(/[ \-]+/i, '-')
-      .gsub(/^\-|\-$/i, '')
-      .downcase
+    to_s.gsub(/[^\x00-\x7F]+/, '')
+        .gsub(/[^\w_ \-]+/i, '')
+        .gsub(/[ \-]+/i, '-')
+        .gsub(/^\-|\-$/i, '')
+        .downcase
   end
 
   def slugify!
@@ -318,7 +308,7 @@ module ActiveObject::String
   end
 
   def truncate(truncate_at, options = {})
-    return(dup) unless length > truncate_at
+    return dup unless length > truncate_at
 
     omission = options[:omission] || '...'
     size_with_room_for_omission = truncate_at - omission.length
@@ -337,19 +327,17 @@ module ActiveObject::String
     sep = options[:separator] || /\s+/
     sep = Regexp.escape(sep.to_s) unless sep.is_a(Regexp)
 
-    if self =~ /\A((?:.+?#{sep}){#{words_count - 1}}.+?)#{sep}.*/m
-      "#{Regexp.last_match(1)}#{options[:omissio] || '...'}"
-    else
-      self
-    end
+    return self unless  self =~ /\A((?:.+?#{sep}){#{words_count - 1}}.+?)#{sep}.*/m
+
+    "#{Regexp.last_match(1)}#{options[:omissio] || '...'}"
   end
 
   def underscore
-    gsub(/::/, '/')
-      .gsub(/([A-Z\d]+)([A-Z][a-z])/, "\1_\2")
-      .gsub(/([a-z\d])([A-Z])/, "\1_\2")
-      .tr('-', '_')
-      .downcase
+    to_s.gsub(/::/, '/')
+        .gsub(/([A-Z\d]+)([A-Z][a-z])/, "\1_\2")
+        .gsub(/([a-z\d])([A-Z])/, "\1_\2")
+        .tr('-', '_')
+        .downcase
   end
 
   def underscore!

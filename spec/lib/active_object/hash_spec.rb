@@ -16,6 +16,20 @@ describe ActiveObject::Hash do
     end
   end
 
+  describe '#assert_valid_keys!' do
+    it 'to be {}' do
+      expect { {}.assert_valid_keys!(:foo) }.to raise_error(ArgumentError)
+    end
+
+    it 'to be { foo: "bar" }' do
+      expect({ foo: 'bar' }.assert_valid_keys!(:foo)).to eq({ foo: 'bar' })
+    end
+
+    it 'to raise error' do
+      expect { { foo: 'bar', baz: 'boz' }.assert_valid_keys!(:foo) }.to raise_error(ArgumentError)
+    end
+  end
+
   describe '#compact(!)' do
     it 'to be nil' do
       expect({}.compact!).to eq(nil)

@@ -4,10 +4,19 @@ module ActiveObject::Hash
     valid_keys.flatten!
 
     each_key do |key|
-      unless valid_keys.include?(key)
-        raise ArgumentError,
-              "Unknown key: #{key.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', ')}"
-      end
+      next if valid_keys.include?(key)
+
+      raise ArgumentError,
+            "Unknown key: #{key.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', ')}"
+    end
+  end
+
+  def assert_valid_keys!(*valid_keys)
+    if empty?
+      raise ArgumentError,
+            "Empty hash. Valid keys are: #{valid_keys.map(&:inspect).join(', ')}"
+    else
+      assert_valid_keys(*valid_keys)
     end
   end
 
@@ -43,13 +52,10 @@ module ActiveObject::Hash
 
   def dig(key, *rest)
     value = (self[key] rescue nil)
-    return if value.nil?
 
-    if rest.empty?
-      value
-    elsif value.respond_to?(:dig)
-      value.dig(*rest)
-    end
+    return if value.nil?
+    return value if rest.empty?
+    return value.dig(*rest) if value.respond_to?(:dig)
   end
 
   def except(*keys)
@@ -148,9 +154,8 @@ module ActiveObject::Hash
   end
 
   def slice(*keys)
-    keys
-      .flatten
-      .each_with_object(self.class.new) { |key, hsh| hsh[key] = self[key] if key?(key) }
+    keys.flatten
+        .each_with_object(self.class.new) { |key, hsh| hsh[key] = self[key] if key?(key) }
   end
 
   def slice!(*keys)
@@ -169,9 +174,7 @@ module ActiveObject::Hash
   end
 
   def stringify_keys!
-    each_with_object({}) do |(key, val), options|
-      options[key.to_s] = val
-    end
+    each_with_object({}) { |(key, val), options| options[key.to_s] = val }
   end
 
   def strip
@@ -187,9 +190,7 @@ module ActiveObject::Hash
   end
 
   def symbolize_keys!
-    each_with_object({}) do |(key, val), options|
-      options[(key.to_sym rescue key) || key] = val
-    end
+    each_with_object({}) { |(key, val), options| options[(key.to_sym rescue key) || key] = val }
   end
 
   def symbolize_and_underscore_keys

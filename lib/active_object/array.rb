@@ -1,13 +1,13 @@
 module ActiveObject::Array
 
   def after(value)
-    return(nil) unless include?(value)
+    return unless include?(value)
 
     self[(index(value).to_i + 1) % length]
   end
 
   def before(value)
-    return(nil) unless include?(value)
+    return unless include?(value)
 
     self[(index(value).to_i - 1) % length]
   end
@@ -36,18 +36,14 @@ module ActiveObject::Array
 
   def dig(key, *rest)
     value = (self[key] rescue nil)
-    return if value.nil?
 
-    if rest.empty?
-      value
-    elsif value.respond_to?(:dig)
-      value.dig(*rest)
-    end
+    return if value.nil?
+    return value if rest.empty?
+    return value.dig(*rest) if value.respond_to?(:dig)
   end
 
   def duplicates(minimum = 2)
     hash = Hash.new(0)
-
     each { |val| hash[val] += 1 }
     hash.delete_if { |_, val| val < minimum }.keys
   end
@@ -57,7 +53,7 @@ module ActiveObject::Array
   end
 
   def groups(number)
-    return([]) if number <= 0
+    return [] if number <= 0
 
     num, rem = length.divmod(number)
     collection = (0..(num - 1)).collect { |val| self[(val * number), number] }

@@ -34,7 +34,8 @@ TooManyStatements:
   exclude:
     - 'ActiveObject::Array#in_groups'
 UncommunicativeVariableName:
-  exclude:
-    - 'ActiveObject::Integer#factorial'
+  accept:
+    - !ruby/regexp /^.$/
+    - !ruby/regexp /[0-9]$/
 UtilityFunction:
   enabled: false

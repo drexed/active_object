@@ -89,10 +89,12 @@ module ActiveObject::Numeric
       min_min = minimum.min
       min_max = minimum.max
 
-      return(min_min) if self < min_min
+      return min_min if self < min_min
+
       self > min_max ? min_max : self
     else
-      return(minimum) if self < minimum
+      return minimum if self < minimum
+
       self > maximum ? maximum : self
     end
   end
@@ -355,6 +357,7 @@ module ActiveObject::Numeric
     string << separator unless string.include?(separator)
     ljust_count = string.split(separator).first.length
     ljust_count += (string.count(separator) + precision) if precision.positive?
+
     if ljust_count >= string.length
       string.ljust(ljust_count, pad_number.to_s)
     else
@@ -413,8 +416,7 @@ module ActiveObject::Numeric
   alias_method :terabyte_in_bytes, :terabytes_in_bytes
 
   def to_byte(from, to)
-    assert_valid_keys!(BYTE_KEYS, from, to)
-
+    assert_inclusion_of_valid_keys!(BYTE_KEYS, from, to)
     to_f * 1.send("#{from}_in_bytes").to_f / 1.send("#{to}_in_bytes").to_f
   end
 
@@ -426,9 +428,9 @@ module ActiveObject::Numeric
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def to_length(from, to)
-    assert_valid_keys!(LENGTH_KEYS.values.flatten, from, to)
+    assert_inclusion_of_valid_keys!(LENGTH_KEYS.values.flatten, from, to)
     metric_keys = LENGTH_KEYS.fetch(:metric)
-    return(self) if from == to
+    return self if from == to
     metrics_included_from = metric_keys.include?(from)
 
     case to
@@ -451,9 +453,9 @@ module ActiveObject::Numeric
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def to_mass(from, to)
-    assert_valid_keys!(MASS_KEYS.values.flatten, from, to)
+    assert_inclusion_of_valid_keys!(MASS_KEYS.values.flatten, from, to)
     metric_keys = MASS_KEYS.fetch(:metric)
-    return(self) if from == to
+    return self if from == to
     metrics_included_from = metric_keys.include?(from)
 
     case to
@@ -476,7 +478,7 @@ module ActiveObject::Numeric
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def to_nearest_value(values = [])
-    return(self) if values.length.zero?
+    return self if values.length.zero?
 
     value = values.first
     difference = (self - value).abs
@@ -499,8 +501,8 @@ module ActiveObject::Numeric
 
   # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
   def to_temperature(from, to)
-    assert_valid_keys!(TEMPERATURE_KEYS, from, to)
-    return(self) if from == to
+    assert_inclusion_of_valid_keys!(TEMPERATURE_KEYS, from, to)
+    return self if from == to
 
     case to
     when :celsius
@@ -514,8 +516,7 @@ module ActiveObject::Numeric
   # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
   def to_time(from, to)
-    assert_valid_keys!(TIME_KEYS, from, to)
-
+    assert_inclusion_of_valid_keys!(TIME_KEYS, from, to)
     (to_f * 1.send("#{from}_in_seconds").to_f) / 1.send("#{to}_in_seconds").to_f
   end
 
@@ -532,7 +533,7 @@ module ActiveObject::Numeric
   alias_method :week_in_seconds, :weeks_in_seconds
 
   def within?(number, epsilon = 0.01)
-    return(self == number) if epsilon.zero?
+    return self == number if epsilon.zero?
 
     alpha = to_f
     beta = number.to_f
@@ -554,7 +555,7 @@ module ActiveObject::Numeric
 
   private
 
-  def assert_valid_keys!(cns, from, to)
+  def assert_inclusion_of_valid_keys!(cns, from, to)
     return if cns.include?(from) && cns.include?(to)
     raise ArgumentError,
           [

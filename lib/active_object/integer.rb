@@ -5,8 +5,9 @@ module ActiveObject::Integer
   }.freeze
 
   def factorial
-    return(1) if zero?
-    2.upto(self).inject(1) { |a, e| a * e }
+    return 1 if zero?
+
+    2.upto(self).inject(1) { |acc, elem| acc * elem }
   end
 
   def of(&block)
@@ -14,8 +15,8 @@ module ActiveObject::Integer
   end
 
   def roman
-    return('') if zero?
-    return("-#{(-self).roman}") if negative?
+    return '' if zero?
+    return "-#{(-self).roman}" if negative?
 
     ROMAN_VALUES.each { |key, val| return("#{key}#{(self - val).roman}") if val <= self }
   end

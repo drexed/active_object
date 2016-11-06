@@ -349,8 +349,8 @@ describe ActiveObject::String do
     end
 
     it 'to be example_string' do
-      expect('example string'.parameterize('?')).to eq('example?string')
-      expect('example string'.parameterize!('?')).to eq('example?string')
+      expect('example string'.parameterize(separator: '?')).to eq('example?string')
+      expect('example string'.parameterize!(separator: '?')).to eq('example?string')
     end
   end
 

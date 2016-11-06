@@ -5,12 +5,7 @@ module Enumerable
     result = []
     each do |ele|
       last_res = result.last
-
-      if last_res && (yield(last_res.last) == yield(ele))
-        last_res << ele
-      else
-        result << [ele]
-      end
+      last_res && (yield(last_res.last) == yield(ele)) ? last_res << ele : result << [ele]
     end
     result
   end
@@ -34,9 +29,7 @@ module Enumerable
 
   def drop_last(num)
     collection_length = to_a.length
-
-    return(self) if num > collection_length
-
+    return self if num > collection_length
     self[0...(collection_length - num)]
   end
 
@@ -108,7 +101,7 @@ module Enumerable
   end
 
   def mean(identity = 0)
-    return(identity) unless length.positive?
+    return identity unless length.positive?
 
     collection_length = length
     sum.to_f / collection_length.to_f
@@ -121,6 +114,7 @@ module Enumerable
     collection_sorted = sort
 
     return(identity) unless collection_length > 0.0
+
     half_collection = collection_length / 2.0
     sorted_collection = collection_sorted[half_collection]
 
@@ -133,17 +127,14 @@ module Enumerable
 
   # rubocop:disable Metrics/AbcSize
   def mode(identity = 0)
-    return(identity) unless length.positive?
+    return identity unless length.positive?
 
     frequency_distribution = each_with_object(Hash.new(0)) { |val, hsh| hsh[val] += 1 }
     frequency_top_two = frequency_distribution.sort_by { |_, val| -val }.take(2)
     top_two_first = frequency_top_two.first
 
-    if frequency_top_two.length != 1 && top_two_first.last == frequency_top_two.last.last
-      nil
-    else
-      top_two_first.first
-    end
+    return if frequency_top_two.length != 1 && top_two_first.last == frequency_top_two.last.last
+    top_two_first.first
   end
   # rubocop:ensable Metrics/AbcSize
 
@@ -156,7 +147,7 @@ module Enumerable
   end
 
   def range(identity = 0)
-    return(identity) unless length.positive?
+    return identity unless length.positive?
 
     collection_sorted = sort
     collection_sorted.last - collection_sorted.first
@@ -173,7 +164,7 @@ module Enumerable
   end
 
   def standard_deviation(identity = 0)
-    return(identity) if length < 2
+    return identity if length < 2
 
     Math.sqrt(variance)
   end
@@ -189,7 +180,7 @@ module Enumerable
   def take_last(num)
     collection_length = to_a.length
 
-    return(self) if num > collection_length
+    return self if num > collection_length
 
     self[(collection_length - num)..-1]
   end
@@ -205,7 +196,7 @@ module Enumerable
   def variance(identity = 0)
     collection_length = length
 
-    return(identity) if collection_length <= 1
+    return identity if collection_length <= 1
 
     total = inject(0.0) { |sum, val| sum + (val - mean)**2.0 }
     total.to_f / (collection_length.to_f - 1.0)

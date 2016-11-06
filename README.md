@@ -450,10 +450,11 @@ end
 ## Hash
 
 ####Assert Valid Keys:####
-`assert_valid_keys` raises an error if key is not included in a list of keys.
+`assert_valid_keys` and `assert_valid_keys!` raises an error if key is not included in a list of keys.
 
 ```ruby
 {}.assert_valid_keys(:foo)                               #=> {}
+{}.assert_valid_keys!(:foo)                              #=> raises 'ArgumentError: Empty hash. Valid keys are: :foo'
 { foo: 'bar' }.assert_valid_keys(:foo)                   #=> { foo: 'bar' }
 { foo: 'bar', baz: 'boz' }.assert_valid_keys(:foo, :boo) #=> raises 'ArgumentError: Unknown key: :baz. Valid keys are: :foo, :boo'
 ```
@@ -1654,8 +1655,8 @@ false.truthy? #=> false
 `parameterize` and `parameterize!` makes string suitable for a dashed url parameter string.
 
 ```ruby
-'example_string'.parameterize      #=> 'example-string'
-'example_string'.parameterize('?') #=> 'example?string'
+'example_string'.parameterize                 #=> 'example-string'
+'example_string'.parameterize(separator: '?') #=> 'example?string'
 ```
 
 ####Pollute:####
