@@ -46,7 +46,7 @@ Or install it yourself as:
 `../config/initalizers/active_object.rb`
 
 ```ruby
-ActiveObject.configure do |config|
+ActiveObject::Settings.configure do |config|
   config.autoload_array = true
   config.autoload_date = true
   config.autoload_enumerable = true
@@ -62,7 +62,7 @@ end
 
 ## Array
 
-####After:####
+**After:**
 `after` returns the value after the given value.
 
 ```ruby
@@ -71,7 +71,7 @@ end
 ['1', '2', '3'].after('4') #=> nil
 ```
 
-####Before:####
+**Before:**
 `before` returns the value before the given value.
 
 ```ruby
@@ -80,35 +80,35 @@ end
 ['1', '2', '3'].before('4') #=> nil
 ```
 
-####Delete First:####
+**Delete First:**
 `delete_first` and `delete_first!` removes the first element from an array. Like Array.shift, but returns the array instead of the removed element.
 
 ```ruby
 ['1', '2', '3'].delete_first #=> ['2', '3']
 ```
 
-####Delete Last:####
+**Delete Last:**
 `delete_last` and `delete_last!` removes the last element from an array. Like Array.pop, but returns the array instead of the removed element.
 
 ```ruby
 ['1', '2', '3'].delete_last #=> ['1', '2']
 ```
 
-####Delete Values:####
+**Delete Values:**
 `delete_values` delete multiple values from array.
 
 ```ruby
 [1, 2, 3, 4].delete_values(1, 3) #=> [2, 4]
 ```
 
-####Dig:####
+**Dig:**
 `dig` returns the value of a nested array.
 
 ```ruby
 ['zero', ['ten', 'eleven', 'twelve'], 'two'].dig(1, 2) #=> 'twelve'
 ```
 
-####Duplicates:####
+**Duplicates:**
 `duplicates` returns list of duplicate elements.
 
 ```ruby
@@ -116,7 +116,7 @@ end
 [1, 1, 2, 2, 2, 3].duplicates(3) #=> [2]
 ```
 
-####From:####
+**From:**
 `from` returns the tail of the array from position.
 
 ```ruby
@@ -125,14 +125,14 @@ end
 ['1', '2', '3'].from(-1) #=> ['3']
 ```
 
-####Groups:####
+**Groups:**
 `groups` splits or iterates over the array in number of groups.
 
 ```ruby
 %w(1 2 3 4 5 6 7 8 9 10).groups(3) #=> [['1', '2', '3', '4'], ['5', '6', '7'], ['8', '9', '10']]
 ```
 
-####In Groups:####
+**In Groups:**
 `in_groups` splits or iterates over the array in number of groups, padding any remaining slots with fill_with unless it is false.
 
 ```ruby
@@ -141,7 +141,7 @@ end
 %w(1 2 3 4 5 6 7 8 9 10).in_groups(3, false)    #=> [['1', '2', '3', '4'], ['5', '6', '7'], ['8', '9', '10']]
 ```
 
-####In Groups Of:####
+**In Groups Of:**
 `in_groups_of` splits or iterates over the array in groups of size number, padding any remaining slots with fill_with unless it is false.
 
 ```ruby
@@ -150,7 +150,7 @@ end
 %w(1 2 3 4 5 6 7 8 9 10).in_groups_of(3, false)    #=> [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'], ['10']]
 ```
 
-####Percentile:####
+**Percentile:**
 `percentile` returns the percentile value for a given percentage.
 
 ```ruby
@@ -159,28 +159,28 @@ end
 [1, 2, 3, 4, 5].percentile(50) # => 3
 ```
 
-####Probablity:####
+**Probablity:**
 `probability` generates a hash mapping each unique element in the array to the relative frequency, i.e. the probablity, of it appearence.
 
 ```ruby
 [:a, :b, :c, :c].probability #=> { a: 0.25, b: 0.25, c: 0.5 }
 ```
 
-####Reject Values:####
+**Reject Values:**
 `reject_values` delete multiple values from array from a array copy.
 
 ```ruby
 [1, 2, 3, 4, 5].reject_values(2,4) #=> [1, 3, 5]
 ```
 
-####Sample:####
+**Sample:**
 `sample!` deletes a random value and returns that value.
 
 ```ruby
 [1, 2, 3, 4, 5].sample! #=> 2
 ```
 
-####Split:####
+**Split:**
 `split` divides the array into one or more subarrays based on a delimiting value or the result of an optional block.
 
 ```ruby
@@ -188,7 +188,7 @@ end
 (1..10).to_a.split { |i| i % 3 == 0 } # => [[1, 2], [4, 5], [7, 8], [10]]
 ```
 
-####Strip:####
+**Strip:**
 `strip` and `strip!` removes blank elements from an array.
 
 ```ruby
@@ -196,7 +196,7 @@ end
 'this    is   a  test'.split(' ').strip #=> ['this', 'is', 'a', 'test']
 ```
 
-####To:####
+**To:**
 `to` returns the beginning of the array up to position.
 
 ```ruby
@@ -205,7 +205,7 @@ end
 ['1', '2', '3'].to(-1) #=> ['3']
 ```
 
-####To Sentence:####
+**To Sentence:**
 `to_sentence` converts the array to a comma-separated sentence where the last element is joined by the connector word.
 
 **Options:**
@@ -224,14 +224,14 @@ end
 
 ## Enumerable
 
-####Cluster:####
+**Cluster:**
 `cluster` clusters together adjacent elements into a list of sub-arrays.
 
 ```ruby
 [2,2,2,3,3,4,2,2,1].cluster { |x| x } #=> [[2, 2, 2], [3, 3], [4], [2, 2], [1]]
 ```
 
-####Difference:####
+**Difference:**
 `difference` returns the difference of a collection of numbers.
 
 ```ruby
@@ -240,7 +240,7 @@ end
 [1,2,3].difference #=> -4
 ```
 
-####Divisible:####
+**Divisible:**
 `divisible` returns the division of a collection of numbers.
 
 ```ruby
@@ -249,7 +249,7 @@ end
 [16,4,2].divisible #=> 2
 ```
 
-####Drop Last:####
+**Drop Last:**
 `drop_last` drops the last number of elements of a collection.
 
 ```ruby
@@ -258,7 +258,7 @@ end
 [1,2,3].drop_last(2) #=> [1]
 ```
 
-####Drop Last If:####
+**Drop Last If:**
 `drop_last_if` drops the last number of elements of a collection while it meets a criteria.
 
 ```ruby
@@ -267,7 +267,7 @@ end
 [1,2,3,4].drop_last_if(&:odd?) #=> [1,2,3,4]
 ```
 
-####Exactly:####
+**Exactly:**
 `exactly?` returns if there are exactly the number of an element type.
 
 ```ruby
@@ -276,7 +276,7 @@ end
 [1,1,3,3].exactly?(2, &:even?) #=> false
 ```
 
-####Exclude:####
+**Exclude:**
 `exclude?` returns true if the collection does not include the object.
 
 ```ruby
@@ -284,14 +284,14 @@ end
 [1, 2, 3].exclude?(3) #=> false
 ```
 
-####Expand:####
+**Expand:**
 `expand` expand all elements of an Enumerable object.
 
 ```ruby
 [0, 2..3, 5..7].expand #=> [0,[2, 3],[5,6,7]]
 ```
 
-####Exponential:####
+**Exponential:**
 `exponential` returns the exponential of a collection of numbers.
 
 ```ruby
@@ -300,7 +300,7 @@ end
 [2,3,4].exponential #=> 4096
 ```
 
-####Frequencies:####
+**Frequencies:**
 `frequencies` returns a hash of the number of times a value in an array appears.
 
 ```ruby
@@ -308,7 +308,7 @@ end
 [1, :symbol, 'string', 3, :symbol, 1].frequencies #=> { 1 => 2, :symbol => 2, 'string' => 1, 3 => 1 }
 ```
 
-####Incase:####
+**Incase:**
 `incase?` the same as #include? but tested using #=== instead of #==.
 
 ```ruby
@@ -316,7 +316,7 @@ end
 [1, 2, 'a'].incase?(3)      #=> false
 ```
 
-####Many:####
+**Many:**
 `many?` returns if collection has more than one element while respecting nil and false as an element.
 
 ```ruby
@@ -327,7 +327,7 @@ end
 
 ```
 
-####Max:####
+**Max:**
 `max` returns the largest value of a collection of numbers.
 
 ```ruby
@@ -336,7 +336,7 @@ end
 [1,2,3].max #=> 3
 ```
 
-####Min:####
+**Min:**
 `min` returns the smallest value of a collection of numbers.
 
 ```ruby
@@ -345,7 +345,7 @@ end
 [1,2,3].min #=> 1
 ```
 
-####Mean:####
+**Mean:**
 `mean` and `average` returns the average of a collection of numbers.
 
 ```ruby
@@ -354,7 +354,7 @@ end
 [1,2,3].mean #=> 2
 ```
 
-####Median:####
+**Median:**
 `median` returns the middle value of a collection of numbers.
 
 ```ruby
@@ -364,7 +364,7 @@ end
 [1,2,3,6].median #=> 2.5
 ```
 
-####Mode:####
+**Mode:**
 `mode` returns the most frequent value of a collection of numbers.
 
 ```ruby
@@ -374,7 +374,7 @@ end
 [1,1,2,6].mode #=> 1
 ```
 
-####Multiple:####
+**Multiple:**
 `multiple` returns the multiplication of a collection of numbers.
 
 ```ruby
@@ -383,7 +383,7 @@ end
 [1,2,3].multiple #=> 6
 ```
 
-####Range:####
+**Range:**
 `range` returns the difference between the smallest and largest value of a collection of numbers.
 
 ```ruby
@@ -392,7 +392,7 @@ end
 [1,2,6].range #=> 5
 ```
 
-####Several:####
+**Several:**
 `several?` returns if collection has more than one element while not respecting nil and false as an element.
 
 ```ruby
@@ -402,7 +402,7 @@ end
 [1,1,3,3].several?(&:even?) #=> false
 ```
 
-####Standard Deviation:####
+**Standard Deviation:**
 `standard_deviation` returns the standard deviation of elements of a collection.
 
 ```ruby
@@ -411,7 +411,7 @@ end
 [1,2,6].standard_deviation #=> 2.6457513110645907
 ```
 
-####Sum:####
+**Sum:**
 `sum` returns the sum of a collection of numbers.
 
 ```ruby
@@ -420,7 +420,7 @@ end
 ['foo', 'bar'].sum #=> 'foobar'
 ```
 
-####Take Last:####
+**Take Last:**
 `take_last` returns the last number of elements of a collection.
 
 ```ruby
@@ -429,7 +429,7 @@ end
 [1,2,3].take_last(2) #=> [2,3]
 ```
 
-####Take Last If:####
+**Take Last If:**
 `take_last_if` returns the last number of elements of a collection while it meets a criteria.
 
 ```ruby
@@ -438,7 +438,7 @@ end
 [1,2,3,4].take_last_if(&:odd?) #=> []
 ```
 
-####Variance:####
+**Variance:**
 `variance` returns the variance of elements of a collection.
 
 ```ruby
@@ -449,7 +449,7 @@ end
 
 ## Hash
 
-####Assert Valid Keys:####
+**Assert Valid Keys:**
 `assert_valid_keys` and `assert_valid_keys!` raises an error if key is not included in a list of keys.
 
 ```ruby
@@ -459,7 +459,7 @@ end
 { foo: 'bar', baz: 'boz' }.assert_valid_keys(:foo, :boo) #=> raises 'ArgumentError: Unknown key: :baz. Valid keys are: :foo, :boo'
 ```
 
-####Compact:####
+**Compact:**
 `compact` and `compact!` returns a hash with non nil values.
 
 ```ruby
@@ -468,7 +468,7 @@ end
 { foo: 'bar', baz: false, boo: nil }.compact #=> { foo: 'bar', baz: false }
 ```
 
-####Deep Merge:####
+**Deep Merge:**
 `deep_merge` and `deep_merge!` returns a new hash with self and other_hash merged recursively.
 
 ```ruby
@@ -478,7 +478,7 @@ h2 = { a: false, b: { x: [3, 4, 5] } }
 h1.deep_merge(h2) #=> { a: false, b: { c: [1, 2, 3], x: [3, 4, 5] } }
 ```
 
-####Dig:####
+**Dig:**
 `dig` returns the value of a nested hash.
 
 ```ruby
@@ -488,7 +488,7 @@ h1.dig(:a, :b)     #=> { c: :d }
 h1.dig(:a, :b, :c) #=> :d
 ```
 
-####Except:####
+**Except:**
 `except` and `except!` returns a hash that includes everything but the given keys.
 
 ```ruby
@@ -497,21 +497,21 @@ h1.dig(:a, :b, :c) #=> :d
 { :foo => 'foo', :baz => 'baz', :bar => 'bar' }.except(:baz, :bar) #=> { :foo => 'foo' }
 ```
 
-####Hmap:####
+**Hmap:**
 `hmap` and `hmap!` returns a hash that is transformed in place.
 
 ```ruby
 { a: 1, b: 2, c: 3 }.hmap { |k, v| { k => v + 3 } } #=> { a: 4, b: 5, c: 6 }
 ```
 
-####Nillify:####
+**Nillify:**
 `nillify` and `nillify!` transforms all blank values to nil.
 
 ```ruby
 { a: 1, b: 'test', c: nil, d: false, e: '', f: ' ' }.nillify #=> {a: 1, b: 'test', c: nil, d: nil, e: nil, f: nil}
 ```
 
-####Only:####
+**Only:**
 `only` and `only!` returns only key/value pairs matching certain keys.
 
 ```ruby
@@ -520,7 +520,7 @@ h1.dig(:a, :b, :c) #=> :d
 { :foo => 'foo', :baz => 'baz', :bar => 'bar' }.only(:baz, :bar) #=> { :baz => 'baz', :bar => 'bar' }
 ```
 
-####Rename Keys:####
+**Rename Keys:**
 `rename_keys` and `rename_keys!` rename the keys of a hash.
 
 ```ruby
@@ -528,7 +528,7 @@ h1.dig(:a, :b, :c) #=> :d
 { foo: 'foo', 'baz' => 'baz' }.rename_keys(foo: :bar, 'baz' => 'tick') #=> { bar: 'foo', tick: 'baz' }
 ```
 
-####Reverse Merge:####
+**Reverse Merge:**
 `reverse_merge` and `reverse_merge!` merges one hash into other hash.
 
 ```ruby
@@ -536,7 +536,7 @@ h1.dig(:a, :b, :c) #=> :d
 { foo: 'bar' }.reverse_merge!(baz: 'boo', boo: 'bam') #=> { foo: 'bar', baz: 'boo', boo: 'bam' }
 ```
 
-####Sample:####
+**Sample:**
 `sample` returns a random key-value pair.
 `sample!` deletes a random key-value pair and returns that pair.
 
@@ -547,7 +547,7 @@ h.sample  #=> [:c, 3]
 h.sample! #=> [:a, 1]
 ```
 
-####Sample Key:####
+**Sample Key:**
 `sample_key` returns a random key.
 `sample_key!` delete a random key-value pair, returning the key.
 
@@ -558,7 +558,7 @@ h.sample_key  #=> :b
 h.sample_key! #=> :d
 ```
 
-####Sample Value:####
+**Sample Value:**
 `sample_value` returns a random value.
 `sample_value!` delete a random key-value pair, returning the value.
 
@@ -569,7 +569,7 @@ h.sample_value  #=> 1
 h.sample_value! #=> 3
 ```
 
-####Shuffle:####
+**Shuffle:**
 `shuffle` returns a copy of the hash with values arranged in new random order.
 `shuffle!` returns the hash with values arranged in new random order.
 
@@ -580,7 +580,7 @@ h.shuffle  #=> { b: 2, c: 3, a: 1, d: 4 }
 h.shuffle! #=> { d: 4, b: 2, c: 3, a: 1 }
 ```
 
-####Slice:####
+**Slice:**
 `slice` a hash to include only the given keys. Returns a hash containing the given keys.
 `slice!` replaces the hash with only the given keys. Returns a hash containing the removed key/value pairs.
 
@@ -591,14 +591,14 @@ h.slice(:a, :b)  #=> { a: 1, b: 2 }
 h.slice!(:a, :b) #=> { c: 3, d: 4 }
 ```
 
-####Stringify Keys:####
+**Stringify Keys:**
 `stringify_keys` and `stringify_keys!` converts the hash keys to strings.
 
 ```ruby
 { foo: 'foo', 'bar' => 'bar' }.stringify_keys #=> { 'foo' => 'foo', 'baz' => 'baz' }
 ```
 
-####Strip:####
+**Strip:**
 `strip` and `strip!` returns a hash with non nil, false, or blank values.
 
 ```ruby
@@ -607,28 +607,28 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 { foo: 'bar', baz: false, boo: nil, boz: '', faz: ' ' }.strip #=> { foo: 'bar' }
 ```
 
-####Symbolize Keys:####
+**Symbolize Keys:**
 `symbolize_keys` and `symbolize_keys!` converts the hash keys to symbols.
 
 ```ruby
 { foo: 'foo', 'bar' => 'bar' }.symbolize_keys #=> { foo: 'foo', baz: 'baz' }
 ```
 
-####Symbolize and Underscore Keys:####
+**Symbolize and Underscore Keys:**
 `symbolize_and_underscore_keys` and `symbolize_and_underscore_keys!` symbolize and underscore hash keys.
 
 ```ruby
 { 'firstName' => 'foo', 'last Name' => 'test' }.symbolize_and_underscore_keys #=> { first_name: 'foo', last_name: 'test' }
 ```
 
-####Transform Keys:####
+**Transform Keys:**
 `transform_keys` and `transform_keys!` a new hash with all keys converted using the block operation.
 
 ```ruby
 { foo: 'bar', baz: 'boo' }.transform_keys { |k| k.to_s.upcase } #=> { 'FOO' => 'bar', 'BAZ' => 'boo' }
 ```
 
-####Transform Values:####
+**Transform Values:**
 `transform_values` and `transform_values!` a new hash with all values converted using the block operation.
 
 ```ruby
@@ -637,28 +637,28 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 
 ## Integer
 
-####Factorial:####
+**Factorial:**
 `factorial` calculate the factorial of an integer.
 
 ```ruby
 4.factorial #=> 24
 ```
 
-####Of:####
+**Of:**
 `of` is like #times but returns a collection of the yield results.
 
 ```ruby
 3.of { |i| '#{i+1}' } #=> ['1', '2', '3']
 ```
 
-####Roman:####
+**Roman:**
 `roman` converts this integer to a roman numeral.
 
 ```ruby
 49.roman #=> 'XLIX'
 ```
 
-####Time:####
+**Time:**
 `time` returns a Time object for the given Integer.
 
 ```ruby
@@ -667,42 +667,42 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 
 ## Numeric
 
-####Add:####
+**Add:**
 `add` returns the sum of two numbers.
 
 ```ruby
 4.add(2) #=> 6
 ```
 
-####Bytes in Bytes:####
+**Bytes in Bytes:**
 `byte_in_bytes` and `bytes_in_bytes` returns self.
 
 ```ruby
 3.bytes_in_bytes #=> 3
 ```
 
-####Centigrams in Grams:####
+**Centigrams in Grams:**
 `centigram_in_grams` and `centigrams_in_grams` returns the amount of grams in n centigrams.
 
 ```ruby
 3.centigrams_in_grams #=> 0.03
 ```
 
-####Centimeters in Meters:####
+**Centimeters in Meters:**
 `centimeter_in_meters` and `centimeters_in_meters` returns the amount of meters in n centimeters.
 
 ```ruby
 3.centimeters_in_meters #=> 0.03
 ```
 
-####Centuries_in_seconds:####
+**Centuries_in_seconds:**
 `century_in_seconds` and `centuries_in_seconds` returns the amount of seconds in n centuries.
 
 ```ruby
 3.centuries_in_seconds #=> 9467280000.0
 ```
 
-####Clamp:####
+**Clamp:**
 `clamp` returns a comparable between a lower and upper bound.
 
 ```ruby
@@ -711,55 +711,55 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 8.clamp(3, 6) # => 6
 ```
 
-####Days in Seconds:####
+**Days in Seconds:**
 `day_in_seconds` and `days_in_seconds` returns the amount of seconds in n days.
 
 ```ruby
 3.days_in_seconds #=> 259200
 ```
 
-####Decades in Seconds:####
+**Decades in Seconds:**
 `decade_in_seconds` and `decades_in_seconds` returns the amount of seconds in n decades.
 
 ```ruby
 3.decades_in_seconds #=> 946728000.0
 ```
-####Decagrams in Grams:####
+**Decagrams in Grams:**
 `decagram_in_grams` and `decagrams_in_grams` returns the amount of grams in n decagrams.
 
 ```ruby
 3.decagrams_in_grams #=> 30
 ```
 
-####Decameters in Meters:####
+**Decameters in Meters:**
 `decameter_in_meters` and `decameters_in_meters` returns the amount of meters in n decameters.
 
 ```ruby
 3.decameters_in_meters #=> 30
 ```
 
-####Decigrams in Grams:####
+**Decigrams in Grams:**
 `decigram_in_grams` and `decigrams_in_grams` returns the amount of grams in n decigrams.
 
 ```ruby
 3.decigrams_in_grams #=> 0.3
 ```
 
-####Decimeters in Meters:####
+**Decimeters in Meters:**
 `decimeter_in_meters` and `decimeters_in_meters` returns the amount of meters in n decimeters.
 
 ```ruby
 3.decimeters_in_meters #=> 0.3
 ```
 
-####degrees_to_radians:####
+**degrees_to_radians:**
 `degrees_to_radians` returns number of degrees into radians.
 
 ```ruby
 90.degrees_to_radians #=> 1.5707963267948966
 ```
 
-####Distance:####
+**Distance:**
 `distance` returns the absolute difference between numbers.
 
 ```ruby
@@ -767,42 +767,42 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 3.distance(5) #=> 2
 ```
 
-####Divide:####
+**Divide:**
 `divide` returns the division of two numbers.
 
 ```ruby
 4.divide(2) #=> 2
 ```
 
-####Exabytes in Bytes:####
+**Exabytes in Bytes:**
 `exabyte_in_bytes` and `exabytes_in_bytes` returns the amount of bytes in n exabytes.
 
 ```ruby
 3.exabytes_in_bytes #=> 3458764513820540928
 ```
 
-####Feet in Inches:####
+**Feet in Inches:**
 `foot_in_inches` and `feet_in_inches` returns the amount of inches in n feet.
 
 ```ruby
 3.feet_in_inches #=> 36
 ```
 
-####Gigabytes in Bytes:####
+**Gigabytes in Bytes:**
 `gigabyte_in_bytes` and `gigabytes_in_bytes` returns the amount of bytes in n gigabytes.
 
 ```ruby
 3.gigabytes_in_bytes #=> 3221225472
 ```
 
-####Grams in Grams:####
+**Grams in Grams:**
 `gram_in_grams` and `grams_in_grams` returns self.
 
 ```ruby
 3.grams_in_grams #=> 3
 ```
 
-####Greater Than:####
+**Greater Than:**
 `greater_than?` returns true if self is greater than n.
 
 ```ruby
@@ -811,7 +811,7 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 3.greater_than?(4) #=> false
 ```
 
-####Greater Than or Equal To:####
+**Greater Than or Equal To:**
 `greater_than_or_equal_to?` returns true if self is greater than or equal to n.
 
 ```ruby
@@ -820,35 +820,35 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 3.greater_than_or_equal_to?(4) #=> false
 ```
 
-####Hectograms in Grams:####
+**Hectograms in Grams:**
 `hectogram_in_grams` and `hectograms_in_grams` returns the amount of grams in n hectograms.
 
 ```ruby
 3.hectograms_in_grams #=> 300
 ```
 
-####Hectometers in Meters:####
+**Hectometers in Meters:**
 `hectometer_in_meters` and `hectometers_in_meters` returns the amount of meters in n hectometers.
 
 ```ruby
 3.hectometers_in_meters #=> 300
 ```
 
-####Hours in Seconds:####
+**Hours in Seconds:**
 `hour_in_seconds` and `hours_in_seconds` returns the amount of seconds in n hours.
 
 ```ruby
 3.hours_in_seconds #=> 10800
 ```
 
-####Inches in Inches:####
+**Inches in Inches:**
 `inch_in_inches` and `inches_in_inches` returns the amount of inches in n inches.
 
 ```ruby
 3.inches_in_inches #=> 3
 ```
 
-####Inside:####
+**Inside:**
 `inside?` returns true if n is greater than start and less than finish. Similar to between but does not return true if equal to self.
 
 ```ruby
@@ -856,28 +856,28 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 3.inside?(3, 5) #=> false
 ```
 
-####Kilobytes in Bytes:####
+**Kilobytes in Bytes:**
 `kilobyte_in_bytes` and `kilobytes_in_bytes` returns the amount of bytes in n kilobytes.
 
 ```ruby
 3.kilobytes_in_bytes #=> 3072
 ```
 
-####Kilograms in Grams:####
+**Kilograms in Grams:**
 `kilogram_in_grams` and `kilograms_in_grams` returns the amount of grams in n kilograms.
 
 ```ruby
 3.kilograms_in_grams #=> 3000
 ```
 
-####Kilometers in Meters:####
+**Kilometers in Meters:**
 `kilometer_in_meters` and `kilometers_in_meters` returns the amount of meters in n kilometers.
 
 ```ruby
 3.kilometers_in_meters #=> 3000
 ```
 
-####Less Than:####
+**Less Than:**
 `less_than?` returns true if self is less than n.
 
 ```ruby
@@ -886,7 +886,7 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 3.less_than?(4) #=> true
 ```
 
-####Less Than or Equal To:####
+**Less Than or Equal To:**
 `less_than_or_equal_to?` returns true if self is less than or equal to n.
 
 ```ruby
@@ -895,70 +895,70 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 3.less_than_or_equal_to?(4) #=> true
 ```
 
-####Metric Ton in Ounces:####
+**Metric Ton in Ounces:**
 `metric_ton_in_ounces` and `metric_tons_in_ounces` returns the amount of grams in n metric_tons.
 
 ```ruby
 3.metric_tons_in_ounces #=> 3000000
 ```
 
-####Megabytes in Bytes:####
+**Megabytes in Bytes:**
 `megabyte_in_bytes` and `megabytes_in_bytes` returns the amount of bytes in n megabytes.
 
 ```ruby
 3.megabytes_in_bytes #=> 3145728
 ```
 
-####Meters in Meters:####
+**Meters in Meters:**
 `meter_in_meters` and `meters_in_meters` returns self.
 
 ```ruby
 3.meters_in_meters #=> 3
 ```
 
-####Miles in Inches:####
+**Miles in Inches:**
 `mile_in_inches` and `miles_in_inches` returns the amount of inches in n miles.
 
 ```ruby
 3.miles_in_inches #=> 190080
 ```
 
-####Millenniums in Seconds:####
+**Millenniums in Seconds:**
 `millennium_in_seconds` and `millenniums_in_seconds` returns the amount of seconds in n millenniums.
 
 ```ruby
 3.millenniums_in_seconds #=> 94672800000.0
 ```
 
-####Milligrams in Grams:####
+**Milligrams in Grams:**
 `milligram_in_grams` and `milligrams_in_grams` returns the amount of grams in n milligrams.
 
 ```ruby
 3.milligrams_in_grams #=> 0.003
 ```
 
-####Millimeters in Meters:####
+**Millimeters in Meters:**
 `millimeter_in_meters` and `millimeters_in_meters` returns the amount of meters in n millimeters.
 
 ```ruby
 3.millimeters_in_meters #=> 0.003
 ```
 
-####Minutes in Seconds:####
+**Minutes in Seconds:**
 `minute_in_seconds` and `minutes_in_seconds` returns the amount of seconds in n minutes.
 
 ```ruby
 3.minutes_in_seconds #=> 180
 ```
 
-####Multiply:####
+**Multiply:**
 `multiply` returns the multiplication of two numbers.
 
 ```ruby
 4.multiply(2) #=> 8
 ```
 
-####Multiple Of:####
+**Multiple Of:**
 `multiple_of?` returns true if a number can be evenly divided by n.
 
 ```ruby
@@ -966,14 +966,14 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 7.multiple_of?(3) #=> false
 ```
 
-####Nautical Miles in Inches:####
+**Nautical Miles in Inches:**
 `nautical_mile_in_inches` and `nautical_miles_in_inches` returns the amount of inches in n nautical miles.
 
 ```ruby
 3.nautical_miles_in_inches #=> 218740.26239999998
 ```
 
-####Negative:####
+**Negative:**
 `negative?` returns true if a number is less than zero.
 
 ```ruby
@@ -981,7 +981,7 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 1.negative? #=> false
 ```
 
-####Ordinal:####
+**Ordinal:**
 `ordinal` returns the suffix that should be added to a number to denote the position in an ordered sequence such as 1st, 2nd, 3rd, 4th.
 
 ```ruby
@@ -991,7 +991,7 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 '11'.ordinal #=> 'th'
 ```
 
-####Ordinalize:####
+**Ordinalize:**
 `ordinalize` transforms a number into an ordinal string used to denote the position in an ordered sequence such as 1st, 2nd, 3rd, 4th.
 
 ```ruby
@@ -1001,14 +1001,14 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 '11'.ordinalize #=> '4th'
 ```
 
-####Ounces in Ounces:####
+**Ounces in Ounces:**
 `ounce_in_ounces` and `ounces_in_ounces` returns self.
 
 ```ruby
 3.ounces_in_ounces #=> 48
 ```
 
-####Outside:####
+**Outside:**
 `outside?` returns true if n is less than start or greater than finish.
 
 ```ruby
@@ -1016,7 +1016,7 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 3.outside?(3, 5) #=> false
 ```
 
-####Pad:####
+**Pad:**
 `pad` returns a string reprensentation of the number padded with pad_num to a specified length.
 
 ```ruby
@@ -1025,7 +1025,7 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 3.pad(precision: 4)  #=> '0003'
 ```
 
-####Pad Precision:####
+**Pad Precision:**
 `pad_precision` returns a string of padded after the '.' to n amount.
 
 **Options**
@@ -1039,14 +1039,14 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 3.pad_precision(pad_number: 1) #=> '3.11'
 ```
 
-####Petabytes in Bytes:####
+**Petabytes in Bytes:**
 `petabyte_in_bytes` and `pegabytes_in_bytes` returns the amount of bytes in n petabytes.
 
 ```ruby
 3.petabytes_in_bytes #=> 3377699720527872
 ```
 
-####Positive:####
+**Positive:**
 `positive?` returns true if a number is greater than zero.
 
 ```ruby
@@ -1054,56 +1054,56 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 -1.positive? #=> false
 ```
 
-####Pounds in Ounces:####
+**Pounds in Ounces:**
 `pound_in_ounces` and `pounds_in_ounces` returns the amount of ounces in n pounds.
 
 ```ruby
 3.pounds_in_ounces #=> 48
 ```
 
-####Power:####
+**Power:**
 `power` returns the nth power of a number.
 
 ```ruby
 4.power(2) #=> 16
 ```
 
-####Root:####
+**Root:**
 `root` returns the nth root of a number.
 
 ```ruby
 4.root(2) #=> 2
 ```
 
-####Seconds in Seconds:####
+**Seconds in Seconds:**
 `second_in_seconds` and `seconds_in_seconds` returns self.
 
 ```ruby
 3.seconds #=> 3
 ```
 
-####Stones in Ounces:####
+**Stones in Ounces:**
 `stone_in_ounces` and `stone_in_ounces` returns the amount of ounces in n stones.
 
 ```ruby
 3.stones_in_ounces #=> 672
 ```
 
-####Subtract:####
+**Subtract:**
 `subtract` returns the difference of two numbers.
 
 ```ruby
 4.subtract(2) #=> 2
 ```
 
-####Terabytes in Bytes:####
+**Terabytes in Bytes:**
 `terabyte_in_bytes` and `terabytes_in_bytes` returns the amount of bytes in n terabytes.
 
 ```ruby
 3.terabytes_in_bytes #=> 3298534883328
 ```
 
-####To Byte:####
+**To Byte:**
 `to_byte_in_bytes` converts a byte size from one unit to another unit.
 
 ```ruby
@@ -1113,7 +1113,7 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 80.to_byte(:megabyte, :gigabyte) #=> 0.078125 #GB
 ```
 
-####To Currency:####
+**To Currency:**
 `to_currency` converts a number to currency string.
 
 **Options**
@@ -1128,7 +1128,7 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 3.to_currency(unit: '@') #=> '@3.00'
 ```
 
-####To Length:####
+**To Length:**
 `to_length` converts a length from one unit to another unit.
 
 ```ruby
@@ -1138,7 +1138,7 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 1.to_length(:kilometer, :yards)      #=> 1093.6138888888888 #YDS
 ```
 
-####To Mass:####
+**To Mass:**
 `to_mass` converts a mass from one unit to another unit.
 
 ```ruby
@@ -1148,7 +1148,7 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 1.to_mass(:kilograms, :pounds)      #=> 2.204625 #LB
 ```
 
-####To Nearest Value:####
+**To Nearest Value:**
 `to_nearest value` return the value in values that is nearest to the number.
 
 ```ruby
@@ -1156,7 +1156,7 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 3.5.to_nearest_value([3.0, 3.3, 3.6, 3.9]) #=> 3.6
 ```
 
-####To Percantage:####
+**To Percantage:**
 `to_percentage` converts a number to percentage string.
 
 **Options**
@@ -1171,7 +1171,7 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 3.to_percentage(unit: '@') #=> '3.00@'
 ```
 
-####To Temperature:####
+**To Temperature:**
 `to_temperature` converts a temperature from one unit to another unit.
 
 ```ruby
@@ -1180,7 +1180,7 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 212.to_temperature(:fahrenheit, :kelvin)  #=> 373.15 #K
 ```
 
-####To Time:####
+**To Time:**
 `to_time` converts a time unit from one unit to another unit.
 
 ```ruby
@@ -1190,35 +1190,35 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 1825.to_time(:days, :years)     #=> 4.996577686516085 #YR
 ```
 
-####Tons in Ounces:####
+**Tons in Ounces:**
 `ton_in_ounces` and `ton_in_ounces` returns the amount of ounces in n tons.
 
 ```ruby
 3.tons_in_ounces #=> 96000
 ```
 
-####Weeks in Seconds:####
+**Weeks in Seconds:**
 `week_in_seconds` and `weeks_in_seconds` returns the amount of seconds in n weeks.
 
 ```ruby
 3.weeks_in_seconds #=> 1814400
 ```
 
-####Within:####
+**Within:**
 `within?` determines if another number is approximately equal within a given epsilon
 
 ```ruby
 10.006.within?(10, 0.1) #=>  true
 ```
 
-####Yards in Inches:####
+**Yards in Inches:**
 `yard_in_inches` and `yards_in_inches` returns the amount of inches in n yards.
 
 ```ruby
 3.yards_in_inches #=> 108
 ```
 
-####Years in Seconds:####
+**Years in Seconds:**
 `year_in_seconds` and `years_in_seconds` returns the amount of seconds in n years.
 
 ```ruby
@@ -1227,7 +1227,7 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 
 ## Object
 
-####Array:####
+**Array:**
 `array?` determines if an object is an array.
 
 ```ruby
@@ -1235,7 +1235,7 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 'Awesome Sting'.array? #=> false
 ```
 
-####Blank:####
+**Blank:**
 `blank?` determines if an object is empty or nil.
 
 ```ruby
@@ -1243,7 +1243,7 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 'Awesome Sting'.blank? #=> false
 ```
 
-####Boolean:####
+**Boolean:**
 `boolean?` determines if an object is an boolean.
 
 ```ruby
@@ -1252,7 +1252,7 @@ false.boolean? #=> true
 'foo'.boolean? #=> false
 ```
 
-####False:####
+**False:**
 `false?` determines if an object is false.
 
 ```ruby
@@ -1260,7 +1260,7 @@ false.false? #=> true
 true.false?  #=> false
 ```
 
-####Falsey:####
+**Falsey:**
 `falsey?` determines if an object is false, nil, or 0.
 
 ```ruby
@@ -1269,7 +1269,7 @@ true.falsey?  #=> false
 0.falsey?     #=> true
 ```
 
-####Float:####
+**Float:**
 `float?` determines if an object is a float.
 
 ```ruby
@@ -1277,7 +1277,7 @@ true.falsey?  #=> false
 1.float?   #=> false
 ```
 
-####Hash:####
+**Hash:**
 `hash?` determines if an object is a hash.
 
 ```ruby
@@ -1285,7 +1285,7 @@ true.falsey?  #=> false
 [].hash? #=> false
 ```
 
-####Integer:####
+**Integer:**
 `integer?` determines if an object is a integer.
 
 ```ruby
@@ -1293,7 +1293,7 @@ true.falsey?  #=> false
 1.0.integer? #=> false
 ```
 
-####Numeric:####
+**Numeric:**
 `numeric?` determines if an object is numeric.
 
 ```ruby
@@ -1302,7 +1302,7 @@ true.falsey?  #=> false
 '1.0'.numeric? #=> false
 ```
 
-####Numeral:####
+**Numeral:**
 `numeral?` determines if an object's string value is numeral.
 
 ```ruby
@@ -1310,7 +1310,7 @@ true.falsey?  #=> false
 '$2.55'.numeral?  #=> false
 ```
 
-####Palindrome:####
+**Palindrome:**
 `palindrome?` determines if an object is equal when reversed.
 
 ```ruby
@@ -1320,7 +1320,7 @@ true.falsey?  #=> false
 12345.palindrome?     #=> false
 ```
 
-####Present:####
+**Present:**
 `present?` determines if an object is not empty or nil.
 
 ```ruby
@@ -1328,7 +1328,7 @@ true.falsey?  #=> false
 ''.present?              #=> false
 ```
 
-####Range:####
+**Range:**
 `range?` determines if an object is a range.
 
 ```ruby
@@ -1336,7 +1336,7 @@ true.falsey?  #=> false
 1.range?      #=> false
 ```
 
-####Salvage:####
+**Salvage:**
 `salvage` returns a placeholder if object is blank?.
 
 ```ruby
@@ -1345,7 +1345,16 @@ nil.salvage('bar') #=> 'bar'
 123.salvage        #=> 123
 ```
 
-####String:####
+**Send Chain:**
+`send_chain` chains multiple callers to an object.
+
+```ruby
+3.send_chain(:factorial)            #=> 6
+3.send_chain([:add, 4])             #=> 7
+3.send_chain(:factorial, [:add, 4]) #=> 10
+```
+
+**String:**
 `string?` determines if an object is a string.
 
 ```ruby
@@ -1353,7 +1362,7 @@ nil.salvage('bar') #=> 'bar'
 1.string?     #=> false
 ```
 
-####Time:####
+**Time:**
 `time?` determines if an object is a time.
 
 ```ruby
@@ -1361,7 +1370,7 @@ Time.now.time? #=> true
 'foo'.time?    #=> false
 ```
 
-####True:####
+**True:**
 `true?` determines if an object is true.
 
 ```ruby
@@ -1369,7 +1378,7 @@ true.true?  #=> true
 false.true? #=> false
 ```
 
-####Truthy:####
+**Truthy:**
 `truthy?` determines if an object is true or 1.
 
 ```ruby
@@ -1378,7 +1387,7 @@ false.truthy? #=> false
 1.truthy?     #=> true
 ```
 
-####Try:####
+**Try:**
 `try` and `try!` invokes the public method whose name goes as first argument just like public_send does, except that if the receiver does not respond to it the call returns nil rather than raising an exception.
 
 ```ruby
@@ -1388,14 +1397,14 @@ false.truthy? #=> false
 
 ## Range
 
-####Combine:####
+**Combine:**
 `combine` returns two concated ranges.
 
 ```ruby
 (1..3).combine(7..9) #=> [1, 2, 3, 7, 8, 9]
 ```
 
-####Include With Range:####
+**Include With Range:**
 `include_with_range?` determines if a range includes another range.
 
 ```ruby
@@ -1404,7 +1413,7 @@ false.truthy? #=> false
 (1..5).include?(2..6) # => false
 ```
 
-####Overlaps:####
+**Overlaps:**
 `overlaps?` determines if two ranges overlap each other.
 
 ```ruby
@@ -1412,14 +1421,14 @@ false.truthy? #=> false
 (1..5).overlaps?(7..9) # => false
 ```
 
-####Sample:####
+**Sample:**
 `sample` returns a random element from the range.
 
 ```ruby
 (1..5).sample # => 4
 ```
 
-####Shuffle:####
+**Shuffle:**
 `shuffle` returns a copy of a shuffled range of elements.
 `shuffle!` returns a shuffled range of elements.
 
@@ -1428,7 +1437,7 @@ false.truthy? #=> false
 (1..5).shuffle! # => [3, 4, 5, 2, 1]
 ```
 
-####Within:####
+**Within:**
 `within?` determines if one range is within another.
 
 ```ruby
@@ -1438,7 +1447,7 @@ false.truthy? #=> false
 
 ## String
 
-####Any:####
+**Any:**
 `any?` determines if a string includes a set of string(s).
 
 ```ruby
@@ -1446,7 +1455,7 @@ false.truthy? #=> false
 'example string'.any?('foo', 'string') #=> true
 ```
 
-####At:####
+**At:**
 `at` returns the characters at index position, matching string, or regex.
 
 ```ruby
@@ -1458,7 +1467,7 @@ false.truthy? #=> false
 'example_string'.at(99)    #=> nil
 ```
 
-####Camelize:####
+**Camelize:**
 `camelize` and `camelize!` transfroms a string to camelcase.
 
 ```ruby
@@ -1468,7 +1477,7 @@ false.truthy? #=> false
 'example_String'.camecase(:lower) #=> 'exampleString'
 ```
 
-####Classify:####
+**Classify:**
 `classify` and `classify!` creates a class name from a string like Rails does for table names to models.
 
 ```ruby
@@ -1477,21 +1486,21 @@ false.truthy? #=> false
 'example_string.test'.classify #=> 'Test'
 ```
 
-####Constantize:####
+**Constantize:**
 `constantize` converts a string in an object.
 
 ```ruby
 'Example::String'.constantize #=> Class Object
 ```
 
-####Dasherize:####
+**Dasherize:**
 `dasherize` and `dasherize!` replaces underscores with dashes in the string.
 
 ```ruby
 'example_string'.dasherize #=> 'example-string'
 ```
 
-####Deconstantize:####
+**Deconstantize:**
 `deconstantize` and `deconstantize!` removes the rightmost segment from the constant expression in the string.
 
 ```ruby
@@ -1502,7 +1511,7 @@ false.truthy? #=> false
 ''.deconstantize                  # => ''
 ```
 
-####Demodulize:####
+**Demodulize:**
 `demodulize` and `demodulize!` removes the module part from the expression in the string.
 
 ```ruby
@@ -1510,7 +1519,7 @@ false.truthy? #=> false
 'String'.demodulize          #=> 'String'
 ```
 
-####Domain:####
+**Domain:**
 `domain` extracts the domain name from a URL.
 
 ```ruby
@@ -1518,7 +1527,7 @@ false.truthy? #=> false
 'example string'.domain                   #=> 'example string'
 ```
 
-####Downcase:####
+**Downcase:**
 `downcase?` returns true if all characters are lowercase.
 
 ```ruby
@@ -1527,7 +1536,7 @@ false.truthy? #=> false
 'EXAMPLE'.downcase? #=> false
 ```
 
-####Ellipsize:####
+**Ellipsize:**
 `ellipsize` truncate a string in the middle.
 
 **Options**
@@ -1541,7 +1550,7 @@ false.truthy? #=> false
 '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.ellipsize(30, separator: '+++') #=> '0123+++WXYZ'
 ```
 
-####Exclude:####
+**Exclude:**
 `exclude?` returns true if the string does not include the other string.
 
 ```ruby
@@ -1549,7 +1558,7 @@ false.truthy? #=> false
 'example_string'.exclude?('xxx') #=> true
 ```
 
-####First:####
+**First:**
 `first` returns the first character. If a limit is supplied, returns a substring from the beginning of the string until it reaches the limit value. If the given limit is greater than or equal to the string length, returns a copy of self.
 
 ```ruby
@@ -1558,7 +1567,7 @@ false.truthy? #=> false
 'example'.first(3) #=> 'exa'
 ```
 
-####Format:####
+**Format:**
 `format` returns an interpolated string that allows for options.
 
 ```ruby
@@ -1567,7 +1576,7 @@ false.truthy? #=> false
 '%d + %d'.format([1, 2])                                   #=> '1 + 2'
 ```
 
-####From:####
+**From:**
 `from` returns a substring from the given position to the end of the string. If the position is negative, it is counted from the end of the string.
 
 ```ruby
@@ -1575,7 +1584,7 @@ false.truthy? #=> false
 'example'.from(3) #=> 'mple'
 ```
 
-####Humanize:####
+**Humanize:**
 `humanize` and `humanize!` transforms a string to a human readable string.
 
 **Options**
@@ -1587,7 +1596,7 @@ false.truthy? #=> false
 'example_string'.humanize(capitalize: false) #=> 'example string'
 ```
 
-####Indent:####
+**Indent:**
 `indent` and `indent!` indents the lines in the receiver.
 
 ```ruby
@@ -1595,7 +1604,7 @@ false.truthy? #=> false
 'example'.indent(2, '\t') #=> '\t\texample'
 ```
 
-####Index all:####
+**Index all:**
 `index_all` returns the index values of matching patterns.
 
 ```ruby
@@ -1604,7 +1613,7 @@ false.truthy? #=> false
 'asdfasdfasdf'.index_all(/sd/)                              #=> [1,5,9]
 ```
 
-####Labelize:####
+**Labelize:**
 `labelize` and `labelize!` transforms a string to a human readable string.
 
 ```ruby
@@ -1613,7 +1622,7 @@ false.truthy? #=> false
 'ExampleString'.labelize      #=> 'Example string'
 ```
 
-####Last:####
+**Last:**
 `last` returns the last character of the string. If a limit is supplied, returns a substring from the end of the string until it reaches the limit value (counting backwards). If the given limit is greater than or equal to the string length, returns a copy of self.
 
 ```ruby
@@ -1622,7 +1631,7 @@ false.truthy? #=> false
 'example'.first(3) #=> 'ple'
 ```
 
-####Mixcase:####
+**Mixcase:**
 `mixcase?` returns true if characters are mixedcase.
 
 ```ruby
@@ -1631,7 +1640,7 @@ false.truthy? #=> false
 'example'.mixedcase? #=> false
 ```
 
-####Ordinal:####
+**Ordinal:**
 `ordinal` returns the suffix that should be added to a number to denote the position in an ordered sequence such as 1st, 2nd, 3rd, 4th.
 
 ```ruby
@@ -1641,7 +1650,7 @@ false.truthy? #=> false
 '11'.ordinal #=> 'th'
 ```
 
-####Ordinalize:####
+**Ordinalize:**
 `ordinalize` transforms a number into an ordinal string used to denote the position in an ordered sequence such as 1st, 2nd, 3rd, 4th.
 
 ```ruby
@@ -1651,7 +1660,7 @@ false.truthy? #=> false
 '11'.ordinalize #=> '4th'
 ```
 
-####Parameterize:####
+**Parameterize:**
 `parameterize` and `parameterize!` makes string suitable for a dashed url parameter string.
 
 ```ruby
@@ -1659,7 +1668,7 @@ false.truthy? #=> false
 'example_string'.parameterize(separator: '?') #=> 'example?string'
 ```
 
-####Pollute:####
+**Pollute:**
 `pollute` and `pollute!` pollutes the space between every letter in a string, so it will be exempt from any impending string searches.
 
 ```ruby
@@ -1667,21 +1676,21 @@ false.truthy? #=> false
 'test'.pollute('-') #=> 't-e-s-t-'
 ```
 
-####Pop:####
+**Pop:**
 `pop` returns the last character of a string.
 
 ```ruby
 'test'.pop #=> 't'
 ```
 
-####Push:####
+**Push:**
 `push` concats string to self.
 
 ```ruby
 'test'.push('er') #=> 'tester'
 ```
 
-####Remove:####
+**Remove:**
 `remove` and `remove!` removes every instance of a string.
 
 ```ruby
@@ -1691,7 +1700,7 @@ false.truthy? #=> false
 'this thing that them'.remove('thing', 1..3)   #=> 't  that them'
 ```
 
-####Remove Tags:####
+**Remove Tags:**
 `remove_tags` and `remove_tags!` removes HTML tags from a string.
 
 ```ruby
@@ -1700,7 +1709,7 @@ false.truthy? #=> false
 'this is <b>bold</b> and <em>emphatic</em>'.strip_tags #=> 'this is bold and emphatic'
 ```
 
-####Sample:####
+**Sample:**
 `sample` and `sample!` deletes a random value and returns that value.
 
 ```ruby
@@ -1708,7 +1717,7 @@ false.truthy? #=> false
 'this thing that'.sample(' thing ') #=> 'that'
 ```
 
-####Shift:####
+**Shift:**
 `shift` and `shift!` removes the first instance of a string.
 
 ```ruby
@@ -1717,7 +1726,7 @@ false.truthy? #=> false
 'this thing that thing'.shift('this', 'that') #=> ' thing  thing'
 ```
 
-####Shuffle:####
+**Shuffle:**
 `shuffle` and `shuffle!` randomizes the characters in a string.
 
 ```ruby
@@ -1725,7 +1734,7 @@ false.truthy? #=> false
 'ruby rules'.sample! #=> 'rblse syru'
 ```
 
-####Sift:####
+**Sift:**
 `sift` and `sift!` returns a string matching any character in a pattern.
 
 ```ruby
@@ -1734,7 +1743,7 @@ false.truthy? #=> false
 'qa2ws3ed4rf5tg6yh7uj8ik9ol'.sift([0,1,2,3,4,5,6,7,8,9]) #=> '23456789'
 ```
 
-####Slugify:####
+**Slugify:**
 `slugify` and `slugify!` generates a permalink-style string, with odd characters removed.
 
 ```ruby
@@ -1743,14 +1752,14 @@ false.truthy? #=> false
 'Example string @@@ test!'.slugify #=> 'example-string-test'
 ```
 
-####Sort:####
+**Sort:**
 `sort` and `sort!` sorts a string.
 
 ```ruby
 'adbec'.sort #=> 'abcde'
 ```
 
-####Squish:####
+**Squish:**
 `squish` and `squish!` returns the string, first removing all whitespace on both ends of the string, and then changing remaining consecutive whitespace groups into one space each.
 
 ```ruby
@@ -1759,7 +1768,7 @@ false.truthy? #=> false
 '   example    string   '.squish  #=> 'example string'
 ```
 
-####Titleize:####
+**Titleize:**
 `titleize` and `titleize!` capitalizes each word in a string.
 
 ```ruby
@@ -1768,7 +1777,7 @@ false.truthy? #=> false
 'ExampleString'.titleize      #=> 'Example String'
 ```
 
-####To:####
+**To:**
 `to` returns a substring from the beginning of the string to the given position. If the position is negative, it is counted from the end of the string.
 
 ```ruby
@@ -1777,7 +1786,7 @@ false.truthy? #=> false
 'example'.to(-2) #=> 'exampl'
 ```
 
-####Truncate:####
+**Truncate:**
 `truncate` a given text after a given length if text is longer than length.
 
 **Options**
@@ -1792,7 +1801,7 @@ false.truthy? #=> false
 'example string'.truncate(15)                         #=> 'example string'
 ```
 
-####Truncate Words:####
+**Truncate Words:**
 `truncate_words` truncates a given text after a given number of words.
 
 **Options**
@@ -1805,7 +1814,7 @@ false.truthy? #=> false
 'And they found that many people were sleeping better.'.truncate_words(5, omission: '... (continued)') #=> 'And they found that many... (continued)'
 ```
 
-####Underscore:####
+**Underscore:**
 `underscore` and `underscore!` transforms a string to snakecase.
 
 ```ruby
@@ -1814,7 +1823,7 @@ false.truthy? #=> false
 'ExampleString::Test'.underscore #=> 'example_string/test'
 ```
 
-####Unpollute:####
+**Unpollute:**
 `unpollute` and `unpollute!` removes the default or custom pollution character. Can also be used to remove an unwanted character.
 
 ```ruby
@@ -1822,7 +1831,7 @@ false.truthy? #=> false
 't-e-s-t-'.unpollute                         #=> 'test'
 ```
 
-####Upcase:####
+**Upcase:**
 `upcase?` returns true if all characters are uppercase.
 
 ```ruby
@@ -1831,7 +1840,7 @@ false.truthy? #=> false
 'Example'.upcase? #=> false
 ```
 
-####Unshift:####
+**Unshift:**
 `unshift` and `unshift!` prepends string(s) to self.
 
 ```ruby
@@ -1843,7 +1852,7 @@ false.truthy? #=> false
 
 *Note:* also works with Date class.
 
-####Format:####
+**Format:**
 `format` converts a Date or Time object to format it using a human readable string.
 
 **Rules**
@@ -1886,7 +1895,7 @@ Time.now.format('month_name day, year hour:minute ampm') #=> 'January 09, 2014 0
 | Time Zone - hour and minute offset | `zz` or `time_zone_offset` | %z | +09:00 |
 | Time Zone - hour, minute and second offset | `zzz` or `time_zone_offset_full` | %z | +09:00:00 |
 
-####To Format / Stamp:####
+**To Format / Stamp:**
 `to_format` and `stamp` converts a Date or Time object to a predefined format.
 
 **For a full list check out the time extention file.**

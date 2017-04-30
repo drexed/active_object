@@ -196,6 +196,20 @@ describe ActiveObject::Object do
     end
   end
 
+  describe '#send_chain' do
+    it 'to be 6' do
+      expect(3.send_chain(:factorial)).to eq(6)
+    end
+
+    it 'to be 7' do
+      expect(3.send_chain([:add, 4])).to eq(7)
+    end
+
+    it 'to be 10' do
+      expect(3.send_chain(:factorial, [:add, 4])).to eq(10)
+    end
+  end
+
   describe '#string?' do
     it 'to be true' do
       expect('foo'.string?).to eq(true)

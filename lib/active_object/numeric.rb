@@ -28,31 +28,28 @@ module ActiveObject::Numeric
   CENTURY ||= DECADE * 10.0
   MILLENNIUM ||= CENTURY * 10.0
 
-  BYTE_KEYS ||= [
-    :byte, :bytes, :kilobyte, :kilobytes, :megabyte, :megabytes, :gigabyte, :gigabytes, :terabyte,
-    :terabytes, :petabyte, :petabytes, :exabyte, :exabytes
+  BYTE_KEYS ||= %i[
+    byte bytes kilobyte kilobytes megabyte megabytes gigabyte gigabytes terabyte terabytes petabyte
+    petabytes exabyte exabytes
   ].freeze
   LENGTH_KEYS ||= {
-    metric: [
-      :meter, :meters, :millimeter, :millimeters, :centimeter, :centimeters, :decimeter,
-      :decimeters, :decameter, :decameters, :hectometer, :hectometers, :kilometer, :kilometers
+    metric: %i[
+      meter meters millimeter millimeters centimeter centimeters decimeter decimeters decameter
+      decameters hectometer hectometers kilometer kilometers
     ],
-    imperical: [
-      :inch, :inches, :foot, :feet, :yard, :yards, :mile, :miles, :nautical_mile, :nautical_miles
-    ]
+    imperical: %i[inch inches foot feet yard yards mile miles nautical_mile nautical_miles]
   }.freeze
   MASS_KEYS ||= {
-    metric: [
-      :gram, :grams, :milligram, :milligrams, :centigram, :centigrams, :decigram, :decigrams,
-      :decagram, :decagrams, :hectogram, :hectograms, :kilogram, :kilograms, :metric_ton,
-      :metric_tons
+    metric: %i[
+      gram grams milligram milligrams centigram centigrams decigram decigrams decagram decagrams
+      hectogram hectograms kilogram kilograms metric_ton metric_tons
     ],
-    imperical: [:ounce, :ounces, :pound, :pounds, :stone, :stones, :ton, :tons]
+    imperical: %i[ounce ounces pound pounds stone stones ton tons]
   }.freeze
-  TEMPERATURE_KEYS ||= [:celsius, :fahrenheit, :kelvin].freeze
-  TIME_KEYS ||= [
-    :second, :seconds, :minute, :minutes, :hour, :hours, :day, :days, :week, :weeks, :year, :years,
-    :decade, :decades, :century, :centuries, :millennium, :millenniums
+  TEMPERATURE_KEYS ||= %i[celsius fahrenheit kelvin].freeze
+  TIME_KEYS ||= %i[
+    second seconds minute minutes hour hours day days week weeks year years decade decades century
+    centuries millennium millenniums
   ].freeze
 
   def add(num)

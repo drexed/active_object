@@ -60,6 +60,10 @@ module ActiveObject::Object
     blank? ? placeholder : self
   end
 
+  def send_chain(*keys)
+    Array(keys).inject(self) { |obj, key| obj.send(*key) }
+  end
+
   def string?
     is_a?(String)
   end
