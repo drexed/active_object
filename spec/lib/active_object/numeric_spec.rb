@@ -438,6 +438,17 @@ describe ActiveObject::Numeric do
     end
   end
 
+  describe '#percentage_of' do
+    it 'to be 0' do
+      expect(0.percentage_of(4)).to eq(0)
+      expect(2.percentage_of(0)).to eq(0)
+    end
+
+    it 'to be 50.0' do
+      expect(2.percentage_of(4)).to eq(50.0)
+    end
+  end
+
   describe '#petabyte_in_bytes' do
     it 'to be 3377699720527872' do
       expect(3.petabyte_in_bytes).to eq(3377699720527872)

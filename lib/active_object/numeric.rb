@@ -364,6 +364,11 @@ module ActiveObject::Numeric
   # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/MethodLength, Metrics/PerceivedComplexity
 
+  def percentage_of(number)
+    return 0 if zero? || number.zero?
+    (to_f / number.to_f) * 100.0
+  end
+
   def petabytes_in_bytes
     self * PETABYTE
   end

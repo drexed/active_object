@@ -1039,6 +1039,15 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 3.pad_precision(pad_number: 1) #=> '3.11'
 ```
 
+**Percentage Of:**
+`percentage_of` returns the percentage of a number in relation to another number.
+
+```ruby
+0.percentage_of(4) #=> 0
+2.percentage_of(0) #=> 0
+2.percentage_of(4) #=> 50.0
+```
+
 **Petabytes in Bytes:**
 `petabyte_in_bytes` and `pegabytes_in_bytes` returns the amount of bytes in n petabytes.
 
