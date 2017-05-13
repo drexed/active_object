@@ -30,6 +30,18 @@ describe ActiveObject::Hash do
     end
   end
 
+  describe '#collect_keys' do
+    it 'to be ["FOO", "BAZ"]' do
+      expect({ foo: 'bar', baz: 'boo' }.collect_keys { |k| k.to_s.upcase }).to eq(['FOO', 'BAZ'])
+    end
+  end
+
+  describe '#collect_values' do
+    it 'to be ["BAR", "BOO"]' do
+      expect({ foo: 'bar', baz: 'boo' }.collect_values { |k| k.to_s.upcase }).to eq(['BAR', 'BOO'])
+    end
+  end
+
   describe '#compact(!)' do
     it 'to be nil' do
       expect({}.compact!).to eq(nil)

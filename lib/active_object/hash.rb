@@ -28,6 +28,20 @@ module ActiveObject::Hash
     reject! { |_, val| val.nil? }
   end
 
+  # rubocop:disable Lint/UnusedMethodArgument
+  def collect_keys(&block)
+    return(enum_for(:collect_keys)) unless block_given?
+
+    collect { |key, _| yield(key) }
+  end
+
+  def collect_values(&block)
+    return(enum_for(:collect_values)) unless block_given?
+
+    collect { |_, val| yield(val) }
+  end
+  # rubocop:enable Lint/UnusedMethodArgument
+
   def deep_merge(other_hash, &block)
     dup.deep_merge!(other_hash, yield(block))
   end

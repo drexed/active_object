@@ -459,6 +459,22 @@ end
 { foo: 'bar', baz: 'boz' }.assert_valid_keys(:foo, :boo) #=> raises 'ArgumentError: Unknown key: :baz. Valid keys are: :foo, :boo'
 ```
 
+**Collect Keys:**
+`collect_keys` returns an array with all keys converted using the block operation.
+
+```ruby
+{ foo: 'bar', 'baz' => :boo }.collect_keys                       #=> [:foo, 'baz']
+{ foo: 'bar', 'baz' => :boo }.collect_keys { |k| k.to_s.upcase } #=> ['FOO', BAZ']
+```
+
+**Collect Values:**
+`collect_values` returns an array with all values converted using the block operation.
+
+```ruby
+{ foo: 'bar', baz: :boo }.collect_values                       #=> ['bar', :boo]
+{ foo: 'bar', baz: :boo }.collect_values { |k| k.to_s.upcase } #=> ['BAR', BOO']
+```
+
 **Compact:**
 `compact` and `compact!` returns a hash with non nil values.
 
@@ -581,7 +597,7 @@ h.shuffle! #=> { d: 4, b: 2, c: 3, a: 1 }
 ```
 
 **Slice:**
-`slice` a hash to include only the given keys. Returns a hash containing the given keys.
+`slice` returns a hash to include only the given keys. Returns a hash containing the given keys.
 `slice!` replaces the hash with only the given keys. Returns a hash containing the removed key/value pairs.
 
 ```ruby
@@ -622,14 +638,14 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 ```
 
 **Transform Keys:**
-`transform_keys` and `transform_keys!` a new hash with all keys converted using the block operation.
+`transform_keys` and `transform_keys!` returns a new hash with all keys converted using the block operation.
 
 ```ruby
 { foo: 'bar', baz: 'boo' }.transform_keys { |k| k.to_s.upcase } #=> { 'FOO' => 'bar', 'BAZ' => 'boo' }
 ```
 
 **Transform Values:**
-`transform_values` and `transform_values!` a new hash with all values converted using the block operation.
+`transform_values` and `transform_values!` returns a new hash with all values converted using the block operation.
 
 ```ruby
 { foo: 'bar', baz: 'boo' }.transform_values { |v| v.to_s.upcase } #=> {foo: 'BAR', baz: 'BOO' }
