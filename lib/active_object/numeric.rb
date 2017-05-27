@@ -86,13 +86,13 @@ module ActiveObject::Numeric
       min_min = minimum.min
       min_max = minimum.max
 
-      return min_min if self < min_min
+      return min_min if min_min > self
 
-      self > min_max ? min_max : self
+      min_max < self ? min_max : self
     else
-      return minimum if self < minimum
+      return minimum if minimum > self
 
-      self > maximum ? maximum : self
+      maximum < self ? maximum : self
     end
   end
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
@@ -176,11 +176,11 @@ module ActiveObject::Numeric
   alias_method :gram_in_grams, :grams_in_grams
 
   def greater_than?(num)
-    self > num
+    num < self
   end
 
   def greater_than_or_equal_to?(num)
-    self >= num
+    num <= self
   end
 
   def hectograms_in_grams
@@ -212,7 +212,7 @@ module ActiveObject::Numeric
   end
 
   def inside?(start, finish)
-    (start < self) && (self < finish)
+    (start < self) && (finish > self)
   end
 
   def kilobytes_in_bytes
@@ -234,11 +234,11 @@ module ActiveObject::Numeric
   alias_method :kilogram_in_grams, :kilograms_in_grams
 
   def less_than?(num)
-    self < num
+    num > self
   end
 
   def less_than_or_equal_to?(num)
-    self <= num
+    num >= self
   end
 
   def metric_tons_in_grams
@@ -303,11 +303,11 @@ module ActiveObject::Numeric
 
   alias_method :nautical_mile_in_inches, :nautical_miles_in_inches
 
-  # rubocop:disable Style/NumericPredicate
+  # rubocop:disable Style/NumericPredicate, Style/YodaCondition
   def negative?
-    self < 0
+    0 > self
   end
-  # rubocop:enable Style/NumericPredicate
+  # rubocop:enable Style/NumericPredicate, Style/YodaCondition
 
   def ordinal
     if (11..13).cover?(abs % 100)
@@ -333,7 +333,7 @@ module ActiveObject::Numeric
   alias_method :ounce_in_ounces, :ounces_in_ounces
 
   def outside?(start, finish)
-    (self < start) || (finish < self)
+    (start > self) || (finish < self)
   end
 
   def pad(options = {})
@@ -375,11 +375,11 @@ module ActiveObject::Numeric
 
   alias_method :petabyte_in_bytes, :petabytes_in_bytes
 
-  # rubocop:disable Style/NumericPredicate
+  # rubocop:disable Style/NumericPredicate, Style/YodaCondition
   def positive?
-    self > 0
+    0 < self
   end
-  # rubocop:enable Style/NumericPredicate
+  # rubocop:enable Style/NumericPredicate, Style/YodaCondition
 
   def pounds_in_ounces
     self * POUND
@@ -535,7 +535,7 @@ module ActiveObject::Numeric
   alias_method :week_in_seconds, :weeks_in_seconds
 
   def within?(number, epsilon = 0.01)
-    return self == number if epsilon.zero?
+    return number == self if epsilon.zero?
 
     alpha = to_f
     beta = number.to_f

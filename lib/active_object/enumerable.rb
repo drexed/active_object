@@ -1,15 +1,15 @@
 module Enumerable
 
-  # rubocop:disable Lint/UnusedMethodArgument
+  # rubocop:disable Lint/UnusedMethodArgument, Style/YodaCondition
   def cluster(&block)
     result = []
     each do |ele|
       last_res = result.last
-      last_res && (yield(last_res.last) == yield(ele)) ? last_res << ele : result << [ele]
+      last_res && (yield(ele) == yield(last_res.last)) ? last_res << ele : result << [ele]
     end
     result
   end
-  # rubocop:enable Lint/UnusedMethodArgument
+  # rubocop:enable Lint/UnusedMethodArgument, Style/YodaCondition
 
   def difference(identity = 0, &block)
     if block_given?

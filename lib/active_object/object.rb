@@ -16,9 +16,11 @@ module ActiveObject::Object
     TRUE_VALUES.include?(self) || FALSE_VALUES.include?(self)
   end
 
+  # rubocop:disable Style/YodaCondition
   def false?
-    self == false
+    false == self
   end
+  # rubocop:enable Style/YodaCondition
 
   def falsey?
     nil? || FALSE_VALUES.include?(self)
@@ -72,9 +74,11 @@ module ActiveObject::Object
     is_a?(Time)
   end
 
+  # rubocop:disable Style/YodaCondition
   def true?
-    self == true
+    true == self
   end
+  # rubocop:enable Style/YodaCondition
 
   def truthy?
     TRUE_VALUES.include?(self)
