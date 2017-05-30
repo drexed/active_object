@@ -34,6 +34,14 @@ module ActiveObject::Array
     result
   end
 
+  def denillify(value = 0)
+    map { |val| val.nil? ? value : val }
+  end
+
+  def denillify!(value = 0)
+    replace(denillify(value))
+  end
+
   def dig(key, *rest)
     value = (self[key] rescue nil)
 
@@ -99,6 +107,14 @@ module ActiveObject::Array
     block_given? ? sliced_collection { |val| yield(val) } : sliced_collection.to_a
   end
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+
+  def nillify
+    map { |val| !val.nil? && (val.try(:blank?) || val.try(:to_s).blank?) ? nil : val }
+  end
+
+  def nillify!
+    replace(nillify)
+  end
 
   def percentile(percentage)
     total_size = size

@@ -69,6 +69,24 @@ describe ActiveObject::Hash do
     end
   end
 
+  describe '#denillify(!)' do
+    it 'to be { abc: 0, xyz: 1 }' do
+      h1 = { abc: nil, xyz: 1 }
+      h2 = { abc: 0, xyz: 1 }
+
+      expect(h1.denillify).to eq(h2)
+      expect(h1.denillify!).to eq(h2)
+    end
+
+    it 'to be { abc: 9, xyz: 1 }' do
+      h1 = { abc: nil, xyz: 1 }
+      h2 = { abc: 9, xyz: 1 }
+
+      expect(h1.denillify(9)).to eq(h2)
+      expect(h1.denillify!(9)).to eq(h2)
+    end
+  end
+
   describe '#dig' do
     h1 = { a: { b: { c: :d } } }
 

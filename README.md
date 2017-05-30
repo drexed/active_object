@@ -101,6 +101,14 @@ end
 [1, 2, 3, 4].delete_values(1, 3) #=> [2, 4]
 ```
 
+**Denillify:**
+`denillify` and `denillify!` converts nils into a given value.
+
+```ruby
+[nil, 3, 4].denillify  #=> [0, 3, 4]
+[nil, 3, 4].denillify!(9) #=> [9, 3, 4]
+```
+
 **Dig:**
 `dig` returns the value of a nested array.
 
@@ -148,6 +156,14 @@ end
 %w(1 2 3 4 5 6 7 8 9 10).in_groups_of(3)           #=> [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'], ['10', nil, nil]]
 %w(1 2 3 4 5 6 7 8 9 10).in_groups_of(3, '&nbsp;') #=> [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'], ['10', '&nbsp;', '&nbsp;']]
 %w(1 2 3 4 5 6 7 8 9 10).in_groups_of(3, false)    #=> [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'], ['10']]
+```
+
+**Nillify:**
+`nillify` and `nillify!` converts blank vlaues into nils.
+
+```ruby
+[' ', 3, 4].nillify #=> [nil, 3, 4]
+['', 3, 4].nillify! #=> [nil, 3, 4]
 ```
 
 **Percentile:**
@@ -492,6 +508,14 @@ h1 = { a: true, b: { c: [1, 2, 3] } }
 h2 = { a: false, b: { x: [3, 4, 5] } }
 
 h1.deep_merge(h2) #=> { a: false, b: { c: [1, 2, 3], x: [3, 4, 5] } }
+```
+
+**Denillify:**
+`denillify` and `denillify!` converts nils into a given value.
+
+```ruby
+{ abc: nil, xyz: 1 }.denillify     #=> { abc: 0, xyz: 1 }
+{ abc: nil, xyz: 1 }.denillify!(9) #=> { abc: 9, xyz: 1 }
 ```
 
 **Dig:**

@@ -64,6 +64,14 @@ module ActiveObject::Hash
   end
   # rubocop:enable Metrics/MethodLength
 
+  def denillify(value = 0)
+    each { |key, val| self[key] = val.nil? ? value : val }
+  end
+
+  def denillify!(value = 0)
+    replace(denillify(value))
+  end
+
   def dig(key, *rest)
     value = (self[key] rescue nil)
 

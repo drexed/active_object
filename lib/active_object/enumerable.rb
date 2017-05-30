@@ -1,6 +1,6 @@
 module Enumerable
 
-  # rubocop:disable Lint/UnusedMethodArgument, Style/YodaCondition
+  # rubocop:disable Lint/UnusedMethodArgument
   def cluster(&block)
     result = []
     each do |ele|
@@ -9,7 +9,7 @@ module Enumerable
     end
     result
   end
-  # rubocop:enable Lint/UnusedMethodArgument, Style/YodaCondition
+  # rubocop:enable Lint/UnusedMethodArgument
 
   def difference(identity = 0, &block)
     if block_given?

@@ -30,6 +30,18 @@ describe ActiveObject::Array do
     end
   end
 
+  describe '#denillify(!)' do
+    it 'to be [0, 2, 3]' do
+      expect([nil, 2, 3].denillify).to eq([0, 2, 3])
+      expect([nil, 2, 3].denillify!).to eq([0, 2, 3])
+    end
+
+    it 'to be [0, 2, 3]' do
+      expect([nil, 2, 3].denillify(9)).to eq([9, 2, 3])
+      expect([nil, 2, 3].denillify!(9)).to eq([9, 2, 3])
+    end
+  end
+
   describe '#delete_first(!)' do
     it 'to be [2, 3]' do
       expect([1, 2, 3].delete_first).to eq([2, 3])
@@ -141,6 +153,13 @@ describe ActiveObject::Array do
                                                                       %w(7 8 9),
                                                                       %w(10)
                                                                     ])
+    end
+  end
+
+  describe '#nillify(!)' do
+    it 'to be [nil, 2, 3]' do
+      expect(['', 2, 3].nillify).to eq([nil, 2, 3])
+      expect(['', 2, 3].nillify!).to eq([nil, 2, 3])
     end
   end
 
