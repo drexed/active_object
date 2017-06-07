@@ -1951,7 +1951,7 @@ Time.now.stamp(:datetime) #=> 'January 09, 2014 02:31 pm'
 | Month - name abbreviated | `:month_name_abbr_year` | %a | Jan 2015 |
 | Week - iso | `:week_iso` | %V | (00..53) |
 | Week - week year iso | `:week_year_iso` | %V-%G | 04-2014 |
-| Week - sunday week | `:sunday_week` | %V | (00..53) |
+| Week - sunday week | `:sunday_week` | %U | (00..53) |
 | Week - monday week | `:monday_week` | %V | (00..53) |
 | Weekday - digits zero-padded | `:weekday_padded` | %A | (01..31) |
 | Weekday - digits unpadded | `:weekday_unpadded` | %a | (1..31) |
