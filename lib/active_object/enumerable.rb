@@ -92,16 +92,8 @@ module Enumerable
     end
   end
 
-  def max(identity = 0)
-    (length rescue count).positive? ? sort.last : identity
-  end
-
-  def min(identity = 0)
-    (length rescue count).positive? ? sort.first : identity
-  end
-
   def mean(identity = 0)
-    return identity unless length.positive?
+    return identity if empty?
 
     collection_length = length
     sum.to_f / collection_length.to_f

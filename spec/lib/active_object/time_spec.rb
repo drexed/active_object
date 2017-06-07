@@ -134,18 +134,6 @@ describe ActiveObject::Time do
       end
     end
 
-    context '#week' do
-      it 'to be "01"' do
-        expect(datetime.format('wwwww')).to eq('01')
-        expect(datetime.format('week')).to eq('01')
-      end
-
-      it 'to be "01"' do
-        expect(datetime.format('wwwwww')).to eq('01')
-        expect(datetime.format('week_offset')).to eq('01')
-      end
-    end
-
     context '#weekday' do
       it 'to be "4"' do
         expect(datetime.format('w')).to eq('4')
@@ -177,6 +165,23 @@ describe ActiveObject::Time do
       it 'to be "14"' do
         expect(datetime.format('yy')).to eq('14')
         expect(datetime.format('yr')).to eq('14')
+      end
+    end
+
+    context '#week' do
+      it 'to be "01"' do
+        expect(datetime.format('mwe')).to eq('01')
+        expect(datetime.format('monday_week')).to eq('01')
+      end
+
+      it 'to be "01"' do
+        expect(datetime.format('swe')).to eq('01')
+        expect(datetime.format('sunday_week')).to eq('01')
+      end
+
+      it 'to be "02"' do
+        expect(datetime.format('we')).to eq('02')
+        expect(datetime.format('week')).to eq('02')
       end
     end
 
@@ -471,6 +476,24 @@ describe ActiveObject::Time do
 
       it 'to be "2014"' do
         expect(datetime.to_format(:year)).to eq('2014')
+      end
+    end
+
+    context '#week' do
+      it 'to be "01"' do
+        expect(datetime.to_format(:monday_week)).to eq('01')
+      end
+
+      it 'to be "01"' do
+        expect(datetime.to_format(:sunday_week)).to eq('01')
+      end
+
+      it 'to be "02"' do
+        expect(datetime.to_format(:week_iso)).to eq('02')
+      end
+
+      it 'to be "02-2014"' do
+        expect(datetime.to_format(:week_year_iso)).to eq('02-2014')
       end
     end
   end

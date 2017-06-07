@@ -162,34 +162,6 @@ describe Enumerable do
     end
   end
 
-  describe '#max' do
-    it 'to be 0' do
-      expect([].max).to eq(0)
-    end
-
-    it 'to be nil' do
-      expect([].max(nil)).to eq(nil)
-    end
-
-    it 'to be 3' do
-      expect([2, 3, 1].max).to eq(3)
-    end
-  end
-
-  describe '#min' do
-    it 'to be 0' do
-      expect([].min).to eq(0)
-    end
-
-    it 'to be nil' do
-      expect([].min(nil)).to eq(nil)
-    end
-
-    it 'to be 3' do
-      expect([2, 3, 1].min).to eq(1)
-    end
-  end
-
   describe '#mean' do
     it 'to be 0' do
       expect([].mean).to eq(0)

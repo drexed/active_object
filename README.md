@@ -343,24 +343,6 @@ end
 
 ```
 
-**Max:**
-`max` returns the largest value of a collection of numbers.
-
-```ruby
-[].max      #=> 0
-[].max(nil) #=> nil
-[1,2,3].max #=> 3
-```
-
-**Min:**
-`min` returns the smallest value of a collection of numbers.
-
-```ruby
-[].min      #=> 0
-[].min(nil) #=> nil
-[1,2,3].min #=> 1
-```
-
 **Mean:**
 `mean` and `average` returns the average of a collection of numbers.
 
@@ -1924,8 +1906,9 @@ Time.now.format('month_name day, year hour:minute ampm') #=> 'January 09, 2014 0
 | Day - digits unpadded | `dd` or `Day` or `day_unpadded` | %-d | (1..31) |
 | Day - digits blank-padded | `ddd` or `DAY` or `day_blank` | %_d | ( 1..31) |
 | Day - digits of the year | `dddd` or `day_of_the_year` | %j | (001..366) |
-| Week - starting monday | `wwwww` or `week` | %M | (00..53) |
-| Week - starting sunday | `wwwwww` or `weekday_offset` | %M | (00..53) |
+| Week - iso | `we` or `week` | %V | (00..53) |
+| Week - starting sunday | `swe` or `sunday_week` | %U | (00..53) |
+| Week - starting monday | `swe` or `monday_week` | %W | (00..53) |
 | Weekday - starting monday | `w` or `weekday` | %M | (1..7) |
 | Weekday - starting sunday | `ww` or `weekday` | %M | (0..6) |
 | Weekday - name | `www` or `weekday_name` | %M | Sunday |
@@ -1966,6 +1949,10 @@ Time.now.stamp(:datetime) #=> 'January 09, 2014 02:31 pm'
 | Month - digits blank-padded | `:month_blank_year` | %a | ( 1..12) 2015 |
 | Month - name | `:month_name_year` | %A | January 2015 |
 | Month - name abbreviated | `:month_name_abbr_year` | %a | Jan 2015 |
+| Week - iso | `:week_iso` | %V | (00..53) |
+| Week - week year iso | `:week_year_iso` | %V-%G | 04-2014 |
+| Week - sunday week | `:sunday_week` | %V | (00..53) |
+| Week - monday week | `:monday_week` | %V | (00..53) |
 | Weekday - digits zero-padded | `:weekday_padded` | %A | (01..31) |
 | Weekday - digits unpadded | `:weekday_unpadded` | %a | (1..31) |
 | Weekday - digits blank-padded | `:weekday_blank` | %a | ( 1..31) |

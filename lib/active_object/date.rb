@@ -14,7 +14,8 @@ module ActiveObject::Date
     month_padded: 'm', mm: '-m', Month: '-m', month_unpadded: '-m', mmm: '_m', MONTH: '_m',
     month_blank: '_m', mmmm: 'B', month_name: 'B', mmmmm: 'b', month_name_abbr: 'b', w: 'u',
     weekday: 'u', ww: 'w', weekday_offset: 'w', www: 'A', weekday_name: 'A', wwww: 'a', year: 'Y',
-    weekday_name_abbr: 'a', wwwww: 'W', week: 'W', wwwwww: 'U', week_offset: 'U', yy: 'y', yr: 'y'
+    weekday_name_abbr: 'a', yy: 'y', yr: 'y', swe: 'U', sunday_week: 'U', mwe: 'W',
+    monday_week: 'W', we: 'V', week: 'V'
   }.freeze
   KEY_UNITS ||= {
     month: '%m', month_padded: '%m', month_unpadded: '%-m', month_blank: '%_m', month_name: '%B',
@@ -23,7 +24,7 @@ module ActiveObject::Date
     month_name_abbr_year: '%b %Y', weekday: '%d', weekday_padded: '%d', weekday_unpadded: '%-d',
     weekday_blank: '%_d', weekday_name: '%A', weekday_name_abbr: '%a', yr: '%y', year_abbr: '%y',
     year: '%Y', date: '%B %-d, %Y', date_abbr: '%b %-d, %Y', date_iso: '%Y-%m-%d', day: '%B %-d',
-    day_abbr: '%b %-d'
+    day_abbr: '%b %-d', sunday_week: '%U', monday_week: '%W', week_iso: '%V', week_year_iso: '%V-%G'
   }.freeze
 
   def count_centuries_since(time)

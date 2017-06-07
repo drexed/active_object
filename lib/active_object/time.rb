@@ -29,7 +29,8 @@ module ActiveObject::Time
     daytime_abbr: '%b %-d %H:%M', daytime_iso: '%m-%d %H:%M', daytime_imperical: '%B %-d %I:%M %P',
     daytime_imperical_abbr: '%b %-d %I:%M %P', daytime_imperical_iso: '%m-%d %I:%M %P',
     time_imperical_padded: '%I:%M %P', time_imperical_blank: '%l:%M %P',
-    time_imperical_tz: '%I:%M %P %z', time_imperical_tzn: '%I:%M %P %Z'
+    time_imperical_tz: '%I:%M %P %z', time_imperical_tzn: '%I:%M %P %Z', sunday_week: '%U',
+    monday_week: '%W', week_iso: '%V', week_year_iso: '%V-%G'
   }.freeze
   STRING_UNITS ||= {
     d: 'd', day: 'd', day_padded: 'd', dd: '-d', Day: '-d', day_unpadded: '-d', ddd: '_d', zz: ':z',
@@ -37,12 +38,12 @@ module ActiveObject::Time
     month_padded: 'm', mm: '-m', Month: '-m', month_unpadded: '-m', mmm: '_m', MONTH: '_m',
     month_blank: '_m', mmmm: 'B', month_name: 'B', mmmmm: 'b', month_name_abbr: 'b', w: 'u', z: 'z',
     weekday: 'u', ww: 'w', weekday_offset: 'w', www: 'A', weekday_name: 'A', wwww: 'a', yyyy: 'Y',
-    weekday_name_abbr: 'a', wwwww: 'W', week: 'W', wwwwww: 'U', week_offset: 'U', yy: 'y', yr: 'y',
-    year: 'Y', h: 'H', hour: 'H', hour_padded: 'H', hh: 'k', HOUR: 'k', hour_blank: 'k', hhh: 'I',
-    hour_imperical: 'I', hour_imperical_padded: 'I', HOUR_IMPERICAL: 'l', hour_imperical_blank: 'l',
-    ampm: 'P', meridian: 'P', AMPM: 'p', MERIDIAN: 'p', n: 'M', minute: 'M', s: 'S', second: 'S',
-    time_zone: 'z', time_zone_offset: ':z', zzz: '::z', time_zone_offset_full: '::z', zzzz: 'Z',
-    time_zone_name: 'Z'
+    weekday_name_abbr: 'a', yy: 'y', yr: 'y', year: 'Y', h: 'H', hour: 'H', hour_padded: 'H',
+    hh: 'k', HOUR: 'k', hour_blank: 'k', hhh: 'I', hour_imperical: 'I', hour_imperical_padded: 'I',
+    HOUR_IMPERICAL: 'l', hour_imperical_blank: 'l', ampm: 'P', meridian: 'P', AMPM: 'p',
+    MERIDIAN: 'p', n: 'M', minute: 'M', s: 'S', second: 'S', time_zone: 'z', time_zone_offset: ':z',
+    zzz: '::z', time_zone_offset_full: '::z', zzzz: 'Z', time_zone_name: 'Z', swe: 'U',
+    sunday_week: 'U', mwe: 'W', monday_week: 'W', we: 'V', week: 'V'
   }.freeze
 
   def count_centuries_since(time)
