@@ -231,6 +231,15 @@ end
 
 ## Enumerable
 
+**Critical zscore:**
+`critical_zscore` returns the critical_zscore of elements of a collection.
+
+```ruby
+[].critical_zscore                              #=> nil
+[].critical_zscore(0)                           #=> 0
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].critical_zscore #=> 2.29
+```
+
 **Cluster:**
 `cluster` clusters together adjacent elements into a list of sub-arrays.
 
@@ -391,6 +400,20 @@ end
 [1,2,6].range #=> 5
 ```
 
+**Reject outliers:**
+`reject_outliers` and `reject_outliers!` removes the outliers of collection of numbers.
+
+```ruby
+[1, 2, 3, 30].reject_outliers #=> [1, 2, 3]
+```
+
+**Select outliers:**
+`select_outliers` select the outliers of collection of numbers.
+
+```ruby
+[1, 2, 3, 30].select_outliers #=> [30]
+```
+
 **Several:**
 `several?` returns if collection has more than one element while not respecting nil and false as an element.
 
@@ -444,6 +467,14 @@ end
 [].variance      #=> 0
 [].variance(nil) #=> nil
 [1,2,6].variance #=> 7
+```
+
+**Zscore:**
+`zscore` returns the zscore of elements of a collection.
+
+```ruby
+[].zscore(3) #=> 0
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].zscore(3) #=> 0.8257228238447705
 ```
 
 ## Hash

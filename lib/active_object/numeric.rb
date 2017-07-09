@@ -164,7 +164,7 @@ module ActiveObject::Numeric
   alias_method :foot_in_inches, :feet_in_inches
 
   def fraction
-    (self - self.truncate).abs
+    (self - truncate).abs
   end
 
   def fraction?

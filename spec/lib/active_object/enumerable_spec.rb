@@ -26,6 +26,20 @@ describe Enumerable do
     end
   end
 
+  describe '#critical_zscore' do
+    it 'to be nil' do
+      expect([].critical_zscore).to eq(nil)
+    end
+
+    it 'to be 0' do
+      expect([].critical_zscore(0)).to eq(0)
+    end
+
+    it 'to be 2.29' do
+      expect([1, 2, 3, 4, 5, 6, 7, 8, 9, 10].critical_zscore).to eq(2.29)
+    end
+  end
+
   describe '#difference' do
     it 'to be 0' do
       expect([].difference).to eq(0)
@@ -263,6 +277,19 @@ describe Enumerable do
     end
   end
 
+  describe '#reject_outliers(!)' do
+    it 'to be [1, 2, 3, 4, 5, 6, 7, 8, 9]' do
+      expect([1, 2, 3, 4, 5, 6, 7, 8, 9, 30].reject_outliers).to eq([1, 2, 3, 4, 5, 6, 7, 8, 9])
+      expect([1, 2, 3, 4, 5, 6, 7, 8, 9, 30].reject_outliers!).to eq([1, 2, 3, 4, 5, 6, 7, 8, 9])
+    end
+  end
+
+  describe '#select_outliers(!)' do
+    it 'to be [30]' do
+      expect([1, 2, 3, 4, 5, 6, 7, 8, 9, 30].select_outliers).to eq([30])
+    end
+  end
+
   describe '#several?' do
     it 'to be true' do
       expect([1, 2, 3].several?).to eq(true)
@@ -347,6 +374,16 @@ describe Enumerable do
 
     it 'to be 7' do
       expect([1, 2, 6].variance).to eq(7)
+    end
+  end
+
+  describe '#zscore' do
+    it 'to be 0.8257228238447705' do
+      expect([1, 2, 3, 4, 5, 6, 7, 8, 9, 10].zscore(3)).to eq(0.8257228238447705)
+    end
+
+    it 'to be 0' do
+      expect([].zscore(3)).to eq(0)
     end
   end
 
