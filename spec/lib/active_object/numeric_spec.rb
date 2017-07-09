@@ -138,6 +138,27 @@ describe ActiveObject::Numeric do
     end
   end
 
+  describe '#fraction' do
+    it 'to be 0.2456' do
+      expect(12.2456.fraction).to eq(0.2455999999999996)
+      expect(-12.2456.fraction).to eq(0.2455999999999996)
+    end
+
+    it 'to be 0.0' do
+      expect(1.0.fraction).to eq(0.0)
+    end
+  end
+
+  describe '#fraction?' do
+    it 'to be true' do
+      expect(12.2456.fraction?).to eq(true)
+    end
+
+    it 'to be false' do
+      expect(1.0.fraction?).to eq(false)
+    end
+  end
+
   describe '#gigabyte_in_bytes' do
     it 'to be 3221225472' do
       expect(3.gigabyte_in_bytes).to eq(3221225472)

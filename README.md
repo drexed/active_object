@@ -810,6 +810,23 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 3.feet_in_inches #=> 36
 ```
 
+**Fractional:**
+`fractional` returns the numbers after '.' of a float.
+
+```ruby
+1.0.fraction      #=> 0.0
+12.2456.fraction  #=> 0.2456
+-12.2456.fraction #=> 0.2456
+```
+
+**Fraction?:**
+`fraction?` returns if its a fractional.
+
+```ruby
+1.0.fraction?      #=> false
+12.2456.fraction?  #=> true
+```
+
 **Gigabytes in Bytes:**
 `gigabyte_in_bytes` and `gigabytes_in_bytes` returns the amount of bytes in n gigabytes.
 
