@@ -116,17 +116,6 @@ module ActiveObject::Array
     replace(nillify)
   end
 
-  def percentile(percentage)
-    total_size = size
-
-    if total_size > 1
-      index = (total_size * percentage) / 100.0
-      sort[index]
-    else
-      first
-    end
-  end
-
   def probability
     hash = Hash.new(0.0)
     differ = 0.0

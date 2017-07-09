@@ -138,6 +138,22 @@ module Enumerable
     end
   end
 
+  def percentile(num, identity = 0)
+    return identity unless length.positive?
+
+    collection_sorted = sort
+    rank = (num.to_f / 100) * (length + 1)
+
+    if rank.fraction?
+      sample_0 = collection_sorted[rank.truncate - 1]
+      sample_1 = collection_sorted[rank.truncate]
+
+      (rank.fraction * (sample_1 - sample_0)) + sample_0
+    else
+      collection_sorted[rank - 1]
+    end
+  end
+
   def range(identity = 0)
     return identity unless length.positive?
 

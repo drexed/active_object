@@ -166,15 +166,6 @@ end
 ['', 3, 4].nillify! #=> [nil, 3, 4]
 ```
 
-**Percentile:**
-`percentile` returns the percentile value for a given percentage.
-
-```ruby
-[1, 2, 3, 4].percentile(49)    # => 2
-[1, 2, 3, 4].percentile(50)    # => 3
-[1, 2, 3, 4, 5].percentile(50) # => 3
-```
-
 **Probablity:**
 `probability` generates a hash mapping each unique element in the array to the relative frequency, i.e. the probablity, of it appearence.
 
@@ -379,6 +370,16 @@ end
 [].multiple      #=> 0
 [].multiple(nil) #=> nil
 [1,2,3].multiple #=> 6
+```
+
+**Percentile:**
+`percentile` returns the percentile value for a given percentage.
+
+```ruby
+[].percentile(50)              # => 2
+[].percentile(50, nil)         # => 3
+[1, 2, 3, 4].percentile(50)    # => 2.5
+[1, 2, 3, 4, 5].percentile(50) # => 3
 ```
 
 **Range:**

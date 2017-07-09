@@ -163,17 +163,6 @@ describe ActiveObject::Array do
     end
   end
 
-  describe '#percentile' do
-    it 'to be 2' do
-      expect([1, 2, 3, 4].percentile(49)).to eq(2)
-    end
-
-    it 'to be 3' do
-      expect([1, 2, 3, 4].percentile(50)).to eq(3)
-      expect([1, 2, 3, 4, 5].percentile(50)).to eq(3)
-    end
-  end
-
   describe '#probability' do
     it 'to be [:a, :b, :c, :c]' do
       expect([:a, :b, :c, :c].probability).to eq({ a: 0.25, b: 0.25, c: 0.5 })

@@ -231,6 +231,24 @@ describe Enumerable do
     end
   end
 
+  describe '#percentile' do
+    it 'to be 0' do
+      expect([].percentile(50)).to eq(0)
+    end
+
+    it 'to be nil' do
+      expect([].percentile(50, nil)).to eq(nil)
+    end
+
+    it 'to be 2.5' do
+      expect([1, 2, 3, 4].percentile(50)).to eq(2.5)
+    end
+
+    it 'to be 5.5' do
+      expect([1, 2, 3, 4, 5].percentile(50)).to eq(3)
+    end
+  end
+
   describe '#range' do
     it 'to be 0' do
       expect([].range).to eq(0)
