@@ -1784,9 +1784,9 @@ false.truthy? #=> false
 `remove_tags` and `remove_tags!` removes HTML tags from a string.
 
 ```ruby
-'example'.strip_tags                                   #=> 'example'
-'<a href='http://example.com'>click</a>'.strip_tags    #=> 'click'
-'this is <b>bold</b> and <em>emphatic</em>'.strip_tags #=> 'this is bold and emphatic'
+'example'.remove_tags                                   #=> 'example'
+'<a href='http://example.com'>click</a>'.remove_tags    #=> 'click'
+'this is <b>bold</b> and <em>emphatic</em>'.remove_tags #=> 'this is bold and emphatic'
 ```
 
 **Sample:**
