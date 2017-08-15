@@ -36,9 +36,9 @@ Or install it yourself as:
 * [Integer](#integer)
 * [Numeric](#numeric)
 * [Object](#object)
-* [Range](#Rrange)
+* [Range](#range)
 * [String](#string)
-* [Time](#time)
+* [DateTime](#datetime)
 
 ## Configuration
 
@@ -158,8 +158,15 @@ end
 %w(1 2 3 4 5 6 7 8 9 10).in_groups_of(3, false)    #=> [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'], ['10']]
 ```
 
+**Merge:**
+`merge` concats multiple arrays.
+
+```ruby
+[1, 2].merge([3, 4], [5, 6]) #=> [1, 2, 3, 4, 5, 6]
+```
+
 **Nillify:**
-`nillify` and `nillify!` converts blank vlaues into nils.
+`nillify` and `nillify!` converts blank values into nils.
 
 ```ruby
 [' ', 3, 4].nillify #=> [nil, 3, 4]
@@ -167,7 +174,7 @@ end
 ```
 
 **Probablity:**
-`probability` generates a hash mapping each unique element in the array to the relative frequency, i.e. the probablity, of it appearence.
+`probability` generates a hash mapping each unique element in the array to the relative frequency, i.e. the probability, of it appearance.
 
 ```ruby
 [:a, :b, :c, :c].probability #=> { a: 0.25, b: 0.25, c: 0.5 }
@@ -288,7 +295,7 @@ end
 
 ```ruby
 [].exactly?(1)                 #=> false
-[1,2,3].excatly?(3)            #=> true
+[1,2,3].exactly?(3)            #=> true
 [1,1,3,3].exactly?(2, &:even?) #=> false
 ```
 
@@ -1088,7 +1095,7 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 ```
 
 **Pad:**
-`pad` returns a string reprensentation of the number padded with pad_num to a specified length.
+`pad` returns a string representation of the number padded with pad_num to a specified length.
 
 ```ruby
 3.pad                #=> '003'
@@ -1264,7 +1271,7 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 `to_time` converts a time unit from one unit to another unit.
 
 ```ruby
-120.to_time(:seconds, :mintues) #=> 2 #MIN
+120.to_time(:seconds, :minutes) #=> 2 #MIN
 3.to_time(:hours, :days)        #=> 3 #DAY
 2.to_time(:days, :seconds)      #=> 172800 #SEC
 1825.to_time(:days, :years)     #=> 4.996577686516085 #YR
@@ -1548,7 +1555,7 @@ false.truthy? #=> false
 ```
 
 **Camelize:**
-`camelize` and `camelize!` transfroms a string to camelcase.
+`camelize` and `camelize!` transforms a string to camelcase.
 
 ```ruby
 'example_string'.camelize         #=> 'ExampleString'
@@ -1928,7 +1935,7 @@ false.truthy? #=> false
 'this thing that thing'.unshift('this ', 'that ') #=> 'this that this thing that thing'
 ```
 
-## Time
+## DateTime
 
 *Note:* also works with Date class.
 

@@ -156,6 +156,15 @@ describe ActiveObject::Array do
     end
   end
 
+  describe '#merge' do
+    it 'to be [0, 1, 2, 3, 4, 5]' do
+      arr_1 = [2, 3]
+      arr_2 = [4, 5]
+
+      expect([0, 1].merge(arr_1, arr_2)).to eq([0, 1, 2, 3, 4, 5])
+    end
+  end
+
   describe '#nillify(!)' do
     it 'to be [nil, 2, 3]' do
       expect(['', 2, 3].nillify).to eq([nil, 2, 3])

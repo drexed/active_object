@@ -108,6 +108,11 @@ module ActiveObject::Array
   end
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
+  def merge(*values)
+    values.each { |val| concat(val) }
+    self
+  end
+
   def nillify
     map { |val| !val.nil? && (val.try(:blank?) || val.try(:to_s).blank?) ? nil : val }
   end

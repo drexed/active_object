@@ -201,6 +201,7 @@ module Enumerable
     end
   end
 
+  # rubocop:disable Metrics/MethodLength
   def percentile(num, identity = 0)
     return identity unless length.positive?
 
@@ -217,6 +218,7 @@ module Enumerable
       collection_sorted[rank - 1]
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   def range(identity = 0)
     return identity unless length.positive?
