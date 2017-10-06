@@ -1,103 +1,105 @@
 # frozen_string_literal: true
 
-module ActiveObject::Object
-  FALSE_VALUES ||= [false, 0, '0', 'false', 'FALSE', 'f', 'F'].freeze
-  TRUE_VALUES ||= [true, 1, '1', 'true', 'TRUE', 't', 'T'].freeze
+module ActiveObject
+  module Object
+    FALSE_VALUES ||= [false, 0, '0', 'false', 'FALSE', 'f', 'F'].freeze
+    TRUE_VALUES ||= [true, 1, '1', 'true', 'TRUE', 't', 'T'].freeze
 
-  def array?
-    is_a?(Array)
-  end
-
-  def blank?
-    object = self
-    object = object.strip if respond_to?(:strip)
-    respond_to?(:empty?) ? object.empty? : !object
-  end
-
-  def boolean?
-    TRUE_VALUES.include?(self) || FALSE_VALUES.include?(self)
-  end
-
-  # rubocop:disable Style/YodaCondition
-  def false?
-    false == self
-  end
-  # rubocop:enable Style/YodaCondition
-
-  def falsey?
-    nil? || FALSE_VALUES.include?(self)
-  end
-
-  def float?
-    is_a?(Float)
-  end
-
-  def hash?
-    is_a?(Hash)
-  end
-
-  def integer?
-    is_a?(Integer)
-  end
-
-  def numeral?
-    !to_s.match(/\A[+-]?\d+?(\.\d+)?\Z/).nil?
-  end
-
-  def numeric?
-    is_a?(Numeric)
-  end
-
-  def palindrome?
-    to_s == to_s.reverse
-  end
-
-  def present?
-    !blank?
-  end
-
-  def range?
-    is_a?(Range)
-  end
-
-  def salvage(placeholder = '---')
-    blank? ? placeholder : self
-  end
-
-  def send_chain(*keys)
-    Array(keys).inject(self) { |obj, key| obj.send(*key) }
-  end
-
-  def string?
-    is_a?(String)
-  end
-
-  def time?
-    is_a?(Time)
-  end
-
-  # rubocop:disable Style/YodaCondition
-  def true?
-    true == self
-  end
-  # rubocop:enable Style/YodaCondition
-
-  def truthy?
-    TRUE_VALUES.include?(self)
-  end
-
-  def try(*obj, &block)
-    try!(*obj, &block) if obj.empty? || respond_to?(obj.first)
-  end
-
-  def try!(*obj, &block)
-    if obj.empty? && block_given?
-      block.arity.zero? ? instance_eval(&block) : yield(self)
-    else
-      public_send(*obj, &block)
+    def array?
+      is_a?(Array)
     end
-  end
 
+    def blank?
+      object = self
+      object = object.strip if respond_to?(:strip)
+      respond_to?(:empty?) ? object.empty? : !object
+    end
+
+    def boolean?
+      TRUE_VALUES.include?(self) || FALSE_VALUES.include?(self)
+    end
+
+    # rubocop:disable Style/YodaCondition
+    def false?
+      false == self
+    end
+    # rubocop:enable Style/YodaCondition
+
+    def falsey?
+      nil? || FALSE_VALUES.include?(self)
+    end
+
+    def float?
+      is_a?(Float)
+    end
+
+    def hash?
+      is_a?(Hash)
+    end
+
+    def integer?
+      is_a?(Integer)
+    end
+
+    def numeral?
+      !to_s.match(/\A[+-]?\d+?(\.\d+)?\Z/).nil?
+    end
+
+    def numeric?
+      is_a?(Numeric)
+    end
+
+    def palindrome?
+      to_s == to_s.reverse
+    end
+
+    def present?
+      !blank?
+    end
+
+    def range?
+      is_a?(Range)
+    end
+
+    def salvage(placeholder = '---')
+      blank? ? placeholder : self
+    end
+
+    def send_chain(*keys)
+      Array(keys).inject(self) { |obj, key| obj.send(*key) }
+    end
+
+    def string?
+      is_a?(String)
+    end
+
+    def time?
+      is_a?(Time)
+    end
+
+    # rubocop:disable Style/YodaCondition
+    def true?
+      true == self
+    end
+    # rubocop:enable Style/YodaCondition
+
+    def truthy?
+      TRUE_VALUES.include?(self)
+    end
+
+    def try(*obj, &block)
+      try!(*obj, &block) if obj.empty? || respond_to?(obj.first)
+    end
+
+    def try!(*obj, &block)
+      if obj.empty? && block_given?
+        block.arity.zero? ? instance_eval(&block) : yield(self)
+      else
+        public_send(*obj, &block)
+      end
+    end
+
+  end
 end
 
 Object.include(ActiveObject::Object) if ActiveObject.configuration.autoload_object

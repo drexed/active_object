@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module Enumerable
-
   CRITICAL_ZSCORE ||= {
     3 => 1.15,
     4 => 1.48,
@@ -136,7 +135,7 @@ module Enumerable
   end
 
   def frequencies
-    each_with_object(Hash.new(0)) { |key, hsh| hsh[key] += 1 }
+    each_with_object(::Hash.new(0)) { |key, hsh| hsh[key] += 1 }
   end
 
   # rubocop:disable Style/CaseEquality
@@ -186,7 +185,7 @@ module Enumerable
   def mode(identity = 0)
     return identity unless length.positive?
 
-    frequency_distribution = each_with_object(Hash.new(0)) { |val, hsh| hsh[val] += 1 }
+    frequency_distribution = each_with_object(::Hash.new(0)) { |val, hsh| hsh[val] += 1 }
     frequency_top_two = frequency_distribution.sort_by { |_, val| -val }.take(2)
     top_two_first = frequency_top_two.first
 
@@ -256,7 +255,7 @@ module Enumerable
   def standard_deviation(identity = 0)
     return identity if length < 2
 
-    Math.sqrt(variance)
+    ::Math.sqrt(variance)
   end
 
   def sum(identity = 0, &block)

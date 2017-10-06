@@ -1,36 +1,38 @@
 # frozen_string_literal: true
 
-module ActiveObject::Range
+module ActiveObject
+  module Range
 
-  def combine(other)
-    to_a.concat(other.to_a)
-  end
-
-  def include_with_range?(other)
-    if other.is_a?(::Range)
-      operator = exclude_end? && !other.exclude_end? ? :< : :<=
-      include?(other.first) && other.last.send(operator, last)
-    else
-      include?(other)
+    def combine(other)
+      to_a.concat(other.to_a)
     end
-  end
 
-  def overlaps?(other)
-    cover?(other.first) || other.cover?(first)
-  end
+    def include_with_range?(other)
+      if other.is_a?(Range)
+        operator = exclude_end? && !other.exclude_end? ? :< : :<=
+        include?(other.first) && other.last.send(operator, last)
+      else
+        include?(other)
+      end
+    end
 
-  def sample
-    to_a.sample
-  end
+    def overlaps?(other)
+      cover?(other.first) || other.cover?(first)
+    end
 
-  def shuffle
-    to_a.shuffle
-  end
+    def sample
+      to_a.sample
+    end
 
-  def within?(other)
-    cover?(other.first) && cover?(other.last)
-  end
+    def shuffle
+      to_a.shuffle
+    end
 
+    def within?(other)
+      cover?(other.first) && cover?(other.last)
+    end
+
+  end
 end
 
 Range.include(ActiveObject::Range) if ActiveObject.configuration.autoload_range
