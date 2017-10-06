@@ -4,39 +4,23 @@ AllCops:
   TargetRubyVersion: 2.4
   Exclude:
     - 'spec/**/**/*'
-Layout/ClosingParenthesisIndentation:
-  Enabled: false
-Layout/EmptyLinesAroundBlockBody:
-  Enabled: false
 Layout/EmptyLinesAroundClassBody:
   Enabled: false
 Layout/EmptyLinesAroundModuleBody:
   Enabled: false
-Layout/FirstParameterIndentation:
-  Enabled: false
-Layout/MultilineMethodCallIndentation:
-  EnforcedStyle: aligned
 LineLength:
   Max: 100
-Lint/ScriptPermission:
+Lint/RescueWithoutErrorClass:
   Enabled: false
-Metrics/ClassLength:
+Lint/ScriptPermission:
   Enabled: false
 Metrics/ModuleLength:
   Enabled: false
 Style/Alias:
   EnforcedStyle: prefer_alias_method
-Style/BracesAroundHashParameters:
-  Enabled: false
 Style/ClassAndModuleChildren:
   EnforcedStyle: compact
 Style/Documentation:
-  Enabled: false
-Style/HashSyntax:
-  Enabled: false
-Style/FrozenStringLiteralComment:
-  Enabled: false
-Style/NumericLiterals:
   Enabled: false
 Style/RescueModifier:
   Enabled: false

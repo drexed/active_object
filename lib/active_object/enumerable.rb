@@ -250,7 +250,7 @@ module Enumerable
     else
       each { |opt| found_count += 1 if opt }
     end
-    found_count > 1 ? true : false
+    found_count > 1
   end
 
   def standard_deviation(identity = 0)

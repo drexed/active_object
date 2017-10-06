@@ -6,11 +6,7 @@ BooleanParameter:
 ControlParameter:
   enabled: false
 DuplicateMethodCall:
-  exclude:
-    - 'ActiveObject::Array#to_sentence'
-    - 'ActiveObject::Array#split'
-    - 'ActiveObject::Array#probability'
-    - 'ActiveObject::Numeric'
+  enabled: false
 FeatureEnvy:
   enabled: false
 IrresponsibleModule:
