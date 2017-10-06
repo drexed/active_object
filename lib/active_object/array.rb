@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module ActiveObject::Array
 
   def after(value)

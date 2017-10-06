@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module ActiveObject::Numeric
   MILLI ||= 0.001
   CENTI ||= MILLI * 10.0

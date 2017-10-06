@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module ActiveObject::Time
   MINUTE ||= 60.0
   HOUR ||= MINUTE * 60.0
