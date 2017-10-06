@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module ActiveObject::String
 
   def any?(*keys)
@@ -369,4 +370,4 @@ module ActiveObject::String
 
 end
 
-String.include(ActiveObject::String) if ActiveObject::Settings.config.autoload_string
+String.include(ActiveObject::String) if ActiveObject.configuration.autoload_string

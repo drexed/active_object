@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module ActiveObject::Hash
 
   def assert_valid_keys(*valid_keys)
@@ -252,4 +253,4 @@ module ActiveObject::Hash
 
 end
 
-Hash.include(ActiveObject::Hash) if ActiveObject::Settings.config.autoload_hash
+Hash.include(ActiveObject::Hash) if ActiveObject.configuration.autoload_hash

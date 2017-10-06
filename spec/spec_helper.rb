@@ -1,9 +1,8 @@
-require 'coveralls'
-Coveralls.wear!
+# frozen_string_literal: true
 
-require 'active_object'
-require 'pathname'
-require 'generator_spec'
+%w[active_object pathname generator_spec].each do |file_name|
+  require file_name
+end
 
 spec_tmp_path = Pathname.new(File.expand_path('../spec/lib/generators/tmp', File.dirname(__FILE__)))
 

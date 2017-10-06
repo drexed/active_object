@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module ActiveObject::Numeric
   MILLI ||= 0.001
   CENTI ||= MILLI * 10.0
@@ -576,4 +577,4 @@ module ActiveObject::Numeric
 
 end
 
-Numeric.include(ActiveObject::Numeric) if ActiveObject::Settings.config.autoload_numeric
+Numeric.include(ActiveObject::Numeric) if ActiveObject.configuration.autoload_numeric

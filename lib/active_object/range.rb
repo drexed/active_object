@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module ActiveObject::Range
 
   def combine(other)
@@ -31,4 +32,4 @@ module ActiveObject::Range
 
 end
 
-Range.include(ActiveObject::Range) if ActiveObject::Settings.config.autoload_range
+Range.include(ActiveObject::Range) if ActiveObject.configuration.autoload_range

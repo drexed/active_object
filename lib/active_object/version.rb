@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ActiveObject
-  VERSION = '4.0.14'.freeze
+  VERSION ||= '5.0.0'
 end

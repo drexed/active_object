@@ -1,4 +1,6 @@
-ActiveObject::Settings.configure do |config|
+# frozen_string_literal: true
+
+ActiveObject.configure do |config|
   config.autoload_array = true
   config.autoload_date = true
   config.autoload_enumerable = true

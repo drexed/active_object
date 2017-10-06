@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+require 'date'
+
 module ActiveObject::Date
   MINUTE ||= 60.0
   HOUR ||= MINUTE * 60.0
@@ -100,4 +104,4 @@ module ActiveObject::Date
 
 end
 
-Date.include(ActiveObject::Date) if ActiveObject::Settings.config.autoload_date
+Date.include(ActiveObject::Date) if ActiveObject.configuration.autoload_date

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module ActiveObject::Array
 
   def after(value)
@@ -203,4 +204,4 @@ module ActiveObject::Array
 
 end
 
-Array.include(ActiveObject::Array) if ActiveObject::Settings.config.autoload_array
+Array.include(ActiveObject::Array) if ActiveObject.configuration.autoload_array

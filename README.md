@@ -2,7 +2,6 @@
 
 [![Gem Version](https://badge.fury.io/rb/active_object.svg)](http://badge.fury.io/rb/active_object)
 [![Build Status](https://travis-ci.org/drexed/active_object.svg?branch=master)](https://travis-ci.org/drexed/active_object)
-[![Coverage Status](https://coveralls.io/repos/github/drexed/active_object/badge.svg?branch=master)](https://coveralls.io/github/drexed/active_object?branch=master)
 
 ActiveObject is a collection of commonly used object helpers in a ruby based project.
 
@@ -46,7 +45,7 @@ Or install it yourself as:
 `../config/initalizers/active_object.rb`
 
 ```ruby
-ActiveObject::Settings.configure do |config|
+ActiveObject.configure do |config|
   config.autoload_array = true
   config.autoload_date = true
   config.autoload_enumerable = true
