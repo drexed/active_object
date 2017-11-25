@@ -165,6 +165,12 @@ describe Enumerable do
     end
   end
 
+  describe '#interpose' do
+    it 'to be [1, :sep, 2, :sep, "a"]' do
+      expect([1, 2, 'a'].interpose(:sep).to_a).to eq([1, :sep, 2, :sep, 'a'])
+    end
+  end
+
   describe '#many?' do
     it 'to be true' do
       expect([1, 2, 3].many?).to eq(true)

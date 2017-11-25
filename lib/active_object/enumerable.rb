@@ -144,6 +144,30 @@ module Enumerable
   end
   # rubocop:enable Style/CaseEquality
 
+  def interpose(sep, &block)
+    enum = Enumerator.new do |val|
+      items = each
+
+      loop do
+        begin
+          val << items.next
+        rescue StopIteration
+          break
+        end
+
+        begin
+          items.peek
+        rescue StopIteration
+          break
+        else
+          val << sep
+        end
+      end
+    end
+
+    block ? enum.each(&block) : enum
+  end
+
   def many?
     found_count = 0
     if block_given?

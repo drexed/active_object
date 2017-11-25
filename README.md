@@ -338,6 +338,13 @@ end
 [1, 2, 'a'].incase?(3)      #=> false
 ```
 
+**Interpose:**
+`interpose` returns an enumerator to add seperators.
+
+```ruby
+[1, 2, 'a'].interpose(:sep).to_a #=> [1, :sep, 2, :sep, 'a']
+```
+
 **Many:**
 `many?` returns if collection has more than one element while respecting nil and false as an element.
 
