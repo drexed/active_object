@@ -29,6 +29,7 @@ Or install it yourself as:
 ## Table of Contents
 
 * [Configuration](#configuration)
+* [Kernel](#kernel)
 * [Array](#array)
 * [Enumerable](#enumerable)
 * [Hash](#hash)
@@ -51,12 +52,26 @@ ActiveObject.configure do |config|
   config.autoload_enumerable = true
   config.autoload_hash = true
   config.autoload_integer = true
+  config.autoload_kernel = true
   config.autoload_numeric = true
   config.autoload_object = true
   config.autoload_range = true
   config.autoload_string = true
   config.autoload_time = true
 end
+```
+
+## Kernel
+
+**caller_name:**
+`caller_name` returns the name of the method calling it.
+
+```ruby
+def sample_key
+  caller_name
+end
+
+#=> 'sample_key'
 ```
 
 ## Array

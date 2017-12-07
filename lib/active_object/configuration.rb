@@ -4,8 +4,8 @@ module ActiveObject
   class Configuration
 
     attr_accessor :autoload_array, :autoload_date, :autoload_enumerable, :autoload_hash,
-                  :autoload_integer, :autoload_numeric, :autoload_object, :autoload_range,
-                  :autoload_string, :autoload_time
+                  :autoload_integer, :autoload_kernel, :autoload_numeric, :autoload_object,
+                  :autoload_range, :autoload_string, :autoload_time
 
     def initialize
       @autoload_array = true
@@ -13,6 +13,7 @@ module ActiveObject
       @autoload_enumerable = true
       @autoload_hash = true
       @autoload_integer = true
+      @autoload_kernel = true
       @autoload_numeric = true
       @autoload_object = true
       @autoload_range = true
