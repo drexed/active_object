@@ -63,6 +63,12 @@ module ActiveObject
       self[position, length] || []
     end
 
+    def fulfill(value, number)
+      amount = (number - 1)
+      return self if amount <= length
+      self.fill(value, length..amount)
+    end
+
     def groups(number)
       return [] if number <= 0
 

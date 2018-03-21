@@ -97,6 +97,17 @@ describe ActiveObject::Array do
     end
   end
 
+  describe '#fulfill' do
+    it 'to be [1, 2, "x", "x"]' do
+      expect([1, 2].fulfill('x', 4)).to eq([1, 2, 'x', 'x'])
+    end
+
+    it 'to be [1, 2]' do
+      expect([1, 2].fulfill('x', 2)).to eq([1, 2])
+      expect([1, 2].fulfill('x', 1)).to eq([1, 2])
+    end
+  end
+
   describe '#groups' do
     it 'to be [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"], ["10"]]' do
       expect(%w(1 2 3 4 5 6 7 8 9 10).groups(3)).to eq([%w(1 2 3), %w(4 5 6), %w(7 8 9), %w(10)])

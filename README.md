@@ -147,6 +147,13 @@ end
 ['1', '2', '3'].from(-1) #=> ['3']
 ```
 
+**Fulfill:**
+`Fulfill` returns an array filled to given size.
+
+```ruby
+['1', '2'].fulfill('x', 4) #=> ['1', '2', 'x', 'x']
+```
+
 **Groups:**
 `groups` splits or iterates over the array in number of groups.
 
