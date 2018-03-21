@@ -27,26 +27,28 @@ module ActiveObject
       datetime_imperical_iso: '%Y-%m-%d %I:%M %P', datetime_tzn: '%B %-d, %Y %H:%M %Z',
       datetime_abbr_tzn: '%b %-d, %Y %H:%M %Z', datetime_iso_tzn: '%Y-%m-%d %H:%M %z',
       datetime_imperical_tzn: '%B %-d, %Y %I:%M %P %Z', day: '%B %-d', day_abbr: '%b %-d',
-      datetime_imperical_abbr_tzn: '%b %-d, %Y %I:%M %P %Z', time_tz: '%H:%M %z', time_blank: '%k:%M',
-      datetime_imperical_iso_tzn: '%Y-%m-%d %I:%M %P %z', day_iso: '%m-%d', daytime: '%B %-d %H:%M',
-      daytime_abbr: '%b %-d %H:%M', daytime_iso: '%m-%d %H:%M', daytime_imperical: '%B %-d %I:%M %P',
-      daytime_imperical_abbr: '%b %-d %I:%M %P', daytime_imperical_iso: '%m-%d %I:%M %P',
-      time_imperical_padded: '%I:%M %P', time_imperical_blank: '%l:%M %P',
-      time_imperical_tz: '%I:%M %P %z', time_imperical_tzn: '%I:%M %P %Z', sunday_week: '%U',
-      monday_week: '%W', week_iso: '%V', week_year_iso: '%V-%G'
+      datetime_imperical_abbr_tzn: '%b %-d, %Y %I:%M %P %Z', time_tz: '%H:%M %z',
+      time_blank: '%k:%M', datetime_imperical_iso_tzn: '%Y-%m-%d %I:%M %P %z', day_iso: '%m-%d',
+      daytime: '%B %-d %H:%M', daytime_abbr: '%b %-d %H:%M', daytime_iso: '%m-%d %H:%M',
+      daytime_imperical: '%B %-d %I:%M %P', daytime_imperical_abbr: '%b %-d %I:%M %P',
+      daytime_imperical_iso: '%m-%d %I:%M %P', time_imperical_padded: '%I:%M %P',
+      time_imperical_blank: '%l:%M %P', time_imperical_tz: '%I:%M %P %z',
+      time_imperical_tzn: '%I:%M %P %Z', sunday_week: '%U', monday_week: '%W', week_iso: '%V',
+      week_year_iso: '%V-%G'
     }.freeze
     STRING_UNITS ||= {
-      d: 'd', day: 'd', day_padded: 'd', dd: '-d', Day: '-d', day_unpadded: '-d', ddd: '_d', zz: ':z',
-      DAY: '_d', day_blank: '_d', dddd: 'j', day_of_the_year: 'j', m: 'm', month: 'm', hhhh: 'l',
-      month_padded: 'm', mm: '-m', Month: '-m', month_unpadded: '-m', mmm: '_m', MONTH: '_m',
-      month_blank: '_m', mmmm: 'B', month_name: 'B', mmmmm: 'b', month_name_abbr: 'b', w: 'u', z: 'z',
-      weekday: 'u', ww: 'w', weekday_offset: 'w', www: 'A', weekday_name: 'A', wwww: 'a', yyyy: 'Y',
-      weekday_name_abbr: 'a', yy: 'y', yr: 'y', year: 'Y', h: 'H', hour: 'H', hour_padded: 'H',
-      hh: 'k', HOUR: 'k', hour_blank: 'k', hhh: 'I', hour_imperical: 'I', hour_imperical_padded: 'I',
-      HOUR_IMPERICAL: 'l', hour_imperical_blank: 'l', ampm: 'P', meridian: 'P', AMPM: 'p',
-      MERIDIAN: 'p', n: 'M', minute: 'M', s: 'S', second: 'S', time_zone: 'z', time_zone_offset: ':z',
-      zzz: '::z', time_zone_offset_full: '::z', zzzz: 'Z', time_zone_name: 'Z', swe: 'U',
-      sunday_week: 'U', mwe: 'W', monday_week: 'W', we: 'V', week: 'V'
+      d: 'd', day: 'd', day_padded: 'd', dd: '-d', Day: '-d', day_unpadded: '-d', ddd: '_d',
+      zz: ':z', DAY: '_d', day_blank: '_d', dddd: 'j', day_of_the_year: 'j', m: 'm', month: 'm',
+      hhhh: 'l', month_padded: 'm', mm: '-m', Month: '-m', month_unpadded: '-m', mmm: '_m',
+      MONTH: '_m', month_blank: '_m', mmmm: 'B', month_name: 'B', mmmmm: 'b', month_name_abbr: 'b',
+      w: 'u', z: 'z', weekday: 'u', ww: 'w', weekday_offset: 'w', www: 'A', weekday_name: 'A',
+      wwww: 'a', yyyy: 'Y', weekday_name_abbr: 'a', yy: 'y', yr: 'y', year: 'Y', h: 'H', hour: 'H',
+      hour_padded: 'H', hh: 'k', HOUR: 'k', hour_blank: 'k', hhh: 'I', hour_imperical: 'I',
+      hour_imperical_padded: 'I', HOUR_IMPERICAL: 'l', hour_imperical_blank: 'l', ampm: 'P',
+      meridian: 'P', AMPM: 'p', MERIDIAN: 'p', n: 'M', minute: 'M', s: 'S', second: 'S',
+      time_zone: 'z', time_zone_offset: ':z', zzz: '::z', time_zone_offset_full: '::z', zzzz: 'Z',
+      time_zone_name: 'Z', swe: 'U', sunday_week: 'U', mwe: 'W', monday_week: 'W', we: 'V',
+      week: 'V'
     }.freeze
 
     def count_centuries_since(time)

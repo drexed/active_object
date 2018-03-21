@@ -32,8 +32,8 @@ module ActiveObject
     MILLENNIUM ||= CENTURY * 10.0
 
     BYTE_KEYS ||= %i[
-      byte bytes kilobyte kilobytes megabyte megabytes gigabyte gigabytes terabyte terabytes petabyte
-      petabytes exabyte exabytes
+      byte bytes kilobyte kilobytes megabyte megabytes gigabyte gigabytes terabyte terabytes
+      petabyte petabytes exabyte exabytes
     ].freeze
     LENGTH_KEYS ||= {
       metric: %i[
@@ -454,7 +454,8 @@ module ActiveObject
         else
           to_f * ((1.send("#{from}_in_inches").to_f * 0.0254) / 1.send("#{to}_in_meters").to_f)
         end
-      when :inch, :inches, :foot, :feet, :yard, :yards, :mile, :miles, :nautical_mile, :nautical_miles
+      when :inch, :inches, :foot, :feet, :yard, :yards, :mile, :miles, :nautical_mile,
+           :nautical_miles
         if metrics_included_from
           to_f * ((1.send("#{from}_in_meters").to_f * 39.3701) / 1.send("#{to}_in_inches").to_f)
         else

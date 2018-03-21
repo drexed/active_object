@@ -4,13 +4,15 @@ AllCops:
   TargetRubyVersion: 2.4
   Exclude:
     - 'spec/**/**/*'
+Performance/RegexpMatch:
+  Enabled: false
 Layout/EmptyLinesAroundClassBody:
   Enabled: false
 Layout/EmptyLinesAroundModuleBody:
   Enabled: false
 LineLength:
   Max: 100
-Lint/RescueWithoutErrorClass:
+Lint/OrderedMagicComments:
   Enabled: false
 Lint/ScriptPermission:
   Enabled: false
@@ -19,8 +21,12 @@ Metrics/ModuleLength:
 Style/Alias:
   EnforcedStyle: prefer_alias_method
 Style/ClassAndModuleChildren:
-  EnforcedStyle: compact
+  Enabled: false
 Style/Documentation:
   Enabled: false
+Style/ExpandPathArguments:
+  Enabled: false
 Style/RescueModifier:
+  Enabled: false
+Style/RescueStandardError:
   Enabled: false

@@ -66,7 +66,7 @@ module ActiveObject
     def fulfill(value, number)
       amount = (number - 1)
       return self if amount <= length
-      self.fill(value, length..amount)
+      fill(value, length..amount)
     end
 
     def groups(number)

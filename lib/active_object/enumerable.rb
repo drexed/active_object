@@ -145,6 +145,7 @@ if ActiveObject.configuration.autoload_enumerable
     end
     # rubocop:enable Style/CaseEquality
 
+    # rubocop:disable Metrics/MethodLength
     def interpose(sep, &block)
       enum = Enumerator.new do |val|
         items = each
@@ -168,6 +169,7 @@ if ActiveObject.configuration.autoload_enumerable
 
       block ? enum.each(&block) : enum
     end
+    # rubocop:enable Metrics/MethodLength
 
     def many?
       found_count = 0
@@ -217,7 +219,7 @@ if ActiveObject.configuration.autoload_enumerable
       return if frequency_top_two.length != 1 && top_two_first.last == frequency_top_two.last.last
       top_two_first.first
     end
-    # rubocop:ensable Metrics/AbcSize
+    # rubocop:enable Metrics/AbcSize
 
     def multiple(identity = 0, &block)
       if block_given?
@@ -227,7 +229,7 @@ if ActiveObject.configuration.autoload_enumerable
       end
     end
 
-    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def percentile(num, identity = 0)
       return identity unless length.positive?
 
@@ -244,7 +246,7 @@ if ActiveObject.configuration.autoload_enumerable
         collection_sorted[rank - 1]
       end
     end
-    # rubocop:enable Metrics/MethodLength
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     def range(identity = 0)
       return identity unless length.positive?

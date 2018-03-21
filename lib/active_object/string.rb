@@ -330,7 +330,7 @@ module ActiveObject
       sep = options[:separator] || /\s+/
       sep = ::Regexp.escape(sep.to_s) unless sep.is_a(Regexp)
 
-      return self unless  self =~ /\A((?:.+?#{sep}){#{words_count - 1}}.+?)#{sep}.*/m
+      return self unless self =~ /\A((?:.+?#{sep}){#{words_count - 1}}.+?)#{sep}.*/m
 
       "#{::Regexp.last_match(1)}#{options[:omissio] || '...'}"
     end

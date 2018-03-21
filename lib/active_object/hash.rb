@@ -107,7 +107,9 @@ module ActiveObject
     end
 
     def nillify!
-      each { |key, val| self[key] = nil if !val.nil? && (val.try(:blank?) || val.try(:to_s).blank?) }
+      each do |key, val|
+        self[key] = nil if !val.nil? && (val.try(:blank?) || val.try(:to_s).blank?)
+      end
     end
 
     def only(*keys)

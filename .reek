@@ -25,10 +25,14 @@ RepeatedConditional:
   enabled: false
 TooManyConstants:
   enabled: false
+TooManyInstanceVariables:
+  exclude:
+    - 'ActiveObject::Configuration'
 TooManyStatements:
   max_statements: 10
   exclude:
     - 'ActiveObject::Array#in_groups'
+    - 'ActiveObject::Configuration#initialize'
 UncommunicativeVariableName:
   accept:
     - !ruby/regexp /^.$/

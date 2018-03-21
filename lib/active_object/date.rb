@@ -29,7 +29,8 @@ module ActiveObject
       month_name_abbr_year: '%b %Y', weekday: '%d', weekday_padded: '%d', weekday_unpadded: '%-d',
       weekday_blank: '%_d', weekday_name: '%A', weekday_name_abbr: '%a', yr: '%y', year_abbr: '%y',
       year: '%Y', date: '%B %-d, %Y', date_abbr: '%b %-d, %Y', date_iso: '%Y-%m-%d', day: '%B %-d',
-      day_abbr: '%b %-d', sunday_week: '%U', monday_week: '%W', week_iso: '%V', week_year_iso: '%V-%G'
+      day_abbr: '%b %-d', sunday_week: '%U', monday_week: '%W', week_iso: '%V',
+      week_year_iso: '%V-%G'
     }.freeze
 
     def count_centuries_since(time)

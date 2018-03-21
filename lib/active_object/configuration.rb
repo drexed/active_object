@@ -7,6 +7,7 @@ module ActiveObject
                   :autoload_integer, :autoload_kernel, :autoload_numeric, :autoload_object,
                   :autoload_range, :autoload_string, :autoload_time
 
+    # rubocop:disable Metrics/MethodLength
     def initialize
       @autoload_array = true
       @autoload_date = true
@@ -20,6 +21,7 @@ module ActiveObject
       @autoload_string = true
       @autoload_time = true
     end
+    # rubocop:enable Metrics/MethodLength
 
   end
 
