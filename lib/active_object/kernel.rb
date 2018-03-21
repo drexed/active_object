@@ -5,9 +5,11 @@ if ActiveObject.configuration.autoload_kernel
 
     private
 
+    # rubocop:disable Style/PerlBackrefs
     def caller_name
-      caller[0] =~ /`([^']*)'/ and $1
+      caller(1..1).first =~ /`([^']*)'/ && $1
     end
+    # rubocop:enable Style/PerlBackrefs
 
   end
 end
