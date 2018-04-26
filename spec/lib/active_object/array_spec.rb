@@ -186,6 +186,12 @@ describe ActiveObject::Array do
     end
   end
 
+  describe '#indexes' do
+    it 'to be [0, 2]' do
+      expect([:a, :b, :a, :c].indexes(:a)).to eq([0, 2])
+    end
+  end
+
   describe '#merge' do
     it 'to be [0, 1, 2, 3, 4, 5]' do
       arr_1 = [2, 3]
@@ -205,6 +211,18 @@ describe ActiveObject::Array do
   describe '#probability' do
     it 'to be [:a, :b, :c, :c]' do
       expect([:a, :b, :c, :c].probability).to eq({ a: 0.25, b: 0.25, c: 0.5 })
+    end
+  end
+
+  describe '#position' do
+    it 'to be 1' do
+      expect([:a, :b, :a, :c].position(:a)).to eq(1)
+    end
+  end
+
+  describe '#positions' do
+    it 'to be [1, 3]' do
+      expect([:a, :b, :a, :c].positions(:a)).to eq([1, 3])
     end
   end
 
@@ -228,6 +246,12 @@ describe ActiveObject::Array do
   describe '#reject_values' do
     it 'to be [1, 3, 5]' do
       expect([1, 2, 3, 4, 5].reject_values(2, 4)).to eq([1, 3, 5])
+    end
+  end
+
+  describe '#rposition' do
+    it 'to be 3' do
+      expect([:a, :b, :a, :c].rposition(:a)).to eq(3)
     end
   end
 

@@ -187,6 +187,13 @@ end
 %w(1 2 3 4 5 6 7 8 9 10).in_groups_of(3, false)    #=> [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'], ['10']]
 ```
 
+**Indexes:**
+`indexes` returns all the indexes of the matching value.
+
+```ruby
+[:a, :b, :a, :c].indexes(:a) #=> [0, 2]
+```
+
 **Merge:**
 `merge` concats multiple arrays.
 
@@ -217,11 +224,32 @@ end
 [1, 2, 2, 3].promote!(4) #=> [1, 2, 2, 3]
 ```
 
+**Position:**
+`position` returns the position of the first matching value.
+
+```ruby
+[:a, :b, :a, :c].position(:a) #=> 1
+```
+
+**Positions:**
+`positions` returns all the positions of the matching value.
+
+```ruby
+[:a, :b, :a, :c].positions(:a) #=> [1, 3]
+```
+
 **Reject Values:**
 `reject_values` delete multiple values from array from a array copy.
 
 ```ruby
 [1, 2, 3, 4, 5].reject_values(2,4) #=> [1, 3, 5]
+```
+
+**Rposition:**
+`rposition` returns the position of the last matching value.
+
+```ruby
+[:a, :b, :a, :c].rposition(:a) #=> 3
 ```
 
 **Sample:**

@@ -125,6 +125,12 @@ module ActiveObject
     end
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
+    def indexes(value)
+      results = []
+      each_with_index { |val, i| results << i if value == val }
+      results
+    end
+
     def merge(*values)
       values.each { |val| concat(val) }
       self
@@ -136,6 +142,15 @@ module ActiveObject
 
     def nillify!
       replace(nillify)
+    end
+
+    def position(n)
+      idx = index(n)
+      (idx + 1) unless idx.nil?
+    end
+
+    def positions(value)
+      indexes(value).map { |val| val + 1 }
     end
 
     def probability
@@ -161,6 +176,11 @@ module ActiveObject
 
     def reject_values(*args)
       reject { |val| args.include?(val) }
+    end
+
+    def rposition(n)
+      idx = rindex(n)
+      (idx + 1) unless idx.nil?
     end
 
     def sample!
