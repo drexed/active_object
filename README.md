@@ -115,6 +115,14 @@ end
 [1, 2, 3, 4].delete_values(1, 3) #=> [2, 4]
 ```
 
+**Demote:**
+`demote` and `demote!` moves given value to tail of array.
+
+```ruby
+[1, 2, 2, 3].demote(2)  #=> [1, 3, 2, 2]
+[1, 2, 2, 3].demote!(4) #=> [1, 2, 2, 3]
+```
+
 **Denillify:**
 `denillify` and `denillify!` converts nils into a given value.
 
@@ -199,6 +207,14 @@ end
 
 ```ruby
 [:a, :b, :c, :c].probability #=> { a: 0.25, b: 0.25, c: 0.5 }
+```
+
+**Promote:**
+`promote` and `promote!` moves given value to head of array.
+
+```ruby
+[1, 2, 2, 3].promote(2)  #=> [2, 2, 1, 3]
+[1, 2, 2, 3].promote!(4) #=> [1, 2, 2, 3]
 ```
 
 **Reject Values:**

@@ -67,6 +67,11 @@ module ActiveObject
     end
     # rubocop:enable Metrics/MethodLength
 
+    def demote(key)
+      return self unless key?(key)
+      { key => delete(key) }.merge(self)
+    end
+
     def denillify(value = 0)
       each { |key, val| self[key] = val.nil? ? value : val }
     end
@@ -120,6 +125,11 @@ module ActiveObject
       hash = {}
       keys.flatten.each { |key| hash[key] = self[key] if key?(key) }
       replace(hash)
+    end
+
+    def promote(key)
+      return self unless key?(key)
+      { key => delete(key) }.merge(self)
     end
 
     def rename_keys(*keys)

@@ -37,6 +37,14 @@ module ActiveObject
       result
     end
 
+    def demote(value)
+      sort_by { |val| val == value ? 0 : -1 }
+    end
+
+    def demote!(value)
+      replace(demote(value))
+    end
+
     def denillify(value = 0)
       map { |val| val.nil? ? value : val }
     end
@@ -141,6 +149,14 @@ module ActiveObject
 
       hash.each_key { |val| hash[val] /= differ }
       hash
+    end
+
+    def promote(value)
+      sort_by { |val| val == value ? -1 : 0 }
+    end
+
+    def promote!(value)
+      replace(promote(value))
     end
 
     def reject_values(*args)

@@ -32,6 +32,23 @@ describe ActiveObject::Array do
     end
   end
 
+  describe '#demote(!)' do
+    it 'to be [1, 3, 2, 2]' do
+      expect([1, 2, 2, 3].demote(2)).to eq([1, 3, 2, 2])
+      expect([1, 2, 2, 3].demote!(2)).to eq([1, 3, 2, 2])
+    end
+
+    it 'to be [2, 2, 3, 1]' do
+      expect([1, 2, 2, 3].demote(1)).to eq([2, 2, 3, 1])
+      expect([1, 2, 2, 3].demote!(1)).to eq([2, 2, 3, 1])
+    end
+
+    it 'to be [1, 2, 2, 3]' do
+      expect([1, 2, 2, 3].demote(4)).to eq([1, 2, 2, 3])
+      expect([1, 2, 2, 3].demote!(4)).to eq([1, 2, 2, 3])
+    end
+  end
+
   describe '#denillify(!)' do
     it 'to be [0, 2, 3]' do
       expect([nil, 2, 3].denillify).to eq([0, 2, 3])
@@ -188,6 +205,23 @@ describe ActiveObject::Array do
   describe '#probability' do
     it 'to be [:a, :b, :c, :c]' do
       expect([:a, :b, :c, :c].probability).to eq({ a: 0.25, b: 0.25, c: 0.5 })
+    end
+  end
+
+  describe '#promote' do
+    it 'to be [2, 2, 1, 3]' do
+      expect([1, 2, 2, 3].promote(2)).to eq([2, 2, 1, 3])
+      expect([1, 2, 2, 3].promote!(2)).to eq([2, 2, 1, 3])
+    end
+
+    it 'to be [3, 1, 2, 2]' do
+      expect([1, 2, 2, 3].promote(3)).to eq([3, 1, 2, 2])
+      expect([1, 2, 2, 3].promote!(3)).to eq([3, 1, 2, 2])
+    end
+
+    it 'to be [1, 2, 2, 3]' do
+      expect([1, 2, 2, 3].promote(4)).to eq([1, 2, 2, 3])
+      expect([1, 2, 2, 3].promote!(4)).to eq([1, 2, 2, 3])
     end
   end
 
