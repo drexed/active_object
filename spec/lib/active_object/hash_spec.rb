@@ -71,6 +71,18 @@ describe ActiveObject::Hash do
     end
   end
 
+  describe '#demote(!)' do
+    h1 = { a: 0, b: 1, c: 2 }
+
+    it 'to be { a: 0, c: 2, b: 1 }' do
+      expect(h1.demote(:b)).to eq({ a: 0, c: 2, b: 1 })
+    end
+
+    it 'to be { a: 0, b: 1, c: 2 }' do
+      expect(h1.demote!(:d)).to eq(h1)
+    end
+  end
+
   describe '#denillify(!)' do
     it 'to be { abc: 0, xyz: 1 }' do
       h1 = { abc: nil, xyz: 1 }
@@ -160,6 +172,18 @@ describe ActiveObject::Hash do
       expect({ foo: 1, baz: 2, bar: 3 }.only!(:baz, :bar)).to eq({ baz: 2, bar: 3 })
       expect({ :foo => 1, :baz => 2, :bar => 3 }.only(:baz, :bar)).to eq({ :baz => 2, :bar => 3 })
       expect({ :foo => 1, :baz => 2, :bar => 3 }.only!(:baz, :bar)).to eq({ :baz => 2, :bar => 3 })
+    end
+  end
+
+  describe '#promote(!)' do
+    h1 = { a: 0, b: 1, c: 2 }
+
+    it 'to be { b: 1, a: 0, c: 2 }' do
+      expect(h1.promote(:b)).to eq({ b: 1, a: 0, c: 2 })
+    end
+
+    it 'to be { a: 0, b: 1, c: 2 }' do
+      expect(h1.promote!(:d)).to eq(h1)
     end
   end
 

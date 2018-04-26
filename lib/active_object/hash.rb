@@ -69,7 +69,11 @@ module ActiveObject
 
     def demote(key)
       return self unless key?(key)
-      { key => delete(key) }.merge(self)
+      merge(key => delete(key))
+    end
+
+    def demote!(key)
+      replace(demote(key))
     end
 
     def denillify(value = 0)
@@ -130,6 +134,10 @@ module ActiveObject
     def promote(key)
       return self unless key?(key)
       { key => delete(key) }.merge(self)
+    end
+
+    def promote!(key)
+      replace(promote(key))
     end
 
     def rename_keys(*keys)

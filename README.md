@@ -575,6 +575,14 @@ h2 = { a: false, b: { x: [3, 4, 5] } }
 h1.deep_merge(h2) #=> { a: false, b: { c: [1, 2, 3], x: [3, 4, 5] } }
 ```
 
+**Demote:**
+`demote` and `demote!` moves a key value pair to the tail of the hash.
+
+```ruby
+{ a: 0, b: 1, c: 2 }.demote(:b)  #=> { a: 0, c: 2, b: 1 }
+{ a: 0, b: 1, c: 2 }.demote!(:d) #=> { a: 0, b: 1, c: 2 }
+```
+
 **Denillify:**
 `denillify` and `denillify!` converts nils into a given value.
 
@@ -623,6 +631,14 @@ h1.dig(:a, :b, :c) #=> :d
 {}.only(:foo)                                                    #=> {}
 { foo: 'foo', baz: 'baz', bar: 'bar' }.only(:foo)                #=> { foo: 'foo' }
 { :foo => 'foo', :baz => 'baz', :bar => 'bar' }.only(:baz, :bar) #=> { :baz => 'baz', :bar => 'bar' }
+```
+
+**Promote:**
+`promote` and `promote!` moves a key value pair to the head of the hash.
+
+```ruby
+{ a: 0, b: 1, c: 2 }.promote(:b)  #=> { b: 1, a: 0, c: 2 }
+{ a: 0, b: 1, c: 2 }.promote!(:d) #=> { a: 0, b: 1, c: 2 }
 ```
 
 **Rename Keys:**
