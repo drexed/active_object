@@ -144,16 +144,6 @@ describe Enumerable do
     end
   end
 
-  describe '#frequencies' do
-    it 'to be {}' do
-      expect([].frequencies).to eq({})
-    end
-
-    it 'to be { 1 => 2, :symbol => 2, "string" => 1, 3 => 1 }' do
-      expect([1, :symbol, 'string', 3, :symbol, 1].frequencies).to eq({ 1 => 2, :symbol => 2, 'string' => 1, 3 => 1 })
-    end
-  end
-
   describe '#incase?' do
     it 'to be true' do
       expect([1, 2, 'a'].incase?(2)).to eq(true)
@@ -250,6 +240,16 @@ describe Enumerable do
 
     it 'to be 6' do
       expect([1, 2, 3].multiple).to eq(6)
+    end
+  end
+
+  describe '#occurrences' do
+    it 'to be {}' do
+      expect([].occurrences).to eq({})
+    end
+
+    it 'to be { 1 => 2, :symbol => 2, "string" => 1, 3 => 1 }' do
+      expect([1, :symbol, 'string', 3, :symbol, 1].occurrences).to eq({ 1 => 2, :symbol => 2, 'string' => 1, 3 => 1 })
     end
   end
 

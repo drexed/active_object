@@ -135,10 +135,6 @@ if ActiveObject.configuration.autoload_enumerable
       end
     end
 
-    def frequencies
-      each_with_object(::Hash.new(0)) { |key, hsh| hsh[key] += 1 }
-    end
-
     # rubocop:disable Style/CaseEquality
     def incase?(object)
       any? { |val| object === val }
@@ -227,6 +223,10 @@ if ActiveObject.configuration.autoload_enumerable
       else
         inject { |key, val| key * val } || identity
       end
+    end
+
+    def occurrences
+      each_with_object(::Hash.new(0)) { |key, hsh| hsh[key] += 1 }
     end
 
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength

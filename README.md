@@ -388,14 +388,6 @@ end
 [2,3,4].exponential #=> 4096
 ```
 
-**Frequencies:**
-`frequencies` returns a hash of the number of times a value in an array appears.
-
-```ruby
-[].frequencies                                    #=> {}
-[1, :symbol, 'string', 3, :symbol, 1].frequencies #=> { 1 => 2, :symbol => 2, 'string' => 1, 3 => 1 }
-```
-
 **Incase:**
 `incase?` the same as #include? but tested using #=== instead of #==.
 
@@ -458,6 +450,14 @@ end
 [].multiple      #=> 0
 [].multiple(nil) #=> nil
 [1,2,3].multiple #=> 6
+```
+
+**Occurrences:**
+`occurrences` returns a hash of the number of times a value in an array appears.
+
+```ruby
+[].occurrences                                    #=> {}
+[1, :symbol, 'string', 3, :symbol, 1].occurrences #=> { 1 => 2, :symbol => 2, 'string' => 1, 3 => 1 }
 ```
 
 **Percentile:**
