@@ -34,7 +34,7 @@ module ActiveObject
       daytime_imperical_iso: '%m-%d %I:%M %P', time_imperical_padded: '%I:%M %P',
       time_imperical_blank: '%l:%M %P', time_imperical_tz: '%I:%M %P %z',
       time_imperical_tzn: '%I:%M %P %Z', sunday_week: '%U', monday_week: '%W', week_iso: '%V',
-      week_year_iso: '%V-%G'
+      week_year_iso: '%V-%G', year_day: '%Y-%m-%d', year_month: '%Y-%m', year_week: '%G-%V'
     }.freeze
     STRING_UNITS ||= {
       d: 'd', day: 'd', day_padded: 'd', dd: '-d', Day: '-d', day_unpadded: '-d', ddd: '_d',

@@ -2104,6 +2104,9 @@ Time.now.stamp(:datetime) #=> 'January 09, 2014 02:31 pm'
 | Weekday - name abbreviated | `:weekday_name_abbr` | %a | Sun |
 | Year - digits two | `:yr` | %y | (00..99) |
 | Year - digits four | `:year` | %Y | 1999 |
+| Year - day | `:year_day` | %Y-%m-%d | 1999-01-21 |
+| Year - week | `:year_week` | %G-%V | 1999-52 |
+| Year - month | `:year_month` | %Y-%m | 1999-01 |
 | Hour - digits zero-padded | `:hour` or `:hour_padded` | %H | (00..23) |
 | Hour - digits blank-padded | `:hour_blank` | %k | ( 0..23) |
 | Hour - digits zero-padded imperical | `:hour_imperical_padded` | %I | (01..12) |

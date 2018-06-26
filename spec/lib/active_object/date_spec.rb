@@ -226,6 +226,18 @@ describe ActiveObject::Date do
       it 'to be 2014' do
         expect(date.to_format(:year)).to eq('2014')
       end
+
+      it 'to be "2014-01-09"' do
+        expect(date.to_format(:year_day)).to eq('2014-01-09')
+      end
+
+      it 'to be "2014-02"' do
+        expect(date.to_format(:year_week)).to eq('2014-02')
+      end
+
+      it 'to be "2014-01"' do
+        expect(date.to_format(:year_month)).to eq('2014-01')
+      end
     end
 
     context '#week' do
