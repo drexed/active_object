@@ -1,0 +1,40 @@
+---
+detectors:
+  Attribute:
+    enabled: false
+  BooleanParameter:
+    enabled: false
+  ControlParameter:
+    enabled: false
+  DuplicateMethodCall:
+    enabled: false
+  FeatureEnvy:
+    enabled: false
+  IrresponsibleModule:
+    enabled: false
+  LongParameterList:
+    enabled: false
+  ManualDispatch:
+    enabled: false
+  NestedIterators:
+    max_allowed_nesting: 2
+  NilCheck:
+    enabled: false
+  RepeatedConditional:
+    enabled: false
+  TooManyConstants:
+    enabled: false
+  TooManyInstanceVariables:
+    exclude:
+      - 'ActiveObject::Configuration'
+  TooManyStatements:
+    max_statements: 10
+    exclude:
+      - 'ActiveObject::Array#in_groups'
+      - 'ActiveObject::Configuration#initialize'
+  UncommunicativeVariableName:
+    accept:
+      - '/^.$/'
+      - '/[0-9]$/'
+  UtilityFunction:
+    enabled: false

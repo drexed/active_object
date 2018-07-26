@@ -175,6 +175,16 @@ describe ActiveObject::Hash do
     end
   end
 
+  describe '#pair?' do
+    it 'to be true' do
+      expect({ a: 1 }.pair?(:a, 1)).to eq(true)
+    end
+
+    it 'to be false' do
+      expect({ a: 1 }.pair?(:a, 2)).to eq(false)
+    end
+  end
+
   describe '#promote(!)' do
     h1 = { a: 0, b: 1, c: 2 }
 

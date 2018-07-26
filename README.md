@@ -661,6 +661,14 @@ h1.dig(:a, :b, :c) #=> :d
 { :foo => 'foo', :baz => 'baz', :bar => 'bar' }.only(:baz, :bar) #=> { :baz => 'baz', :bar => 'bar' }
 ```
 
+**Pair?:**
+`pair?` checks if the hash has a key with a matching value.
+
+```ruby
+{ a: 0 }.pair?(:a, 0) #=> true
+{ a: 0 }.pair?(:a, 2) #=> false
+```
+
 **Promote:**
 `promote` and `promote!` moves a key value pair to the head of the hash.
 

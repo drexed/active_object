@@ -144,8 +144,8 @@ module ActiveObject
       replace(nillify)
     end
 
-    def position(n)
-      idx = index(n)
+    def position(value)
+      idx = index(value)
       (idx + 1) unless idx.nil?
     end
 
@@ -178,8 +178,8 @@ module ActiveObject
       reject { |val| args.include?(val) }
     end
 
-    def rposition(n)
-      idx = rindex(n)
+    def rposition(value)
+      idx = rindex(value)
       (idx + 1) unless idx.nil?
     end
 

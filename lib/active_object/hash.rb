@@ -131,6 +131,10 @@ module ActiveObject
       replace(hash)
     end
 
+    def pair?(key, value)
+      self[key] == value
+    end
+
     def promote(key)
       return self unless key?(key)
       { key => delete(key) }.merge(self)
