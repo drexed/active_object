@@ -119,6 +119,10 @@ describe ActiveObject::Array do
       expect([1, 2].fulfill('x', 4)).to eq([1, 2, 'x', 'x'])
     end
 
+    it 'to be [1, 2, "x"]' do
+      expect([1, 2].fulfill('x', 3)).to eq([1, 2, 'x'])
+    end
+
     it 'to be [1, 2]' do
       expect([1, 2].fulfill('x', 2)).to eq([1, 2])
       expect([1, 2].fulfill('x', 1)).to eq([1, 2])

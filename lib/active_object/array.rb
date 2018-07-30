@@ -71,10 +71,10 @@ module ActiveObject
       self[position, length] || []
     end
 
-    def fulfill(value, number)
-      amount = (number - 1)
+    def fulfill(value, amount)
       return self if amount <= length
-      fill(value, length..amount)
+
+      fill(value, length..(amount - 1))
     end
 
     def groups(number)
