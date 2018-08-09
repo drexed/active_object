@@ -661,6 +661,14 @@ h1.dig(:a, :b, :c) #=> :d
 { :foo => 'foo', :baz => 'baz', :bar => 'bar' }.only(:baz, :bar) #=> { :baz => 'baz', :bar => 'bar' }
 ```
 
+**Only fill:**
+`only_fill` and `only_fill!` returns only key/value pairs matching certain keys and any missing one.
+
+```ruby
+{}.only(:foo)                                               #=> { foo: nil }
+{ :foo => 1, baz: 2 }.only_fill(:foo, :bar, placeholder: 0) #=> { foo: 1, bar: 0 }
+```
+
 **Pair?:**
 `pair?` checks if the hash has a key with a matching value.
 

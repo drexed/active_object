@@ -131,6 +131,16 @@ module ActiveObject
       replace(hash)
     end
 
+    def only_fill(*keys, placeholder: nil)
+      dup.only_fill!(*keys, placeholder: placeholder)
+    end
+
+    def only_fill!(*keys, placeholder: nil)
+      hash = {}
+      keys.flatten.each { |key| hash[key] = key?(key) ? self[key] : placeholder }
+      replace(hash)
+    end
+
     def pair?(key, value)
       self[key] == value
     end

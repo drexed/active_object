@@ -175,6 +175,23 @@ describe ActiveObject::Hash do
     end
   end
 
+  describe '#only_fill(!)' do
+    it 'to be { foo: nil }' do
+      expect({}.only_fill(:foo)).to eq({ foo: nil })
+      expect({}.only_fill!(:foo)).to eq({ foo: nil })
+    end
+
+    it 'to be { foo: 0 }' do
+      expect({}.only_fill(:foo, placeholder: 0)).to eq({ foo: 0 })
+      expect({}.only_fill!(:foo, placeholder: 0)).to eq({ foo: 0 })
+    end
+
+    it 'to be { :foo => 1 }' do
+      expect({ :foo => 1, baz: 2 }.only_fill(:foo, :bar)).to eq({ :foo => 1, bar: nil })
+      expect({ :foo => 1, baz: 2 }.only_fill!(:foo, :bar)).to eq({ :foo => 1, bar: nil })
+    end
+  end
+
   describe '#pair?' do
     it 'to be true' do
       expect({ a: 1 }.pair?(:a, 1)).to eq(true)
