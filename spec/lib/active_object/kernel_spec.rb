@@ -21,6 +21,10 @@ describe Kernel do
     it 'to be "[/1,2,3]"' do
       expect('[/1,2,3]'.try_eval).to eq('[/1,2,3]')
     end
+
+    it 'to be nil' do
+      expect(nil.try_eval).to eq(nil)
+    end
   end
 
   describe '#caller_name' do

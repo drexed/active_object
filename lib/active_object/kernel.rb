@@ -5,7 +5,7 @@ if ActiveObject.configuration.autoload_kernel
 
     def try_eval
       eval(self)
-    rescue NameError, SyntaxError
+    rescue Exception
       self
     end
 
