@@ -74,6 +74,14 @@ end
 #=> 'sample_key'
 ```
 
+**try_eval:**
+`try_eval` try to evalute or return it's self.
+
+```ruby
+'[1,2,3]'.try_eval #=> [1,2,3]
+'[/1,2,3]'.try_eval #=> '[/1,2,3]'
+```
+
 ## Array
 
 **After:**

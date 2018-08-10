@@ -3,6 +3,12 @@
 if ActiveObject.configuration.autoload_kernel
   module Kernel
 
+    def try_eval
+      eval(self)
+    rescue NameError, SyntaxError
+      self
+    end
+
     private
 
     # rubocop:disable Style/PerlBackrefs
