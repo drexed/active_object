@@ -3,11 +3,13 @@
 if ActiveObject.configuration.autoload_kernel
   module Kernel
 
+    # rubocop:disable Lint/RescueException, Security/Eval
     def try_eval
       eval(self)
     rescue Exception
       self
     end
+    # rubocop:enable Lint/RescueException, Security/Eval
 
     private
 

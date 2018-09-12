@@ -69,6 +69,7 @@ module ActiveObject
 
     def demote(key)
       return self unless key?(key)
+
       merge(key => delete(key))
     end
 
@@ -147,6 +148,7 @@ module ActiveObject
 
     def promote(key)
       return self unless key?(key)
+
       { key => delete(key) }.merge(self)
     end
 

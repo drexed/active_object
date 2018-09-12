@@ -377,6 +377,7 @@ module ActiveObject
 
     def percentage_of(number)
       return 0 if zero? || number.zero?
+
       (to_f / number.to_f) * 100.0
     end
 
@@ -444,6 +445,7 @@ module ActiveObject
       assert_inclusion_of_valid_keys!(LENGTH_KEYS.values.flatten, from, to)
       metric_keys = LENGTH_KEYS.fetch(:metric)
       return self if from == to
+
       metrics_included_from = metric_keys.include?(from)
 
       case to
@@ -470,6 +472,7 @@ module ActiveObject
       assert_inclusion_of_valid_keys!(MASS_KEYS.values.flatten, from, to)
       metric_keys = MASS_KEYS.fetch(:metric)
       return self if from == to
+
       metrics_included_from = metric_keys.include?(from)
 
       case to
@@ -571,6 +574,7 @@ module ActiveObject
 
     def assert_inclusion_of_valid_keys!(cns, from, to)
       return if cns.include?(from) && cns.include?(to)
+
       raise ArgumentError,
             [
               "Unknown key(s): from: #{from.inspect} and to: #{to.inspect}.",

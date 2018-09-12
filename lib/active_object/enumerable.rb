@@ -70,6 +70,7 @@ if ActiveObject.configuration.autoload_enumerable
 
       CRITICAL_ZSCORE.keys.sort.each do |key|
         break if key > collection_length
+
         result = CRITICAL_ZSCORE[key]
       end
 
@@ -95,6 +96,7 @@ if ActiveObject.configuration.autoload_enumerable
     def drop_last(num)
       collection_length = to_a.length
       return self if num > collection_length
+
       self[0...(collection_length - num)]
     end
 
@@ -213,6 +215,7 @@ if ActiveObject.configuration.autoload_enumerable
       top_two_first = frequency_top_two.first
 
       return if frequency_top_two.length != 1 && top_two_first.last == frequency_top_two.last.last
+
       top_two_first.first
     end
     # rubocop:enable Metrics/AbcSize
