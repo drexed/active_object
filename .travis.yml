@@ -1,13 +1,13 @@
-before_install:
-  - sudo apt-get install libxml2-dev
-cache: bundler
+sudo: false
 language: ruby
-notifications:
-  email:
-    recipients:
-      - j.gomez@drexed.com
-    on_failure: change
-    on_success: never
 rvm:
   - ruby-head
-script: 'bundle exec rake'
+before_install:
+  - sudo apt-get install libxml2-dev
+  - gem update --system
+  - gem install bundler
+  - bundle install
+script:
+  - bundle exec rake
+notifications:
+  disable: true

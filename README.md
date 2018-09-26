@@ -2076,11 +2076,11 @@ Time.now.format('month_name day, year hour:minute ampm') #=> 'January 09, 2014 0
 | Day - digits of the year | `dddd` or `day_of_the_year` | %j | (001..366) |
 | Week - iso | `we` or `week` | %V | (00..53) |
 | Week - starting sunday | `swe` or `sunday_week` | %U | (00..53) |
-| Week - starting monday | `swe` or `monday_week` | %W | (00..53) |
-| Weekday - starting monday | `w` or `weekday` | %M | (1..7) |
-| Weekday - starting sunday | `ww` or `weekday` | %M | (0..6) |
-| Weekday - name | `www` or `weekday_name` | %M | Sunday |
-| Weekday - name abbreviated | `wwww` or `weekday_name_abbr` | %M | Sun |
+| Week - starting monday | `mwe` or `monday_week` | %W | (00..53) |
+| Weekday - starting monday | `w` or `weekday` | %u | (1..7) |
+| Weekday - starting sunday | `ww` or `weekday_offset` | %w | (0..6) |
+| Weekday - name | `www` or `weekday_name` | %A | Sunday |
+| Weekday - name abbreviated | `wwww` or `weekday_name_abbr` | %a | Sun |
 | Year - digits two | `yy` or `yr` | %y | (00..99) |
 | Year - digits four | `yyyy` or `year` | %Y | 1999 |
 | Hour - digits zero-padded | `h` or `hour` or `hour_padded` | %H | (00..23) |
@@ -2092,8 +2092,9 @@ Time.now.format('month_name day, year hour:minute ampm') #=> 'January 09, 2014 0
 | Meridian - lowercase | `ampm` or `meridian` | %p | am..pm |
 | Meridian - uppercase | `AMPM` or `MERIDIAN` | %P | AM..PM |
 | Time Zone - time zone | `z` or `time_zone` | %z | +0900 |
-| Time Zone - hour and minute offset | `zz` or `time_zone_offset` | %z | +09:00 |
-| Time Zone - hour, minute and second offset | `zzz` or `time_zone_offset_full` | %z | +09:00:00 |
+| Time Zone - hour and minute offset | `zz` or `time_zone_offset` | %:z | +09:00 |
+| Time Zone - hour, minute and second offset | `zzz` or `time_zone_offset_full` | %::z | +09:00:00 |
+| Time Zone - time zone name | `zzzz` or `time_zone_name` | %Z | UTC |
 
 **To Format / Stamp:**
 `to_format` and `stamp` converts a Date or Time object to a predefined format.
