@@ -18,11 +18,11 @@ describe Kernel do
       expect('[1,2,3]'.safe_eval).to eq([1,2,3])
     end
 
-    it 'to be nil for "[#1,2,3]"' do
-      expect('[#1,2,3]'.safe_eval).to eq(nil)
+    it 'to be "[#1,2,3]"' do
+      expect('[#1,2,3]'.safe_eval).to eq('[#1,2,3]')
     end
 
-    it 'to be nil for nil' do
+    it 'to be nil' do
       expect(nil.safe_eval).to eq(nil)
     end
   end
@@ -32,11 +32,11 @@ describe Kernel do
       expect('[1,2,3]'.try_eval).to eq([1,2,3])
     end
 
-    it 'to be "[#1,2,3]"' do
-      expect('[#1,2,3]'.try_eval).to eq('[#1,2,3]')
+    it 'to be nil for "[#1,2,3]"' do
+      expect('[#1,2,3]'.try_eval).to eq(nil)
     end
 
-    it 'to be nil' do
+    it 'to be nil for nil' do
       expect(nil.try_eval).to eq(nil)
     end
   end

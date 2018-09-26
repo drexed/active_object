@@ -7,16 +7,16 @@ if ActiveObject.configuration.autoload_kernel
 
     # rubocop:disable Lint/RescueException, Security/Eval
     def safe_eval
+      eval(self)
+    rescue Exception
+      self
+    end
+
+    def try_eval
       val = SANITIZE_EVAL_REGEX.match(to_s).to_s
       return if val.nil?
 
       eval(val)
-    end
-
-    def try_eval
-      eval(self)
-    rescue Exception
-      self
     end
     # rubocop:enable Lint/RescueException, Security/Eval
 

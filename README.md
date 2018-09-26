@@ -75,19 +75,19 @@ end
 ```
 
 **safe_eval:**
-`safe_eval` try to evalute or return it's nil.
+`safe_eval` try to evalute or return it's self.
 
 ```ruby
 '[1,2,3]'.safe_eval  #=> [1,2,3]
-'[#1,2,3]'.safe_eval #=> nil
+'[#1,2,3]'.safe_eval #=> '[#1,2,3]'
 ```
 
 **try_eval:**
-`try_eval` try to evalute or return it's self.
+`try_eval` try to evalute or return it's nil.
 
 ```ruby
 '[1,2,3]'.try_eval  #=> [1,2,3]
-'[#1,2,3]'.try_eval #=> '[#1,2,3]'
+'[#1,2,3]'.try_eval #=> nil
 ```
 
 ## Array
