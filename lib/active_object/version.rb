@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 module ActiveObject
-  VERSION ||= '5.3.1'
+  VERSION ||= '5.4.0'
 end
