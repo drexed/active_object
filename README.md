@@ -2115,16 +2115,16 @@ Time.now.stamp(:datetime) #=> 'January 09, 2014 02:31 pm'
 | Month - name abbreviated | `:month_name_abbr` | %b | Jan |
 | Month - digits zero-padded | `:month_year` or `:month_padded_year` | %m %Y | (01..12) 2015 |
 | Month - digits unpadded | `:month_unpadded_year` | %-m %Y | (1..12) 2015 |
-| Month - digits blank-padded | `:month_blank_year` | %a | ( 1..12) 2015 |
-| Month - name | `:month_name_year` | %_m %Y | January 2015 |
+| Month - digits blank-padded | `:month_blank_year` | %_m %Y | ( 1..12) 2015 |
+| Month - name | `:month_name_year` | %B %Y | January 2015 |
 | Month - name abbreviated | `:month_name_abbr_year` | %b %Y | Jan 2015 |
 | Week - iso | `:week_iso` | %V | (00..53) |
-| Week - week year iso | `:week_year_iso` | %V-%G | 04-2014 |
 | Week - sunday week | `:sunday_week` | %U | (00..53) |
-| Week - monday week | `:monday_week` | %V | (00..53) |
-| Weekday - digits zero-padded | `:weekday_padded` | %A | (01..31) |
-| Weekday - digits unpadded | `:weekday_unpadded` | %a | (1..31) |
-| Weekday - digits blank-padded | `:weekday_blank` | %a | ( 1..31) |
+| Week - monday week | `:monday_week` | %W | (00..53) |
+| Week - week year iso | `:week_year_iso` | %V-%G | 04-2014 |
+| Weekday - digits zero-padded | `:weekday_padded` | %d | (01..31) |
+| Weekday - digits unpadded | `:weekday_unpadded` | %-d | (1..31) |
+| Weekday - digits blank-padded | `:weekday_blank` | %_d | ( 1..31) |
 | Weekday - name | `:weekday_name` | %A | Sunday |
 | Weekday - name abbreviated | `:weekday_name_abbr` | %a | Sun |
 | Year - digits two | `:yr` | %y | (00..99) |
@@ -2139,8 +2139,9 @@ Time.now.stamp(:datetime) #=> 'January 09, 2014 02:31 pm'
 | Minute - minute | `:minute` | %M | (00..59) |
 | Second - second | `:second` | %S | (00..60) |
 | Time Zone - time zone | `:time_zone` | %z | +0900 |
-| Time Zone - hour and minute offset | `:time_zone_offset` | %z | +09:00 |
-| Time Zone - hour, minute and second offset | `:time_zone_offset_full` | %z | +09:00:00 |
+| Time Zone - hour and minute offset | `:time_zone_offset` | %:z | +09:00 |
+| Time Zone - hour, minute and second offset | `:time_zone_offset_full` | %::z | +09:00:00 |
+| Time Zone - time zone name | `:time_zone_name` | %Z | UTC |
 | Date - name | `:date` | %B %-d, %Y | January 9, 2014 |
 | Date - name abbreviated | `:date_abbr` | %b %-d, %Y | Jan 9, 2014 |
 | Date - iso | `:date_iso` | %Y-%m-%d | 2014-01-09 |
