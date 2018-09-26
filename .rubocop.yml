@@ -12,6 +12,8 @@ Layout/EmptyLinesAroundModuleBody:
   Enabled: false
 LineLength:
   Max: 100
+Lint/RescueException:
+  Enabled: false
 Metrics/ModuleLength:
   Enabled: false
 Style/Alias:
