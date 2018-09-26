@@ -13,6 +13,43 @@ module ActiveObject
     CENTURY ||= DECADE * 10.0
     MILLENNIUM ||= CENTURY * 10.0
 
+    KEY_UNITS ||= {
+      month: '%m',
+      month_padded: '%m',
+      month_unpadded: '%-m',
+      month_blank: '%_m',
+      month_name: '%B',
+      month_name_abbr: '%b',
+      month_year: '%m %Y',
+      month_padded_year: '%m %Y',
+      month_unpadded_year: '%-m %Y',
+      month_blank_year: '%_m %Y',
+      month_name_year: '%B %Y',
+      month_name_abbr_year: '%b %Y',
+      date: '%B %-d, %Y',
+      date_abbr: '%b %-d, %Y',
+      date_iso: '%Y-%m-%d',
+      day: '%B %-d',
+      day_abbr: '%b %-d',
+      day_iso: '%m-%d',
+      weekday: '%d',
+      weekday_padded: '%d',
+      weekday_unpadded: '%-d',
+      weekday_blank: '%_d',
+      weekday_name: '%A',
+      weekday_name_abbr: '%a',
+      sunday_week: '%U',
+      monday_week: '%W',
+      week_iso: '%V',
+      week_year_iso: '%V-%G',
+      yr: '%y',
+      year_abbr: '%y',
+      year: '%Y',
+      year_day: '%Y-%m-%d',
+      year_month: '%Y-%m',
+      year_week: '%G-%V'
+    }.freeze
+
     STRING_UNITS ||= {
       d: 'd',
       day: 'd',
@@ -56,43 +93,6 @@ module ActiveObject
       week: 'V',
       yyyy: 'Y',
       year: 'Y'
-    }.freeze
-
-    KEY_UNITS ||= {
-      month: '%m',
-      month_padded: '%m',
-      month_unpadded: '%-m',
-      month_blank: '%_m',
-      month_name: '%B',
-      month_name_abbr: '%b',
-      month_year: '%m %Y',
-      month_padded_year: '%m %Y',
-      month_unpadded_year: '%-m %Y',
-      month_blank_year: '%_m %Y',
-      month_name_year: '%B %Y',
-      month_name_abbr_year: '%b %Y',
-      date: '%B %-d, %Y',
-      date_abbr: '%b %-d, %Y',
-      date_iso: '%Y-%m-%d',
-      day: '%B %-d',
-      day_abbr: '%b %-d',
-      day_iso: '%m-%d',
-      weekday: '%d',
-      weekday_padded: '%d',
-      weekday_unpadded: '%-d',
-      weekday_blank: '%_d',
-      weekday_name: '%A',
-      weekday_name_abbr: '%a',
-      sunday_week: '%U',
-      monday_week: '%W',
-      week_iso: '%V',
-      week_year_iso: '%V-%G',
-      yr: '%y',
-      year_abbr: '%y',
-      year: '%Y',
-      year_day: '%Y-%m-%d',
-      year_month: '%Y-%m',
-      year_week: '%G-%V'
     }.freeze
 
     def count_centuries_since(time)
