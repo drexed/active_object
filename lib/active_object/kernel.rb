@@ -3,11 +3,11 @@
 if ActiveObject.configuration.autoload_kernel
   module Kernel
 
-    SANITIZE_EVAL_REGEX ||= /\[\d*,?\d*,?\d*\]/.freeze
+    SANITIZE_EVAL_REGEX ||= /\[\d*,?\d*,?\d*\]/
 
     # rubocop:disable Lint/RescueException, Security/Eval
     def safe_eval
-      val = SANITIZE_EVAL_REGEX.match(self.to_s).to_s
+      val = SANITIZE_EVAL_REGEX.match(to_s).to_s
       return if val.nil?
 
       eval(val)
