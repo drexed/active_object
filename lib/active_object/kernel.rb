@@ -3,7 +3,16 @@
 if ActiveObject.configuration.autoload_kernel
   module Kernel
 
+    SANITIZE_EVAL_REGEX ||= /\[\d*,?\d*,?\d*\]/.freeze
+
     # rubocop:disable Lint/RescueException, Security/Eval
+    def safe_eval
+      val = SANITIZE_EVAL_REGEX.match(self.to_s).to_s
+      return if val.nil?
+
+      eval(val)
+    end
+
     def try_eval
       eval(self)
     rescue Exception
