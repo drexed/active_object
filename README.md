@@ -2108,16 +2108,16 @@ Time.now.stamp(:datetime) #=> 'January 09, 2014 02:31 pm'
 
 | Name | Key | Equivalent `strftime` | Result |
 | --- | --- | --- | --- |
-| Month - digits zero-padded | `:month` or `:month_padded` | %A | (01..12) |
-| Month - digits unpadded | `:month_unpadded` | %a | (1..12) |
-| Month - digits blank-padded | `:month_blank` | %a | ( 1..12) |
-| Month - name | `:month_name` | %A | January |
-| Month - name abbreviated | `:month_name_abbr` | %a | Jan |
-| Month - digits zero-padded | `:month_year` or `:month_padded_year` | %A | (01..12) 2015 |
-| Month - digits unpadded | `:month_unpadded_year` | %a | (1..12) 2015 |
+| Month - digits zero-padded | `:month` or `:month_padded` | %m | (01..12) |
+| Month - digits unpadded | `:month_unpadded` | %-m | (1..12) |
+| Month - digits blank-padded | `:month_blank` | %_m | ( 1..12) |
+| Month - name | `:month_name` | %B | January |
+| Month - name abbreviated | `:month_name_abbr` | %b | Jan |
+| Month - digits zero-padded | `:month_year` or `:month_padded_year` | %m %Y | (01..12) 2015 |
+| Month - digits unpadded | `:month_unpadded_year` | %-m %Y | (1..12) 2015 |
 | Month - digits blank-padded | `:month_blank_year` | %a | ( 1..12) 2015 |
-| Month - name | `:month_name_year` | %A | January 2015 |
-| Month - name abbreviated | `:month_name_abbr_year` | %a | Jan 2015 |
+| Month - name | `:month_name_year` | %_m %Y | January 2015 |
+| Month - name abbreviated | `:month_name_abbr_year` | %b %Y | Jan 2015 |
 | Week - iso | `:week_iso` | %V | (00..53) |
 | Week - week year iso | `:week_year_iso` | %V-%G | 04-2014 |
 | Week - sunday week | `:sunday_week` | %U | (00..53) |
