@@ -151,6 +151,8 @@ module ActiveObject
     end
 
     def divide(num)
+      return 0 if num.zero?
+
       self / num
     end
 

@@ -124,6 +124,14 @@ describe ActiveObject::Numeric do
     it 'to be 2' do
       expect(4.divide(2)).to eq(2)
     end
+
+    it 'to be 0' do
+      expect(0.divide(2)).to eq(0)
+    end
+
+    it 'to be 0' do
+      expect(4.divide(0)).to eq(0)
+    end
   end
 
   describe '#exabyte_in_bytes' do

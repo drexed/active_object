@@ -953,6 +953,8 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 
 ```ruby
 4.divide(2) #=> 2
+0.divide(2) #=> 0
+4.divide(0) #=> 0
 ```
 
 **Exabytes in Bytes:**
