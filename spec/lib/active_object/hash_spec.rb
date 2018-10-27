@@ -368,4 +368,16 @@ describe ActiveObject::Hash do
     end
   end
 
+  describe '#vacant?' do
+    it 'to be true' do
+      expect({}.vacant?(:foo)).to eq(true)
+      expect({ foo: nil }.vacant?(:foo)).to eq(true)
+      expect({ foo: ' ' }.vacant?(:foo)).to eq(true)
+    end
+
+    it 'to be false' do
+      expect({ foo: 'bar' }.vacant?(:foo)).to eq(false)
+    end
+  end
+
 end

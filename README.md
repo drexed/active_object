@@ -816,6 +816,15 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 { foo: 'bar', baz: 'boo' }.transform_values { |v| v.to_s.upcase } #=> {foo: 'BAR', baz: 'BOO' }
 ```
 
+**Vacant:**
+`vacant?` returns where the value of a key is blank?.
+
+```ruby
+{}.vacant?(:foo)             #=> true
+{ foo: ' ' }.vacant?(:foo)   #=> true
+{ foo: 'bar' }.vacant?(:foo) #=> false
+```
+
 ## Integer
 
 **Factorial:**

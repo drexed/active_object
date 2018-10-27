@@ -289,6 +289,10 @@ module ActiveObject
     end
     # rubocop:enable Lint/UnusedMethodArgument
 
+    def vacant?(key)
+      self[key].blank?
+    end
+
   end
 end
 
