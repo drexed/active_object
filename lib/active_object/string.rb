@@ -105,6 +105,16 @@ module ActiveObject
       self[position..-1]
     end
 
+    def headerize
+      squish.split(' ')
+            .map(&:capitalize)
+            .join(' ')
+    end
+
+    def headerize!
+      replace(headerize)
+    end
+
     def humanize(options = {})
       capitalize = options[:capitalize] || true
 

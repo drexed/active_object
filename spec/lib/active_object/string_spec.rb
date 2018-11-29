@@ -211,6 +211,13 @@ describe ActiveObject::String do
     end
   end
 
+  describe '#headerize(!)' do
+    it 'to be "Example Test-sample"' do
+      expect(' example test-sample '.headerize).to eq('Example Test-sample')
+      expect(' example test-sample '.headerize!).to eq('Example Test-sample')
+    end
+  end
+
   describe '#humanize(!)' do
     it 'to be Example string test' do
       expect('example_string_test'.humanize).to eq('Example string test')

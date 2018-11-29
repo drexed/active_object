@@ -1802,6 +1802,13 @@ false.truthy? #=> false
 'example'.from(3) #=> 'mple'
 ```
 
+**Headerize:**
+`headerize` and `headerize!` capitalizes each word.
+
+```ruby
+' example test-sample '.headerize #=> 'Example Test-sample'
+```
+
 **Humanize:**
 `humanize` and `humanize!` transforms a string to a human readable string.
 
