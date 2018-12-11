@@ -192,16 +192,13 @@ if ActiveObject.configuration.autoload_enumerable
     def median(identity = 0)
       collection_length = length.to_f
       collection_sorted = sort
-      return(identity) unless collection_length > 0.0
+      return identity unless collection_length > 0.0
 
       half_collection = collection_length / 2.0
       sorted_collection = collection_sorted[half_collection]
+      return sorted_collection unless (collection_length % 2).zero?
 
-      if (collection_length % 2).zero?
-        (collection_sorted[half_collection - 1.0] + sorted_collection) / 2.0
-      else
-        sorted_collection
-      end
+      (collection_sorted[half_collection - 1.0] + sorted_collection) / 2.0
     end
 
     # rubocop:disable Metrics/AbcSize
@@ -229,24 +226,20 @@ if ActiveObject.configuration.autoload_enumerable
       each_with_object(::Hash.new(0)) { |key, hsh| hsh[key] += 1 }
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable Metrics/AbcSize
     def percentile(num, identity = 0)
       return identity unless length.positive?
 
       collection_sorted = sort
       rank = (num.to_f / 100) * (length + 1)
+      return collection_sorted[rank - 1] unless rank.fraction?
 
-      if rank.fraction?
-        truncated_rank = rank.truncate
-        sample_one = collection_sorted[truncated_rank - 1]
-        sample_two = collection_sorted[truncated_rank]
-
-        (rank.fraction * (sample_two - sample_one)) + sample_one
-      else
-        collection_sorted[rank - 1]
-      end
+      truncated_rank = rank.truncate
+      sample_one = collection_sorted[truncated_rank - 1]
+      sample_two = collection_sorted[truncated_rank]
+      (rank.fraction * (sample_two - sample_one)) + sample_one
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:enable Metrics/AbcSize
 
     def range(identity = 0)
       return identity unless length.positive?
@@ -305,7 +298,7 @@ if ActiveObject.configuration.autoload_enumerable
     end
 
     def take_last_if
-      return(to_enum(:take_last_if)) unless block_given?
+      return to_enum(:take_last_if) unless block_given?
 
       result = []
       reverse_each { |val| yield(val) ? result.unshift(val) : break }

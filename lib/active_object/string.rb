@@ -107,9 +107,7 @@ module ActiveObject
     end
 
     def headerize
-      squish.split(' ')
-            .map(&:capitalize)
-            .join(' ')
+      squish.split(' ').map(&:capitalize).join(' ')
     end
 
     def headerize!

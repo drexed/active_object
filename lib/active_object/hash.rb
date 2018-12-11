@@ -215,8 +215,7 @@ module ActiveObject
     end
 
     def slice(*keys)
-      keys.flatten
-          .each_with_object({}) { |key, hsh| hsh[key] = self[key] if key?(key) }
+      keys.flatten.each_with_object({}) { |key, hsh| hsh[key] = self[key] if key?(key) }
     end
 
     def slice!(*keys)

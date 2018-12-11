@@ -313,7 +313,9 @@ module ActiveObject
     end
 
     def multiple_of?(number)
-      number.zero? ? zero? : modulo(number).zero?
+      return zero? if number.zero?
+
+      modulo(number).zero?
     end
 
     def nautical_miles_in_inches
@@ -449,9 +451,9 @@ module ActiveObject
     def to_length(from, to)
       assert_inclusion_of_valid_keys!(LENGTH_KEYS.values.flatten, from, to)
 
-      metric_keys = LENGTH_KEYS.fetch(:metric)
       return self if from == to
 
+      metric_keys = LENGTH_KEYS.fetch(:metric)
       metrics_included_from = metric_keys.include?(from)
 
       case to
@@ -475,9 +477,9 @@ module ActiveObject
     def to_mass(from, to)
       assert_inclusion_of_valid_keys!(MASS_KEYS.values.flatten, from, to)
 
-      metric_keys = MASS_KEYS.fetch(:metric)
       return self if from == to
 
+      metric_keys = MASS_KEYS.fetch(:metric)
       metrics_included_from = metric_keys.include?(from)
 
       case to
@@ -562,7 +564,11 @@ module ActiveObject
       alpha = to_f
       beta = number.to_f
 
-      alpha.zero? || beta.zero? ? (alpha - beta).abs < epsilon : (alpha / beta - 1).abs < epsilon
+      if alpha.zero? || beta.zero?
+        (alpha - beta).abs < epsilon
+      else
+        (alpha / beta - 1).abs < epsilon
+      end
     end
 
     def yards_in_inches

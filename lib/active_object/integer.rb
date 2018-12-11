@@ -32,7 +32,7 @@ module ActiveObject
       return '' if zero?
       return "-#{(-self).roman}" if negative?
 
-      ROMAN_VALUES.each { |key, val| return("#{key}#{(self - val).roman}") if val <= self }
+      ROMAN_VALUES.each { |key, val| return "#{key}#{(self - val).roman}" if val <= self }
     end
 
     def time
