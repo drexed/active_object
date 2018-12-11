@@ -32,9 +32,7 @@ module ActiveObject
     end
 
     def delete_values(*args)
-      result = []
-      args.each { |val| result << delete(val) }
-      result
+      args.each_with_object([]) { |val, results| results << delete(val) }
     end
 
     def demote(value)
@@ -120,7 +118,6 @@ module ActiveObject
       end
 
       sliced_collection = collection.each_slice(number)
-
       block_given? ? sliced_collection { |val| yield(val) } : sliced_collection.to_a
     end
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
@@ -146,7 +143,9 @@ module ActiveObject
 
     def position(value)
       idx = index(value)
-      (idx + 1) unless idx.nil?
+      return if idx.nil?
+
+      idx + 1
     end
 
     def positions(value)
@@ -180,7 +179,9 @@ module ActiveObject
 
     def rposition(value)
       idx = rindex(value)
-      (idx + 1) unless idx.nil?
+      return if idx.nil?
+
+      idx + 1
     end
 
     def sample!
@@ -226,12 +227,11 @@ module ActiveObject
 
     # rubocop:disable Metrics/MethodLength
     def to_sentence(options = {})
-      default_connectors = {
+      options = {
         words_connector: ', ',
         two_words_connector: ' and ',
         last_word_connector: ', and '
-      }
-      options = default_connectors.merge!(options)
+      }.merge!(options)
 
       case length
       when 0

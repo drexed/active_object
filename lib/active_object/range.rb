@@ -8,12 +8,10 @@ module ActiveObject
     end
 
     def include_with_range?(other)
-      if other.is_a?(Range)
-        operator = exclude_end? && !other.exclude_end? ? :< : :<=
-        include?(other.first) && other.last.send(operator, last)
-      else
-        include?(other)
-      end
+      return include?(other) unless other.is_a?(Range)
+
+      operator = exclude_end? && !other.exclude_end? ? :< : :<=
+      include?(other.first) && other.last.send(operator, last)
     end
 
     def overlaps?(other)

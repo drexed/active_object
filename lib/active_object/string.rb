@@ -5,10 +5,12 @@ module ActiveObject
 
     def any?(*keys)
       included = false
+
       keys.flatten.each do |key|
         included = include?(key)
         break if included
       end
+
       included
     end
 
@@ -19,7 +21,6 @@ module ActiveObject
     def camelize(first_letter = :upper)
       if first_letter.to_sym != :lower
         regex_last = ::Regexp.last_match(1).upcase
-
         to_s.gsub(%r{\/(.?)}) { "::#{regex_last}" }.gsub(%r{^/(?:^|_)(.)}) { regex_last }
       else
         "#{to_s.first.chr.downcase}#{camelize(self)[1..-1]}"
@@ -265,8 +266,7 @@ module ActiveObject
                       when String then chars_to_keep.chars
                       when Array then chars_to_keep.map(&:to_s)
                       when Range then chars_to_keep.to_a.map(&:to_s)
-                      else
-                        raise TypeError, 'Invalid parameter'
+                      else raise TypeError, 'Invalid parameter'
                       end
 
       chars.keep_if { |chr| chars_to_keep.include?(chr) }.join
@@ -323,10 +323,10 @@ module ActiveObject
     def truncate(truncate_at, options = {})
       return dup unless length > truncate_at
 
+      seperator = options[:separator]
       omission = options[:omission] || '...'
       size_with_room_for_omission = truncate_at - omission.length
 
-      seperator = options[:separator]
       stop = if seperator
                rindex(seperator || '', size_with_room_for_omission) || size_with_room_for_omission
              else
@@ -339,7 +339,6 @@ module ActiveObject
     def truncate_words(words_count, options = {})
       sep = options[:separator] || /\s+/
       sep = ::Regexp.escape(sep.to_s) unless sep.is_a(Regexp)
-
       return self unless self =~ /\A((?:.+?#{sep}){#{words_count - 1}}.+?)#{sep}.*/m
 
       "#{::Regexp.last_match(1)}#{options[:omissio] || '...'}"

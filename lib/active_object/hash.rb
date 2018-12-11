@@ -33,13 +33,13 @@ module ActiveObject
 
     # rubocop:disable Lint/UnusedMethodArgument
     def collect_keys(&block)
-      return(enum_for(:collect_keys)) unless block_given?
+      return enum_for(:collect_keys) unless block_given?
 
       collect { |key, _| yield(key) }
     end
 
     def collect_values(&block)
-      return(enum_for(:collect_values)) unless block_given?
+      return enum_for(:collect_values) unless block_given?
 
       collect { |_, val| yield(val) }
     end
@@ -216,7 +216,7 @@ module ActiveObject
 
     def slice(*keys)
       keys.flatten
-          .each_with_object(self.class.new) { |key, hsh| hsh[key] = self[key] if key?(key) }
+          .each_with_object({}) { |key, hsh| hsh[key] = self[key] if key?(key) }
     end
 
     def slice!(*keys)
@@ -270,7 +270,7 @@ module ActiveObject
 
     # rubocop:disable Lint/UnusedMethodArgument
     def transform_keys!(&block)
-      return(enum_for(:transform_keys!)) unless block_given?
+      return enum_for(:transform_keys!) unless block_given?
 
       each_key { |key| self[yield(key)] = delete(key) }
       self
@@ -283,7 +283,7 @@ module ActiveObject
 
     # rubocop:disable Lint/UnusedMethodArgument
     def transform_values!(&block)
-      return(enum_for(:transform_values!)) unless block_given?
+      return enum_for(:transform_values!) unless block_given?
 
       each { |key, val| self[key] = yield(val) }
     end

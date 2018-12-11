@@ -201,6 +201,7 @@ module ActiveObject
 
     def count_seconds_since(time)
       time = time.to_time if time.respond_to?(:to_time)
+
       (to_f - time.to_f).abs
     end
 
@@ -221,7 +222,6 @@ module ActiveObject
     def format(string)
       delimiters = string.scan(/\W+/)
       formatters = string.scan(/[a-z0-9_]+/i)
-
       string = formatters.map { |unit| "%#{STRING_UNITS.fetch(unit.to_sym)}#{delimiters.shift}" }
 
       strftime(string.join)

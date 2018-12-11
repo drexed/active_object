@@ -40,16 +40,22 @@ module ActiveObject
         meter meters millimeter millimeters centimeter centimeters decimeter decimeters decameter
         decameters hectometer hectometers kilometer kilometers
       ],
-      imperical: %i[inch inches foot feet yard yards mile miles nautical_mile nautical_miles]
+      imperical: %i[
+        inch inches foot feet yard yards mile miles nautical_mile nautical_miles
+      ]
     }.freeze
     MASS_KEYS ||= {
       metric: %i[
         gram grams milligram milligrams centigram centigrams decigram decigrams decagram decagrams
         hectogram hectograms kilogram kilograms metric_ton metric_tons
       ],
-      imperical: %i[ounce ounces pound pounds stone stones ton tons]
+      imperical: %i[
+        ounce ounces pound pounds stone stones ton tons
+      ]
     }.freeze
-    TEMPERATURE_KEYS ||= %i[celsius fahrenheit kelvin].freeze
+    TEMPERATURE_KEYS ||= %i[
+      celsius fahrenheit kelvin
+    ].freeze
     TIME_KEYS ||= %i[
       second seconds minute minutes hour hours day days week weeks year years decade decades century
       centuries millennium millenniums
@@ -323,15 +329,13 @@ module ActiveObject
     # rubocop:enable Style/NumericPredicate, Style/YodaCondition
 
     def ordinal
-      if (11..13).cover?(abs % 100)
-        'th'
-      else
-        case abs % 10
-        when 1 then 'st'
-        when 2 then 'nd'
-        when 3 then 'rd'
-        else 'th'
-        end
+      return 'th' if (11..13).cover?(abs % 100)
+
+      case abs % 10
+      when 1 then 'st'
+      when 2 then 'nd'
+      when 3 then 'rd'
+      else 'th'
       end
     end
 
@@ -356,8 +360,7 @@ module ActiveObject
       to_s.rjust(precision, pad_number.to_s)
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
-    # rubocop:disable Metrics/MethodLength, Metrics/PerceivedComplexity
+    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/LineLength, Metrics/MethodLength, Metrics/PerceivedComplexity
     def pad_precision(options = {})
       pad_number = options[:pad_number] || 0
       precision = options[:precision] || 2
@@ -374,8 +377,7 @@ module ActiveObject
         string[0..(ljust_count - 1)]
       end
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
-    # rubocop:enable Metrics/MethodLength, Metrics/PerceivedComplexity
+    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/LineLength, Metrics/MethodLength, Metrics/PerceivedComplexity
 
     def percentage_of(number)
       return 0 if zero? || number.zero?
@@ -433,6 +435,7 @@ module ActiveObject
 
     def to_byte(from, to)
       assert_inclusion_of_valid_keys!(BYTE_KEYS, from, to)
+
       to_f * 1.send("#{from}_in_bytes").to_f / 1.send("#{to}_in_bytes").to_f
     end
 
@@ -445,6 +448,7 @@ module ActiveObject
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def to_length(from, to)
       assert_inclusion_of_valid_keys!(LENGTH_KEYS.values.flatten, from, to)
+
       metric_keys = LENGTH_KEYS.fetch(:metric)
       return self if from == to
 
@@ -467,11 +471,10 @@ module ActiveObject
         end
       end
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def to_mass(from, to)
       assert_inclusion_of_valid_keys!(MASS_KEYS.values.flatten, from, to)
+
       metric_keys = MASS_KEYS.fetch(:metric)
       return self if from == to
 
@@ -503,10 +506,10 @@ module ActiveObject
       difference = (self - value).abs
 
       values.each do |val|
-        if (self - val).abs < difference
-          difference = (self - val).abs
-          value = val
-        end
+        next unless (self - val).abs < difference
+
+        difference = (self - val).abs
+        value = val
       end
 
       value
@@ -518,12 +521,13 @@ module ActiveObject
       "#{pad_precision(options.only(:precision))}#{unit}"
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
     def to_temperature(from, to)
       assert_inclusion_of_valid_keys!(TEMPERATURE_KEYS, from, to)
-      return self if from == to
 
       case to
+      when from
+        self
       when :celsius
         from == :kelvin ? (self - 273.15) : ((self - 32.0) * 5.0 / 9.0)
       when :fahrenheit
@@ -532,10 +536,11 @@ module ActiveObject
         from == :celsius ? (self + 273.15) : (((self - 32.0) * 5.0 / 9.0) + 273.15)
       end
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
 
     def to_time(from, to)
       assert_inclusion_of_valid_keys!(TIME_KEYS, from, to)
+
       (to_f * 1.send("#{from}_in_seconds").to_f) / 1.send("#{to}_in_seconds").to_f
     end
 

@@ -55,12 +55,10 @@ if ActiveObject.configuration.autoload_enumerable
 
     # rubocop:disable Lint/UnusedMethodArgument
     def cluster(&block)
-      result = []
-      each do |ele|
-        last_res = result.last
-        last_res && (yield(ele) == yield(last_res.last)) ? last_res << ele : result << [ele]
+      each_with_object([]) do |ele, results|
+        last_res = results.last
+        last_res && (yield(ele) == yield(last_res.last)) ? last_res << ele : results << [ele]
       end
-      result
     end
     # rubocop:enable Lint/UnusedMethodArgument
 
@@ -101,23 +99,23 @@ if ActiveObject.configuration.autoload_enumerable
     end
 
     def drop_last_if
-      return(to_enum(:drop_last_if)) unless block_given?
+      return to_enum(:drop_last_if) unless block_given?
 
-      result = []
       dropping = true
-      reverse_each do |val|
-        result.unshift(val) unless dropping &&= yield(val)
-      end
+      result = []
+      reverse_each { |val| result.unshift(val) unless dropping &&= yield(val) }
       result
     end
 
     def exactly?(num)
       found_count = 0
+
       if block_given?
         each { |*opt| found_count += 1 if yield(*opt) }
       else
         each { |opt| found_count += 1 if opt }
       end
+
       found_count > num ? false : num == found_count
     end
 
@@ -171,6 +169,7 @@ if ActiveObject.configuration.autoload_enumerable
 
     def many?
       found_count = 0
+
       if block_given?
         any? do |val|
           found_count += 1 if yield val
@@ -193,7 +192,6 @@ if ActiveObject.configuration.autoload_enumerable
     def median(identity = 0)
       collection_length = length.to_f
       collection_sorted = sort
-
       return(identity) unless collection_length > 0.0
 
       half_collection = collection_length / 2.0
@@ -213,7 +211,6 @@ if ActiveObject.configuration.autoload_enumerable
       frequency_distribution = each_with_object(::Hash.new(0)) { |val, hsh| hsh[val] += 1 }
       frequency_top_two = frequency_distribution.sort_by { |_, val| -val }.take(2)
       top_two_first = frequency_top_two.first
-
       return if frequency_top_two.length != 1 && top_two_first.last == frequency_top_two.last.last
 
       top_two_first.first
@@ -260,6 +257,7 @@ if ActiveObject.configuration.autoload_enumerable
 
     def reject_outliers
       cz = critical_zscore
+
       reject { |value| zscore(value) > cz }
     end
 
@@ -269,16 +267,19 @@ if ActiveObject.configuration.autoload_enumerable
 
     def select_outliers
       cz = critical_zscore
+
       select { |value| zscore(value) > cz }
     end
 
     def several?
       found_count = 0
+
       if block_given?
         each { |*opt| found_count += 1 if yield(*opt) }
       else
         each { |opt| found_count += 1 if opt }
       end
+
       found_count > 1
     end
 
@@ -298,7 +299,6 @@ if ActiveObject.configuration.autoload_enumerable
 
     def take_last(num)
       collection_length = to_a.length
-
       return self if num > collection_length
 
       self[(collection_length - num)..-1]
@@ -314,7 +314,6 @@ if ActiveObject.configuration.autoload_enumerable
 
     def variance(identity = 0)
       collection_length = length
-
       return identity if collection_length <= 1
 
       total = inject(0.0) { |sum, val| sum + (val - mean)**2.0 }

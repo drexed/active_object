@@ -2,8 +2,12 @@
 
 module ActiveObject
   module Object
-    FALSE_VALUES ||= [false, 0, '0', 'false', 'FALSE', 'f', 'F'].freeze
-    TRUE_VALUES ||= [true, 1, '1', 'true', 'TRUE', 't', 'T'].freeze
+    FALSE_VALUES ||= [
+      false, 0, '0', 'false', 'FALSE', 'f', 'F'
+    ].freeze
+    TRUE_VALUES ||= [
+      true, 1, '1', 'true', 'TRUE', 't', 'T'
+    ].freeze
 
     def array?
       is_a?(Array)

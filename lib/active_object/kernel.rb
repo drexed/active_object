@@ -3,9 +3,10 @@
 if ActiveObject.configuration.autoload_kernel
   module Kernel
 
-    SANITIZE_EVAL_REGEX ||= /\[\d*,?\d*,?\d*\]/
+    SANITIZE_EVAL_REGEX ||= /\[\d*,?\d*,?\d*\]/.freeze
+    CALLER_METHOD_REGEX ||= /`([^']*)'/.freeze
 
-    # rubocop:disable Lint/RescueException, Security/Eval
+    # rubocop:disable Security/Eval
     def safe_eval
       eval(self)
     rescue Exception
@@ -18,13 +19,13 @@ if ActiveObject.configuration.autoload_kernel
 
       eval(val)
     end
-    # rubocop:enable Lint/RescueException, Security/Eval
+    # rubocop:enable Security/Eval
 
     private
 
     # rubocop:disable Style/PerlBackrefs
     def caller_name
-      caller(1..1).first =~ /`([^']*)'/ && $1
+      caller(1..1).first =~ CALLER_METHOD_REGEX && $1
     end
     # rubocop:enable Style/PerlBackrefs
 
