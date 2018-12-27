@@ -24,8 +24,11 @@ if ActiveObject.configuration.autoload_kernel
     private
 
     # rubocop:disable Style/PerlBackrefs
-    def caller_name
-      caller(1..1).first =~ CALLER_METHOD_REGEX && $1
+    def caller_name(depth = 0)
+      val = caller[depth][CALLER_METHOD_REGEX, 1]
+      return val if depth.zero? || !val.include?('<top (required)>')
+
+      caller[depth - 1][CALLER_METHOD_REGEX, 1]
     end
     # rubocop:enable Style/PerlBackrefs
 

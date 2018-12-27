@@ -68,7 +68,7 @@ end
 
 ```ruby
 def sample_key
-  caller_name
+  caller_name(0)
 end
 
 #=> 'sample_key'
