@@ -73,6 +73,16 @@ module ActiveObject
       Array(keys).inject(self) { |obj, key| obj.send(*key) }
     end
 
+    def send_chain_if(*keys)
+      Array(keys).inject(self) { |obj, key| obj.send_if(*key) }
+    end
+
+    def send_if(key, *args)
+      return self unless respond_to?(key)
+
+      send(key, *args)
+    end
+
     def string?
       is_a?(String)
     end

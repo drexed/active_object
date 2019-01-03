@@ -1572,6 +1572,25 @@ nil.salvage('bar') #=> 'bar'
 3.send_chain(:factorial, [:add, 4]) #=> 10
 ```
 
+**Send Chain If:**
+`send_chain_if` chains multiple callers to an object if it responds to it.
+
+```ruby
+3.send_chain_if(:test)                        #=> 3
+3.send_chain_if(:factorial)                   #=> 6
+3.send_chain_if([:add, 4])                    #=> 7
+3.send_chain_if(:factorial, [:add, 4], :test) #=> 10
+```
+
+**Send If:**
+`send_if` sends a caller to an object if it responds to it.
+
+```ruby
+3.send_if(:test)      #=> 3
+3.send_if(:factorial) #=> 6
+3.send_if(:add, 4)    #=> 7
+```
+
 **String:**
 `string?` determines if an object is a string.
 

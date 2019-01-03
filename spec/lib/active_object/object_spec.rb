@@ -212,6 +212,38 @@ describe ActiveObject::Object do
     end
   end
 
+  describe '#send_chain_if' do
+    it 'to be 3' do
+      expect(3.send_chain_if(:test)).to eq(3)
+    end
+
+    it 'to be 6' do
+      expect(3.send_chain_if(:factorial)).to eq(6)
+    end
+
+    it 'to be 7' do
+      expect(3.send_chain_if([:add, 4])).to eq(7)
+    end
+
+    it 'to be 10' do
+      expect(3.send_chain_if(:factorial, [:add, 4], :test)).to eq(10)
+    end
+  end
+
+  describe '#send_if' do
+    it 'to be nil' do
+      expect(3.send_if(:test)).to eq(3)
+    end
+
+    it 'to be 6' do
+      expect(3.send_if(:factorial)).to eq(6)
+    end
+
+    it 'to be 7' do
+      expect(3.send_if(:add, 4)).to eq(7)
+    end
+  end
+
   describe '#string?' do
     it 'to be true' do
       expect('foo'.string?).to eq(true)
