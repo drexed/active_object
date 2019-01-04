@@ -23,6 +23,10 @@ module ActiveObject
       TRUE_VALUES.include?(self) || FALSE_VALUES.include?(self)
     end
 
+    def date?
+      is_a?(Date)
+    end
+
     # rubocop:disable Style/YodaCondition
     def false?
       false == self
@@ -85,6 +89,10 @@ module ActiveObject
 
     def string?
       is_a?(String)
+    end
+
+    def symbol?
+      is_a?(Symbol)
     end
 
     def time?

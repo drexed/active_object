@@ -45,6 +45,17 @@ describe ActiveObject::Object do
     end
   end
 
+  describe '#date?' do
+    it 'to be true' do
+      expect(Date.today.date?).to eq(true)
+    end
+
+    it 'to be false' do
+      expect(1.date?).to eq(false)
+      expect([].date?).to eq(false)
+    end
+  end
+
   describe '#false?' do
     it 'to be true' do
       expect(false.false?).to eq(true)
@@ -252,6 +263,17 @@ describe ActiveObject::Object do
     it 'to be false' do
       expect(1.string?).to eq(false)
       expect([].string?).to eq(false)
+    end
+  end
+
+  describe '#symbol?' do
+    it 'to be true' do
+      expect(:foo.symbol?).to eq(true)
+    end
+
+    it 'to be false' do
+      expect(1.symbol?).to eq(false)
+      expect(''.symbol?).to eq(false)
     end
   end
 

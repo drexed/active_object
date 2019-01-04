@@ -1470,6 +1470,14 @@ false.boolean? #=> true
 'foo'.boolean? #=> false
 ```
 
+**Date:**
+`date?` determines if an object is a date.
+
+```ruby
+Date.today.date? #=> true
+'foo'.date?      #=> false
+```
+
 **False:**
 `false?` determines if an object is false.
 
@@ -1597,6 +1605,14 @@ nil.salvage('bar') #=> 'bar'
 ```ruby
 'foo'.string? #=> true
 1.string?     #=> false
+```
+
+**Symbol:**
+`symbol?` determines if an object is a symbol.
+
+```ruby
+:foo.time?  #=> true
+'foo'.time? #=> false
 ```
 
 **Time:**
