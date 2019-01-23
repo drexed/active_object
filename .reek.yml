@@ -32,6 +32,8 @@ detectors:
     exclude:
       - 'ActiveObject::Array#in_groups'
       - 'ActiveObject::Configuration#initialize'
+  UncommunicativeMethodName:
+    enabled: false
   UncommunicativeVariableName:
     accept:
       - '/^.$/'
