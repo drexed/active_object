@@ -1657,6 +1657,15 @@ false.truthy? #=> false
 'example'.try(:fake_method) #=> nil
 ```
 
+**Try Send:**
+`try_send` execute caller to an object and rescues with nil.
+
+```ruby
+3.safe_send(:fake) #=> nil
+3.safe_send(:to_s) #=> '3'
+3.safe_send(:+, 2) #=> 5
+```
+
 ## Range
 
 **Combine:**

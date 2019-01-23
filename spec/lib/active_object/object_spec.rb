@@ -340,4 +340,18 @@ describe ActiveObject::Object do
     end
   end
 
+  describe '#try_send' do
+    it 'to be nil' do
+      expect(3.try_send(:fake)).to eq(nil)
+    end
+
+    it 'to be "3"' do
+      expect(3.try_send(:to_s)).to eq('3')
+    end
+
+    it 'to be "5"' do
+      expect(3.try_send(:+, 2)).to eq(5)
+    end
+  end
+
 end

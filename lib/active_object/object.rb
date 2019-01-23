@@ -125,6 +125,10 @@ module ActiveObject
       end
     end
 
+    def try_send(*keys)
+      send(*keys) rescue nil
+    end
+
   end
 end
 
