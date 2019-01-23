@@ -196,6 +196,10 @@ describe ActiveObject::Object do
     it 'to be "3"' do
       expect(3.safe_send(:to_s)).to eq('3')
     end
+
+    it 'to be "5"' do
+      expect(3.safe_send(:+, 2)).to eq(5)
+    end
   end
 
   describe '#salvage' do

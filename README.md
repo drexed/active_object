@@ -1568,6 +1568,7 @@ true.falsey?  #=> false
 ```ruby
 3.safe_send(:fake) #=> 3
 3.safe_send(:to_s) #=> '3'
+3.safe_send(:+, 2) #=> 5
 ```
 
 **Salvage:**

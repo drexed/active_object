@@ -69,8 +69,8 @@ module ActiveObject
       is_a?(Range)
     end
 
-    def safe_send(key)
-      send(key) rescue self
+    def safe_send(*keys)
+      send(*keys) rescue self
     end
 
     def salvage(placeholder = '---')
