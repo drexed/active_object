@@ -69,8 +69,8 @@ module ActiveObject
       is_a?(Range)
     end
 
-    def safe_call
-      try_call || self
+    def safe_call(*keys)
+      try_call(*keys) || self
     end
 
     def safe_send(*keys)
@@ -129,10 +129,11 @@ module ActiveObject
       end
     end
 
-    def try_call
+    def try_call(*keys)
       return unless respond_to?(:call)
 
-      call
+
+      keys.blank? ? call : call(*keys)
     end
 
     def try_send(*keys)

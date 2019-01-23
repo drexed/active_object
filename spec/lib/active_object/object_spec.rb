@@ -200,6 +200,18 @@ describe ActiveObject::Object do
 
       expect(callr.safe_call).to eq(9)
     end
+
+    it 'to be 12' do
+      callr = ->(x, y) { 3 * (x + y) }
+
+      expect(callr.safe_call(2, 2)).to eq(12)
+    end
+
+    it 'to raise error' do
+      callr = ->(x, y) { 3 * (x + y) }
+
+      expect { callr.safe_call(2) }.to raise_error(ArgumentError)
+    end
   end
 
   describe '#safe_send' do
@@ -365,6 +377,18 @@ describe ActiveObject::Object do
       callr = -> { 3 * 3 }
 
       expect(callr.try_call).to eq(9)
+    end
+
+    it 'to be 12' do
+      callr = ->(x, y) { 3 * (x + y) }
+
+      expect(callr.try_call(2, 2)).to eq(12)
+    end
+
+    it 'to raise error' do
+      callr = ->(x, y) { 3 * (x + y) }
+
+      expect { callr.try_call(2) }.to raise_error(ArgumentError)
     end
   end
 

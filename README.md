@@ -1566,10 +1566,11 @@ true.falsey?  #=> false
 `safe_call` execute caller to an object and rescues with self.
 
 ```ruby
-callr = -> { 3 * 3 }
+callr = ->(x) { 3 * x }
 
-3.safe_call     #=> 3
-callr.safe_call #=> 9
+3.safe_call        #=> 3
+callr.safe_call(3) #=> 9
+callr.safe_call    #=> raises ArgumentError: wrong number of arguments
 ```
 
 **Safe Send:**
@@ -1671,10 +1672,11 @@ false.truthy? #=> false
 `try_call` execute caller to an object and rescues with nil.
 
 ```ruby
-callr = -> { 3 * 3 }
+callr = ->(x) { 3 * x }
 
-3.try_call     #=> nil
-callr.try_call #=> 9
+3.try_call        #=> nil
+callr.try_call(3) #=> 9
+callr.try_call    #=> raises ArgumentError: wrong number of arguments
 ```
 
 **Try Send:**
