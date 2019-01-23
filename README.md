@@ -1562,6 +1562,14 @@ true.falsey?  #=> false
 1.range?      #=> false
 ```
 
+**Safe Send:**
+`safe_send` execute caller to an object and rescues with self.
+
+```ruby
+3.safe_send(:fake) #=> 3
+3.safe_send(:to_s) #=> '3'
+```
+
 **Salvage:**
 `salvage` returns a placeholder if object is blank?.
 

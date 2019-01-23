@@ -188,6 +188,16 @@ describe ActiveObject::Object do
     end
   end
 
+  describe '#safe_send' do
+    it 'to be 3' do
+      expect(3.safe_send(:fake)).to eq(3)
+    end
+
+    it 'to be "3"' do
+      expect(3.safe_send(:to_s)).to eq('3')
+    end
+  end
+
   describe '#salvage' do
     it 'to be "---"' do
       expect(false.salvage).to eq('---')
