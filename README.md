@@ -1562,8 +1562,18 @@ true.falsey?  #=> false
 1.range?      #=> false
 ```
 
+**Safe Call:**
+`safe_call` execute caller to an object and rescues with self.
+
+```ruby
+callr = -> { 3 * 3 }
+
+3.safe_call     #=> 3
+callr.safe_call #=> 9
+```
+
 **Safe Send:**
-`safe_send` execute caller to an object and rescues with self.
+`safe_send` execute object method and rescues with self.
 
 ```ruby
 3.safe_send(:fake) #=> 3
@@ -1657,13 +1667,23 @@ false.truthy? #=> false
 'example'.try(:fake_method) #=> nil
 ```
 
-**Try Send:**
-`try_send` execute caller to an object and rescues with nil.
+**Try Call:**
+`try_call` execute caller to an object and rescues with nil.
 
 ```ruby
-3.safe_send(:fake) #=> nil
-3.safe_send(:to_s) #=> '3'
-3.safe_send(:+, 2) #=> 5
+callr = -> { 3 * 3 }
+
+3.try_call     #=> nil
+callr.try_call #=> 9
+```
+
+**Try Send:**
+`try_send` execute object method and rescues with nil.
+
+```ruby
+3.try_send(:fake) #=> 3
+3.try_send(:to_s) #=> '3'
+3.try_send(:+, 2) #=> 5
 ```
 
 ## Range

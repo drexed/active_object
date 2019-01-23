@@ -69,8 +69,12 @@ module ActiveObject
       is_a?(Range)
     end
 
+    def safe_call
+      try_call || self
+    end
+
     def safe_send(*keys)
-      send(*keys) rescue self
+      try_send(*keys) || self
     end
 
     def salvage(placeholder = '---')
@@ -123,6 +127,12 @@ module ActiveObject
       else
         public_send(*obj, &block)
       end
+    end
+
+    def try_call
+      return unless respond_to?(:call)
+
+      call
     end
 
     def try_send(*keys)

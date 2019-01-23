@@ -188,6 +188,20 @@ describe ActiveObject::Object do
     end
   end
 
+  describe '#safe_call' do
+    it 'to be nil' do
+      callr = 3
+
+      expect(callr.safe_call).to eq(3)
+    end
+
+    it 'to be 9' do
+      callr = -> { 3 * 3 }
+
+      expect(callr.safe_call).to eq(9)
+    end
+  end
+
   describe '#safe_send' do
     it 'to be 3' do
       expect(3.safe_send(:fake)).to eq(3)
@@ -337,6 +351,20 @@ describe ActiveObject::Object do
 
     it 'to raise error' do
       expect { 'example'.try!(:fake_method) }.to raise_error(NoMethodError)
+    end
+  end
+
+  describe '#try_call' do
+    it 'to be nil' do
+      callr = 3
+
+      expect(callr.try_call).to eq(nil)
+    end
+
+    it 'to be 9' do
+      callr = -> { 3 * 3 }
+
+      expect(callr.try_call).to eq(9)
     end
   end
 
