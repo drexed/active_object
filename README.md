@@ -291,6 +291,13 @@ end
 'this    is   a  test'.split(' ').strip #=> ['this', 'is', 'a', 'test']
 ```
 
+**Swap:**
+`swap` switches places of two elements.
+
+```ruby
+[1, 2, 3].swap(0, 2) #=> [3, 2, 1]
+```
+
 **To:**
 `to` returns the beginning of the array up to position.
 
@@ -652,6 +659,15 @@ h1.dig(:a, :b, :c) #=> :d
 {}.except(:foo)                                                    #=> {}
 { foo: 'foo', baz: 'baz', bar: 'bar' }.except(:foo)                #=> { baz: 'baz', bar: 'bar' }
 { :foo => 'foo', :baz => 'baz', :bar => 'bar' }.except(:baz, :bar) #=> { :foo => 'foo' }
+```
+
+**Extract:**
+`extract!` removes and returns the key/value pairs matching the given keys.
+
+```ruby
+{}.extract!(:foo)                                     #=> {}
+{ foo: 'foo', baz: 'baz', bar: 'bar' }.extract!(:foo) #=> { foo: 'foo' }
+
 ```
 
 **Hmap:**

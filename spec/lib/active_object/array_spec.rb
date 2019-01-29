@@ -289,6 +289,12 @@ describe ActiveObject::Array do
     end
   end
 
+  describe '#swap' do
+    it 'to be [3, 2, 1]' do
+      expect([1, 2, 3].swap(0, 2)).to eq([3, 2, 1])
+    end
+  end
+
   describe '#to' do
     it 'to be [1]' do
       expect([1, 2, 3].to(0)).to eq([1])

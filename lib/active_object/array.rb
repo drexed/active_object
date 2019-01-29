@@ -221,6 +221,11 @@ module ActiveObject
       replace(strip)
     end
 
+    def swap(from, to)
+      self[from], self[to] = self[to], self[from]
+      self
+    end
+
     def to(position)
       position >= 0 ? first(position + 1) : self[0..position]
     end

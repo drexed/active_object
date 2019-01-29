@@ -102,6 +102,10 @@ module ActiveObject
       self
     end
 
+    def extract!(*keys)
+      keys.each_with_object({}) { |key, hash| hash[key] = delete(key) if has_key?(key) }
+    end
+
     def hmap(&block)
       dup.hmap!(&block)
     end

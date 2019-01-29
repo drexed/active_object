@@ -137,6 +137,16 @@ describe ActiveObject::Hash do
     end
   end
 
+  describe '#extract!' do
+    it 'to be {}' do
+      expect({}.extract!(:foo)).to eq({})
+    end
+
+    it 'to be { foo: 1 }' do
+      expect({ foo: 1, baz: 2, bar: 3 }.extract!(:foo)).to eq({ foo: 1 })
+    end
+  end
+
   describe '#hmap!' do
     it 'to be { a: 4, b: 5, c: 6 }' do
       expect({ a: 1, b: 2, c: 3 }.hmap { |k, v| { k => v + 3 } }).to eq({ a: 4, b: 5, c: 6 })
