@@ -1598,6 +1598,14 @@ callr.safe_call    #=> raises ArgumentError: wrong number of arguments
 3.safe_send(:+, 2) #=> 5
 ```
 
+**Safe Try:**
+`safe_try` similar to the try method but returns self instead of nil.
+
+```ruby
+'example'.safe_try(:upcase)      #=> 'EXAMPLE'
+'example'.safe_try(:fake_method) #=> 'example'
+```
+
 **Salvage:**
 `salvage` returns a placeholder if object is blank?.
 

@@ -228,6 +228,16 @@ describe ActiveObject::Object do
     end
   end
 
+  describe '#safe_try' do
+    it 'to be "example"' do
+      expect('example'.safe_try(:fake_method)).to eq('example')
+    end
+
+    it 'to be "EXAMPLE"' do
+      expect('example'.safe_try(:upcase)).to eq('EXAMPLE')
+    end
+  end
+
   describe '#salvage' do
     it 'to be "---"' do
       expect(false.salvage).to eq('---')

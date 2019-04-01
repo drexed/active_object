@@ -77,6 +77,10 @@ module ActiveObject
       try_send(*keys) || self
     end
 
+    def safe_try(*obj, &block)
+      try(*obj, &block) || self
+    end
+
     def salvage(placeholder = '---')
       blank? ? placeholder : self
     end
