@@ -136,7 +136,6 @@ module ActiveObject
     def try_call(*keys)
       return unless respond_to?(:call)
 
-
       keys.blank? ? call : call(*keys)
     end
 

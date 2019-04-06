@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'json'
+
 module ActiveObject
   module Hash
 
@@ -103,7 +105,7 @@ module ActiveObject
     end
 
     def extract!(*keys)
-      keys.each_with_object({}) { |key, hash| hash[key] = delete(key) if has_key?(key) }
+      keys.each_with_object({}) { |key, hash| hash[key] = delete(key) if key?(key) }
     end
 
     def hmap(&block)
@@ -265,6 +267,10 @@ module ActiveObject
       each_with_object({}) do |(key, val), options|
         options[(key.to_s.tr(' ', '_').underscore.to_sym rescue key) || key] = val
       end
+    end
+
+    def to_o
+      JSON.parse(to_json, object_class: OpenStruct)
     end
 
     def transform_keys(&block)

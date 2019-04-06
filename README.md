@@ -172,7 +172,7 @@ end
 ```
 
 **Fulfill:**
-`Fulfill` returns an array filled to given size.
+`fulfill` returns an array filled to given size.
 
 ```ruby
 ['1', '2'].fulfill('x', 4) #=> ['1', '2', 'x', 'x']
@@ -816,6 +816,13 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 
 ```ruby
 { 'firstName' => 'foo', 'last Name' => 'test' }.symbolize_and_underscore_keys #=> { first_name: 'foo', last_name: 'test' }
+```
+
+**To Object:**
+`to_o` converts an object to have an object like API.
+
+```ruby
+{ foo: { bar: true } }.to_o.foo.bar #=> true
 ```
 
 **Transform Keys:**

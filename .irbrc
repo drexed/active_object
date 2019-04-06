@@ -5,8 +5,8 @@ begin
   require 'awesome_print'
 
   AwesomePrint.irb!
-rescue LoadError => err
-  warn "Couldn't load awesome_print: #{err}"
+rescue LoadError => e
+  warn "Couldn't load awesome_print: #{e}"
 end
 
 # IRB

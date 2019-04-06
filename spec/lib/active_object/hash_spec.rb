@@ -364,6 +364,20 @@ describe ActiveObject::Hash do
     end
   end
 
+  describe '#to_o' do
+    it 'to be OpenStruct' do
+      hsh = { foo: { bar: true } }
+
+      expect(hsh.to_o.is_a?(OpenStruct)).to eq(true)
+    end
+
+    it 'to be true' do
+      hsh = { foo: { bar: true } }
+
+      expect(hsh.to_o.foo.bar).to eq(true)
+    end
+  end
+
   describe '#transform_keys(!)' do
     it 'to be { "FOO" => "foo", "BAZ" => "bar" }' do
       expect({ foo: 'bar', baz: 'boo' }.transform_keys { |k| k.to_s.upcase }).to eq({ 'FOO' => 'bar', 'BAZ' => 'boo' })
