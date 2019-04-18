@@ -851,10 +851,17 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 ## Integer
 
 **Factorial:**
-`factorial` calculate the factorial of an integer.
+`factorial` calculates the factorial of an integer.
 
 ```ruby
 4.factorial #=> 24
+```
+
+**Factors:**
+`factors` calculates all the factors of an integer.
+
+```ruby
+24.factors #=> [1, 24, 2, 12, 3, 8, 4, 6]
 ```
 
 **Of:**

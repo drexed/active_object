@@ -10,6 +10,12 @@ describe ActiveObject::Integer do
     end
   end
 
+  describe '#factors' do
+    it 'to be [1, 24, 2, 12, 3, 8, 4, 6]' do
+      expect(24.factors).to eq([1, 24, 2, 12, 3, 8, 4, 6])
+    end
+  end
+
   describe '#of' do
     it 'to be [1, 2, 3]' do
       expect(3.of { |i| i + 1 }).to eq([1, 2, 3])

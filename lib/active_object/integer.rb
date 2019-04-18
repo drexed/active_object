@@ -24,6 +24,19 @@ module ActiveObject
       2.upto(self).inject(1) { |acc, elem| acc * elem }
     end
 
+    def factors
+      limit = Math.sqrt(self).floor
+
+      (1..limit).each_with_object([]) do |i, acc|
+        next unless multiple_of?(i)
+
+        acc.push(i)
+
+        sq_num = (self / i)
+        acc.push(sq_num) if (sq_num) != i
+      end
+    end
+
     def of(&block)
       ::Array.new(self, &block)
     end
