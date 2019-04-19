@@ -2124,6 +2124,13 @@ callr.try_call    #=> raises ArgumentError: wrong number of arguments
 'example'.to(-2) #=> 'exampl'
 ```
 
+**Transliterize:**
+`transliterize` and `transliterize!` returns a string with swapped special characters.
+
+```ruby
+'źåöé'.transliterize #=> 'zaoe'
+```
+
 **Truncate:**
 `truncate` a given text after a given length if text is longer than length.
 
