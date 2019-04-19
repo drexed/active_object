@@ -529,6 +529,13 @@ describe ActiveObject::String do
     end
   end
 
+  describe '#transliterize' do
+    it 'to be "zaoe"' do
+      expect('źåöé'.transliterize).to eq('zaoe')
+      expect('źåöé'.transliterize!).to eq('zaoe')
+    end
+  end
+
   describe '#truncate' do
     it 'to be ...' do
       expect('example string'.truncate(3)).to eq('...')

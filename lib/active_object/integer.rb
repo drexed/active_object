@@ -28,7 +28,7 @@ module ActiveObject
       limit = Math.sqrt(self).floor
 
       (1..limit).each_with_object([]) do |i, acc|
-        next unless multiple_of?(i)
+        next unless (self % i).zero?
 
         acc.push(i)
 
