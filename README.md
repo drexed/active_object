@@ -697,7 +697,7 @@ h1.dig(:a, :b, :c) #=> :d
 `only_fill` and `only_fill!` returns only key/value pairs matching certain keys and any missing one.
 
 ```ruby
-{}.only(:foo)                                               #=> { foo: nil }
+{}.only_fill(:foo)                                          #=> { foo: nil }
 { :foo => 1, baz: 2 }.only_fill(:foo, :bar, placeholder: 0) #=> { foo: 1, bar: 0 }
 ```
 
