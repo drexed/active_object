@@ -75,9 +75,9 @@ if ActiveObject.configuration.autoload_enumerable
       result || identity
     end
 
-    def difference(identity = 0, &block)
+    def defference(identity = 0, &block)
       if block_given?
-        map(&block).difference(identity)
+        map(&block).defference(identity)
       else
         inject { |key, val| key - val } || identity
       end

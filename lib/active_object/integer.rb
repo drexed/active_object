@@ -33,7 +33,7 @@ module ActiveObject
         acc.push(i)
 
         sq_num = (self / i)
-        acc.push(sq_num) if (sq_num) != i
+        acc.push(sq_num) if sq_num != i
       end
     end
 

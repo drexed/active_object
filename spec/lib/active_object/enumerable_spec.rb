@@ -42,17 +42,17 @@ describe Enumerable do
     end
   end
 
-  describe '#difference' do
+  describe '#defference' do
     it 'to be 0' do
-      expect([].difference).to eq(0)
+      expect([].defference).to eq(0)
     end
 
     it 'to be nil' do
-      expect([].difference(nil)).to eq(nil)
+      expect([].defference(nil)).to eq(nil)
     end
 
     it 'to be -4' do
-      expect([1, 2, 3].difference).to eq(-4)
+      expect([1, 2, 3].defference).to eq(-4)
     end
   end
 

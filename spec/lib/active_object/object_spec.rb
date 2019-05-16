@@ -416,4 +416,14 @@ describe ActiveObject::Object do
     end
   end
 
+  describe '#to_i' do
+    it 'to be 1' do
+      expect(true.to_i).to eq(1)
+    end
+
+    it 'to be 0' do
+      expect(false.to_i).to eq(0)
+    end
+  end
+
 end

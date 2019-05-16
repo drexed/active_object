@@ -146,4 +146,18 @@ module ActiveObject
   end
 end
 
-Object.include(ActiveObject::Object) if ActiveObject.configuration.autoload_object
+if ActiveObject.configuration.autoload_object
+  Object.include(ActiveObject::Object)
+
+  class FalseClass
+    def to_i
+      0
+    end
+  end
+
+  class TrueClass
+    def to_i
+      1
+    end
+  end
+end

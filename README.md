@@ -342,13 +342,13 @@ end
 [2,2,2,3,3,4,2,2,1].cluster { |x| x } #=> [[2, 2, 2], [3, 3], [4], [2, 2], [1]]
 ```
 
-**Difference:**
-`difference` returns the difference of a collection of numbers.
+**Defference:**
+`difference` returns the difference of a collection of numbers. (Renamed from: difference)
 
 ```ruby
-[].difference #=> 0
-[].difference(nil) #=> nil
-[1,2,3].difference #=> -4
+[].defference #=> 0
+[].defference(nil) #=> nil
+[1,2,3].defference #=> -4
 ```
 
 **Divisible:**
