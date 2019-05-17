@@ -32,6 +32,18 @@ describe ActiveObject::Object do
     end
   end
 
+  describe '#bool?' do
+    it 'to be true' do
+      expect(false.bool?).to eq(true)
+      expect(true.bool?).to eq(true)
+    end
+
+    it 'to be false' do
+      expect(0.bool?).to eq(false)
+      expect('true'.bool?).to eq(false)
+    end
+  end
+
   describe '#boolean?' do
     it 'to be true' do
       expect(false.boolean?).to eq(true)
@@ -41,7 +53,7 @@ describe ActiveObject::Object do
     end
 
     it 'to be false' do
-      expect('true'.array?).to eq(false)
+      expect('foo'.boolean?).to eq(false)
     end
   end
 

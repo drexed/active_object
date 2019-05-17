@@ -19,6 +19,10 @@ module ActiveObject
       respond_to?(:empty?) ? object.empty? : !object
     end
 
+    def bool?
+      true? || false?
+    end
+
     def boolean?
       TRUE_VALUES.include?(self) || FALSE_VALUES.include?(self)
     end

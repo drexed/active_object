@@ -1491,13 +1491,23 @@ h.slice!(:a, :b) #=> { c: 3, d: 4 }
 'Awesome Sting'.blank? #=> false
 ```
 
+**Bool:**
+`bool?` determines if an object is a true or false class.
+
+```ruby
+true.bool?    #=> true
+1.bool?       #=> false
+'false'.bool? #=> false
+```
+
 **Boolean:**
 `boolean?` determines if an object is an boolean.
 
 ```ruby
-1.boolean?     #=> true
-false.boolean? #=> true
-'foo'.boolean? #=> false
+true.boolean?    #=> true
+1.boolean?       #=> true
+'false'.boolean? #=> true
+'foo'.boolean?   #=> false
 ```
 
 **Date:**
