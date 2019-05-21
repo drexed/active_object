@@ -101,6 +101,15 @@ end
 ['1', '2', '3'].after('4') #=> nil
 ```
 
+**Bury:**
+`bury` updates a deeply nested value.
+
+```ruby
+['1', ['2']].bury(1, '3')    #=> ['1', '3']
+['1', ['2']].bury(1, 0, '3') #=> ['1', ['3']]
+['1', ['2']].bury(1)         #=> raises ArgumentError: '2 or more arguments required'
+```
+
 **Before:**
 `before` returns the value before the given value.
 
@@ -586,9 +595,18 @@ end
 
 ```ruby
 {}.assert_valid_keys(:foo)                               #=> {}
-{}.assert_valid_keys!(:foo)                              #=> raises 'ArgumentError: Empty hash. Valid keys are: :foo'
+{}.assert_valid_keys!(:foo)                              #=> raises ArgumentError: 'Empty hash. Valid keys are: :foo'
 { foo: 'bar' }.assert_valid_keys(:foo)                   #=> { foo: 'bar' }
-{ foo: 'bar', baz: 'boz' }.assert_valid_keys(:foo, :boo) #=> raises 'ArgumentError: Unknown key: :baz. Valid keys are: :foo, :boo'
+{ foo: 'bar', baz: 'boz' }.assert_valid_keys(:foo, :boo) #=> raises ArgumentError: 'Unknown key: :baz. Valid keys are: :foo, :boo'
+```
+
+**Bury:**
+`bury` updates a deeply nested value.
+
+```ruby
+{ foo: { baz: 'boo' } }.bury(:foo, :moo)       #=> { foo: :moo }
+{ foo: { baz: 'boo' } }.bury(:foo, :baz, :moo) #=> { foo: { baz: :moo } }
+{ foo: { baz: 'boo' } }.bury(:foo)             #=> raises ArgumentError: '2 or more arguments required'
 ```
 
 **Collect Keys:**

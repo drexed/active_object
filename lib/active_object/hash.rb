@@ -25,6 +25,23 @@ module ActiveObject
       end
     end
 
+    # rubocop:disable Style/GuardClause
+    def bury(*args)
+      if args.count < 2
+        raise ArgumentError, '2 or more arguments required'
+      elsif args.count == 2
+        self[args[0]] = args[1]
+      else
+        arg = args.shift
+
+        self[arg] = {} unless self[arg]
+        self[arg].bury(*args) unless args.empty?
+      end
+
+      self
+    end
+    # rubocop:enable Style/GuardClause
+
     def compact
       select { |_, val| !val.nil? }
     end

@@ -15,6 +15,33 @@ module ActiveObject
       self[(index(value).to_i - 1) % length]
     end
 
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity,
+    # rubocop:disable Style/GuardClause, Style/IfInsideElse
+    def bury(*args)
+      if args.count < 2
+        raise ArgumentError, '2 or more arguments required'
+      elsif args.count == 2
+        if args[0].is_a?(Integer)
+          self[args[0]] = args[1]
+        else
+          self << { args[0] => args[1] }
+        end
+      else
+        if args[0].is_a?(Integer)
+          arg = args.shift
+
+          self[arg] = [] unless self[arg]
+          self[arg].bury(*args)
+        else
+          self << {}.bury(*args)
+        end
+      end
+
+      self
+    end
+    # rubocop:enable Style/GuardClause, Style/IfInsideElse
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
+
     def delete_first
       self[1..-1]
     end

@@ -18,6 +18,20 @@ describe ActiveObject::Array do
     end
   end
 
+  describe '#bury' do
+    it 'to be [:a1, { b1: :d1 }]' do
+      expect([:a1, { b1: :c1 }].bury(1, :b1, :d1)).to eq([:a1, { b1: :d1 }])
+    end
+
+    it 'to be [:a1, [:c2]]' do
+      expect([:a1, [:b1]].bury(1, 0, :c1)).to eq([:a1, [:c1]])
+    end
+
+    it 'to raise error' do
+      expect { [:a1, { b1: :c1 }].bury(:moo) }.to raise_error(ArgumentError)
+    end
+  end
+
   describe '#before' do
     it 'to be 3' do
       expect([1, 2, 3].before(2)).to eq(1)

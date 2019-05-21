@@ -32,6 +32,20 @@ describe ActiveObject::Hash do
     end
   end
 
+  describe '#bury' do
+    it 'to be { foo: :moo }' do
+      expect({ foo: { baz: 'boo' } }.bury(:foo, :moo)).to eq({ foo: :moo })
+    end
+
+    it 'to be { foo: { baz: :moo } }' do
+      expect({ foo: { baz: 'boo' } }.bury(:foo, :baz, :moo)).to eq({ foo: { baz: :moo } })
+    end
+
+    it 'to raise error' do
+      expect { { foo: { baz: 'boo' } }.bury(:moo) }.to raise_error(ArgumentError)
+    end
+  end
+
   describe '#collect_keys' do
     it 'to be ["FOO", "BAZ"]' do
       expect({ foo: 'bar', baz: 'boo' }.collect_keys { |k| k.to_s.upcase }).to eq(['FOO', 'BAZ'])
