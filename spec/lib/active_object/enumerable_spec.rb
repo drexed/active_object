@@ -262,11 +262,15 @@ describe Enumerable do
       expect([].percentile(50, nil)).to eq(nil)
     end
 
-    it 'to be 2.5' do
-      expect([1, 2, 3, 4].percentile(50)).to eq(2.5)
+    it 'to be 1' do
+      expect([0, 1, 0].percentile(95)).to eq(1)
     end
 
-    it 'to be 5.5' do
+    it 'to be 2' do
+      expect([1, 2, 3, 4].percentile(50)).to eq(2)
+    end
+
+    it 'to be 3' do
       expect([1, 2, 3, 4, 5].percentile(50)).to eq(3)
     end
   end

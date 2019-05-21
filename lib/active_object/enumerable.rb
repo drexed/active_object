@@ -231,13 +231,17 @@ if ActiveObject.configuration.autoload_enumerable
       return identity unless length.positive?
 
       collection_sorted = sort
-      rank = (num.to_f / 100) * (length + 1)
-      return collection_sorted[rank - 1] unless rank.fraction?
+      index = (num.to_f / 100) * collection_sorted.length - 1
 
-      truncated_rank = rank.truncate
-      sample_one = collection_sorted[truncated_rank - 1]
-      sample_two = collection_sorted[truncated_rank]
-      (rank.fraction * (sample_two - sample_one)) + sample_one
+      if index != index.to_i
+        collection_sorted[index.ceil] || identity
+      elsif collection_sorted.length.even?
+        sample_one = collection_sorted.at(index)
+        sample_two = collection_sorted.at(index + 1)
+        (sample_one + sample_two) / 2
+      else
+        collection_sorted[index] || identity
+      end
     end
     # rubocop:enable Metrics/AbcSize
 
