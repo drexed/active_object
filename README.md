@@ -1,5 +1,7 @@
 # ActiveObject
 
+**NOTE** ActiveObject has been deprecated in favor of [Lite::Ruby](https://github.com/drexed/lite-ruby). Its a near drop-in replacement, so please make the switch as soon as possible.
+
 [![Gem Version](https://badge.fury.io/rb/active_object.svg)](http://badge.fury.io/rb/active_object)
 [![Build Status](https://travis-ci.org/drexed/active_object.svg?branch=master)](https://travis-ci.org/drexed/active_object)
 
